@@ -660,6 +660,16 @@ section#Prestaties table {
     margin: 0 auto;
 }
 
+section#Prestaties table tbody tr td {
+    text-align: center;
+}
+
+section#Prestaties table tbody tr th {
+    font-size: 1.3em;
+}
+
+
+
 section#Prestaties th {
     text-align: center;
 }

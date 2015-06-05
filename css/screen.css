@@ -707,7 +707,7 @@ section#Werknemers div:nth-child(2) {
     border: 1px solid #ffffff;
     width: 100px;
     margin-bottom: 25px;
-    padding: 0;
+    padding: 10px 10px 10px 3px;
 }
 
 .Checkbox_Werknemer:hover {

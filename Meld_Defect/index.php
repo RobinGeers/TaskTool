@@ -333,7 +333,7 @@ $mysqli->close();
 <body>
 <header>
     <a href="../Overzicht/index.html" class="Howestlogo"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
-   <button><a href="../index.html">Afmelden</a></button>
+   <button><a href="../index.php">Afmelden</a></button>
     <nav>
         <ul>
             <li><a href="#">Probleem melden</a></li>

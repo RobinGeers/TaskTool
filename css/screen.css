@@ -1,0 +1,826 @@
+body {
+    font-family: 'Roboto', sans-serif !important;
+    margin: 0;
+    padding: 0;
+    background-color: #e9e9e9 !important;
+}
+
+.clearfix {
+    clear: both;
+}
+
+header {
+    background-color: #44c8f5;
+    padding: 10px 0;
+    position: fixed;
+    width: 100%;
+    top: 0;
+    left: 0;
+}
+
+button {
+    font-family: 'Roboto', sans-serif;
+}
+
+header img {
+    float: left;
+}
+
+header img {
+    margin-left: 50px;
+    width: 250px;
+}
+
+nav {
+    margin-top: 50px;
+    float: right;
+}
+
+nav ul li {
+  
+    display: inline-block;
+    padding: 5px;
+}
+nav>ul{
+	margin-top: 14px; 
+}
+nav ul li a {
+	      font-family: 'Roboto', sans-serif;
+	font-size: 16px;
+    text-decoration: none;
+    color: white;
+    padding: 10px;
+}
+
+nav ul li a:hover {
+    background-color: white;
+    color: black;
+    -webkit-transition: all 0.4s;
+    transition: all 0.4s;
+    text-decoration: none;
+}
+
+nav ul li a[href="#"] {
+    background-color: #337ab7;
+    color: #ffffff;
+}
+
+header button {
+    margin-top: 60px;
+    background-color: #337ab7;
+    border-radius: 4px;
+    border: 1px solid #337ab7;
+    width: 100px;
+    padding: 10px 0;
+    float: right;
+    margin-right: 100px;
+    margin-left: 100px;
+}
+
+header button a {
+    color: #ffffff;
+    text-decoration: none;
+}
+
+header button:hover {
+    background-color: #1D4669;
+    -webkit-transition: all 0.3s; /* Safari */
+    transition: all 0.3s;
+}
+.Howestlogo
+{
+    width: 180px;
+    height: 80px;}
+
+/* ----------- Login Formulier ----------- */
+
+main#LoginFormulier {
+    width: 480px;
+    margin: 0 auto;
+}
+
+main#LoginFormulier img {
+    display: block;
+    margin: 50px auto;
+}
+
+section#Login {
+    background-color: #ffffff;
+    border-bottom: 40px solid #f2f2f2;
+    border-radius: 8px;
+    border-top: 8px solid #44c8f5;
+}
+
+section#Login h1 {
+    color: #44c8f5;
+    width: 180px;
+    margin: 20px auto;
+    text-align: center;
+    font-weight: 400;
+}
+
+section#Login input[type="text"], section#Login input[type="email"], section#Login input[type="password"] {
+
+    width: 300px;
+    margin: 0 auto;
+    display: block;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 19px;
+    margin-bottom: 19px;
+}
+
+section#Login #chkHouIngelogd {
+    margin-left: 80px;
+    background-color: #ffffff;
+    color: #ffffff;
+
+}
+
+section#Login label {
+    color: #b2b2b2;
+}
+
+section#Login input[type="submit"] {
+    margin: 20px 0;
+    margin-left: 80px;
+    text-align: center;
+    background-color: #44c8f5;
+    border-radius: 4px;
+    border: 1px solid #44c8f5;
+    color: #ffffff;
+    width: 320px;
+    padding: 15px 0;
+}
+
+/* ----------- Meld Defect Formulier ----------- */
+
+main#MeldDefectFormulier {
+    width: 960px;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+
+main#MeldDefectFormulier h1 {
+    font-size: 2.5em;
+    font-weight: 300;
+    text-align: center;
+}
+
+main#MeldDefectFormulier section#MeldDefect {
+    background-color: #ffffff;
+    border-top: 8px solid #44c8f5;
+    border-bottom: 40px solid #f2f2f2;
+    border-radius: 8px;
+    margin-bottom: 50px;
+}
+
+main#MeldDefectFormulier section#MeldDefect form {
+    width: 480px;
+    margin: 0 auto;
+    margin-top: 30px;
+}
+
+main#MeldDefectFormulier section#MeldDefect input[type="text"],main#MeldDefectFormulier section#MeldDefect input[type="email"]  {
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+div.gradient {
+    height: 50px;
+    background-color: red;
+    border-radius: 8px;
+    background:
+    -webkit-linear-gradient(
+            to right,
+            green,
+            orange,
+            red
+    );
+    background:
+    -o-linear-gradient(
+            to right,
+            green,
+            orange,
+            red
+);
+    background:
+    -moz-linear-gradient(
+            to right,
+            green,
+            orange,
+            red
+);
+    background:
+    linear-gradient(
+            to right,
+            green,
+            orange,
+            red
+    );
+}
+
+main#MeldDefectFormulier textarea {
+    width: 100%;
+    display: block;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+    padding: 5px;
+    font-family: 'Roboto', sans-serif;
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+
+#chkHoudOpDeHoogte {
+    margin-top: 30px;
+}
+
+main#MeldDefectFormulier input[type="submit"] {
+    float: right;
+    margin: 20px 0;
+    background-color: #44c8f5;
+    border-radius: 4px;
+    border: 1px solid #44c8f5;
+    color: #ffffff;
+    width: 100px;
+    padding: 10px 0;
+    -webkit-transition: all 0.3s; /* Safari */
+    transition: all 0.3s;
+    cursor: pointer;
+}
+
+main#MeldDefectFormulier input[type="submit"]:hover {
+    background-color: #337ab7;
+}
+
+#slider.ui-slider .ui-slider-handle {
+    width: 5px;
+    height: 18px;
+    margin-left: -5px;
+    top: -4px;
+    border: none;
+    color: black;
+
+}
+#slider {
+    height: 10px;
+    margin-top: 19px;
+    margin-bottom: 19px;
+}
+
+
+
+/* ----------- Overzicht ----------- */
+
+main#Overzicht {
+    width: 560px;
+    margin: 0 auto;
+}
+
+main#Overzicht h1 {
+    text-align: center;
+    margin-bottom: 75px;
+}
+
+main#Overzicht a {
+    float: left;
+    width: 240px;
+    margin-bottom: 75px;
+    height: 220px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.07);
+    text-align: center;
+    text-decoration: none;
+    color: #a9a9a9;
+    font-size: 1.4em;
+    font-weight: 300;
+}
+
+main#Overzicht i {
+    margin: 0 auto;
+    margin-top: 70px;
+    font-size: 3em;
+    width: 140px;
+}
+
+main#Overzicht div {
+    float: left;
+    width: 240px;
+    margin-right: 75px;
+}
+
+main#Overzicht div a p {
+    padding-top: 10px;
+}
+
+main#Overzicht div:nth-child(3), main#Overzicht div:nth-child(5) {
+    margin-right: 0;
+}
+
+main#Overzicht a#first {
+    background-color: #66b5d6;
+    color: #ffffff;
+}
+
+main#Overzicht a#first:hover {
+    background-color: #2EB5D6;
+    color: #ffffff;
+}
+
+main#Overzicht a#second {
+    background-color: #e87352;
+    color: #ffffff;
+}
+
+main#Overzicht a#second:hover {
+    background-color: #FF7352;
+    color: #ffffff;
+}
+
+main#Overzicht a#third {
+    background-color: #5fce9b;
+    color: #ffffff;
+}
+
+main#Overzicht a#third:hover {
+    background-color: #32CE9B;
+    color: #ffffff;
+}
+
+main#Overzicht a#fourth {
+    background-color: #eeca5a;
+    color: #ffffff;
+}
+
+main#Overzicht a#fourth:hover {
+    background-color: #EECA32;
+    color: #ffffff;
+}
+
+main#Overzicht a#first:active, main#Overzicht a#second:active, main#Overzicht a#third:active, main#Overzicht a#fourth:active {
+    box-shadow: inset -3px -3px 1px rgba(0, 0, 0, 0.07);
+}
+
+/* ----------- Overzicht takenlijst ----------- */
+main{
+margin-top: 150px;
+
+}
+#Popup {
+    width: 50%;
+}
+
+.left {
+    float: left;
+    width: 40%;
+}
+
+.left img {
+    width: 300px;
+    max-width: 300px;
+}
+
+#close_Popup {
+    font-size: 2em;
+    top: 5px;
+    right: 1rem;
+    color: #000;
+}
+
+.right input:nth-child(1), .right textarea {
+    width: 70%;
+}
+
+.right input:nth-child(2) {
+    display: block;
+    width: 70%;
+    border-radius: 4px;
+    border: 1px solid #cccccc;
+}
+
+.right input, .right textarea {
+    border-radius: 4px;
+    border: 1px solid #cccccc;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+#btnOpslaan {
+    width: 150px;
+}
+
+#btnVerwijder {
+    width: 200px;
+    float: left;
+}
+
+.right {
+    float: right;
+    width: 60%;
+}
+
+main#Overzicht_Takenlijst h1 {
+    text-align: center;
+    margin-bottom: 50px;
+}
+
+main#Overzicht_Takenlijst section#Filters p {
+    margin-left: 100px;
+}
+
+
+main#Overzicht_Takenlijst section#Filters section:first-child {
+    margin-top: -15px;
+    margin-right: 50px;
+}
+
+main#Overzicht_Takenlijst section#Filters section:nth-child(2) {
+    margin-right: 5px;
+}
+
+main#Overzicht_Takenlijst section#Filters section {
+    float: left;
+}
+
+main#Overzicht_Takenlijst section#Filters section input {
+    width: 150px;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+}
+
+main#Overzicht_Takenlijst section#Taken {
+     margin-left: 100px;
+}
+
+.Overzicht_Titels {
+    background-color: #337ab7;
+    width: 250px;
+    text-align: center;
+    color: #ffffff;
+    font-weight: 300;
+    border-radius: 4px;
+    padding: 5px;
+}
+
+main#Overzicht_Takenlijst section#Medewerkers h2 {
+    width: 400px;
+}
+
+ul.cardlist {
+    width: 250px;
+    padding-left: 0;
+}
+
+ul li.card {
+    list-style-type: none !important;
+    background-color: #ffffff !important;
+    margin-bottom: 10px !important;
+    padding: 20px !important;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2) !important;
+    border-radius: 4px !important;
+    width: 240px !important;
+    max-width: 240px !important;
+    font-weight: 400 !important;
+}
+
+.lastcard {
+    list-style-type: none;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+    margin-top: -15px;
+    border-top: 1px solid #cccccc;
+    padding: 10px;
+
+}
+
+.card_final {
+    list-style-type: none;
+    width: 250px;
+    max-width: 250px;
+}
+
+main#Overzicht_Takenlijst section.Section_Float {
+    float: left;
+    margin-right: 100px;
+}
+
+main#Overzicht_Takenlijst section#Medewerkers ul {
+    list-style-type: none;
+    background-color: #ffffff;
+    margin-bottom: 10px;
+    padding: 20px;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
+    border-radius: 4px;
+
+}
+
+.Werkman_Naam {
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 10px;
+    font-weight: bold;
+    font-size: 1.5em;
+}
+
+
+main#Overzicht_Takenlijst section#Medewerkers ul li {
+    border-bottom: 1px solid #cccccc;
+    max-width: 350px;
+    margin-top: 10px;
+}
+
+main#Overzicht_Takenlijst section#Medewerkers ul li p {
+    font-size: 1em;
+    padding-top: 0;
+}
+
+main#Overzicht_Takenlijst section#Medewerkers ul li a {
+    font-size: 1.2em;
+    color: #000000;
+}
+
+.campus, .lokaal {
+    margin-top: 10px;
+    display: inline-block;
+    font-weight: bold;
+    float: right;
+}
+
+.campus {
+    margin-right: 5px;
+}
+
+.lokaal {
+    margin-right: 35px;
+}
+
+.print.icon {
+    font-size: 1.5em;
+    color: #337ab7;
+    float: right;
+}
+
+/* ----------- Statistieken ----------- */
+
+main#Statistieken h1 {
+    text-align: center;
+}
+
+section#Werknemers p {
+    margin-left: 100px;
+}
+
+section#Werknemers button:nth-child(2), section#Werknemers i:nth-child(2) {
+    margin-left: 100px;
+}
+
+section#Werknemers button {
+    margin-right: 10px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    padding: 10px;
+    border: 1px solid #ffffff;
+    width: 100px;
+    cursor: pointer;
+    margin-bottom: 25px;
+}
+
+section#Werknemers button:hover {
+    background-color: #337ab7;
+    color: white;
+}
+
+section#Werknemers button:active {
+    background-color: #2C699E;
+    color: white;
+}
+
+section#Werknemers div, section#Werknemers i {
+    display: inline-block;
+}
+
+section#Werknemers div p {
+    text-align: center;
+    margin-top: -5px;
+}
+
+section#Werknemers i {
+    background-color: #ffffff;
+    color: #337ab7;
+    padding: 25px;
+    border-radius: 4px;
+    font-size: 2.5em;
+    cursor: pointer;
+}
+
+section#Werknemers i:hover {
+    background-color: #337ab7;
+    color: white;
+    padding: 25px;
+    border-radius: 4px;
+    font-size: 2.5em;
+}
+
+section#Werknemers i:active {
+    background-color: #2C699E;
+    color: white;
+}
+
+section#Werknemers canvas#myChart1, section#Werknemers canvas#myChart2 {
+    margin-left: 100px;
+    width: 60%;
+    height: 400px;
+}
+
+section#Werknemers h2 {
+    margin-left: 100px;
+}
+
+
+section#Prestaties h2 {
+    margin-bottom: 50px;
+}
+
+section#Prestaties table {
+    width: 90%;
+    text-align: center;
+    margin: 0 auto;
+}
+
+section#Prestaties th {
+    text-align: center;
+}
+
+section#Prestaties table {
+    border-collapse: collapse;
+    margin-bottom: 100px;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.07);
+    margin-left: 100px;
+}
+section#Prestaties table th, section#Prestaties table tr, section#Prestaties table td {
+    border: 1px solid #ddd;
+}
+
+section#Werknemers div#Legende1, section#Werknemers div#Legende2 {
+    border: 1px solid #cccccc;
+    padding: 15px;
+    width: 20%;
+    margin-right: 200px;
+    margin-top: 10px;
+    float: right;
+}
+
+section#Werknemers h2 {
+    margin-top: 50px;
+}
+
+section#Werknemers div#Legende1 p {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+section#Werknemers input[type="checkbox"] {
+    visibility: hidden;
+}
+
+section#Werknemers div:nth-child(2) {
+    margin-left: 100px;
+}
+
+.Checkbox_Werknemer {
+    margin-right: 10px;
+    background-color: #ffffff;
+    border-radius: 4px;
+    border: 1px solid #ffffff;
+    width: 100px;
+    margin-bottom: 25px;
+    padding: 0;
+}
+
+.Checkbox_Werknemer:hover {
+    background-color: #337ab7;
+    color: white;
+    cursor: pointer;
+}
+
+.Checkbox_Werknemer:active {
+    background-color: #2C699E;
+    color: white;
+}
+
+section#Werknemers label {
+    padding-left: 10px;
+    padding-top: 15px;
+    padding-bottom: 10px;
+    cursor: pointer;
+}
+
+section#Werknemers div#Legende1 div#GeneratedLegende ul li {
+    list-style-type: none;
+}
+
+section#Werknemers div#Legende1 div#GeneratedLegende ul li span {
+    padding: 5px;
+    margin-right: 5px;
+    display: inline-block;
+}
+
+.liBorderH{
+    border-style: solid;
+    border-bottom: 3px solid #dc002f !important;
+}
+.liBorderG{
+    border-style: solid;
+    border-bottom: 3px solid #f2ea13 !important;
+}
+.liBorderL{
+    border-style: solid;
+    border-bottom: 3px solid #2ecc71 !important;
+}
+section#WerknemersFilter{
+    margin-top: 20px;
+    width: 2000px;
+    margin-left:100px;
+}
+section#WerknemersFilter div{
+    float:left;
+}
+section#WerknemersFilter label{
+    margin-left: 30px;
+    margin-top: 5px;
+}
+
+/* ----------- Instellingen ----------- */
+
+main#Instellingen h1 {
+    text-align: center;
+    margin: 50px;
+}
+
+main#Instellingen h2 {
+    margin-left: 100px;
+}
+
+main#Instellingen h3 {
+    margin-left: 290px;
+}
+
+main#Instellingen section#Toevoegen {
+    border-bottom: 1px solid #cccccc;
+    padding-bottom: 50px;
+}
+
+main#Instellingen section#Tabel {
+    margin-top: 50px;
+}
+
+main#Instellingen section#Tabel table.table {
+    width: 70%;
+    margin: 0 auto;
+}
+
+#Add_Externe_Werknemer {
+    margin-top: 20px;
+}
+
+#Add_Werknemer, #Add_Externe_Werknemer {
+    width: 250px;
+    display: block;
+    margin-left: 100px;
+}
+
+main#Instellingen section#Tabel table.table.table2 {
+    margin-bottom: 50px;
+}
+
+main#Instellingen section#Toevoegen section {
+    float: left;
+}
+
+main#Instellingen section#Toevoegen p  {
+    float: left;
+    margin-right: 50px;
+    margin-left: 100px;
+}
+
+main#Instellingen section#Toevoegen input {
+    width: 150px;
+    border-radius: 4px;
+    border: 1px solid #d9d9d9;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 50px;
+}

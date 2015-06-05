@@ -1,0 +1,608 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>TaskTool Howest | Overzicht takenlijst</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../css/screen.css"/>
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/semantic.min.css">
+    <link rel="stylesheet" href="../css/icon.min.css">
+    <link rel="stylesheet" href="../css/transition.min.css">
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="../js/scripts.js"></script>
+    <script src="../js/semantic.min.js"></script>
+    <script src="../js/transition.min.js"></script>
+    <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
+       <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+    <!-- laad de jquery in voor autocomplete -->
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+</head>
+<body>
+<header>
+    <a href="../Overzicht/index.html"><img src="../images/howestlogo" alt="Howest Logo"/></a>
+    <button><a href="../index.php">Afmelden</a></button>
+    <nav>
+        <ul>
+            <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>
+            <li><a href="#">Overzicht takenlijst</a></li>
+            <li><a href="../Statistieken/">Statistieken</a></li>
+            <li><a href="">Instellingen</a></li>
+        </ul>
+    </nav>
+    <div class="clearfix"></div>
+
+</header>
+    <main id="Overzicht_Takenlijst">
+        <h1>Overzicht takenlijst</h1>
+
+        <!-- Pop-up Window !-->
+        <div id="Popup" class="ui test modal transition" style="z-index: 100000;">
+            <!-- TODO: Close icon zoeken !-->
+            <i id="close_Popup" class="close icon"></i>
+            <div class="header">
+                Titel kaartje
+            </div>
+            <div class="content">
+                <div class="left">
+                    <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
+                </div>
+                <div class="right">
+                    <input type="text" value="Titel kaartje"/>
+                    <input type="text" value="GKG A.202b"/>
+                    <textarea name="" id="" cols="30" rows="10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="actions">
+                <div id="btnVerwijder" class="ui negative right labeled icon button">
+                    Verwijder taak <i class="trash icon"></i>
+                </div>
+
+                <div class="ui black button">
+                    Annuleer
+                </div>
+                <div id="btnOpslaan" class="ui positive right labeled icon button">
+                    Opslaan <i class="checkmark icon"></i>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <section id="Filters">
+            <!-- TODO: Filters maken met Ajax !-->
+            <section><p>Zoeken op: </p></section>
+            <section>
+        <select name="Filter_Prioriteit" id="Filter_Prioriteit" onchange="PriorityChange(this.value)">
+
+                    <option value="Niet dringend">Niet dringend</option>
+                    <option value="Dringend">Dringend</option>
+                    <option value="Direct">Direct</option>
+            </select>
+        <select name="Filter_Worder" id="Filter_Worker" onchange="WorkerChange(this.value)">
+
+            </select>
+            <select name="Filter_Campussen" id="Filter_Campussen" onchange="CampusChange(this.value)">
+
+            </select>
+
+            </section>
+
+            <section>
+                <input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."/>
+              
+               
+                <input type="text" name="Filter_Lokaal" id="Filter_Lokaal" placeholder="Lokaal.."/>
+            </section>
+            <div class="clearfix"></div>
+        </section>
+        
+        <section id="SelectedFilters">
+            <div>
+                <h3>Geselecteerde Filters</h3>
+            </div>
+        </section>
+        <div class="clearfix"></div>
+        <section id="Taken" class="Section_Float draglist">
+            <h2 class="Overzicht_Titels">Taken</h2>
+
+        </section>
+        <section id="Medewerkers" class="Section_Float">
+            <h2 class="Overzicht_Titels">Medewerkers</h2>
+
+        </section>
+        <section id="Voltooid" class="Section_Float draglist">
+            <h2 class="Overzicht_Titels">Voltooid</h2>
+
+        </section>
+        <section id="OnHold" class="Section_Float draglist">
+            <h2 class="Overzicht_Titels">On hold</h2>
+            <ul class="cardlist draglist">
+
+            </ul>
+        </section>
+        <div class="clearfix"></div>
+    </main>
+<script>
+    var APP_KEY = '23128bd41978917ab127f2d9ed741385';
+    var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
+    var checkKaartInmedewerker;
+
+    function allowDrop(ev) {
+        //console.log(ev.target.tagName);
+       if(event.target.tagName !="A" && event.target.className != "lastcard")
+       {
+           ev.preventDefault();
+       }
+
+    }
+
+    function drag(ev) {
+        ev.dataTransfer.setData("text", ev.target.id);
+    }
+
+    function drop(ev) {
+
+        if(event.target.tagName=="LI")
+        {
+            var newtarget =  event.target.parentElement;
+        }
+        else if(event.target.tagName=="DIV")
+        {
+            var newtarget = event.target.parentElement.parentElement;
+        }
+        else if(event.target.tagName=="SECTION")
+        {
+            //console.log(event.target.firstChild.nextSibling.nextSibling.nextSibling);
+            var newtarget = event.target.firstChild.nextSibling.nextSibling.nextSibling;
+        }
+        else if(event.target.tagName=="H2")
+        {
+            //console.log(event.target.nextSibling.nextSibling);
+            var newtarget = event.target.nextSibling.nextSibling
+        }
+        else
+        {
+            var newtarget = ev.target;
+        }
+        //console.log(event.target.tagName);
+
+        ev.preventDefault();
+        var data = ev.dataTransfer.getData("text");
+
+        var cardid = data;
+        var listId = newtarget.id;
+
+        newtarget.appendChild(document.getElementById(data));
+
+        if(newtarget.parentNode.id == "Medewerkers")
+        {
+            document.getElementById(data).style.width = "350px";
+            document.getElementById(data).style.maxWidth = "400px";
+            console.log("in nen mederwerk gesleept");
+            Trello.get("/cards/"+cardid+"?fields=desc&token="+application_token,function(cardinfo)
+            {
+                var unfnaam = newtarget.firstChild.innerHTML.split("<");
+                var naam = unfnaam[0];
+
+                var now = new Date();
+                var date = now.getDate() + "/" + now.getMonth()+"/"+now.getFullYear();
+                var time = now.getHours()+":"+now.getMinutes();
+
+                var niewedescription =  cardinfo.desc + "/n@" + naam+ "/n@"+ date+"/n@"+time;
+
+                Trello.put("/cards/"+cardid+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+niewedescription);
+            });
+        }
+        else
+        {
+            document.getElementById(data).style.maxWidth = "250px";
+            console.log("nie in nen medewerker");
+            Trello.put("/cards/"+cardid+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"");//&desc=is verzet
+        }
+
+        Trello.get("/cards/"+cardid+"?fields=desc&token="+application_token,function(cardinfo)
+        {
+            var unfnaam = newtarget.firstChild.innerHTML.split("<");
+            var naam = unfnaam[0];
+
+            var now = new Date();
+            var date = now.getDate() + "/" + now.getMonth()+"/"+now.getFullYear();
+            var time = now.getHours()+":"+now.getMinutes();
+
+            var niewedescription =  cardinfo.desc + "/n@" + naam+ "/n@"+ date+"/n@"+time;
+            console.log(niewedescription);
+        });
+
+    }
+
+    // Zorg ervoor dat de kaartjes kunnen gesleept worden
+    var aantalCardsMedewerker = document.getElementsByClassName("card_final").length;
+    for (i = 0; i < aantalCardsMedewerker; i++) {
+        document.getElementsByClassName("card_final")[i].setAttribute("draggable", "true");
+        document.getElementsByClassName("card_final")[i].setAttribute("ondragstart", "drag(event)");
+
+        var parentNode = document.getElementsByClassName("card_final")[i].parentNode.className;
+        if (parentNode == "draglist") {
+            //console.log("ok");
+            document.getElementsByClassName("card_final")[i].style.width = 400 + "px";
+        }
+    }
+
+    // Zorg ervoor dat de kaartjes kunnen gedropt worden in de lijsten
+    var aantalLijsten = document.getElementsByClassName("draglist").length;
+    for (i = 0; i < aantalLijsten; i++) {
+        document.getElementsByClassName("draglist")[i].setAttribute("ondrop", "drop(event)");
+        document.getElementsByClassName("draglist")[i].setAttribute("ondragover", "allowDrop(event)");
+    }
+
+
+
+    //trello
+
+
+    Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token="+application_token,function(lists)
+    {
+        $.each(lists["lists"],function(ix,list)
+            {
+            var List = [];
+
+            List.push(list.id,list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
+
+                var selecteddiv;
+                //selecteren voor war de kaarten in te plaatsen
+
+                if(list.name== "Taken")
+                {
+
+                    var taken = document.getElementById("Taken");
+                    var unorderedlist= maakUL(list.id,false);
+                    getCards(unorderedlist,list.id,false);
+                    taken.appendChild(unorderedlist);
+                }
+                else if(list.name == "Voltooid")
+                {
+                    var voltooid = document.getElementById("Voltooid");
+                    var unorderedlist= maakUL(list.id,false);
+                    getCards(unorderedlist,list.id,false);
+                    voltooid.appendChild(unorderedlist);
+
+                }
+                else if(list.name == "On hold")
+                {
+                    var onhold = document.getElementById("OnHold");
+                    var unorderedlist= maakUL(list.id,false);
+                    getCards(unorderedlist,list.id,false);
+                    onhold.appendChild(unorderedlist);
+                }
+                else
+                {
+                    selecteddiv = document.getElementById("Medewerkers");
+
+                    var unorderedlist= maakUL(list.id,true);
+
+                    var li = document.createElement("LI");
+                    li.setAttribute("class","Werkman_Naam");
+                    li.innerHTML = list.name;
+
+                    var i = document.createElement("I");
+                    i.setAttribute("class","fa fa-print");
+
+
+                    li.appendChild(i);
+                    unorderedlist.appendChild(li);
+
+                    getCards(unorderedlist,list.id,true);
+
+                    selecteddiv.appendChild(unorderedlist);
+                
+                   var option = document.createElement("OPTION");       
+                    option.setAttribute("value",list.name);     
+                    option.innerHTML = list.name;       
+                    document.getElementById("Filter_Worker").appendChild(option);
+                }
+               // console.log(selecteddiv);
+        });
+
+    });
+
+
+    function maakUL(id,izworker)
+    {
+        var ul = document.createElement("UL");
+        ul.setAttribute("class","draglist");
+        ul.setAttribute("id",id);
+        ul.setAttribute("ondrop","drop(event)");
+        ul.setAttribute("ondragover","allowDrop(event)");
+
+        if(!izworker)
+        {
+            ul.classList.add("cardlist");
+        }
+        return ul;
+    }
+
+
+    function getCards(selecteddiv,listID,izworker)
+    {
+        //Haal alle kaartjes op van een bepaalde lijst
+        Trello.get("/lists/"+listID+"?fields=name&cards=open&card_fields=name&token="+application_token, function(cards) {
+
+            //console.log(cards["cards"]);
+            var CardId = [];
+//overloop alle kaarten die we terug krijgen
+
+
+            $.each(cards["cards"], function(ix, card){
+                //console.log(card.id);
+                var temparr = [];
+                var attachementsarr = [];
+                var description = [];
+
+                var li = document.createElement("LI");
+                li.setAttribute("class","panel panel-default card_final");
+                li.setAttribute("id",card.id);
+                li.setAttribute("draggable","true");
+                li.setAttribute("ondragstart","drag(event)");
+                if(!izworker)
+                {
+
+                    li.style.maxWidth = "250px";
+                }
+                else
+                {
+                    li.style.width = "400px";
+                }
+
+                // Als op kaart geklikt wordt -> Toon pop-up
+                li.addEventListener("dblclick", function() {
+
+                    // Indien transition niet werkt -> Bootstrap link wegdoen
+                    $('.modal').addClass('scrolling');
+                    $('.modal')
+                            .modal('setting', 'transition', 'scale')
+                            .modal('show');
+
+
+
+                },false);
+
+
+                var div1 = document.createElement("DIV");
+                div1.setAttribute("class","panel-heading");
+
+                var div2 = document.createElement("DIV");
+                div2.setAttribute("class","panel-collapse collapse");
+                div2.setAttribute("id","d"+ card.id);
+                div2.setAttribute("role","tabpanel");
+
+                var a1 = document.createElement("A");
+                a1.setAttribute("class","panel-title");
+                a1.setAttribute("data-toggle","collapse");
+                a1.setAttribute("data-parent","cardlist3");
+                a1.setAttribute("href","#d"+card.id);
+                a1.setAttribute("aria-expanded","false");
+                a1.setAttribute("aria-controls","collapseOne");
+                a1.innerHTML = card.name;
+
+                //1/cards/"+card.id+"?fields=desc&attachments=true&token=a0fdcb022ad19ba6de1a849f4d325e9d8aedf95f086570718a3054d4e4bf4681
+                //Overloop 1 kaartje en haal de data eruit
+                Trello.get("/cards/"+card.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo)
+                {
+                    //ASYNC!!!
+                    description.push(cardinfo.desc);
+                    carddescription = cardinfo.desc; //gaat niet aangezien dit async verloopt
+                    //kijkt naar de attachments en voegt de link toe in een array
+                    $.each(cardinfo.attachments,function(ix,attachement){
+                        attachementsarr.push(attachement.url);
+
+                    });
+                    var descriptionn = cardinfo.desc.split("/n@");
+                    //console.log(descriptionn);
+                    var p21 = document.createElement("P");
+                    p21.setAttribute("Class","lokaal content");
+                    p21.innerHTML = descriptionn[3];
+
+                    var p22 = document.createElement("P");
+                    p22.setAttribute("Class","campus content");
+                    p22.innerHTML = "";
+
+                    var div21 = document.createElement("DIV");
+                    div21.setAttribute("Class","clearfix");
+
+                    var p23 = document.createElement("P");
+                    p23.setAttribute("Class","panel-body");
+                    p23.innerHTML = descriptionn[0];
+
+                    if(descriptionn[1]=="Niet dringend"){li.classList.add("liBorderL");}
+                    else if(descriptionn[1]=="Dringend"){li.classList.add("liBorderG");}
+                    else if(descriptionn[1]=="Zeer dringend"){li.classList.add("liBorderH");}
+
+                    div2.appendChild(p21);
+                    div2.appendChild(p22);
+                    div2.appendChild(div21);
+                    div2.appendChild(p23);
+
+                });
+
+
+                temparr.push(card.id,card.name,description,attachementsarr);
+                //array met alle kaartjes in
+                CardId.push(temparr);
+
+                div1.appendChild(a1);
+                li.appendChild(div1);
+                li.appendChild(div2);
+                selecteddiv.appendChild(li);
+
+
+
+
+                //<li class="lastcard"><i class="fa fa-refresh"></i></li>
+            });
+
+            if(!izworker)
+            {
+                var liend = document.createElement("UL");
+                liend.setAttribute("class","lastcard");
+                var i = document.createElement("I");
+                i.setAttribute("class","fa fa-refresh");
+                liend.appendChild(i);
+
+                selecteddiv.parentElement.appendChild(liend);
+
+            }
+
+            //console.log(CardId); //print de arrat met alle kaartjes of in de console
+
+        });
+    }
+
+//--------------------filter----------------------//
+    var FilterSection=document.getElementById("SelectedFilters");
+    function PriorityChange(value)
+    {
+        makeDiv(value,"P");
+        Filters();
+    }
+    function WorkerChange(value)
+    {
+        makeDiv(value,"W");
+        Filters();
+    }
+    function CampusChange(value)
+    {
+        makeDiv(value,"C");
+        Filters();
+    }
+    function makeDiv(name,idprefix)
+    {
+        var div = document.createElement("DIV");
+        div.setAttribute("class","");
+        div.setAttribute("Onclick","DeleteFilter(this)");
+        div.setAttribute("id",idprefix+"."+name);
+        var label = document.createElement("LABEL");
+        label.innerHTML = name;
+        div.appendChild(label);
+        FilterSection.appendChild(div);
+    }
+    function Filters()
+    {
+        var divs = FilterSection.getElementsByTagName("Div");
+        for(var i = 1;i< divs.length;i++)
+        {
+            var filters = divs[i].id.split(".");
+            if(filters[0]== "P" || filters[0]== "C")
+            {
+            }
+            else if(filters[0]== "W")
+            {
+                var workers = document.getElementById("Medewerkers").getElementsByTagName("UL");
+                for(var j = 0;j<workers.length;j++ )
+                {
+                    workers[j].style.display = "none";
+                }
+            }
+        }
+        for(var i = 1;i< divs.length;i++)
+        {
+            var filters = divs[i].id.split(".");
+            if(filters[0]== "P" || filters[0]== "C")
+            {
+                var onhold = document.getElementById("OnHold").getElementsByTagName("LI");
+                var voltooid = document.getElementById("Voltooid").getElementsByTagName("LI");
+                var taken = document.getElementById("Taken").getElementsByTagName("LI");
+                var workers = document.getElementById("Medewerkers").getElementsByTagName("LI");
+            }
+            else if(filters[0]== "W")
+            {
+                var workers = document.getElementById("Medewerkers").getElementsByTagName("UL");
+                for(var j = 0;j<workers.length;j++ )
+                {
+                    if(workers[j].firstChild.innerText == filters[1])
+                    {
+                        workers[j].style.display = "inline-block";
+                    }
+                }
+            }
+        }
+    }
+    function DeleteFilter(element)
+    {
+        console.log(element);
+        element.parentNode.removeChild(element);
+        Filters();
+    }
+
+
+
+
+</script>
+<?php
+    //connectie maken met db(mysql)
+    //local
+  //  $mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
+    //$mysqli = new mysqli('mysqlstudent','cedriclecat','ooDohQuuo2uh','cedriclecat');
+    //student howest
+    $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+    if ($mysqli->connect_error)
+    {
+    echo "Geen connectie mogelijk met de database";
+    }
+    $data = array();
+?>
+
+
+<script>    var arraymetlokalen =[]; var campussen=[]</script>
+<?php
+    //alles ophalen en in array steken
+    //echo 'h';
+    $result = $mysqli->query("SELECT NAME FROM klassen");
+while($row = $result->fetch_array(MYSQLI_ASSOC))
+{
+    ?>
+    <script>
+        //    console.log("h");
+        var lokaal = <?php print "'".$row['NAME']."'" ?>;
+        arraymetlokalen.push(lokaal);
+        var campus = lokaal.split(".");
+        //console.log(campus[0]);
+        if(doesExist(campus[0]))
+        {
+            campussen.push(campus[0]);
+        }
+        function doesExist(name)
+        {
+           for(var i = 0;i<campussen.length;i++)
+           {
+               if(name == campussen[i])
+               {
+                   return false;
+               }
+           }
+            return true;
+        }
+    </script>
+    <?php
+       // array_push($data['merken'],$row);
+    }
+    //connectie sluiten
+    $mysqli->close();
+?>
+<script>
+    //console.log(arraymetlokalen);
+    $(function() {
+        $( "#Filter_Lokaal" ).autocomplete({
+            source: arraymetlokalen
+        });
+    });
+    for(var i = 0;i<campussen.length;i++)
+    {
+        var option = document.createElement("OPTION");
+        option.setAttribute("value",campussen[i]);
+        option.innerHTML = campussen[i];
+        document.getElementById("Filter_Campussen").appendChild(option);
+    }
+</script>
+</body>
+</html>

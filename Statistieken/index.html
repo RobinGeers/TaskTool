@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>TaskTool Howest | Statistieken</title>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+
+    <link rel="stylesheet" href="../css/screen.css"/>
+    <link rel="stylesheet" href="../css/semantic.min.css">
+    <link rel="stylesheet" href="../css/icon.min.css">
+   
+    <script src="../js/scripts.js"></script>
+    <script src="../js/Chart.js"></script>
+</head>
+<body>
+<main id="Statistieken">
+    <header>
+       <a href="../Overzicht/index.html"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
+
+        <button><a href="../index.html">Afmelden</a></button>
+        <nav>
+            <ul>
+                <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>
+                <li><a href="../Overzicht_Takenlijst/">Overzicht takenlijst</a></li>
+                <li><a href="#">Statistieken</a></li>
+                <li><a href="">Instellingen</a></li>
+            </ul>
+        </nav>
+        <div class="clearfix"></div>
+    </header>
+
+    <h1>Statistieken van werknemers</h1>
+    <section id="Werknemers">
+        <p>Bekijk statistieken van de volgende werknemers</p>
+        <div id="Checkbox1" class="Checkbox_Werknemer">
+            <input type="checkbox" value="Bennie" id="Bennie"/>
+            <label for="Bennie">Bennie</label>
+        </div>
+
+        <div id="Checkbox2" class="Checkbox_Werknemer">
+            <input type="checkbox" value="Alain" id="Alain"/>
+            <label for="Alain">Alain</label>
+        </div>
+
+        <div id="Checkbox3" class="Checkbox_Werknemer">
+            <input type="checkbox" value="Erik" id="Erik"/>
+            <label for="Erik">Erik</label>
+        </div>
+
+        <div id="Checkbox4" class="Checkbox_Werknemer">
+            <input type="checkbox" value="Jef" id="Jef"/>
+            <label for="Jef">Jef</label>
+        </div>
+
+        <p>Selecteer grafiektype</p>
+        <div id="Pie_Chart">
+            <p>Pie</p>
+            <i  class="pie chart icon"></i>
+        </div>
+        <div>
+            <p>Line</p>
+            <i id="Line_Chart" class="line chart icon"></i>
+        </div>
+        <div>
+            <p>Bar</p>
+            <i id="Bar_Chart" class="bar chart icon"></i>
+        </div>
+
+        <h2>Voltooide taken per werknemer</h2>
+
+        <canvas id="myChart1"></canvas>
+        <div id="Legende1">
+            <p>Legende</p>
+            <div id="GeneratedLegende"></div>
+            <div class="clearfix"></div>
+        </div>
+        <section id="Algemeen">
+            <h2>Algemeen overzicht</h2>
+            <canvas id="myChart2"></canvas>
+            <!-- TODO: Legende komt hier !-->
+            <div id="Legende2">
+                <p>Legende</p>
+                <div class="clearfix"></div>
+            </div>
+        </section>
+
+        <section id="Prestaties">
+            <h2>Prestaties van werkmannen</h2>
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th>Werknemers</th>
+                    <th>Reactietijd</th>
+                    <th>Gemiddelde doorlooptijd</th>
+                    <th>Prestatie index</th>
+                </tr>
+                </thead>
+                <tr>
+                    <th>Bennie</th>
+                    <td>2 uur</td>
+                    <td>1 dag</td>
+                    <td>75%</td>
+                </tr>
+                <tr>
+                    <th>Alain</th>
+                    <td>2 uur</td>
+                    <td>1 dag</td>
+                    <td>75%</td>
+                </tr>
+                <tr>
+                    <th>Rik</th>
+                    <td>2 uur</td>
+                    <td>1 dag</td>
+                    <td>75%</td>
+                </tr>
+                <tr>
+                    <th>Jef</th>
+                    <td>2 uur</td>
+                    <td>1 dag</td>
+                    <td>75%</td>
+                </tr>
+            </table>
+        </section>
+    </section>
+</main>
+</body>
+</html>

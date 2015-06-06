@@ -20,7 +20,7 @@
 </head>
 <body>
 <header>
-    <a href="../Overzicht/index.html"><img src="../images/howestlogo" alt="Howest Logo"/></a>
+    <a href="../Overzicht/index.html"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
     <button><a href="../index.php">Afmelden</a></button>
     <nav>
         <ul>
@@ -69,23 +69,20 @@
             </div>
         </div>
 
-        <section id="Filters">
-            <!-- TODO: Filters maken met Ajax !-->
-            <section><p>Zoeken op: </p></section>
-            <section>
-        <select name="Filter_Prioriteit" id="Filter_Prioriteit" onchange="PriorityChange(this.value)">
-
+         <section>
+                <select name="Filter_Prioriteit" id="Filter_Prioriteit" onchange="PriorityChange(this.value)">
+                    <option value="Default">Prioriteit</option>
                     <option value="Niet dringend">Niet dringend</option>
                     <option value="Dringend">Dringend</option>
                     <option value="Direct">Direct</option>
-            </select>
-        <select name="Filter_Worder" id="Filter_Worker" onchange="WorkerChange(this.value)">
+                </select>
 
-            </select>
-            <select name="Filter_Campussen" id="Filter_Campussen" onchange="CampusChange(this.value)">
-
-            </select>
-
+                <select name="Filter_Worder" id="Filter_Worker" onchange="WorkerChange(this.value)">
+                    <option value="Default">Werknemer</option>
+                </select>
+                <select name="Filter_Campussen" id="Filter_Campussen" onchange="CampusChange(this.value)">
+                    <option value="Default">Campus</option>
+                </select>
             </section>
 
             <section>
@@ -785,6 +782,7 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
         option.setAttribute("value",campussen[i]);
         option.innerHTML = campussen[i];
         document.getElementById("Filter_Campussen").appendChild(option);
+        console.log(campussen[i]);
     }
 </script>
 </body>

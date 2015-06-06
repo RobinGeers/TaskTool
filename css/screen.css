@@ -102,6 +102,7 @@ main#LoginFormulier {
 main#LoginFormulier img {
     display: block;
     margin: 50px auto;
+    width: 250px;
 }
 
 section#Login {
@@ -164,9 +165,8 @@ main#MeldDefectFormulier {
 }
 
 main#MeldDefectFormulier h1 {
-    font-size: 2.5em;
-    font-weight: 300;
     text-align: center;
+    margin-bottom: 25px;
 }
 
 main#MeldDefectFormulier section#MeldDefect {

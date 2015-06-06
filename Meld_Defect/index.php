@@ -315,6 +315,7 @@ $mysqli->close();
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="../css/semantic.min.css">
     <link href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet" />
     <script>
         $(function() {

@@ -43,7 +43,7 @@ $bodytag = str_replace("%body%", "black", "<body text='%body%'>");
 </head>
 <body>
 <main id="LoginFormulier">
-<a href="./Overzicht/index.html"><img src="./images/Howest_Logo.png" alt="Howest Logo"/></a>
+<a href="./Overzicht/index.html"><img src="images/howestlogo.png" alt="Howest Logo"/></a>
     <section id="Login">
         <h1>TaskTool login</h1>
         <form action="./Meld_Defect/index.php" method="POST" id="form">

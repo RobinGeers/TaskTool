@@ -128,6 +128,10 @@
     var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
     var checkKaartInmedewerker;
 
+
+     $(document).ready(GetCards);
+
+
     function allowDrop(ev) {
         //console.log(ev.target.tagName);
        if(event.target.tagName !="A" && event.target.className != "lastcard")
@@ -241,70 +245,75 @@
     //trello
 
 
-    Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token="+application_token,function(lists)
+    function GetCards()
     {
-        $.each(lists["lists"],function(ix,list)
-            {
-            var List = [];
-
-            List.push(list.id,list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
-
-                var selecteddiv;
-                //selecteren voor war de kaarten in te plaatsen
-
-                if(list.name== "Taken")
+        Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token="+application_token,function(lists)
+        {
+            $.each(lists["lists"],function(ix,list)
                 {
+                var List = [];
 
-                    var taken = document.getElementById("Taken");
-                    var unorderedlist= maakUL(list.id,false);
-                    getCards(unorderedlist,list.id,false);
-                    taken.appendChild(unorderedlist);
-                }
-                else if(list.name == "Voltooid")
-                {
-                    var voltooid = document.getElementById("Voltooid");
-                    var unorderedlist= maakUL(list.id,false);
-                    getCards(unorderedlist,list.id,false);
-                    voltooid.appendChild(unorderedlist);
+                List.push(list.id,list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
 
-                }
-                else if(list.name == "On hold")
-                {
-                    var onhold = document.getElementById("OnHold");
-                    var unorderedlist= maakUL(list.id,false);
-                    getCards(unorderedlist,list.id,false);
-                    onhold.appendChild(unorderedlist);
-                }
-                else
-                {
-                    selecteddiv = document.getElementById("Medewerkers");
+                    var selecteddiv;
+                    //selecteren voor war de kaarten in te plaatsen
 
-                    var unorderedlist= maakUL(list.id,true);
+                    if(list.name== "Taken")
+                    {
 
-                    var li = document.createElement("LI");
-                    li.setAttribute("class","Werkman_Naam");
-                    li.innerHTML = list.name;
+                        var taken = document.getElementById("Taken");
+                        var unorderedlist= maakUL(list.id,false);
+                        getCards(unorderedlist,list.id,false);
+                        taken.appendChild(unorderedlist);
+                    }
+                    else if(list.name == "Voltooid")
+                    {
+                        var voltooid = document.getElementById("Voltooid");
+                        var unorderedlist= maakUL(list.id,false);
+                        getCards(unorderedlist,list.id,false);
+                        voltooid.appendChild(unorderedlist);
 
-                    var i = document.createElement("I");
-                    i.setAttribute("class","fa fa-print");
+                    }
+                    else if(list.name == "On hold")
+                    {
+                        var onhold = document.getElementById("OnHold");
+                        var unorderedlist= maakUL(list.id,false);
+                        getCards(unorderedlist,list.id,false);
+                        onhold.appendChild(unorderedlist);
+                    }
+                    else
+                    {
+                        selecteddiv = document.getElementById("Medewerkers");
+
+                        var unorderedlist= maakUL(list.id,true);
+
+                        var li = document.createElement("LI");
+                        li.setAttribute("class","Werkman_Naam");
+                        li.innerHTML = list.name;
+
+                        var i = document.createElement("I");
+                        i.setAttribute("class","fa fa-print");
 
 
-                    li.appendChild(i);
-                    unorderedlist.appendChild(li);
+                        li.appendChild(i);
+                        unorderedlist.appendChild(li);
 
-                    getCards(unorderedlist,list.id,true);
+                        getCards(unorderedlist,list.id,true);
 
-                    selecteddiv.appendChild(unorderedlist);
-                
-                   var option = document.createElement("OPTION");       
-                    option.setAttribute("value",list.name);     
-                    option.innerHTML = list.name;       
-                    document.getElementById("Filter_Worker").appendChild(option);
-                }
-               // console.log(selecteddiv);
+                        selecteddiv.appendChild(unorderedlist);
+
+
+                        var option = document.createElement("OPTION");
+                        option.setAttribute("value",list.name);
+                        option.innerHTML = list.name;
+
+                        document.getElementById("Filter_Worker").appendChild(option);
+                    }
+                   // console.log(selecteddiv);
+            });
+
         });
-
-    });
+    }
 
 
     function maakUL(id,izworker)
@@ -457,76 +466,250 @@
 
         });
     }
-
 //--------------------filter----------------------//
     var FilterSection=document.getElementById("SelectedFilters");
     function PriorityChange(value)
     {
-        makeDiv(value,"P");
-        Filters();
+        if(value != "Default")
+        {
+            makeDiv(value,"P");
+            Filters();
+        }
+
     }
     function WorkerChange(value)
     {
-        makeDiv(value,"W");
-        Filters();
+        if(value != "Default")
+        {
+            makeDiv(value,"W");
+            Filters();
+        }
     }
     function CampusChange(value)
     {
-        makeDiv(value,"C");
-        Filters();
+        if(value != "Default")
+        {
+            makeDiv(value, "C");
+            Filters();
+        }
     }
+
     function makeDiv(name,idprefix)
     {
         var div = document.createElement("DIV");
         div.setAttribute("class","");
         div.setAttribute("Onclick","DeleteFilter(this)");
         div.setAttribute("id",idprefix+"."+name);
+
         var label = document.createElement("LABEL");
         label.innerHTML = name;
+
         div.appendChild(label);
+
         FilterSection.appendChild(div);
     }
+
+
+
     function Filters()
     {
         var divs = FilterSection.getElementsByTagName("Div");
+        var campusfilters =[];
+        var priorityfilters = [];
+        var workerfilters = [];
+        var filtered = [];
+
         for(var i = 1;i< divs.length;i++)
         {
             var filters = divs[i].id.split(".");
-            if(filters[0]== "P" || filters[0]== "C")
+            if(filters[0]== "P")
             {
+                priorityfilters.push(divs[i]);
+
             }
-            else if(filters[0]== "W")
+            else if(filters[0]== "C")
             {
-                var workers = document.getElementById("Medewerkers").getElementsByTagName("UL");
-                for(var j = 0;j<workers.length;j++ )
+                campusfilters.push(divs[i]);
+            }
+            else if(filters[0] == "W")
+            {
+                workerfilters.push(divs[i]);
+            }
+        }
+
+        var workersUL = document.getElementById("Medewerkers").getElementsByTagName("UL");
+
+        if(workerfilters.length <= 0)
+        {
+            SetWorkersVisible();
+        }
+        else
+        {
+            for(var i = 0;i<workersUL.length;i++)
+            {
+                workersUL[i].style.display = "none";
+            }
+        }
+
+        var onhold = document.getElementById("OnHold").getElementsByTagName("LI");
+        var voltooid = document.getElementById("Voltooid").getElementsByTagName("LI");
+        var taken = document.getElementById("Taken").getElementsByTagName("LI");
+        var workers = document.getElementById("Medewerkers").getElementsByTagName("LI");
+        var blocks = [];
+        for(var j = 0;j<onhold.length;j++ )
+        {
+            blocks.push(onhold[j]);
+        }
+        for(var j = 0;j<voltooid.length;j++ )
+        {
+            blocks.push(voltooid[j]);
+        }
+        for(var j = 0;j<taken.length;j++ )
+        {
+            blocks.push(taken[j]);
+        }
+        for(var j = 0;j<workers.length;j++ )
+        {
+
+            if(workers[j].firstChild.nextSibling.firstChild!=null)
+            {
+                blocks.push(workers[j]);
+            }
+        }
+        //allemaal afzetten
+
+        for(var i = 0;i<blocks.length;i++)
+        {
+            blocks[i].style.display = "none";
+        }
+
+       for(var i = 1;i< divs.length;i++)
+        {
+            var filters = divs[i].id.split(".");
+
+
+            if(filters[0]== "W")            {
+
+                for(var j = 0;j<workersUL.length;j++ )
                 {
-                    workers[j].style.display = "none";
+                    if(workersUL[j].firstChild.innerText == filters[1])
+                    {
+                        workersUL[j].style.display = "inline-block";
+                    }
+
+
                 }
             }
         }
-        for(var i = 1;i< divs.length;i++)
+
+        for(var i = 0;i< priorityfilters.length;i++)
         {
-            var filters = divs[i].id.split(".");
-            if(filters[0]== "P" || filters[0]== "C")
+
+            var priority;
+            if(priorityfilters[i].id.split(".")[1] == "Niet dringend"){priority = "liBorderL";}
+            if(priorityfilters[i].id.split(".")[1] == "Dringend"){priority = "liBorderG";}
+            else if(priorityfilters[i].id.split(".")[1] == "Direct"){priority = "liBorderH";}
+
+
+            for(var j = 0;j<blocks.length;j++ )
             {
-                var onhold = document.getElementById("OnHold").getElementsByTagName("LI");
-                var voltooid = document.getElementById("Voltooid").getElementsByTagName("LI");
-                var taken = document.getElementById("Taken").getElementsByTagName("LI");
-                var workers = document.getElementById("Medewerkers").getElementsByTagName("LI");
-            }
-            else if(filters[0]== "W")
-            {
-                var workers = document.getElementById("Medewerkers").getElementsByTagName("UL");
-                for(var j = 0;j<workers.length;j++ )
+                if(blocks[j].className.split(" ")[3] == priority)
                 {
-                    if(workers[j].firstChild.innerText == filters[1])
-                    {
-                        workers[j].style.display = "inline-block";
-                    }
+                    //onhold[j].style.display="inline-block";
+                    filtered.push(blocks[j]);
                 }
             }
+
+        }
+
+        if(priorityfilters.length <=0)
+        {
+            filtered = blocks;
+
+        }
+
+
+        var filtered1= [];
+        for(var i = 0;i< campusfilters.length;i++)
+        {
+            var filters = campusfilters[i].id.split(".");
+
+
+            for( var j = 0;j<filtered.length;j++)
+            {
+
+                var campus = filtered[j].firstChild.nextSibling.firstChild.innerHTML.split(".")[0];
+
+
+                if(campus== filters[1])
+                {
+
+                    filtered1.push(filtered[j]);
+                }
+            }
+
+        }
+
+
+        var endfilterobjects;
+        if(filtered1.length != 0)
+        {
+            endfilterobjects = filtered1;
+        }
+        else
+        {
+            endfilterobjects = filtered;
+        }
+
+
+        for( var i = 0;i<endfilterobjects.length;i++)
+        {
+            endfilterobjects[i].style.display = "inline-block";
+        }
+        if(divs.length <=1)
+        {
+            var onhold = document.getElementById("OnHold").getElementsByTagName("LI");
+            var voltooid = document.getElementById("Voltooid").getElementsByTagName("LI");
+            var taken = document.getElementById("Taken").getElementsByTagName("LI");
+            var workers = document.getElementById("Medewerkers").getElementsByTagName("LI");
+            for(var j = 0;j<onhold.length;j++ )
+            {
+                    onhold[j].style.display="inline-block";
+            }
+            for(var j = 0;j<voltooid.length;j++ )
+            {
+                    voltooid[j].style.display="inline-block";
+
+            }
+            for(var j = 0;j<taken.length;j++ )
+            {
+                    taken[j].style.display="inline-block";
+            }
+            for(var j = 0;j<workers.length;j++ )
+            {
+                if(workers[j].firstChild.nextSibling.firstChild!=null) {
+                    workers[j].style.display = "inline-block";
+                }
+            }
+
+            SetWorkersVisible();
         }
     }
+
+
+    function SetWorkersVisible()
+    {
+        var workersUL = document.getElementById("Medewerkers").getElementsByTagName("UL");
+        for(var j = 0;j<workersUL.length;j++ )
+        {
+
+            workersUL[j].style.display = "inline-block";
+
+
+
+        }
+    }
+
     function DeleteFilter(element)
     {
         console.log(element);

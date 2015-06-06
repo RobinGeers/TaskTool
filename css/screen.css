@@ -283,6 +283,7 @@ main#MeldDefectFormulier input[type="submit"]:hover {
 main#Overzicht {
     width: 560px;
     margin: 0 auto;
+    margin-top: 150px;
 }
 
 main#Overzicht h1 {

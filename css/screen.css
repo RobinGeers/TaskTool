@@ -463,6 +463,10 @@ main#Overzicht_Takenlijst section#Filters p {
     margin-left: 100px;
 }
 
+header {
+    z-index: 100000;
+}
+
 
 main#Overzicht_Takenlijst section#Filters section:first-child {
     margin-top: -15px;

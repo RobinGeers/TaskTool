@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="8bb1186b-ad15-4a41-917d-c95133fa3240" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Overzicht_Takenlijst/index.php" afterPath="$PROJECT_DIR$/Overzicht_Takenlijst/index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/screen.css" afterPath="$PROJECT_DIR$/css/screen.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="TaskTool.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -46,8 +44,8 @@
       <file leaf-file-name="screen.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/css/screen.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.4918415" vertical-offset="7296" max-vertical-offset="15776">
-              <caret line="454" column="1" selection-start-line="454" selection-start-column="1" selection-end-line="454" selection-end-column="1" />
+            <state vertical-scroll-proportion="0.59090906" vertical-offset="7398" max-vertical-offset="15844">
+              <caret line="465" column="0" selection-start-line="465" selection-start-column="0" selection-end-line="465" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -491,8 +489,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/css/screen.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4918415" vertical-offset="7296" max-vertical-offset="15776">
-          <caret line="454" column="1" selection-start-line="454" selection-start-column="1" selection-end-line="454" selection-end-column="1" />
+        <state vertical-scroll-proportion="0.59090906" vertical-offset="7398" max-vertical-offset="15844">
+          <caret line="465" column="0" selection-start-line="465" selection-start-column="0" selection-end-line="465" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -291,8 +291,15 @@ function check(a,b){
     var res = a.toLowerCase();
     res = res.replace(' ', '');
     res = res.replace('.', '');
+//var z = res.split('');
     var gelijk = 0;
+  //  console.log(z);
+ //   console.log(z);
+  //  $.each(z,function(ix,char){
+      // console.log(char);
+  //  var found = $.inArray('specialword', categories) > -1;
 
+       // console.log(char.indexOf(b) != -1);
         if(res.indexOf(b) != -1){
             console.log("ja");
            gelijk = 1;

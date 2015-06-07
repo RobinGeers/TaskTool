@@ -17,7 +17,7 @@ if ($mysqli->connect_error)
 $dataint = array();
 $dataext = array();
 
-$result = $mysqli->query("SELECT Naam, NaamBedrijf, Adres, Telefoon, Emailadres FROM external");
+$result = $mysqli->query("SELECT id,Naam, NaamBedrijf, Adres, Telefoon, Emailadres FROM external");
 
 //print $_COOKIE['inlognaam'];
 while($row = $result->fetch_array(MYSQLI_ASSOC)) {
@@ -29,6 +29,7 @@ while($row = $result->fetch_array(MYSQLI_ASSOC)) {
         dat.push('<?php print $row['Adres'] ?>');
         dat.push('<?php print $row['Telefoon'] ?>');
         dat.push('<?php print $row['Emailadres'] ?>');
+        dat.push('<?php print $row['id'] ?>');
         myexternaldata.push(dat);
 
     <?php
@@ -411,8 +412,10 @@ function saverow(el){
 
 }
 
-function maakitemexternal(table, naam, naambedrjf, adres, telefoon,email){
+function maakitemexternal(table, naam, naambedrjf, adres, telefoon,email,id){
     var tr =  document.createElement("tr");
+    console.log(id);
+    tr.id = id;
     var td1 = document.createElement("td");
     td1.appendChild(document.createTextNode(naam));
     var td2 = document.createElement("td");
@@ -460,6 +463,7 @@ console.log(myexternaldata);
         fadres = "";
         ftel = "";
         femail = "";
+        fid="";
         $.each(ar, function (i, fill) {
 
 
@@ -474,6 +478,8 @@ console.log(myexternaldata);
                 ftel = fill;
             } else if (i == 4) {
                 femail = fill;
+            }else if(i==5){
+                fid=fill;
             }
 
         });
@@ -501,7 +507,7 @@ console.log(myexternaldata);
                         } else {
                         }
                         //PASSED FILTERS
-                        maakitemexternal(table,fnaam,fbedrijf,fadres,ftel,femail);
+                        maakitemexternal(table,fnaam,fbedrijf,fadres,ftel,femail,fid);
                         // console.log('maak');
                     }
                 }
@@ -563,19 +569,19 @@ function emailChangeext(value)
 };
 
 function dosomethingext(eml){
-    console.log(eml);
+   /// console.log(eml);
     //var naam = el.childNodes[1].innerText;
-    console.log(eml.firstChild);
-    console.log(eml.childNodes);
+  //  console.log(eml.firstChild);
+  //  console.log(eml.childNodes);
   //  $.each(eml.childNodes,function(ix,a){
     var tell = 0;
-    console.log(eml.childElementCount);
+ //   console.log(eml.childElementCount);
     $.each(eml.childNodes,function(ix,a){
 
-            console.log(ix);
+          //  console.log(ix);
             a = eml.childNodes[ix];
         if(ix==5){
-            console.log("JA VIJF");
+          //  console.log("JA VIJF");
             var newicon = document.createElement("i");
             newicon.className = "save icon";
             newicon.addEventListener("click",function(){
@@ -585,19 +591,29 @@ function dosomethingext(eml){
             return;
         }
         var hoofdtd = document.createElement("td");
+
       var t = a.innerText;
         var i = document.createElement("input");
-        i.type ="text";i.id=ix+t;i.name=ix+t; //i.addEventListener('keyup',function(val){i.value=val.value;  });
+        i.type ="text";
+        i.name="inputs[]";
+        i.id="inputs"+ix;
+        i.setAttribute('value', 'default');
+         //i.addEventListener('keyup',function(val){i.value=val.value;  });
         i.value = t;
         hoofdtd.appendChild(i);
         eml.replaceChild(hoofdtd,eml.childNodes[ix]);
-console.log(eml.childNodes[ix]);
+//console.log(eml.childNodes[ix]);
     });
 }
 
 function saverowext(el){
+    var myar = [];
+    var aa="";
+    aa=el.id;
+   // console.log(el);
     $.each(el.childNodes,function(ix,a){
-        console.log(ix);
+      //  console.log(el.childNodes[ix]);
+        //console.log(a);
         if(ix==5){
             var td4 = document.createElement("i");
             td4.className="write icon";
@@ -608,23 +624,27 @@ function saverowext(el){
             el.replaceChild(td4,el.childNodes[ix]);
             return;
         }
+
         var hoofdtd = document.createElement("td");
-        console.log(a);
-        var t = a.value;
+
+      //  console.log(el.childNodes[ix]);
+        var t =  el.childNodes[ix].firstChild.value;
+        console.log(t);
+        myar.push(t);
         hoofdtd.appendChild(document.createTextNode(t));
 
         el.replaceChild(hoofdtd,el.childNodes[ix]);
 
     });
-
-    /*
-    mylink="https://student.howest.be/wouter.dumon/test4/ChangeInst/a2fjo4(dsf558sdf.php";
+    console.log(aa);
+    mylink="https://student.howest.be/wouter.dumon/test4/ChangeInst/sdfjl5dfqs9fdsf4.php";
     //   window.open('#','_blank');
 //    window.open(this.href,'_self');
 
-    var url = mylink+"?naam="+naam+"&rol="+selectedvalue;
-    window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
-    window.focus();*/
+    var url = mylink+"?naam="+myar[0]+"&bedrijf="+myar[1]+"&adres="+myar[2]+"&tel="+myar[3]+"&email="+myar[4]+"&id="+aa;
+  //
+   window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
+    window.focus();
 
 
 

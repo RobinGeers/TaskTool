@@ -570,30 +570,35 @@ function dosomethingext(eml){
   //  $.each(eml.childNodes,function(ix,a){
     var tell = 0;
     console.log(eml.childElementCount);
-    
-        for(ix = 0; ix<eml.childElementCount;ix++){
+    $.each(eml.childNodes,function(ix,a){
+
+            console.log(ix);
             a = eml.childNodes[ix];
-        if(ix=5){
+        if(ix==5){
+            console.log("JA VIJF");
             var newicon = document.createElement("i");
             newicon.className = "save icon";
             newicon.addEventListener("click",function(){
                 saverowext(eml);
             });
             eml.replaceChild(newicon,eml.childNodes[ix]);
+            return;
         }
         var hoofdtd = document.createElement("td");
       var t = a.innerText;
         var i = document.createElement("input");
+        i.type ="text";i.id=ix+t;i.name=ix+t; //i.addEventListener('keyup',function(val){i.value=val.value;  });
         i.value = t;
         hoofdtd.appendChild(i);
         eml.replaceChild(hoofdtd,eml.childNodes[ix]);
 console.log(eml.childNodes[ix]);
-    };
+    });
 }
 
 function saverowext(el){
     $.each(el.childNodes,function(ix,a){
-        if(ix=5){
+        console.log(ix);
+        if(ix==5){
             var td4 = document.createElement("i");
             td4.className="write icon";
             td4.addEventListener("click",function() {
@@ -601,12 +606,14 @@ function saverowext(el){
 
             });
             el.replaceChild(td4,el.childNodes[ix]);
+            return;
         }
         var hoofdtd = document.createElement("td");
+        console.log(a);
         var t = a.value;
         hoofdtd.appendChild(document.createTextNode(t));
 
-        eml.replaceChild(hoofdtd,el.childNodes[ix]);
+        el.replaceChild(hoofdtd,el.childNodes[ix]);
 
     });
 

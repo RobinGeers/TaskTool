@@ -5,7 +5,7 @@
     <title>TaskTool Howest | Overzicht takenlijst</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../css/screen.css"/>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
     <link rel="stylesheet" href="../css/semantic.min.css">
     <link rel="stylesheet" href="../css/icon.min.css">
     <link rel="stylesheet" href="../css/transition.min.css">
@@ -14,9 +14,9 @@
     <script src="../js/semantic.min.js"></script>
     <script src="../js/transition.min.js"></script>
     <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
+       <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <!-- laad de jquery in voor autocomplete -->
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
 <body>
 <header>
@@ -33,146 +33,163 @@
     <div class="clearfix"></div>
 
 </header>
-<main id="Overzicht_Takenlijst">
-    <h1>Overzicht takenlijst</h1>
+    <main id="Overzicht_Takenlijst">
+        <h1>Overzicht takenlijst</h1>
 
-    <!-- Pop-up Window !-->
-    <div id="Popup" class="ui test modal transition" style="z-index: 100000;">
-        <!-- TODO: Close icon zoeken !-->
-        <i id="close_Popup" class="close icon"></i>
-        <div class="header">
-            Titel kaartje
+        <!-- Pop-up Window !-->
+        <div id="Popup" class="ui test modal transition" style="z-index: 100000;">
+            <!-- TODO: Close icon zoeken !-->
+            <i id="close_Popup" class="close icon"></i>
+            <div class="header">
+                Titel kaartje
+            </div>
+            <div class="content">
+                <div class="left">
+                    <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
+                </div>
+                <div class="right">
+                    <input type="text" value="Titel kaartje"/>
+                    <input type="text" value="GKG A.202b"/>
+                    <textarea name="" id="" cols="30" rows="10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="actions">
+                <div id="btnVerwijder" class="ui negative right labeled icon button">
+                    Verwijder taak <i class="trash icon"></i>
+                </div>
+
+                <div class="ui black button">
+                    Annuleer
+                </div>
+                <div id="btnOpslaan" class="ui positive right labeled icon button">
+                    Opslaan <i class="checkmark icon"></i>
+                </div>
+                <div class="clearfix"></div>
+            </div>
         </div>
-        <div class="content">
-            <div class="left">
-                <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
-            </div>
-            <div class="right">
-                <input type="text" value="Titel kaartje"/>
-                <input type="text" value="GKG A.202b"/>
-                <textarea name="" id="" cols="30" rows="10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
-            </div>
+
+         <!-- Oude filter op Prioriteit <section>
+                <select name="Filter_Prioriteit" id="Filter_Prioriteit" onchange="PriorityChange(this.value)">
+                    <option value="Default">Prioriteit</option>
+                    <option value="Niet dringend">Niet dringend</option>
+                    <option value="Dringend">Dringend</option>
+                    <option value="Direct">Direct</option>
+                </select>!-->
+
+        <!-- Oude filter op Werknemer
+             <select name="Filter_Worder" id="Filter_Worker" onchange="WorkerChange(this.value)">
+                 <option value="Default">Werknemer</option>
+             </select>!-->
+
+                <!-- Filter op prioriteit !-->
+                <div id="Filter1" class="ui floating dropdown labeled icon button">
+                    <i class="filter icon"></i>
+                    <span class="text">Filter prioriteit</span>
+                    <div class="menu">
+                        <div value="Default" class="header">
+                            <i class="tags icon"></i>
+                            Prioriteit
+                        </div>
+                        <div onclick="PriorityChange('Niet dringend')" class="item">
+                            <div class="ui green empty circular label"></div>
+                            Niet dringend
+                        </div>
+                        <div onclick="PriorityChange('Dringend')" class="item">
+                            <div class="ui yellow empty circular label"></div>
+                            Dringend
+                        </div>
+                        <div onclick="PriorityChange('Direct')" class="item">
+                            <div class="ui red empty circular label"></div>
+                            Direct
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Filter op Werknemer !-->
+                <div class="ui floating dropdown labeled icon button">
+                    <i class="filter icon"></i>
+                    <span class="text">Filter werknemer</span>
+                    <div class="menu" id="Filter_Worker">
+                        <div value="Default" class="header">
+                            <i class="tags icon"></i>
+                            Werknemer
+                        </div>
+                    </div>
+                </div>
+
+                <!--Oude filter op campussen!-->
+                <select name="Filter_Campussen" id="Filter_Campussen" onchange="CampusChange(this.value)">
+                    <option value="Default">Campus</option>
+                </select>
+
+                <!-- Filter op Campussen
+                 TODO: Helemaal onderaan in de code bug oplossen (Mutable variable i)
+                <div class="ui floating dropdown labeled icon button">
+                    <i class="filter icon"></i>
+                    <span class="text">Filter campus</span>
+                    <div class="menu" id="Filter_Campussen">
+                        <div value="Default" class="header">
+                            <i class="tags icon"></i>
+                            Campus
+                        </div>
+                    </div>
+                </div>!-->
+
+            </section>
+
+            <section id="Filters_Zoek">
+                <!--<input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."/>!-->
+
+                <div class="ui floating dropdown labeled search icon button">
+                    <i class="search icon"></i>
+                    <span class="text">Titel taak..</span>
+                    <div class="menu">
+                        <div class="item">Ruit is kapot</div>
+                        <div class="item">Lamp moet vervangen worden</div>
+                    </div>
+                </div>
+
+                <div class="ui floating dropdown labeled search icon button">
+                    <i class="search icon"></i>
+                    <span class="text">Lokaal..</span>
+                    <div class="menu">
+                        <div class="item">A.202b</div>
+                        <div class="item">A202c</div>
+                    </div>
+                </div>
+
+                <input type="text" name="Filter_Lokaal" id="Filter_Lokaal" placeholder="Lokaal.."/>
+            </section>
             <div class="clearfix"></div>
-        </div>
-        <div class="actions">
-            <div id="btnVerwijder" class="ui negative right labeled icon button">
-                Verwijder taak <i class="trash icon"></i>
+        </section>
+        
+        <section id="SelectedFilters">
+            <div>
+                <h3>Geselecteerde Filters: </h3>
             </div>
+        </section>
+        <div class="clearfix"></div>
+        <section id="Taken" class="Section_Float draglist">
+            <h2 class="Overzicht_Titels">Taken</h2>
 
-            <div class="ui black button">
-                Annuleer
-            </div>
-            <div id="btnOpslaan" class="ui positive right labeled icon button">
-                Opslaan <i class="checkmark icon"></i>
-            </div>
-            <div class="clearfix"></div>
-        </div>
-    </div>
+        </section>
+        <section id="Medewerkers" class="Section_Float">
+            <h2 class="Overzicht_Titels">Medewerkers</h2>
 
-    <!-- Oude filter op Prioriteit <section>
-           <select name="Filter_Prioriteit" id="Filter_Prioriteit" onchange="PriorityChange(this.value)">
-               <option value="Default">Prioriteit</option>
-               <option value="Niet dringend">Niet dringend</option>
-               <option value="Dringend">Dringend</option>
-               <option value="Direct">Direct</option>
-           </select>!-->
+        </section>
+        <section id="Voltooid" class="Section_Float draglist">
+            <h2 class="Overzicht_Titels">Voltooid</h2>
 
-    <!-- Oude filter op Werknemer
-         <select name="Filter_Worder" id="Filter_Worker" onchange="WorkerChange(this.value)">
-             <option value="Default">Werknemer</option>
-         </select>!-->
+        </section>
+        <section id="OnHold" class="Section_Float draglist">
+            <h2 class="Overzicht_Titels">On hold</h2>
+            <ul class="cardlist draglist">
 
-    <!-- Filter op prioriteit !-->
-    <div id="Filter1" class="ui floating dropdown labeled icon button">
-        <i class="filter icon"></i>
-        <span class="text">Filter prioriteit</span>
-        <div class="menu">
-            <div value="Default" class="header">
-                <i class="tags icon"></i>
-                Prioriteit
-            </div>
-            <div onclick="PriorityChange('Niet dringend')" class="item">
-                <div class="ui green empty circular label"></div>
-                Niet dringend
-            </div>
-            <div onclick="PriorityChange('Dringend')" class="item">
-                <div class="ui yellow empty circular label"></div>
-                Dringend
-            </div>
-            <div onclick="PriorityChange('Direct')" class="item">
-                <div class="ui red empty circular label"></div>
-                Direct
-            </div>
-        </div>
-    </div>
-
-    <!-- Filter op Werknemer !-->
-    <div class="ui floating dropdown labeled icon button">
-        <i class="filter icon"></i>
-        <span class="text">Filter werknemer</span>
-        <div class="menu" id="Filter_Worker">
-            <div value="Default" class="header">
-                <i class="tags icon"></i>
-                Werknemer
-            </div>
-        </div>
-    </div>
-
-    <!--Oude filter op campussen!-->
-    <select name="Filter_Campussen" id="Filter_Campussen" onchange="CampusChange(this.value)">
-        <option value="Default">Campus</option>
-    </select>
-
-    <!-- Filter op Campussen
-     TODO: Helemaal onderaan in de code bug oplossen (Mutable variable i)
-    <div class="ui floating dropdown labeled icon button">
-        <i class="filter icon"></i>
-        <span class="text">Filter campus</span>
-        <div class="menu" id="Filter_Campussen">
-            <div value="Default" class="header">
-                <i class="tags icon"></i>
-                Campus
-            </div>
-        </div>
-    </div>!-->
-
-    </section>
-
-    <section id="Filters_Zoek">
-        <input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."/>
-
-
-        <input type="text" name="Filter_Lokaal" id="Filter_Lokaal" placeholder="Lokaal.."/>
-    </section>
-    <div class="clearfix"></div>
-    </section>
-
-    <section id="SelectedFilters">
-        <div>
-            <h3>Geselecteerde Filters: </h3>
-        </div>
-    </section>
-    <div class="clearfix"></div>
-    <section id="Taken" class="Section_Float draglist">
-        <h2 class="Overzicht_Titels">Taken</h2>
-
-    </section>
-    <section id="Medewerkers" class="Section_Float">
-        <h2 class="Overzicht_Titels">Medewerkers</h2>
-
-    </section>
-    <section id="Voltooid" class="Section_Float draglist">
-        <h2 class="Overzicht_Titels">Voltooid</h2>
-
-    </section>
-    <section id="OnHold" class="Section_Float draglist">
-        <h2 class="Overzicht_Titels">On hold</h2>
-        <ul class="cardlist draglist">
-
-        </ul>
-    </section>
-    <div class="clearfix"></div>
-</main>
+            </ul>
+        </section>
+        <div class="clearfix"></div>
+    </main>
 <script>
     var APP_KEY = '23128bd41978917ab127f2d9ed741385';
     var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
@@ -183,15 +200,15 @@
     ;
 
 
-    $(document).ready(GetCards);
+     $(document).ready(GetCards);
 
 
     function allowDrop(ev) {
         //console.log(ev.target.tagName);
-        if(event.target.tagName !="A" && event.target.className != "lastcard")
-        {
-            ev.preventDefault();
-        }
+       if(event.target.tagName !="A" && event.target.className != "lastcard")
+       {
+           ev.preventDefault();
+       }
 
     }
 
@@ -304,71 +321,71 @@
         Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token="+application_token,function(lists)
         {
             $.each(lists["lists"],function(ix,list)
-            {
+                {
                 var List = [];
 
                 List.push(list.id,list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
 
-                var selecteddiv;
-                //selecteren voor war de kaarten in te plaatsen
+                    var selecteddiv;
+                    //selecteren voor war de kaarten in te plaatsen
 
-                if(list.name== "Taken")
-                {
+                    if(list.name== "Taken")
+                    {
 
-                    var taken = document.getElementById("Taken");
-                    var unorderedlist= maakUL(list.id,false);
-                    getCards(unorderedlist,list.id,false);
-                    taken.appendChild(unorderedlist);
-                }
-                else if(list.name == "Voltooid")
-                {
-                    var voltooid = document.getElementById("Voltooid");
-                    var unorderedlist= maakUL(list.id,false);
-                    getCards(unorderedlist,list.id,false);
-                    voltooid.appendChild(unorderedlist);
+                        var taken = document.getElementById("Taken");
+                        var unorderedlist= maakUL(list.id,false);
+                        getCards(unorderedlist,list.id,false);
+                        taken.appendChild(unorderedlist);
+                    }
+                    else if(list.name == "Voltooid")
+                    {
+                        var voltooid = document.getElementById("Voltooid");
+                        var unorderedlist= maakUL(list.id,false);
+                        getCards(unorderedlist,list.id,false);
+                        voltooid.appendChild(unorderedlist);
 
-                }
-                else if(list.name == "On hold")
-                {
-                    var onhold = document.getElementById("OnHold");
-                    var unorderedlist= maakUL(list.id,false);
-                    getCards(unorderedlist,list.id,false);
-                    onhold.appendChild(unorderedlist);
-                }
-                else
-                {
-                    selecteddiv = document.getElementById("Medewerkers");
+                    }
+                    else if(list.name == "On hold")
+                    {
+                        var onhold = document.getElementById("OnHold");
+                        var unorderedlist= maakUL(list.id,false);
+                        getCards(unorderedlist,list.id,false);
+                        onhold.appendChild(unorderedlist);
+                    }
+                    else
+                    {
+                        selecteddiv = document.getElementById("Medewerkers");
 
-                    var unorderedlist= maakUL(list.id,true);
+                        var unorderedlist= maakUL(list.id,true);
 
-                    var li = document.createElement("LI");
-                    li.setAttribute("class","Werkman_Naam");
-                    li.innerHTML = list.name;
+                        var li = document.createElement("LI");
+                        li.setAttribute("class","Werkman_Naam");
+                        li.innerHTML = list.name;
 
-                    var i = document.createElement("I");
-                    i.setAttribute("class","fa fa-print");
-
-
-                    li.appendChild(i);
-                    unorderedlist.appendChild(li);
-
-                    getCards(unorderedlist,list.id,true);
-
-                    selecteddiv.appendChild(unorderedlist);
+                        var i = document.createElement("I");
+                        i.setAttribute("class","fa fa-print");
 
 
-                    var divItem = document.createElement("div");
-                    divItem.className = "ui item";
-                    divItem.onclick = function(){WorkerChange(list.name)};
+                        li.appendChild(i);
+                        unorderedlist.appendChild(li);
 
-                    var option = document.createElement("OPTION");
-                    option.setAttribute("value",list.name);
-                    option.innerHTML = list.name;
+                        getCards(unorderedlist,list.id,true);
 
-                    document.getElementById("Filter_Worker").appendChild(divItem);
-                    divItem.appendChild(option);
-                }
-                // console.log(selecteddiv);
+                        selecteddiv.appendChild(unorderedlist);
+
+
+                        var divItem = document.createElement("div");
+                        divItem.className = "ui item";
+                        divItem.onclick = function(){WorkerChange(list.name)};
+
+                        var option = document.createElement("OPTION");
+                        option.setAttribute("value",list.name);
+                        option.innerHTML = list.name;
+
+                        document.getElementById("Filter_Worker").appendChild(divItem);
+                        divItem.appendChild(option);
+                    }
+                   // console.log(selecteddiv);
             });
 
         });
@@ -428,8 +445,8 @@
                     // Indien transition niet werkt -> Bootstrap link wegdoen
                     $('.modal').addClass('scrolling');
                     $('.modal')
-                        .modal('setting', 'transition', 'scale')
-                        .modal('show');
+                            .modal('setting', 'transition', 'scale')
+                            .modal('show');
 
 
 
@@ -525,7 +542,7 @@
 
         });
     }
-    //--------------------filter----------------------//
+//--------------------filter----------------------//
     var FilterSection=document.getElementById("SelectedFilters");
     function PriorityChange(value)
     {
@@ -643,7 +660,7 @@
             blocks[i].style.display = "none";
         }
 
-        for(var i = 1;i< divs.length;i++)
+       for(var i = 1;i< divs.length;i++)
         {
             var filters = divs[i].id.split(".");
 
@@ -654,7 +671,7 @@
                 {
                     if(workersUL[j].firstChild.innerText == filters[1])
                     {
-                        workersUL[j].style.display = "inline-block";
+                        workersUL[j].style.display = "block";
                     }
 
 
@@ -734,16 +751,16 @@
             var workers = document.getElementById("Medewerkers").getElementsByTagName("LI");
             for(var j = 0;j<onhold.length;j++ )
             {
-                onhold[j].style.display="inline-block";
+                    onhold[j].style.display="inline-block";
             }
             for(var j = 0;j<voltooid.length;j++ )
             {
-                voltooid[j].style.display="inline-block";
+                    voltooid[j].style.display="inline-block";
 
             }
             for(var j = 0;j<taken.length;j++ )
             {
-                taken[j].style.display="inline-block";
+                    taken[j].style.display="inline-block";
             }
             for(var j = 0;j<workers.length;j++ )
             {
@@ -763,7 +780,7 @@
         for(var j = 0;j<workersUL.length;j++ )
         {
 
-            workersUL[j].style.display = "inline-block";
+            workersUL[j].style.display = "block";
 
 
 
@@ -782,25 +799,25 @@
 
 </script>
 <?php
-//connectie maken met db(mysql)
-//local
-//$mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
-//$mysqli = new mysqli('mysqlstudent','cedriclecat','ooDohQuuo2uh','cedriclecat');
-//student howest
-$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
-if ($mysqli->connect_error)
-{
+    //connectie maken met db(mysql)
+    //local
+    //$mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
+    //$mysqli = new mysqli('mysqlstudent','cedriclecat','ooDohQuuo2uh','cedriclecat');
+    //student howest
+    $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+    if ($mysqli->connect_error)
+    {
     echo "Geen connectie mogelijk met de database";
-}
-$data = array();
+    }
+    $data = array();
 ?>
 
 
 <script>    var arraymetlokalen =[]; var campussen=[]</script>
 <?php
-//alles ophalen en in array steken
-//echo 'h';
-$result = $mysqli->query("SELECT NAME FROM klassen");
+    //alles ophalen en in array steken
+    //echo 'h';
+    $result = $mysqli->query("SELECT NAME FROM klassen");
 while($row = $result->fetch_array(MYSQLI_ASSOC))
 {
     ?>
@@ -816,21 +833,21 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
         }
         function doesExist(name)
         {
-            for(var i = 0;i<campussen.length;i++)
-            {
-                if(name == campussen[i])
-                {
-                    return false;
-                }
-            }
+           for(var i = 0;i<campussen.length;i++)
+           {
+               if(name == campussen[i])
+               {
+                   return false;
+               }
+           }
             return true;
         }
     </script>
     <?php
-    // array_push($data['merken'],$row);
-}
-//connectie sluiten
-$mysqli->close();
+       // array_push($data['merken'],$row);
+    }
+    //connectie sluiten
+    $mysqli->close();
 ?>
 <script>
     //console.log(arraymetlokalen);
@@ -843,27 +860,27 @@ $mysqli->close();
     for(var i = 0;i<campussen.length;i++) {
 
         /* Nieuwe code -> Bug moet nog opgelost worden 'mutable variable i'
-         var divItem = document.createElement("div");
-         divItem.className = "ui item";
-         divItem.onclick = function (){CampusChange(campussen[i])};
+        var divItem = document.createElement("div");
+        divItem.className = "ui item";
+        divItem.onclick = function (){CampusChange(campussen[i])};
 
-         var option = document.createElement("OPTION");
-         option.setAttribute("value", campussen[i]);
-         option.setAttribute("name", campussen[i]);
-         option.innerHTML = campussen[i];
+        var option = document.createElement("OPTION");
+        option.setAttribute("value", campussen[i]);
+        option.setAttribute("name", campussen[i]);
+        option.innerHTML = campussen[i];
 
-         document.getElementById("Filter_Campussen").appendChild(divItem);
-         divItem.appendChild(option);
+        document.getElementById("Filter_Campussen").appendChild(divItem);
+        divItem.appendChild(option);
 
-         //console.log(divItem.childNodes[0].getAttribute("value"));
-         //console.log(campussen[i]);*/
+        //console.log(divItem.childNodes[0].getAttribute("value"));
+        //console.log(campussen[i]);*/
 
         /* OUDE CODE */
-        var option = document.createElement("OPTION");
-        option.setAttribute("value",campussen[i]);
-        option.innerHTML = campussen[i];
-        document.getElementById("Filter_Campussen").appendChild(option);
-        console.log(campussen[i]);
+         var option = document.createElement("OPTION");
+         option.setAttribute("value",campussen[i]);
+         option.innerHTML = campussen[i];
+         document.getElementById("Filter_Campussen").appendChild(option);
+         console.log(campussen[i]);
     }
 </script>
 </body>

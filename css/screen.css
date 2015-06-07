@@ -430,7 +430,6 @@ margin-top: 150px;
     width: 60%;
 }
 
-
 #Filter1 {
     margin-left: 100px;
 }
@@ -443,6 +442,10 @@ margin-top: 150px;
     border-radius: 4px;
     padding: 10px;
     border: 1px solid #cccccc;
+}
+
+header {
+    z-index: 1;
 }
 
 main#Overzicht_Takenlijst section#SelectedFilters {
@@ -461,10 +464,6 @@ main#Overzicht_Takenlijst h1 {
 
 main#Overzicht_Takenlijst section#Filters p {
     margin-left: 100px;
-}
-
-header {
-    z-index: 100000;
 }
 
 
@@ -524,6 +523,11 @@ ul li.card {
     font-weight: 400 !important;
 }
 
+.draglist {
+    max-width: 400px;
+}
+
+
 .lastcard {
     list-style-type: none;
     background-color: #ffffff;
@@ -540,10 +544,6 @@ ul li.card {
     list-style-type: none;
     width: 250px;
     max-width: 250px;
-}
-
-.draglist {
-    max-width: 400px;
 }
 
 main#Overzicht_Takenlijst section.Section_Float {

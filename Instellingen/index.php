@@ -1,9 +1,43 @@
 <script>
     mydata= [];
+    myexternaldata = [];
 
 </script>
-
+<script>
 <?php
+
+$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+
+//controleren op fouten
+//echo "h";
+if ($mysqli->connect_error)
+{
+    echo "Geen connectie mogelijk met de database";
+}
+$dataint = array();
+$dataext = array();
+
+$result = $mysqli->query("SELECT Naam, NaamBedrijf, Adres, Telefoon, Emailadres FROM external");
+
+//print $_COOKIE['inlognaam'];
+while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+    ?>
+
+        dat = [];
+        dat.push('<?php print $row['Naam'];?>');
+        dat.push('<?php print $row['NaamBedrijf'] ?>');
+        dat.push('<?php print $row['Adres'] ?>');
+        dat.push('<?php print $row['Telefoon'] ?>');
+        dat.push('<?php print $row['Emailadres'] ?>');
+        myexternaldata.push(dat);
+
+    <?php
+}
+
+//connectie sluiten
+$mysqli->close();
+
+
 $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
 
 //controleren op fouten
@@ -44,12 +78,12 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 }
 
 ?>
-<script>
+
     dat = [];
     dat.push('<?php print $row['userPrincipalName'];?>');
 dat.push('<?php print $row['ROL'] ?>');
 mydata.push(dat);
-</script>
+
 
 
       <?php
@@ -64,6 +98,7 @@ print_r($dataext);*/
 //connectie sluiten
 $mysqli->close();
 ?>
+</script>
 
 
 <!DOCTYPE html>
@@ -99,12 +134,21 @@ $mysqli->close();
         <h1>Instellingen</h1>
         <section id="Toevoegen">
 
-            <p>Zoeken op: </p>
+            <p>Zoeken op internal: </p>
 
                 <input type="text" name="Filter_Naam" id="Filter_Naam" placeholder="Naam" onkeyup="naamChange(this.value)" />
                 <!-- <input type="text" name="Filter_Naam_Medewerker" id="Filter_Naam_Medewerker" placeholder="Naam medewerker.."/>-->
                 <input type="text" name="Filter_email" id="Filter_email" placeholder="email" onkeyup="emailChange(this.value)" />
                 <input type="text" name="Filter_rechten" id="Filter_rechten" placeholder="rechten" onkeyup="rechtenChange(this.value)" />
+            <div class="clearfix"></div>
+            <p>Zoeken op external: </p>
+
+            <input type="text" name="Filter_eNaam" id="Filter_eNaam" placeholder="Naam" onkeyup="naamChangeext(this.value)" />
+            <input type="text" name="Filter_ebedrijf" id="Filter_ebedrijf" placeholder="bedrijf" onkeyup="bedrijfChangeext(this.value)" />
+            <input type="text" name="Filter_eadres" id="Filter_eadres" placeholder="adres" onkeyup="adresChangeext(this.value)" />
+            <input type="text" name="Filter_etel" id="Filter_etel" placeholder="telefoon" onkeyup="telChangeext(this.value)" />
+            <input type="text" name="Filter_eemail" id="Filter_eemail" placeholder="email" onkeyup="emailChangeext(this.value)" />
+
             <div class="clearfix"></div>
             <div id="Add_Werknemer" class="ui small primary labeled icon button">
                 <i class="user icon"></i> Voeg werknemer toe
@@ -115,6 +159,7 @@ $mysqli->close();
             </div>
             <div class="clearfix"></div>
         </section>
+
 
         <section id="Tabel">
             <h2>Beheer rechten van personeel</h2>
@@ -134,27 +179,11 @@ $mysqli->close();
                     <td>jhlilk22@yahoo.com</td>
                     <td>Docent</td>
                 </tr>
-                <tr>
-                    <td>Jamie Harington</td>
-                    <td>jamieharingonton@yahoo.com</td>
-                    <td>Werknemer</td>
-                </tr>
-                <tr>
-                    <td>Jill Lewis</td>
-                    <td>jilsewris22@yahoo.com</td>
-                    <td>Onthaal</td>
-                </tr>
-                <tr>
-                    <td>Jill Lewis</td>
-                    <td>jilsewris22@yahoo.com</td>
-                    <td>Admin</td>
-                </tr>
-
                 -->
                 </tbody>
             </table>
             <h3>Externe werknemers</h3>
-            <table class="ui table table2">
+            <table class="ui table table2" >
                 <thead>
                 <tr>
                     <th>Naam</th>
@@ -162,37 +191,18 @@ $mysqli->close();
                     <th>Adres</th>
                     <th>Telefoon nr.</th>
                     <th>E-mail adres</th>
+                    <th>bewerk</th>
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
+                <tbody id="DynamicExtern">
+               <!--- <tr>
                     <td>John Lilki</td>
                     <td>September 14, 2013</td>
                     <td>jhlilk22@yahoo.com</td>
                     <td>jhlilk22@yahoo.com</td>
                     <td>Docent</td>
                 </tr>
-                <tr>
-                    <td>Jamie Harington</td>
-                    <td>January 11, 2014</td>
-                    <td>jamieharingonton@yahoo.com</td>
-                    <td>jamieharingonton@yahoo.com</td>
-                    <td>Werknemer</td>
-                </tr>
-                <tr>
-                    <td>Jill Lewis</td>
-                    <td>May 11, 2014</td>
-                    <td>May 11, 2014</td>
-                    <td>jilsewris22@yahoo.com</td>
-                    <td>Onthaal</td>
-                </tr>
-                <tr>
-                    <td>Jill Lewis</td>
-                    <td>Jill Lewis</td>
-                    <td>May 11, 2014</td>
-                    <td>jilsewris22@yahoo.com</td>
-                    <td>Admin</td>
-                </tr>
+                -->
                 </tbody>
             </table>
         </section>
@@ -204,12 +214,14 @@ $mysqli->close();
     //array met data =  mydata
 $( document ).ready(function() { // voert de volgende data uit wanneer html is ingeladen
 fillup();
+    fillupexternal();
 });
   //  console.log(mydata); // Array[0] => array[0] naam array[1] rol
 //filter
    naam = "";
     email = "";
     rechten ="";
+enaam ="";ebedrijf="";eadres="";etel="";eemail="";
 
     function naamChange(value)
     {
@@ -241,8 +253,6 @@ function rechtenChange(value)
         fillup();
     }
 };
-
-
 
 function fillup(){
 table = document.getElementById('DynamicIntern');
@@ -401,4 +411,216 @@ function saverow(el){
 
 }
 
+function maakitemexternal(table, naam, naambedrjf, adres, telefoon,email){
+    var tr =  document.createElement("tr");
+    var td1 = document.createElement("td");
+    td1.appendChild(document.createTextNode(naam));
+    var td2 = document.createElement("td");
+    td2.appendChild(document.createTextNode(naambedrjf));
+    var td3 = document.createElement("td");
+    td3.appendChild(document.createTextNode(adres));
+    var td4 = document.createElement("td");
+    td4.appendChild(document.createTextNode(telefoon));
+    var td5 = document.createElement("td");
+    td5.appendChild(document.createTextNode(email));
+    var td6 = document.createElement("i");
+    td6.className="write icon";
+    td6.addEventListener("click",function() {
+ //       dosomething(tr);
+        dosomethingext(tr);
+
+    });
+
+
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td4);
+    tr.appendChild(td5);
+    tr.appendChild(td6);
+    table.appendChild(tr);
+}
+
+function fillupexternal(){
+
+    table = document.getElementById('DynamicExtern');
+    //verwijder alles in table
+
+    var element = table.firstChild;
+
+    while( element ) {
+        table.removeChild(element);
+        element = table.firstChild;
+    }
+
+console.log(myexternaldata);
+    $.each(myexternaldata,function(ix,ar) {
+        fnaam = "";
+        fbedrijf = "";
+        fadres = "";
+        ftel = "";
+        femail = "";
+        $.each(ar, function (i, fill) {
+
+
+            if (i == 0) {
+                fnaam = fill;
+
+            } else if (i == 1) {
+                fbedrijf = fill;
+            } else if (i == 2) {
+                fadres = fill;
+            } else if (i == 3) {
+                ftel = fill;
+            } else if (i == 4) {
+                femail = fill;
+            }
+
+        });
+
+
+        //a = filnaam.split('@');
+        // b = a[0];
+        // b = b.replace('.', ' ');
+
+
+        if (check(fnaam, enaam)) {
+            return;
+        } else {
+            if (check(fbedrijf, ebedrijf)) {
+                return;
+            } else {
+                if (check(fadres, eadres)) {
+                    return;
+                } else {
+                    if (check(ftel, etel)) {
+                        return;
+                    } else {
+                        if (check(femail, eemail)) {
+                            return;
+                        } else {
+                        }
+                        //PASSED FILTERS
+                        maakitemexternal(table,fnaam,fbedrijf,fadres,ftel,femail);
+                        // console.log('maak');
+                    }
+                }
+            }
+        }
+
+
+    });
+}
+function naamChangeext(value)
+{
+    if(value != "Default")
+    {
+        // makeDiv(value,"P");
+        //Filters();
+        enaam = value.replace(/\s/g, '');
+        fillupexternal();
+    }
+};
+function bedrijfChangeext(value)
+{
+    if(value != "Default")
+    {
+        // makeDiv(value,"P");
+        //Filters();
+        ebedrijf = value.replace(/\s/g, '');
+        fillupexternal();
+    }
+};
+function adresChangeext(value)
+{
+    if(value != "Default")
+    {
+        // makeDiv(value,"P");
+        //Filters();
+        eadres = value.replace(/\s/g, '');
+        fillupexternal();
+    }
+};
+function telChangeext(value)
+{
+    if(value != "Default")
+    {
+        // makeDiv(value,"P");
+        //Filters();
+        etel = value.replace(/\s/g, '');
+        fillupexternal();
+    }
+};
+function emailChangeext(value)
+{
+    if(value != "Default")
+    {
+        // makeDiv(value,"P");
+        //Filters();
+        eemail = value.replace(/\s/g, '');
+        fillupexternal();
+    }
+};
+
+function dosomethingext(eml){
+    console.log(eml);
+    //var naam = el.childNodes[1].innerText;
+    console.log(eml.firstChild);
+    console.log(eml.childNodes);
+  //  $.each(eml.childNodes,function(ix,a){
+    var tell = 0;
+    console.log(eml.childElementCount);
+    
+        for(ix = 0; ix<eml.childElementCount;ix++){
+            a = eml.childNodes[ix];
+        if(ix=5){
+            var newicon = document.createElement("i");
+            newicon.className = "save icon";
+            newicon.addEventListener("click",function(){
+                saverowext(eml);
+            });
+            eml.replaceChild(newicon,eml.childNodes[ix]);
+        }
+        var hoofdtd = document.createElement("td");
+      var t = a.innerText;
+        var i = document.createElement("input");
+        i.value = t;
+        hoofdtd.appendChild(i);
+        eml.replaceChild(hoofdtd,eml.childNodes[ix]);
+console.log(eml.childNodes[ix]);
+    };
+}
+
+function saverowext(el){
+    $.each(el.childNodes,function(ix,a){
+        if(ix=5){
+            var td4 = document.createElement("i");
+            td4.className="write icon";
+            td4.addEventListener("click",function() {
+                dosomethingext(el);
+
+            });
+            el.replaceChild(td4,el.childNodes[ix]);
+        }
+        var hoofdtd = document.createElement("td");
+        var t = a.value;
+        hoofdtd.appendChild(document.createTextNode(t));
+
+        eml.replaceChild(hoofdtd,el.childNodes[ix]);
+
+    });
+
+    /*
+    mylink="https://student.howest.be/wouter.dumon/test4/ChangeInst/a2fjo4(dsf558sdf.php";
+    //   window.open('#','_blank');
+//    window.open(this.href,'_self');
+
+    var url = mylink+"?naam="+naam+"&rol="+selectedvalue;
+    window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
+    window.focus();*/
+
+
+
+
+}
 </script>

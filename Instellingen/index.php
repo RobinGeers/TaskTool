@@ -279,7 +279,7 @@ if(check(b,naam)){ return;  } else{
  if(check(filrol,rechten)){ return;  }else{
         //PASSED FILTERS
 maakitem(table,b,filnaam,filrol);
-            console.log('maak');
+           // console.log('maak');
         }
         }
 }
@@ -301,7 +301,7 @@ function check(a,b){
 
        // console.log(char.indexOf(b) != -1);
         if(res.indexOf(b) != -1){
-            console.log("ja");
+          //  console.log("ja");
            gelijk = 1;
        }
 
@@ -317,14 +317,115 @@ if(gelijk ==0){return true;}
         td2.appendChild(document.createTextNode(Email));
       var td3 = document.createElement("td");
         td3.appendChild(document.createTextNode(Rechten));
+        var td4 = document.createElement("i");
+        td4.className="write icon";
+        td4.addEventListener("click",function() {
+            dosomething(tr);
+
+        });
+
+
    tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
+        tr.appendChild(td4);
         table.appendChild(tr);
     }
 
+function dosomething(eml){
+    console.log(eml);
+
+    console.log(eml.firstChild);
+console.log(eml.childNodes);
+    var hoofdtd = document.createElement("td");
+    var select = document.createElement("select");
+   // select.addEventListener('change',function(){checkbox(this.value)});
+    var nu =  eml.childNodes[2].innerText;
+
+    var option1 = document.createElement("option"); option1.appendChild(document.createTextNode("Basic")); option1.value = "Basic";
+    var option2 = document.createElement("option"); option2.appendChild(document.createTextNode("Onthaal")); option2.value="Onthaal";
+    var option3 = document.createElement("option"); option3.appendChild(document.createTextNode("Admin")); option3.value = "Admin";
+    var option4 = document.createElement("option"); option4.appendChild(document.createTextNode("Werkman")); option4.value = "Werkman";
+
+    switch(nu){
+        case 'Basic': option1.selected = true; break;
+        case 'Werkman': option4.selected = true; break;
+        case 'Admin': option3.selected = true; break;
+        case 'Onthaal': option2.selected = true; break;
+        default: break;
+
+    }
+  //  td1.innerText = "test";
+    select.appendChild(option1);
+    select.appendChild(option4);
+    select.appendChild(option2);
+    select.appendChild(option3);
+    hoofdtd.appendChild(select);
+    eml.replaceChild(hoofdtd,eml.childNodes[2]);
+    var newicon = document.createElement("i");
+    newicon.className = "save icon";
+    newicon.addEventListener("click",function(){
+       saverow(eml);
+    });
+    eml.replaceChild(newicon,eml.childNodes[3]);
+    //table = document.getElementById('DynamicIntern');
+   /* $.each(eml.childNodes,function(ix, array){
+        console.log(ix + "  " + array.htm);
+    });*/
+
+}
+
+function saverow(el){
+    var selectedvalue= el.childNodes[2].firstChild.value;
+    var naam = el.childNodes[1].innerText;
+    var td4 = document.createElement("i");
+    td4.className="write icon";
+    td4.addEventListener("click",function() {
+        dosomething(el);
+
+    });
+    el.replaceChild(td4,el.childNodes[3]);
+    var td3 = document.createElement("td");
+    td3.appendChild(document.createTextNode(selectedvalue));
+    el.replaceChild(td3,el.childNodes[2]);
+    <?php
+    //CODE DIE ERVOOR ZORGT DAT NAAR DATABASE WORDT VERZET
+
+
+$name = "'".
+?>
+    selectedvalue
+    <?php
+."'";
+
+$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+
+//controleren op fouten
+//echo "h";
+if ($mysqli->connect_error)
+{
+    echo "Geen connectie mogelijk met de database";
+}
+
+//$result = $mysqli->query("SELECT userPrincipalName,ROL FROM EmailsLeerkrachten");
+$stmt = $mysqli->prepare('SELECT * FROM employees WHERE name = ?');
+$stmt->bind_param('s', $name);
+
+$stmt->execute();
+
+$result = $stmt->get_result();
+while ($row = $result->fetch_assoc()) {
+    // do something with $row
+}
 
 
 
+$mysqli->close();
+
+    ?>
+
+
+
+}
 
 </script>

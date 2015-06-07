@@ -388,41 +388,14 @@ function saverow(el){
     var td3 = document.createElement("td");
     td3.appendChild(document.createTextNode(selectedvalue));
     el.replaceChild(td3,el.childNodes[2]);
-    <?php
-    //CODE DIE ERVOOR ZORGT DAT NAAR DATABASE WORDT VERZET
+    mylink="https://student.howest.be/wouter.dumon/test4/ChangeInst/a2fjo4(dsf558sdf.php";
+ //   window.open('#','_blank');
+//    window.open(this.href,'_self');
 
+    var url = mylink+"?naam="+naam+"&rol="+selectedvalue;
+    window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
+    window.focus();
 
-$name = "'".
-?>
-    selectedvalue
-    <?php
-."'";
-
-$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
-
-//controleren op fouten
-//echo "h";
-if ($mysqli->connect_error)
-{
-    echo "Geen connectie mogelijk met de database";
-}
-
-//$result = $mysqli->query("SELECT userPrincipalName,ROL FROM EmailsLeerkrachten");
-$stmt = $mysqli->prepare('SELECT * FROM employees WHERE name = ?');
-$stmt->bind_param('s', $name);
-
-$stmt->execute();
-
-$result = $stmt->get_result();
-while ($row = $result->fetch_assoc()) {
-    // do something with $row
-}
-
-
-
-$mysqli->close();
-
-    ?>
 
 
 

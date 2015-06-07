@@ -542,6 +542,10 @@ ul li.card {
     max-width: 250px;
 }
 
+.draglist {
+    max-width: 400px;
+}
+
 main#Overzicht_Takenlijst section.Section_Float {
     float: left;
     margin-right: 100px;

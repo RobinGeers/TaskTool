@@ -11,7 +11,7 @@
 <body>
     <header>
         <a href="#"></a><img src="../images/howestlogo.png" alt="Howest Logo"/>
-        <button><a href="../logout.php">Afmelden</a></button>
+        <button><a onclick="afmelden(this)">Afmelden</a></button>
 
         <div class="clearfix"></div>
     </header>
@@ -27,3 +27,17 @@
     </main>
 </body>
 </html>
+        <script>
+            function afmelden(a){
+                console.log("test");
+
+                $.ajax({
+                    url: '../logout.php',
+                    dataType: 'html',
+                    success: function(data){
+                        //data returned from php
+                        window.open("../","_self");
+                    }
+                });
+            }
+        </script>

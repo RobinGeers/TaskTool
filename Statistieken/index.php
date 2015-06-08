@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <title>TaskTool Howest | Statistieken</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-
+    <script src="../js/jquery-2.1.4.min.js"></script>
     <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
     <!--<link rel="stylesheet" href="../css/icon.min.css">!-->
@@ -17,7 +17,7 @@
     <header>
        <a href="../Overzicht/index.html"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
 
-        <button><a href="../logout.php">Afmelden</a></button>
+        <button ><a onclick="afmelden(this)">Afmelden</a></button>
         <nav>
             <ul>
                 <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>
@@ -125,3 +125,17 @@
 </main>
 </body>
 </html>
+        <script>
+            function afmelden(a){
+                console.log("test");
+
+                $.ajax({
+                    url: '../logout.php',
+                    dataType: 'html',
+                    success: function(data){
+                        //data returned from php
+                        window.open("../","_self");
+                    }
+                });
+            }
+        </script>

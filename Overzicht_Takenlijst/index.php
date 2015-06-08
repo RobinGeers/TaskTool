@@ -22,7 +22,7 @@
 <body>
 <header>
     <a href="../Overzicht/index.html"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
-    <button><a href="../logout.php">Afmelden</a></button>
+    <button><a onclick="afmelden(this)" ">Afmelden</a></button>
     <nav>
         <ul>
             <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>
@@ -188,6 +188,18 @@
         <div class="clearfix"></div>
     </main>
 <script>
+function afmelden(a){
+    console.log("test");
+
+    $.ajax({
+        url: '../logout.php',
+        dataType: 'html',
+        success: function(data){
+            //data returned from php
+            window.open("../","_self");
+        }
+    });
+}
     var APP_KEY = '23128bd41978917ab127f2d9ed741385';
     var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
     var checkKaartInmedewerker;

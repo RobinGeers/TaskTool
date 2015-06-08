@@ -143,7 +143,7 @@ $mysqli->close();
 <body>
 <header>
     <a href="../Overzicht/index.html"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
-    <button><a href="../logout.php">Afmelden</a></button>
+    <button><a onclick="afmelden(this)">Afmelden</a></button>
     <nav>
         <ul>
             <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>
@@ -268,6 +268,18 @@ $mysqli->close();
 </body>
 </html>
 <script>
+function afmelden(a){
+    console.log("test");
+
+    $.ajax({
+        url: '../logout.php',
+        dataType: 'html',
+        success: function(data){
+            //data returned from php
+            window.open("../","_self");
+        }
+    });
+}
     $('.dropdown')
         .dropdown({
             // you can use any ui transition

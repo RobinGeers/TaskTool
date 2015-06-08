@@ -334,7 +334,7 @@ $mysqli->close();
 <body>
 <header>
     <a href="../Overzicht/index.html" class="Howestlogo"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
-   <button><a href="../logout.php">Afmelden</a></button>
+   <button><a onclick="afmelden(this)">Afmelden</a></button>
     <nav>
         <ul>
             <li><a href="#">Probleem melden</a></li>
@@ -432,6 +432,18 @@ $mysqli->close();
 </script>-->
 
 <script>
+    function afmelden(a){
+        console.log("test");
+
+        $.ajax({
+            url: '../logout.php',
+            dataType: 'html',
+            success: function(data){
+                //data returned from php
+                window.open("../","_self");
+            }
+        });
+    }
 /*
     var btn = document.getElementById("submit");
     var article = document.getElementById("Article");

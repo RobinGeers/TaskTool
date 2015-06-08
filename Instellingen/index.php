@@ -110,6 +110,7 @@ $mysqli->close();
     <meta charset="UTF-8">
     <title>TaskTool Howest | Instellingen</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+<<<<<<< HEAD
 
     <link rel="stylesheet" href="../css/icon.min.css">
     <link rel="stylesheet" href="../css/transition.min.css">
@@ -125,6 +126,19 @@ $mysqli->close();
 
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+=======
+    <link rel="stylesheet" href="../css/icon.min.css">
+    <link rel="stylesheet" href="../css/transition.min.css">
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+    <script src="../js/scripts.js"></script>
+    <script src="../js/semantic.min.js"></script>
+    <script src="../js/transition.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+>>>>>>> origin/master
     <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
 
@@ -132,7 +146,7 @@ $mysqli->close();
 <body>
 <header>
     <a href="../Overzicht/index.html"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
-    <button><a href="../index.php">Afmelden</a></button>
+    <button><a href="../logout.php">Afmelden</a></button>
     <nav>
         <ul>
             <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>
@@ -172,6 +186,87 @@ $mysqli->close();
             </div>
             <div class="clearfix"></div>
         </section>
+
+        <!-- Pop-up Window !-->
+        <div id="modal_intern" class="ui test modal transition" style="z-index: 100000;">
+            <!-- TODO: Close icon zoeken !-->
+            <i id="close_Popup" class="close icon"></i>
+            <div class="header">
+                Werknemer toevoegen
+            </div>
+            <div class="content">
+                <div class="left">
+                    <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
+                </div>
+                <div class="right" id="Werknemer_Info">
+                    <input type="text" placeholder="Naam werknemer"/>
+                    <input type="text" placeholder="E-mail adres"/>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="gender">
+                        <div class="default text">Rechten</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item" data-value="0">Basic</div>
+                            <div class="item" data-value="1">Werkman</div>
+                            <div class="item" data-value="2">Onthaal</div>
+                            <div class="item" data-value="3">Admin</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="actions">
+                <div class="ui black button">
+                    Annuleer
+                </div>
+                <div id="btnOpslaan_Intern" class="ui positive right labeled icon button">
+                    Maak werknemer <i class="checkmark icon"></i>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
+
+        <!-- Pop-up Window !-->
+        <div id="modal_extern" class="ui test modal transition" style="z-index: 100000;">
+            <!-- TODO: Close icon zoeken !-->
+            <i id="close_Popup" class="close icon"></i>
+            <div class="header">
+                Werknemer toevoegen
+            </div>
+            <div class="content">
+                <div class="left">
+                    <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
+                </div>
+                <div class="right" id="Werknemer_Info">
+                    <input id="Naam_Werknemer" type="text" placeholder="Naam werknemer"/>
+                    <input id="Naam_Bedrijf" type="text" placeholder="Naam bedrijf"/>
+                    <input id="Adres" type="text" placeholder="Adres"/>
+                    <input id="Tel_Nr" type="text" placeholder="Telefoon nr."/>
+                    <input id="E-mail_Adres" type="text" placeholder="E-mail adres"/>
+                    <div class="ui selection dropdown">
+                        <input type="hidden" name="gender">
+                        <div class="default text">Rechten</div>
+                        <i class="dropdown icon"></i>
+                        <div class="menu">
+                            <div class="item" data-value="0">Basic</div>
+                            <div class="item" data-value="1">Werkman</div>
+                            <div class="item" data-value="2">Onthaal</div>
+                            <div class="item" data-value="3">Admin</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+            <div class="actions">
+                <div class="ui black button">
+                    Annuleer
+                </div>
+                <div id="btnOpslaan_Extern" class="ui positive right labeled icon button">
+                    Maak werknemer <i class="checkmark icon"></i>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+        </div>
 
 
         <section id="Tabel">
@@ -223,6 +318,56 @@ $mysqli->close();
 </body>
 </html>
 <script>
+    $('.dropdown')
+        .dropdown({
+            // you can use any ui transition
+            transition: 'drop'
+        })
+    ;
+
+    document.getElementById("Add_Werknemer").addEventListener("click", function(){
+
+        // Indien transition niet werkt -> Bootstrap link wegdoen
+        $('#modal_intern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
+        $('#modal_intern')
+            .modal('setting', 'transition', 'scale')
+            .modal('show');
+
+    }, false);
+
+    document.getElementById("Add_Externe_Werknemer").addEventListener("click", function(){
+
+        // Indien transition niet werkt -> Bootstrap link wegdoen
+        $('#modal_extern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
+        $('#modal_extern')
+            .modal('setting', 'transition', 'scale')
+            .modal('show');
+
+    }, false);
+
+    var id = 3;
+    document.getElementById("btnOpslaan_Extern").addEventListener("click", function(){
+
+        var table = document.getElementById("DynamicExtern");
+        var naamWerknemer = document.getElementById("Naam_Werknemer").value;
+        var naamBedrijf  = document.getElementById("Naam_Bedrijf").value;
+        var adres = document.getElementById("Adres").value;
+        var telNr = document.getElementById("Tel_Nr").value;
+        var emailAdres = document.getElementById("E-mail_Adres").value;
+        //var rechten = document.getElementById("").value;
+
+        id++;
+        mylink="https://student.howest.be/robin.geers/TaskTool/ChangeInst/djfqs5dfqs5df46qsd4.php";
+
+        var url = mylink+"?naam="+naamWerknemer+"&bedrijf="+naamBedrijf+"&adres="+adres+"&tel="+telNr+"&email="+emailAdres;
+        //
+        window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
+        window.focus();
+        maakitemexternal(table, naamWerknemer, naamBedrijf, adres, telNr, emailAdres, id);
+
+    });
+
+
 $( document ).ready(function() { // voert de volgende data uit wanneer html is ingeladen
 
     fillup();

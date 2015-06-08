@@ -839,6 +839,17 @@ main#Instellingen section#Tabel table.table {
     margin: 0 auto;
 }
 
+.write.icon {
+    color: #3b83c0;
+    font-size: 1.5em;
+    cursor: pointer;
+}
+.ib{
+    display: inline-block;
+}
+.ibb:hover{
+    cursor: hand;
+}
 #Add_Externe_Werknemer {
     margin-top: 20px;
 }

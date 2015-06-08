@@ -164,7 +164,7 @@ $mysqli->close();
 
         <section id="Tabel">
             <h2>Beheer rechten van personeel</h2>
-            <h3>Werknemers van Howest</h3>
+            <h3 class="ib" >Werknemers van Howest</h3> <p id="hideintern" class="ib ibb" onclick="hideint(this)">hide/show</p>
             <table class="ui table">
                 <thead>
                 <tr>
@@ -183,7 +183,7 @@ $mysqli->close();
                 -->
                 </tbody>
             </table>
-            <h3>Externe werknemers</h3>
+            <h3 class="ib">Externe werknemers</h3> <p id="hideextern" class="ib ibb" onclick="hideext(this)">hide/show</p>
             <table class="ui table table2" >
                 <thead>
                 <tr>
@@ -211,10 +211,45 @@ $mysqli->close();
 </body>
 </html>
 <script>
+var de = 0;
+var di=0;
+function hideint(x){
+
+    var ge = document.getElementById("DynamicIntern");
+    if(de==0){de=1;ge.style.display="none"; }else if(de==1){de=0;ge.style.display="";}
+
+
+}
+function hideext(x){
+    var ge = document.getElementById("DynamicExtern");
+    if(di==0){di=1;ge.style.display="none";}else if(di==1){di=0;ge.style.display="";}
+}
 //script dat voor ervoor zorgt dat filters werken op en data wordt ingeladen
     //array met data =  mydata
 $( document ).ready(function() { // voert de volgende data uit wanneer html is ingeladen
-fillup();
+/*var hi = document.getElementById("hideintern");
+var he = document.getElementById("hideextern");
+var di = 0;
+    var dx = 0;
+    hi.addEventListener("click",function(){
+    var ge = document.getElementById("DynamicIntern");
+if(di==0){di=1;ge.display="none";}
+if(di==1){di=0;ge.display="block";}
+
+
+});
+
+    he.addEventListener("click",function(){
+        var ge = document.getElementById("DynamicExtern");
+        if(di==0){di=1;ge.display="none";}
+        if(di==1){di=0;ge.display="block";}
+
+
+    });
+
+*/
+
+    fillup();
     fillupexternal();
 });
   //  console.log(mydata); // Array[0] => array[0] naam array[1] rol
@@ -308,8 +343,6 @@ function check(a,b){
  //   console.log(z);
   //  $.each(z,function(ix,char){
       // console.log(char);
-  //  var found = $.inArray('specialword', categories) > -1;
-
        // console.log(char.indexOf(b) != -1);
         if(res.indexOf(b) != -1){
           //  console.log("ja");
@@ -328,9 +361,11 @@ if(gelijk ==0){return true;}
         td2.appendChild(document.createTextNode(Email));
       var td3 = document.createElement("td");
         td3.appendChild(document.createTextNode(Rechten));
-        var td4 = document.createElement("i");
-        td4.className="write icon";
-        td4.addEventListener("click",function() {
+        var td4 = document.createElement("td");
+        var iWrite = document.createElement("i");
+
+        iWrite.className="write icon";
+        iWrite.addEventListener("click",function() {
             dosomething(tr);
 
         });
@@ -340,6 +375,7 @@ if(gelijk ==0){return true;}
         tr.appendChild(td2);
         tr.appendChild(td3);
         tr.appendChild(td4);
+        td4.appendChild(iWrite);
         table.appendChild(tr);
     }
 

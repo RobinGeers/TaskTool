@@ -43,23 +43,36 @@ echo "error";
             {
                 echo "Geen connectie mogelijk met de database";
             }
-            $data = array();
+            $data = "";
 
 
-$result = $mysqli->query("SELECT userPrincipalName,ROL FROM EmailsLeerkrachten where userPrincipalName ='".$bericht."'");
+$result = $mysqli->prepare("SELECT userPrincipalName,ROL FROM EmailsLeerkrachten where userPrincipalName =?");
+            echo"goed";
+            $result->bind_param('s',$bericht);
+            print $bericht;
+            $result->execute();
+            echo"goedsd";
+            $resul = $result->bind_result($data);
+            echo"goed";
+          //  while ($row = $resul->fetch_assoc()) {
 
+          /*      // use your $myrow array as you would with any other fetch
+                printf("%s is in district %s\n", $city, $myrow['district']);
+
+            }
 while($row = $result->fetch_array(MYSQLI_ASSOC))
-{
-print $row['ROL'];
+{*/
+print $data;
 
 
         //cookie aanmaken
-        setcookie("rol",hash('sha256', $row['ROL']), time()+25920000);
-    print hash('sha256', $row['ROL']);
+        setcookie("rol",hash('sha256',$data), time()+25920000);
+    print("gelukt");
+    print hash('sha256', $data);
         //cookie verwijderen
       //  setcookie("rol", "", time()-3600);
 
-switch ($row['ROL']){
+switch ($data){
     case 'Basic':
         //mag alleen op meld defect
         break;
@@ -77,7 +90,7 @@ switch ($row['ROL']){
 }
     // print_r($row['NAME']);
     // array_push($data['merken'],$row);
-}
+//}
 //connectie sluiten
 $mysqli->close();
 

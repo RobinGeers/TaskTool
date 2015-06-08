@@ -124,43 +124,16 @@
                     <option value="Default">Campus</option>
                 </select>
 
-                <!-- Filter op Campussen
-                 TODO: Helemaal onderaan in de code bug oplossen (Mutable variable i)
-                <div class="ui floating dropdown labeled icon button">
-                    <i class="filter icon"></i>
-                    <span class="text">Filter campus</span>
-                    <div class="menu" id="Filter_Campussen">
-                        <div value="Default" class="header">
-                            <i class="tags icon"></i>
-                            Campus
-                        </div>
-                    </div>
-                </div>!-->
+
 
             </section>
 
             <section id="Filters_Zoek">
                 <!--<input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."/>!-->
-
-                <div id="Filter_Taak" class="ui floating dropdown labeled search icon button">
-                    <i class="search icon"></i>
-                    <span class="text">Titel taak..</span>
-                    <div class="menu">
-                        <div class="item">Ruit is kapot</div>
-                        <div class="item">Lamp moet vervangen worden</div>
-                    </div>
-                </div>
-
-                <div id="Filter_Lokaal" class="ui floating dropdown labeled search icon button">
-                    <i class="search icon"></i>
-                    <span class="text">Lokaal..</span>
-                    <div class="menu">
-                        <div class="item">A.202b</div>
-                        <div class="item">A202c</div>
-                    </div>
-                </div>
-
-                <input type="text" name="Filter_Lokaal" id="Filter_Lokaal" placeholder="Lokaal.."/>
+                <input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."OnKeyup="TitelChange
+                (this.value)"/>
+                <input type="text" name="Filter_Lokaal" id="Filter_Lokaal" placeholder="Lokaal.."
+                       OnKeyup ="LokaalChange(event,this.value)"/>
             </section>
             <div class="clearfix"></div>
         <!-- Checkbox die dynamisch aangemaakt zal worden !-->
@@ -187,8 +160,12 @@
         
         <section id="SelectedFilters">
             <div>
-                <h3>Geselecteerde Filters: </h3>
+                <h3>Geselecteerde Filters</h3>
+                <div id="TitelFilter" onclick="TitelRemove(this)">
+                    <label></label>
+                </div>
             </div>
+
         </section>
         <div class="clearfix"></div>
         <section id="Taken" class="Section_Float draglist">
@@ -597,7 +574,7 @@
         var div = document.createElement("DIV");
         div.setAttribute("class","");
         div.setAttribute("Onclick","DeleteFilter(this)");
-        div.setAttribute("id",idprefix+"."+name);
+        div.setAttribute("id",idprefix+"/"+name);
 
         var label = document.createElement("LABEL");
         label.innerHTML = name;
@@ -608,44 +585,67 @@
         FilterSection.appendChild(div);
     }
 
-
-
-    function Filters()
+    function TitelChange(value)
     {
+        var TitelFilter = document.getElementById("TitelFilter");
+        TitelFilter = TitelFilter.firstChild.nextSibling;
+        TitelFilter.innerText = value;
+        Filters();
+
+    }
+    function TitelRemove(element)
+    {
+        //console.log(element.firstChild.nextSibling);
+        element.firstChild.nextSibling.innerHTML ="";
+        Filters();
+    }
+
+    function LokaalChange(event,value)
+    {
+        var code = event.keyCode;
+        if(code == 13)
+        {
+            //console.log(value);
+            makeDiv(value,"L");
+            Filters();
+        }
+
+
+    }
+
+    function Filters() {
         var divs = FilterSection.getElementsByTagName("Div");
-        var campusfilters =[];
+        var campusfilters = [];
         var priorityfilters = [];
         var workerfilters = [];
+        var lokaalfilters = [];
         var filtered = [];
 
-        for(var i = 1;i< divs.length;i++)
-        {
-            var filters = divs[i].id.split(".");
-            if(filters[0]== "P")
-            {
+        for (var i = 1; i < divs.length; i++) {
+            var filters = divs[i].id.split("/");
+            if (filters[0] == "P") {
                 priorityfilters.push(divs[i]);
 
             }
-            else if(filters[0]== "C")
-            {
+            else if (filters[0] == "C") {
                 campusfilters.push(divs[i]);
             }
-            else if(filters[0] == "W")
-            {
+            else if (filters[0] == "W") {
                 workerfilters.push(divs[i]);
+            }
+
+            else if (filters[0] == "L") {
+                lokaalfilters.push(divs[i]);
             }
         }
 
         var workersUL = document.getElementById("Medewerkers").getElementsByTagName("UL");
 
-        if(workerfilters.length <= 0)
-        {
+        if (workerfilters.length <= 0) {
             SetWorkersVisible();
         }
-        else
-        {
-            for(var i = 0;i<workersUL.length;i++)
-            {
+        else {
+            for (var i = 0; i < workersUL.length; i++) {
                 workersUL[i].style.display = "none";
             }
         }
@@ -655,45 +655,37 @@
         var taken = document.getElementById("Taken").getElementsByTagName("LI");
         var workers = document.getElementById("Medewerkers").getElementsByTagName("LI");
         var blocks = [];
-        for(var j = 0;j<onhold.length;j++ )
-        {
+        for (var j = 0; j < onhold.length; j++) {
             blocks.push(onhold[j]);
         }
-        for(var j = 0;j<voltooid.length;j++ )
-        {
+        for (var j = 0; j < voltooid.length; j++) {
             blocks.push(voltooid[j]);
         }
-        for(var j = 0;j<taken.length;j++ )
-        {
+        for (var j = 0; j < taken.length; j++) {
             blocks.push(taken[j]);
         }
-        for(var j = 0;j<workers.length;j++ )
-        {
+        for (var j = 0; j < workers.length; j++) {
 
-            if(workers[j].firstChild.nextSibling.firstChild!=null)
-            {
+            if (workers[j].firstChild.nextSibling.firstChild != null) {
                 blocks.push(workers[j]);
             }
         }
         //allemaal afzetten
 
-        for(var i = 0;i<blocks.length;i++)
-        {
+        for (var i = 0; i < blocks.length; i++) {
             blocks[i].style.display = "none";
         }
 
-       for(var i = 1;i< divs.length;i++)
-        {
-            var filters = divs[i].id.split(".");
+        for (var i = 1; i < divs.length; i++) {
+            var filters = divs[i].id.split("/" +
+            "");
 
 
-            if(filters[0]== "W")            {
+            if (filters[0] == "W") {
 
-                for(var j = 0;j<workersUL.length;j++ )
-                {
-                    if(workersUL[j].firstChild.innerText == filters[1])
-                    {
-                        workersUL[j].style.display = "block";
+                for (var j = 0; j < workersUL.length; j++) {
+                    if (workersUL[j].firstChild.innerText == filters[1]) {
+                        workersUL[j].style.display = "inline-block";
                     }
 
 
@@ -701,19 +693,22 @@
             }
         }
 
-        for(var i = 0;i< priorityfilters.length;i++)
-        {
+        for (var i = 0; i < priorityfilters.length; i++) {
 
             var priority;
-            if(priorityfilters[i].id.split(".")[1] == "Niet dringend"){priority = "liBorderL";}
-            if(priorityfilters[i].id.split(".")[1] == "Dringend"){priority = "liBorderG";}
-            else if(priorityfilters[i].id.split(".")[1] == "Direct"){priority = "liBorderH";}
+            if (priorityfilters[i].id.split("/")[1] == "Niet dringend") {
+                priority = "liBorderL";
+            }
+            if (priorityfilters[i].id.split("/")[1] == "Dringend") {
+                priority = "liBorderG";
+            }
+            else if (priorityfilters[i].id.split("/")[1] == "Direct") {
+                priority = "liBorderH";
+            }
 
 
-            for(var j = 0;j<blocks.length;j++ )
-            {
-                if(blocks[j].className.split(" ")[3] == priority)
-                {
+            for (var j = 0; j < blocks.length; j++) {
+                if (blocks[j].className.split(" ")[3] == priority) {
                     //onhold[j].style.display="inline-block";
                     filtered.push(blocks[j]);
                 }
@@ -721,27 +716,23 @@
 
         }
 
-        if(priorityfilters.length <=0)
-        {
+        if (priorityfilters.length <= 0) {
             filtered = blocks;
 
         }
 
 
-        var filtered1= [];
-        for(var i = 0;i< campusfilters.length;i++)
-        {
-            var filters = campusfilters[i].id.split(".");
+        var filtered1 = [];
+        for (var i = 0; i < campusfilters.length; i++) {
+            var filters = campusfilters[i].id.split("/");
 
 
-            for( var j = 0;j<filtered.length;j++)
-            {
+            for (var j = 0; j < filtered.length; j++) {
 
                 var campus = filtered[j].firstChild.nextSibling.firstChild.innerHTML.split(".")[0];
 
 
-                if(campus== filters[1])
-                {
+                if (campus == filters[1]) {
 
                     filtered1.push(filtered[j]);
                 }
@@ -749,17 +740,53 @@
 
         }
 
-
         var endfilterobjects;
-        if(filtered1.length != 0)
-        {
+        if (filtered1.length != 0) {
             endfilterobjects = filtered1;
         }
-        else
-        {
+        else if (filtered.length != 0) {
             endfilterobjects = filtered;
         }
+        else {
+            endfilterobjects = blocks;
+        }
 
+
+        var TitelFilter = document.getElementById("TitelFilter");
+        TitelFilter = TitelFilter.firstChild.nextSibling.innerHTML;
+
+        var temptitel = [];
+        for (var j = 0; j < endfilterobjects.length; j++) {
+            var titel = endfilterobjects[j].firstChild.firstChild.innerText;
+            titel = titel.toLowerCase();
+            if (titel.indexOf(TitelFilter) > -1) {
+
+
+                temptitel.push(endfilterobjects[j]);
+            }
+        }
+
+        if (temptitel.length != 0) {
+            endfilterobjects = temptitel;
+        }
+        var tempLokaal = [];
+        for (var i = 0; i < lokaalfilters.length; i++) {
+
+            for (var j = 0; j < endfilterobjects.length; j++) {
+
+                var campus = endfilterobjects[j].firstChild.nextSibling.firstChild.innerHTML;
+                //console.log(campus,lokaalfilters[i]);
+                if (campus == lokaalfilters[i].id.split("/")[1]) {
+                    tempLokaal.push(endfilterobjects[j]);
+
+                }
+            }
+        }
+        console.log(tempLokaal);
+        if (tempLokaal.length != 0)
+        {
+            endfilterobjects = tempLokaal;
+        }
 
         for( var i = 0;i<endfilterobjects.length;i++)
         {
@@ -773,16 +800,16 @@
             var workers = document.getElementById("Medewerkers").getElementsByTagName("LI");
             for(var j = 0;j<onhold.length;j++ )
             {
-                    onhold[j].style.display="inline-block";
+                onhold[j].style.display="inline-block";
             }
             for(var j = 0;j<voltooid.length;j++ )
             {
-                    voltooid[j].style.display="inline-block";
+                voltooid[j].style.display="inline-block";
 
             }
             for(var j = 0;j<taken.length;j++ )
             {
-                    taken[j].style.display="inline-block";
+                taken[j].style.display="inline-block";
             }
             for(var j = 0;j<workers.length;j++ )
             {
@@ -794,6 +821,7 @@
             SetWorkersVisible();
         }
     }
+
 
 
     function SetWorkersVisible()
@@ -823,10 +851,10 @@
 <?php
     //connectie maken met db(mysql)
     //local
-    //$mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
+    $mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
     //$mysqli = new mysqli('mysqlstudent','cedriclecat','ooDohQuuo2uh','cedriclecat');
     //student howest
-    $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+    //$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
     if ($mysqli->connect_error)
     {
     echo "Geen connectie mogelijk met de database";

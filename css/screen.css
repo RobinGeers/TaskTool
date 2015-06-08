@@ -800,11 +800,11 @@ section#Werknemers label {
     cursor: pointer;
 }
 
-section#Werknemers div#Legende1 div#GeneratedLegende ul li {
+section#Werknemers div#Legende1 div#GeneratedLegende ul li, div#Legende2 div#GeneratedLegende2 ul li {
     list-style-type: none;
 }
 
-section#Werknemers div#Legende1 div#GeneratedLegende ul li span {
+section#Werknemers div#Legende1 div#GeneratedLegende ul li span, div#Legende2 div#GeneratedLegende2 ul li span  {
     padding: 5px;
     margin-right: 5px;
     display: inline-block;

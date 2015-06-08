@@ -1,6 +1,8 @@
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
+    vinkAlleWerknemersAan();
+    kleurWerknemers();
     toonGrafiek1();
     toonGrafiek2();
 
@@ -27,10 +29,55 @@ document.addEventListener("DOMContentLoaded", function(event) {
     };*/
 });
 
+function vinkAlleWerknemersAan() {
+    document.getElementById("Bennie").checked = true;
+    document.getElementById("Alain").checked = true;
+    document.getElementById("Erik").checked = true;
+    document.getElementById("Jef").checked = true;
+}
+
+function kleurWerknemers() {
+    if (document.getElementById("Bennie").checked) {
+        document.getElementById("Checkbox1").style.backgroundColor = "#337ab7";
+        document.getElementById("Checkbox1").style.border = "1px solid #337ab7";
+        document.getElementById("Checkbox1").style.color = "#ffffff";
+    }
+    else {
+        document.getElementById("Checkbox1").style.border = "none";
+    }
+
+    if (document.getElementById("Alain").checked) {
+        document.getElementById("Checkbox2").style.backgroundColor = "#337ab7";
+        document.getElementById("Checkbox2").style.border = "1px solid #337ab7";
+        document.getElementById("Checkbox2").style.color = "#ffffff";
+    }
+    else {
+        document.getElementById("Checkbox2").style.border = "none";
+    }
+
+    if (document.getElementById("Erik").checked) {
+        document.getElementById("Checkbox3").style.backgroundColor = "#337ab7";
+        document.getElementById("Checkbox3").style.border = "1px solid #337ab7";
+        document.getElementById("Checkbox3").style.color = "#ffffff";
+    }
+    else {
+        document.getElementById("Checkbox3").style.border = "none";
+    }
+
+    if (document.getElementById("Jef").checked) {
+        document.getElementById("Checkbox4").style.backgroundColor = "#337ab7";
+        document.getElementById("Checkbox4").style.border = "1px solid #337ab7";
+        document.getElementById("Checkbox4").style.color = "#ffffff";
+    }
+    else {
+        document.getElementById("Checkbox4").style.border = "none";
+    }
+}
+
 function toonGrafiek1() {
     // Grafiek voltooide taken per werknemer
     var ctx = document.getElementById("myChart1").getContext("2d");
-    data = {
+  /*  data = {
         labels: ["Januari", "Februari", "Maart", "April", "Mei", "Juni", "Juli", "Augustus", "September", "November", "December"],
         datasets: [
             {
@@ -74,13 +121,13 @@ function toonGrafiek1() {
                 data: [18, 38, 30, 9, 55, 17, 80, 10, 5, 25, 10]
             }
         ]
-    };
+    };*/
 
     var dataPie = [
 
     ];
 
-    var optionsLine = {
+   /* var optionsLine = {
 
         ///Boolean - Whether grid lines are shown across the chart
         scaleShowGridLines : true,
@@ -127,7 +174,7 @@ function toonGrafiek1() {
         //String - A legend template
         legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].strokeColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
-    };
+    };*/
 
     var optionsPie = {
         //Boolean - Whether we should show a stroke on each segment
@@ -159,7 +206,7 @@ function toonGrafiek1() {
 
     };
 
-    var optionsBar = {
+    /* var optionsBar = {
         //Boolean - Whether the scale should start at zero, or an order of magnitude down from the lowest value
         scaleBeginAtZero : true,
 
@@ -193,9 +240,9 @@ function toonGrafiek1() {
         //String - A legend template
         legendTemplate : "<ul class=\"<%=name.toLowerCase()%>-legend\"><% for (var i=0; i<datasets.length; i++){%><li><span style=\"background-color:<%=datasets[i].fillColor%>\"></span><%if(datasets[i].label){%><%=datasets[i].label%><%}%></li><%}%></ul>"
 
-    };
+    };*/
 
-    var dataLineBennie = {
+  /*  var dataLineBennie = {
         label: "Bennie",
         fillColor: "rgba(230, 126, 34,0.2)",
         strokeColor: "rgba(230, 126, 34,1)",
@@ -237,16 +284,16 @@ function toonGrafiek1() {
         pointHighlightFill: "#fff",
         pointHighlightStroke: "rgba(30, 139, 195,1)",
         data: [18, 38, 30, 9, 55, 17, 80, 10, 5, 25, 10]
-    };
+    };*/
 
     // Toon standaard Line Chart
-    myLineChart = new Chart(ctx).Line(data, optionsLine);
+    myLineChart = new Chart(ctx).Pie(dataPie, optionsPie);
 
     // Toon legende van standaard grafiek
     toonLegende(myLineChart);
     myLineChart.update();
 
-    // Indien geklikt op Pie Chart
+  /*  // Indien geklikt op Pie Chart
     document.getElementById("Pie_Chart").addEventListener("click", function(){
         myLineChart.destroy();
         myLineChart = new Chart(ctx).Pie(dataPie, optionsPie);
@@ -278,7 +325,7 @@ function toonGrafiek1() {
         // Toon legende van grafiek
         toonLegende(myLineChart);
 
-    }, false);
+    }, false);*/
 
     // Toon statistieken van geselecteerde werknemers
 
@@ -338,23 +385,44 @@ function toonGrafiek1() {
 
 
     // Geklikt op Bennie
+    if (checkBennie.checked) {
+        toonData(checkboxDiv1, dataPie, dataBennie, myLineChart);
+    }
+
+    if (checkAlain.checked) {
+        toonData(checkboxDiv2, dataPie, dataAlain, myLineChart);
+    }
+
+    if (checkErik.checked) {
+        toonData(checkboxDiv3, dataPie, dataErik, myLineChart);
+    }
+
+    if (checkJef.checked) {
+        toonData(checkboxDiv4, dataPie, dataJef, myLineChart);
+    }
+
+    // addEventListeners MOETEN blijven staan -> Anders verdwijnt werknemer niet als je er op klikt
     checkBennie.addEventListener("change", function(){
         toonData(checkboxDiv1, dataPie, dataBennie, myLineChart);
+        kleurWerknemers();
     }, false);
 
     // Geklikt op Alain
     checkAlain.addEventListener("change", function(){
         toonData(checkboxDiv2, dataPie, dataAlain, myLineChart);
+        kleurWerknemers();
     }, false);
 
-    // Geklikt op Eric
+    // Geklikt op Erik
     checkErik.addEventListener("change", function(){
         toonData(checkboxDiv3, dataPie, dataErik, myLineChart);
+        kleurWerknemers();
     }, false);
 
     // Geklikt op Jef
     checkJef.addEventListener("change", function(){
         toonData(checkboxDiv4, dataPie, dataJef, myLineChart);
+        kleurWerknemers();
     }, false);
 }
 
@@ -431,6 +499,19 @@ function toonLegende(myLineChart) {
     node.innerHTML = generatedLegende;
     divLegende.appendChild(node);
 }
+
+function toonLegende2(myLineChart) {
+
+    // Genereer legende van grafiek
+    generatedLegende = myLineChart.generateLegend();
+
+    // Haal legende element op -> Maak div, vul op met gegenereerde legende -> Hang div aan legende element
+    var divLegende = document.getElementById("Legende2");
+    var node = document.getElementById("GeneratedLegende2");
+    node.innerHTML = generatedLegende;
+    divLegende.appendChild(node);
+}
+
 
 function toonGrafiek2() {
 
@@ -513,5 +594,5 @@ function toonGrafiek2() {
     };
 
     var myLineChart2 = new Chart(ctx2).Line(data2, options2);
-
+    toonLegende2(myLineChart2);
 }

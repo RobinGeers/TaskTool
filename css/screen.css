@@ -806,6 +806,10 @@ section#WerknemersFilter label{
     margin-top: 5px;
 }
 
+#Filter_Taak, #Filter_Lokaal {
+    z-index: 0;
+}
+
 /* ----------- Instellingen ----------- */
 
 main#Instellingen h1 {

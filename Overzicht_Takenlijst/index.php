@@ -26,8 +26,8 @@
         <ul>
             <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>
             <li><a href="#">Overzicht takenlijst</a></li>
-            <li><a href="../Statistieken/">Statistieken</a></li>
-            <li><a href="">Instellingen</a></li>
+            <li><a href="../Statistieken/index.html">Statistieken</a></li>
+            <li><a href="../Instellingen/index.php">Instellingen</a></li>
         </ul>
     </nav>
     <div class="clearfix"></div>
@@ -141,7 +141,7 @@
             <section id="Filters_Zoek">
                 <!--<input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."/>!-->
 
-                <div class="ui floating dropdown labeled search icon button">
+                <div id="Filter_Taak" class="ui floating dropdown labeled search icon button">
                     <i class="search icon"></i>
                     <span class="text">Titel taak..</span>
                     <div class="menu">
@@ -150,7 +150,7 @@
                     </div>
                 </div>
 
-                <div class="ui floating dropdown labeled search icon button">
+                <div id="Filter_Lokaal" class="ui floating dropdown labeled search icon button">
                     <i class="search icon"></i>
                     <span class="text">Lokaal..</span>
                     <div class="menu">

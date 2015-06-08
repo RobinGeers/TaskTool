@@ -361,8 +361,8 @@
                         li.innerHTML = list.name;
 
                         var i = document.createElement("I");
-                        i.setAttribute("class","fa fa-print");
-
+                        i.setAttribute("class","ui print icon");
+                        i.setAttribute("onclick","PrintTasks(this)");
 
                         li.appendChild(i);
                         unorderedlist.appendChild(li);
@@ -468,6 +468,11 @@
                 a1.setAttribute("aria-controls","collapseOne");
                 a1.innerHTML = card.name;
 
+                var input = document.createElement("INPUT");
+                input.setAttribute("type","checkbox");
+                input.setAttribute("id",card.i);
+                input.setAttribute("name",card.i);
+
                 //1/cards/"+card.id+"?fields=desc&attachments=true&token=a0fdcb022ad19ba6de1a849f4d325e9d8aedf95f086570718a3054d4e4bf4681
                 //Overloop 1 kaartje en haal de data eruit
                 Trello.get("/cards/"+card.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo)
@@ -515,6 +520,7 @@
                 CardId.push(temparr);
 
                 div1.appendChild(a1);
+                div1.appendChild(input);
                 li.appendChild(div1);
                 li.appendChild(div2);
                 selecteddiv.appendChild(li);
@@ -844,7 +850,40 @@
         Filters();
     }
 
+    function PrintTasks(element)
+    {
+        var worker = element.parentNode.parentNode;
+        var workertasks = worker.getElementsByTagName("li");
 
+        var name = worker.firstChild.innerText;
+        var listId = worker.id;
+
+        for(var i = 1;i<workertasks.length;i++)
+        {
+            var checkbox = workertasks[i].firstChild.firstChild.nextSibling;
+
+            if(checkbox.checked)
+            {
+
+                //checkeds.push(workertasks[i].id);
+                var id = workertasks[i].id
+
+                Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
+                {
+
+                    var niewedescription =  cardinfo.desc + "/:D@"+name;
+
+                    Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+niewedescription);
+                });
+
+            }
+        }
+
+        window.open("../Afdrukpagina.php?Werkman="+name,"_self");
+        //header("location:./Afdrukpagina.php?Werkman=".listId);
+
+
+    }
 
 
 </script>

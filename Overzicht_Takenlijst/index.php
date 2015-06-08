@@ -488,6 +488,7 @@
                     //console.log(descriptionn);
                     var p21 = document.createElement("P");
                     p21.setAttribute("Class","lokaal content");
+                    p21.style.paddingTop = "10px";
                     p21.innerHTML = descriptionn[3];
 
                     var p22 = document.createElement("P");

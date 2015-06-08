@@ -319,12 +319,21 @@ function afmelden(a){
         //var rechten = document.getElementById("").value;
 
         id++;
-        mylink="https://student.howest.be/robin.geers/TaskTool/ChangeInst/djfqs5dfqs5df46qsd4.php";
+        mylink="../ChangeInst/djfqs5dfqs5df46qsd4.php";
 
         var url = mylink+"?naam="+naamWerknemer+"&bedrijf="+naamBedrijf+"&adres="+adres+"&tel="+telNr+"&email="+emailAdres;
         //
-        window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
-        window.focus();
+     /*   window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();*/
+
+        $.ajax({
+            url: url,
+            dataType: 'html',
+            success: function(data){
+                //data returned from php
+                console.log("Gelukt");
+            }
+        });
+
         maakitemexternal(table, naamWerknemer, naamBedrijf, adres, telNr, emailAdres, id);
 
     });
@@ -544,14 +553,21 @@ function saverow(el){
     var td3 = document.createElement("td");
     td3.appendChild(document.createTextNode(selectedvalue));
     el.replaceChild(td3,el.childNodes[2]);
-    mylink="https://student.howest.be/wouter.dumon/test4/ChangeInst/a2fjo4(dsf558sdf.php";
+    mylink="../ChangeInst/a2fjo4(dsf558sdf.php";
  //   window.open('#','_blank');
 //    window.open(this.href,'_self');
 
     var url = mylink+"?naam="+naam+"&rol="+selectedvalue;
-    window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
-    window.focus();
-
+    //window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
+   // window.focus();
+    $.ajax({
+        url: url,
+        dataType: 'html',
+        success: function(data){
+            //data returned from php
+            console.log("Gelukt");
+        }
+    });
 
 
 
@@ -762,12 +778,20 @@ function saverowext(el){
 
     });
     console.log(aa);
-    mylink="https://student.howest.be/wouter.dumon/test4/ChangeInst/sdfjl5dfqs9fdsf4.php";
+    mylink="../ChangeInst/sdfjl5dfqs9fdsf4.php";
     //   window.open('#','_blank');
 //    window.open(this.href,'_self');
     var url = mylink+"?naam="+myar[0]+"&bedrijf="+myar[1]+"&adres="+myar[2]+"&tel="+myar[3]+"&email="+myar[4]+"&id="+aa;
   //
-   window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
-    window.focus();
+ //  window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
+ //   window.focus();
+    $.ajax({
+        url: url,
+        dataType: 'html',
+        success: function(data){
+            //data returned from php
+            console.log("Gelukt");
+        }
+    });
 }
 </script>

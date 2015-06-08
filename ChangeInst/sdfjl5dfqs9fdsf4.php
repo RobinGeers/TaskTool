@@ -1,5 +1,3 @@
-
-
 <?php
 //var url = mylink+"?naam="+myar[0]+"&bedrijf="+myar[1]+"&adres"+myar[2]+"&tel"+myar[3]+"&email"+myar[4];
 $naam = "".$_GET["naam"];
@@ -18,9 +16,7 @@ $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouter
 if ($mysqli->connect_error)
 {
     echo "Geen connectie mogelijk met de database";
-    echo  "<script type='text/javascript'>";
-    echo "window.close();";
-    echo "</script>";
+    return "<p>failed</p>";
 }
 echo "test";
 //$result = $mysqli->query("SELECT userPrincipalName,ROL FROM EmailsLeerkrachten");
@@ -40,9 +36,6 @@ echo $result;
 
 
 $mysqli->close();
-echo "hallo";
-echo  "<script>";
-echo "window.close();";
-echo "</script>";
+return "<p>gelukt</p>";
 
 ?>

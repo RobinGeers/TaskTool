@@ -126,7 +126,6 @@
 
 
 
-            </section>
 
             <section id="Filters_Zoek">
                 <!--<input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."/>!-->
@@ -136,7 +135,7 @@
                        OnKeyup ="LokaalChange(event,this.value)"/>
             </section>
             <div class="clearfix"></div>
-        <!-- Checkbox die dynamisch aangemaakt zal worden !-->
+        <!-- Checkbox die dynamisch aangemaakt zal worden
 
         <li class="panel panel-default card_final liBorderG" id="556ff1a4cef39b5ae79b9242" draggable="true"
             ondragstart="drag(event)" style="width: 400px;">
@@ -156,7 +155,7 @@
                 <p class="panel-body">smldkjfqsdkljfklsdqf</p></div>
 
         </li>
-        </section>
+        </section>!-->
         
         <section id="SelectedFilters">
             <div>
@@ -363,6 +362,7 @@
                         var i = document.createElement("I");
                         i.setAttribute("class","ui print icon");
                         i.setAttribute("onclick","PrintTasks(this)");
+                        i.style.cursor = "pointer";
 
                         li.appendChild(i);
                         unorderedlist.appendChild(li);
@@ -472,6 +472,7 @@
                 input.setAttribute("type","checkbox");
                 input.setAttribute("id",card.i);
                 input.setAttribute("name",card.i);
+                input.style.float = "right";
 
                 //1/cards/"+card.id+"?fields=desc&attachments=true&token=a0fdcb022ad19ba6de1a849f4d325e9d8aedf95f086570718a3054d4e4bf4681
                 //Overloop 1 kaartje en haal de data eruit

@@ -158,14 +158,14 @@ $mysqli->close();
         <h1>Instellingen</h1>
         <section id="Toevoegen">
 
-            <p>Zoeken op internal: </p>
+            <p>Zoeken op interne werknemer: </p>
 
                 <input type="text" name="Filter_Naam" id="Filter_Naam" placeholder="Naam" onkeyup="naamChange(this)"  data-column="0" />
                 <!-- <input type="text" name="Filter_Naam_Medewerker" id="Filter_Naam_Medewerker" placeholder="Naam medewerker.."/>-->
                 <input type="text" name="Filter_email" id="Filter_email" placeholder="email" onkeyup="emailChange(this)" data-column="1" />
                 <input type="text" name="Filter_rechten" id="Filter_rechten" placeholder="rechten" onkeyup="rechtenChange(this)"  data-column="2" />
             <div class="clearfix"></div>
-            <p>Zoeken op external: </p>
+            <p>Zoeken op externe werknemer: </p>
 
             <input type="text" name="Filter_eNaam" id="Filter_eNaam" placeholder="Naam" onkeyup="naamChangeext(this)" />
             <input type="text" name="Filter_ebedrijf" id="Filter_ebedrijf" placeholder="bedrijf" onkeyup="bedrijfChangeext(this)" />
@@ -174,9 +174,9 @@ $mysqli->close();
             <input type="text" name="Filter_eemail" id="Filter_eemail" placeholder="email" onkeyup="emailChangeext(this)" />
 
             <div class="clearfix"></div>
-            <div id="Add_Werknemer" class="ui small primary labeled icon button">
-                <i class="user icon"></i> Voeg werknemer toe
-            </div>
+            <!--<div id="Add_Werknemer" class="ui small primary labeled icon button">
+                <i class="user icon"></i> Update werknemer
+            </div>!-->
 
             <div id="Add_Externe_Werknemer" class="ui small primary labeled icon button">
                 <i class="user icon"></i> Voeg externe werknemer toe
@@ -224,14 +224,14 @@ $mysqli->close();
             <h2>Beheer rechten van personeel</h2>
 
 
+            <h3 class="ib">Werknemers van Howest</h3>
 
-                    <h3 class="ib" >Werknemers van Howest</h3> <p id="hideintern" class="ib ibb" onclick="hideint(this)">hide/show</p>
+            <a id="hideintern" class="ib ibb" onclick="hideint(this)">Hide/Show</a>
 
 
-                        <table id="DI" >
+            <table id="DI">
                 <thead>
                 <tr>
-
                     <th>Naam</th>
                     <th>E-mail adres</th>
                     <th>Rechten</th>
@@ -241,14 +241,14 @@ $mysqli->close();
                 <tbody id="DynamicIntern" class="display" cellspacing="0" width="70%">
 
                 </tbody>
-                                       </table>
+            </table>
 
 
+            <h3 class="ib">Externe werknemers</h3>
 
-                                <h3 class="ib">Externe werknemers</h3> <p id="hideextern" class="ib ibb" onclick="hideext(this)">hide/show</p>
+            <a id="hideextern" class="ib ibb" onclick="hideext(this)">Hide/Show</a>
 
-
-                                    <table id="DE" >
+            <table id="DE">
                 <thead>
                 <tr>
                     <th>Naam</th>
@@ -256,13 +256,13 @@ $mysqli->close();
                     <th>Adres</th>
                     <th>Telefoon nr.</th>
                     <th>E-mail adres</th>
-                    <th>bewerk</th>
+                    <th>Bewerk</th>
                 </tr>
                 </thead>
                 <tbody id="DynamicExtern" class="display" cellspacing="0" width="70%">
 
                 </tbody>
-                                    </table>
+            </table>
         </section>
     </main>
 </body>
@@ -275,7 +275,7 @@ $mysqli->close();
         })
     ;
 
-    document.getElementById("Add_Werknemer").addEventListener("click", function(){
+    /*document.getElementById("Add_Werknemer").addEventListener("click", function(){
 
         // Indien transition niet werkt -> Bootstrap link wegdoen
       /*  $('#modal_intern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
@@ -283,7 +283,7 @@ $mysqli->close();
             .modal('setting', 'transition', 'scale')
             .modal('show');*/
 
-    }, false);
+    //}, false);
 
     document.getElementById("Add_Externe_Werknemer").addEventListener("click", function(){
 

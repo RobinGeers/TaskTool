@@ -924,6 +924,18 @@ main#Instellingen section#Toevoegen input {
     margin-bottom: 50px;
 }
 
+#DE_wrapper {
+    margin-bottom: 50px;
+}
+
+section#Toevoegen p {
+    margin-top: 10px;
+}
+
+#hideintern, #hideextern {
+    text-decoration: underline;
+}
+
 /* ----------- Instellingen ----------- */
 
 main#Instellingen h1 {

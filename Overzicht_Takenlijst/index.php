@@ -163,6 +163,26 @@
                 <input type="text" name="Filter_Lokaal" id="Filter_Lokaal" placeholder="Lokaal.."/>
             </section>
             <div class="clearfix"></div>
+        <!-- Checkbox die dynamisch aangemaakt zal worden !-->
+
+        <li class="panel panel-default card_final liBorderG" id="556ff1a4cef39b5ae79b9242" draggable="true"
+            ondragstart="drag(event)" style="width: 400px;">
+
+            <div class="clearfix"></div>
+            <div class="panel-heading"><a class="panel-title collapsed" data-toggle="collapse"
+                                          data-parent="cardlist3" href="#d556ff1a4cef39b5ae79b9242"
+                                          aria-expanded="false" aria-controls="collapseOne">TEST KAARTJE</a>
+                <input type="checkbox" id="CheckboxTest" name="CheckboxTest"/></div>
+
+            <div class="panel-collapse collapse" id="d556ff1a4cef39b5ae79b9242" role="tabpanel"><p
+                    class="lokaal content" style="padding-top: 10px;">GKG.PTI Werkplaats</p>
+
+                <p class="campus content"></p>
+
+                <div class="clearfix"></div>
+                <p class="panel-body">smldkjfqsdkljfklsdqf</p></div>
+
+        </li>
         </section>
         
         <section id="SelectedFilters">

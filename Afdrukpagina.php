@@ -11,7 +11,13 @@ if($naam != "") {
 <html>
 <head lang='en'>
     <meta charset='UTF-8'>
-    <link rel="stylesheet" href="css/Print.css"/>
+
+    <link rel="stylesheet" href="css/normalize.css"/>
+    <link rel="stylesheet" href="css/bootstrap.minAfdruk.css">
+    <link rel="stylesheet" href="css/afdrukcss.css"/>
+    <link rel="stylesheet" media="print" href="css/print.css"/>
+
+    <meta name="viewport" content="width=device-width, initial-scale=0.5">
     <title>Lijst van <?php print$naam; ?> </title>
 </head>
 <body>
@@ -83,51 +89,73 @@ if($naam != "") {
 var dc = carddescription.split("/n@");
 
                         //TODO
-                        var para = document.createElement("div");
+                        var hoofddiv = document.createElement("div");
+                        var leftdiv = document.createElement("div");
                         var centerdiv = document.createElement("div");
+                        var rightdiv = document.createElement("div");
                         var chkbox = document.createElement("input");
                         var label = document.createElement('label');
+
+                        leftdiv.setAttribute("id", "leftdiv");
+                        leftdiv.setAttribute("class", "col-md-2");
+
+                        centerdiv.setAttribute("class","col-md-4");
+                        centerdiv.setAttribute("id","centerdiv");
+
+                        rightdiv.setAttribute("class","col-md-4");
+                        rightdiv.setAttribute("id","rightdiv");
+
+
                         label.appendChild(document.createTextNode('Afgewerkt'));
+
                         chkbox.setAttribute("type","checkbox");
                         chkbox.setAttribute("name","afgewerkt");
                         chkbox.setAttribute("value","Afgewerkt");
                         chkbox.setAttribute("class","chkbox");
-                        centerdiv.setAttribute("class", "column-center");
+
                         var titel = document.createElement("h1");
                         var p2 = document.createElement("p");
                         var node = document.createTextNode(""+dc[0]);
-                        titel.appendChild(node);
                         var node2 = document.createTextNode(""+temparr[1]);
-                        p2.appendChild(node2);
-                        para.appendChild(centerdiv);
+
+
+                        titel.appendChild(node2);
+                        p2.appendChild(node);
+                        hoofddiv.appendChild(leftdiv);
+                        hoofddiv.appendChild(centerdiv);
+                        hoofddiv.appendChild(rightdiv);
                         centerdiv.appendChild(titel);
                         centerdiv.appendChild(p2);
-                        centerdiv.appendChild(chkbox);
-                        centerdiv.appendChild(label);
-                        para.setAttribute("id","qrcode"+ix);
+                        rightdiv.appendChild(chkbox);
+                        rightdiv.appendChild(label);
+
+
+                        hoofddiv.setAttribute("id","qrcode"+ix);
+                        hoofddiv.setAttribute("class","row");
 
                        // console.log(element);
 
-                     //   document.write("<input type='checkbox' name='smiley' value='Ja'>Afgewerkt<br>");
-                        $.each(temparr[3],function(ix,temp){
+                        //   document.write("<input type='checkbox' name='smiley' value='Ja'>Afgewerkt<br>");
+                        $.each(temparr[3], function (ix, temp) {
                             console.log("naam is:" + temp);
                             var extension = temp.substr(temp.length - 3); // => "Tabs1"
-                            if(extension=="jpg"||extension=="png") {
+                            if (extension == "jpg" || extension == "png") {
                                 var pimg = document.createElement("img");
-                                pimg.setAttribute("src",temp);
-                                pimg.setAttribute("class","afbeelding");
-                                centerdiv.appendChild(pimg);
+                                pimg.setAttribute("src", temp);
+                                pimg.setAttribute("class", "afbeelding");
+                                rightdiv.appendChild(pimg);
                             }
 
-                            });
+                        });
                         var element = document.getElementById("container");
-                        element.appendChild(para);
+                        element.setAttribute("class", "container-fluid");
+                        element.appendChild(hoofddiv);
 
-                   var qrcode = new QRCode(document.getElementById("qrcode" + ix), {
-                       width: 150,
-                       height: 150
-                   });
-                   qrcode.makeCode("http://student.howest.be/wouter.dumon/testing/finish.php?id="+temparr[0]);
+                        var qrcode = new QRCode(leftdiv, {
+                            width: 150,
+                            height: 150
+                        });
+                        qrcode.makeCode("http://student.howest.be/sam.bauters/trello/finish.php?id=" + temparr[0]);
 
 
 
@@ -161,6 +189,7 @@ var dc = carddescription.split("/n@");
 
 
     </script>
+
 <?php
 
 

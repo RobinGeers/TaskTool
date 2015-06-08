@@ -973,3 +973,32 @@ main#Instellingen section#Toevoegen input {
     font-family: 'Roboto', sans-serif;
     margin-bottom: 50px;
 }
+
+/* FINISH PAGINA */
+
+.btnverstuur{
+    margin: 20px 0;
+    text-align: center;
+    background-color: #44c8f5;
+    border-radius: 4px;
+    border: 1px solid #44c8f5;
+    color: #ffffff;
+    width: 150px;
+    padding: 15px 0;
+}
+
+.finishcontainer{
+    margin: 25px;
+}
+
+.txtbericht{
+    margin-top: 20px;
+}
+
+.radiobt{
+    margin-top: 20px;
+}
+
+.lbl{
+    font-weight: bold;
+}

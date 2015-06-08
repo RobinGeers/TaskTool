@@ -18,13 +18,20 @@ if(isset($_GET['id'])){
 <head lang='en'>
     <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
+    <link rel="stylesheet" href="css/screen.css"/>
     <meta charset='UTF-8'>
     <title>Lijst van <?php print$naam; ?> </title>
 </head>
 <body>
-<div id="container">
-    <button value="TEST" id="test" name="test"></button>
-    <p>De Firma dankt u.</p>
+<div id="container" class="finishcontainer">
+    <form>
+        <label for="taakGelukt" class="lbl">Is de taak gelukt?</label><br />
+        <input type="radio" name="taakGelukt" value="Ja" class="radiobt" checked="checked" /> Ja
+        <input type="radio" name="taakGelukt" value="Nee" class="radiobt" /> Nee <br /><br />
+        <label for="bericht" class="lbl">Voeg een opmerking toe (Enkel verplicht als de taak niet kan worden afgewerkt)</label><br />
+        <textarea cols="50" rows="10" name="bericht" class="txtbericht"></textarea><br />
+        <input type="submit" id="versturen" name="versturen" class="btnverstuur" />
+    </form>
 </div>
 </body>
 </html>
@@ -47,7 +54,7 @@ if(isset($_GET['id'])){
 carddesc = cardinfo.desc;
                                 carddesc = carddesc +"/n@"+ date + "/n@" + time;
                                 console.log(carddesc);
-                                Trello.put("/cards/<?php print$naam; ?>?key="+APP_KEY+"&token="+application_token+"&idList=5506dbf5b32e668bde0de1b6&desc="+carddesc);
+                                //Trello.put("/cards/<?php print$naam; ?>?key="+APP_KEY+"&token="+application_token+"&idList=5506dbf5b32e668bde0de1b6&desc="+carddesc);
                             });
 
 

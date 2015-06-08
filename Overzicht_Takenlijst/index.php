@@ -851,10 +851,10 @@
 <?php
     //connectie maken met db(mysql)
     //local
-    $mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
+   // $mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
     //$mysqli = new mysqli('mysqlstudent','cedriclecat','ooDohQuuo2uh','cedriclecat');
     //student howest
-    //$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+    $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
     if ($mysqli->connect_error)
     {
     echo "Geen connectie mogelijk met de database";

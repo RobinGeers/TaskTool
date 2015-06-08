@@ -131,7 +131,7 @@ $mysqli->close();
     } );</script>
 <header>
     <a href="../Overzicht/index.html"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
-    <button><a href="../index.php">Afmelden</a></button>
+    <button><a href="../logout.php">Afmelden</a></button>
     <nav>
         <ul>
             <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>

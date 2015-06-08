@@ -2,7 +2,9 @@
     mydata= [];
     myexternaldata = [];
 
+
 </script>
+
 <script>
 <?php
 
@@ -112,12 +114,23 @@ $mysqli->close();
     <link rel="stylesheet" href="../css/semantic.min.css">
     <link rel="stylesheet" href="../css/icon.min.css">
     <link rel="stylesheet" href="../css/transition.min.css">
-    <script src="../js/jquery-2.1.4.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
+    <!--!-->
     <script src="../js/scripts.js"></script>
     <script src="../js/semantic.min.js"></script>
     <script src="../js/transition.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+    <script src="../js/jquery-2.1.4.min.js"></script>
+    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
+
 </head>
 <body>
+<script>$(document).ready(function() {
+        $('#example').dataTable();
+    } );</script>
 <header>
     <a href="../Overzicht/index.html"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
     <button><a href="../index.php">Afmelden</a></button>
@@ -163,11 +176,373 @@ $mysqli->close();
 
 
         <section id="Tabel">
-            <h2>Beheer rechten van personeel</h2>
-            <h3 class="ib" >Werknemers van Howest</h3> <p id="hideintern" class="ib ibb" onclick="hideint(this)">hide/show</p>
-            <table class="ui table">
+            <table id="example" class="display" cellspacing="0" width="70%">
                 <thead>
                 <tr>
+                    <th>Name</th>
+                    <th>Position</th>
+                    <th>Office</th>
+                    <th>Salary</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>Tiger Nixon</td>
+                    <td>System Architect</td>
+                    <td>Edinburgh</td>
+                    <td>$320,800</td>
+                </tr>
+                <tr>
+                    <td>Garrett Winters</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>$170,750</td>
+                </tr>
+                <tr>
+                    <td>Ashton Cox</td>
+                    <td>Junior Technical Author</td>
+                    <td>San Francisco</td>
+                    <td>$86,000</td>
+                </tr>
+                <tr>
+                    <td>Cedric Kelly</td>
+                    <td>Senior Javascript Developer</td>
+                    <td>Edinburgh</td>
+                    <td>$433,060</td>
+                </tr>
+                <tr>
+                    <td>Airi Satou</td>
+                    <td>Accountant</td>
+                    <td>Tokyo</td>
+                    <td>$162,700</td>
+                </tr>
+                <tr>
+                    <td>Brielle Williamson</td>
+                    <td>Integration Specialist</td>
+                    <td>New York</td>
+                    <td>$372,000</td>
+                </tr>
+                <tr>
+                    <td>Herrod Chandler</td>
+                    <td>Sales Assistant</td>
+                    <td>San Francisco</td>
+                    <td>$137,500</td>
+                </tr>
+                <tr>
+                    <td>Rhona Davidson</td>
+                    <td>Integration Specialist</td>
+                    <td>Tokyo</td>
+                    <td>$327,900</td>
+                </tr>
+                <tr>
+                    <td>Colleen Hurst</td>
+                    <td>Javascript Developer</td>
+                    <td>San Francisco</td>
+                    <td>$205,500</td>
+                </tr>
+                <tr>
+                    <td>Sonya Frost</td>
+                    <td>Software Engineer</td>
+                    <td>Edinburgh</td>
+                    <td>$103,600</td>
+                </tr>
+                <tr>
+                    <td>Jena Gaines</td>
+                    <td>Office Manager</td>
+                    <td>London</td>
+                    <td>$90,560</td>
+                </tr>
+                <tr>
+                    <td>Quinn Flynn</td>
+                    <td>Support Lead</td>
+                    <td>Edinburgh</td>
+                    <td>$342,000</td>
+                </tr>
+                <tr>
+                    <td>Charde Marshall</td>
+                    <td>Regional Director</td>
+                    <td>San Francisco</td>
+                    <td>$470,600</td>
+                </tr>
+                <tr>
+                    <td>Haley Kennedy</td>
+                    <td>Senior Marketing Designer</td>
+                    <td>London</td>
+                    <td>$313,500</td>
+                </tr>
+                <tr>
+                    <td>Tatyana Fitzpatrick</td>
+                    <td>Regional Director</td>
+                    <td>London</td>
+                    <td>$385,750</td>
+                </tr>
+                <tr>
+                    <td>Michael Silva</td>
+                    <td>Marketing Designer</td>
+                    <td>London</td>
+                    <td>$198,500</td>
+                </tr>
+                <tr>
+                    <td>Paul Byrd</td>
+                    <td>Chief Financial Officer (CFO)</td>
+                    <td>New York</td>
+                    <td>$725,000</td>
+                </tr>
+                <tr>
+                    <td>Gloria Little</td>
+                    <td>Systems Administrator</td>
+                    <td>New York</td>
+                    <td>$237,500</td>
+                </tr>
+                <tr>
+                    <td>Bradley Greer</td>
+                    <td>Software Engineer</td>
+                    <td>London</td>
+                    <td>$132,000</td>
+                </tr>
+                <tr>
+                    <td>Dai Rios</td>
+                    <td>Personnel Lead</td>
+                    <td>Edinburgh</td>
+                    <td>$217,500</td>
+                </tr>
+                <tr>
+                    <td>Jenette Caldwell</td>
+                    <td>Development Lead</td>
+                    <td>New York</td>
+                    <td>$345,000</td>
+                </tr>
+                <tr>
+                    <td>Yuri Berry</td>
+                    <td>Chief Marketing Officer (CMO)</td>
+                    <td>New York</td>
+                    <td>$675,000</td>
+                </tr>
+                <tr>
+                    <td>Caesar Vance</td>
+                    <td>Pre-Sales Support</td>
+                    <td>New York</td>
+                    <td>$106,450</td>
+                </tr>
+                <tr>
+                    <td>Doris Wilder</td>
+                    <td>Sales Assistant</td>
+                    <td>Sidney</td>
+                    <td>$85,600</td>
+                </tr>
+                <tr>
+                    <td>Angelica Ramos</td>
+                    <td>Chief Executive Officer (CEO)</td>
+                    <td>London</td>
+                    <td>$1,200,000</td>
+                </tr>
+                <tr>
+                    <td>Gavin Joyce</td>
+                    <td>Developer</td>
+                    <td>Edinburgh</td>
+                    <td>$92,575</td>
+                </tr>
+                <tr>
+                    <td>Jennifer Chang</td>
+                    <td>Regional Director</td>
+                    <td>Singapore</td>
+                    <td>$357,650</td>
+                </tr>
+                <tr>
+                    <td>Brenden Wagner</td>
+                    <td>Software Engineer</td>
+                    <td>San Francisco</td>
+                    <td>$206,850</td>
+                </tr>
+                <tr>
+                    <td>Fiona Green</td>
+                    <td>Chief Operating Officer (COO)</td>
+                    <td>San Francisco</td>
+                    <td>$850,000</td>
+                </tr>
+                <tr>
+                    <td>Shou Itou</td>
+                    <td>Regional Marketing</td>
+                    <td>Tokyo</td>
+                    <td>$163,000</td>
+                </tr>
+                <tr>
+                    <td>Michelle House</td>
+                    <td>Integration Specialist</td>
+                    <td>Sidney</td>
+                    <td>$95,400</td>
+                </tr>
+                <tr>
+                    <td>Suki Burks</td>
+                    <td>Developer</td>
+                    <td>London</td>
+                    <td>$114,500</td>
+                </tr>
+                <tr>
+                    <td>Prescott Bartlett</td>
+                    <td>Technical Author</td>
+                    <td>London</td>
+                    <td>$145,000</td>
+                </tr>
+                <tr>
+                    <td>Gavin Cortez</td>
+                    <td>Team Leader</td>
+                    <td>San Francisco</td>
+                    <td>$235,500</td>
+                </tr>
+                <tr>
+                    <td>Martena Mccray</td>
+                    <td>Post-Sales support</td>
+                    <td>Edinburgh</td>
+                    <td>$324,050</td>
+                </tr>
+                <tr>
+                    <td>Unity Butler</td>
+                    <td>Marketing Designer</td>
+                    <td>San Francisco</td>
+                    <td>$85,675</td>
+                </tr>
+                <tr>
+                    <td>Howard Hatfield</td>
+                    <td>Office Manager</td>
+                    <td>San Francisco</td>
+                    <td>$164,500</td>
+                </tr>
+                <tr>
+                    <td>Hope Fuentes</td>
+                    <td>Secretary</td>
+                    <td>San Francisco</td>
+                    <td>$109,850</td>
+                </tr>
+                <tr>
+                    <td>Vivian Harrell</td>
+                    <td>Financial Controller</td>
+                    <td>San Francisco</td>
+                    <td>$452,500</td>
+                </tr>
+                <tr>
+                    <td>Timothy Mooney</td>
+                    <td>Office Manager</td>
+                    <td>London</td>
+                    <td>$136,200</td>
+                </tr>
+                <tr>
+                    <td>Jackson Bradshaw</td>
+                    <td>Director</td>
+                    <td>New York</td>
+                    <td>$645,750</td>
+                </tr>
+                <tr>
+                    <td>Olivia Liang</td>
+                    <td>Support Engineer</td>
+                    <td>Singapore</td>
+                    <td>$234,500</td>
+                </tr>
+                <tr>
+                    <td>Bruno Nash</td>
+                    <td>Software Engineer</td>
+                    <td>London</td>
+                    <td>$163,500</td>
+                </tr>
+                <tr>
+                    <td>Sakura Yamamoto</td>
+                    <td>Support Engineer</td>
+                    <td>Tokyo</td>
+                    <td>$139,575</td>
+                </tr>
+                <tr>
+                    <td>Thor Walton</td>
+                    <td>Developer</td>
+                    <td>New York</td>
+                    <td>$98,540</td>
+                </tr>
+                <tr>
+                    <td>Finn Camacho</td>
+                    <td>Support Engineer</td>
+                    <td>San Francisco</td>
+                    <td>$87,500</td>
+                </tr>
+                <tr>
+                    <td>Serge Baldwin</td>
+                    <td>Data Coordinator</td>
+                    <td>Singapore</td>
+                    <td>$138,575</td>
+                </tr>
+                <tr>
+                    <td>Zenaida Frank</td>
+                    <td>Software Engineer</td>
+                    <td>New York</td>
+                    <td>$125,250</td>
+                </tr>
+                <tr>
+                    <td>Zorita Serrano</td>
+                    <td>Software Engineer</td>
+                    <td>San Francisco</td>
+                    <td>$115,000</td>
+                </tr>
+                <tr>
+                    <td>Jennifer Acosta</td>
+                    <td>Junior Javascript Developer</td>
+                    <td>Edinburgh</td>
+                    <td>$75,650</td>
+                </tr>
+                <tr>
+                    <td>Cara Stevens</td>
+                    <td>Sales Assistant</td>
+                    <td>New York</td>
+                    <td>$145,600</td>
+                </tr>
+                <tr>
+                    <td>Hermione Butler</td>
+                    <td>Regional Director</td>
+                    <td>London</td>
+                    <td>$356,250</td>
+                </tr>
+                <tr>
+                    <td>Lael Greer</td>
+                    <td>Systems Administrator</td>
+                    <td>London</td>
+                    <td>$103,500</td>
+                </tr>
+                <tr>
+                    <td>Jonas Alexander</td>
+                    <td>Developer</td>
+                    <td>San Francisco</td>
+                    <td>$86,500</td>
+                </tr>
+                <tr>
+                    <td>Shad Decker</td>
+                    <td>Regional Director</td>
+                    <td>Edinburgh</td>
+                    <td>$183,000</td>
+                </tr>
+                <tr>
+                    <td>Michael Bruce</td>
+                    <td>Javascript Developer</td>
+                    <td>Singapore</td>
+                    <td>$183,000</td>
+                </tr>
+                <tr>
+                    <td>Donna Snider</td>
+                    <td>Customer Support</td>
+                    <td>New York</td>
+                    <td>$112,000</td>
+                </tr>
+                </tbody>
+            </table>
+
+            <h2>Beheer rechten van personeel</h2>
+
+            <div class="container">
+                <div class="row">
+                    <h3 class="ib" >Werknemers van Howest</h3> <p id="hideintern" class="ib ibb" onclick="hideint(this)">hide/show</p>
+                </div>
+                <div class="row">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th>#</th>
                     <th>Naam</th>
                     <th>E-mail adres</th>
                     <th>Rechten</th>
@@ -182,9 +557,21 @@ $mysqli->close();
                 </tr>
                 -->
                 </tbody>
-            </table>
-            <h3 class="ib">Externe werknemers</h3> <p id="hideextern" class="ib ibb" onclick="hideext(this)">hide/show</p>
-            <table class="ui table table2" >
+                                       </table>
+                    </div>
+                    <div class="col-md-12 text-center">
+                        <ul class="pagination" id="myPager"></ul>
+                    </div>
+                </div>
+            </div>
+
+                        <div class="container">
+                            <div class="row">
+                                <h3 class="ib">Externe werknemers</h3> <p id="hideextern" class="ib ibb" onclick="hideext(this)">hide/show</p>
+                            </div>
+                            <div class="row">
+                                <div class="table-responsive">
+                                    <table class="table table-hover">
                 <thead>
                 <tr>
                     <th>Naam</th>
@@ -205,12 +592,150 @@ $mysqli->close();
                 </tr>
                 -->
                 </tbody>
-            </table>
+                                    </table>
+                                </div>
+                                <div class="col-md-12 text-center">
+                                    <ul class="pagination" id="myPagerext"></ul>
+                                </div>
+                            </div>
+                        </div>
         </section>
     </main>
 </body>
 </html>
 <script>
+$( document ).ready(function() { // voert de volgende data uit wanneer html is ingeladen
+    /*var hi = document.getElementById("hideintern");
+     var he = document.getElementById("hideextern");
+     */$('#DynamicIntern').pageMe({pagerSelector:'#myPager',showPrevNext:true,hidePageNumbers:false,perPage:15});
+    $('#Dynamicextern').pageMe({pagerSelector:'#myPagerext',showPrevNext:true,hidePageNumbers:false,perPage:15});
+    /*var di = 0;
+     var dx = 0;
+     hi.addEventListener("click",function(){
+     var ge = document.getElementById("DynamicIntern");
+     if(di==0){di=1;ge.display="none";}
+     if(di==1){di=0;ge.display="block";}
+
+
+     });
+
+     he.addEventListener("click",function(){
+     var ge = document.getElementById("DynamicExtern");
+     if(di==0){di=1;ge.display="none";}
+     if(di==1){di=0;ge.display="block";}
+
+
+     });
+
+     */
+
+    fillup();
+    fillupexternal();
+});
+$.fn.pageMe = function(opts){
+    var $this = this,
+        defaults = {
+            perPage: 7,
+            showPrevNext: false,
+            hidePageNumbers: false
+        },
+        settings = $.extend(defaults, opts);
+
+    var listElement = $this;
+    var perPage = settings.perPage;
+    var children = listElement.children();
+    var pager = $('.pagination');
+
+    if (typeof settings.childSelector!="undefined") {
+        children = listElement.find(settings.childSelector);
+    }
+
+    if (typeof settings.pagerSelector!="undefined") {
+        pager = $(settings.pagerSelector);
+    }
+
+    var numItems = children.size();
+    var numPages = Math.ceil(numItems/perPage);
+
+    pager.data("curr",0);
+
+    if (settings.showPrevNext){
+        $('<li><a href="#" class="prev_link">«</a></li>').appendTo(pager);
+    }
+
+    var curr = 0;
+    while(numPages > curr && (settings.hidePageNumbers==false)){
+        $('<li><a href="#" class="page_link">'+(curr+1)+'</a></li>').appendTo(pager);
+        curr++;
+    }
+
+    if (settings.showPrevNext){
+        $('<li><a href="#" class="next_link">»</a></li>').appendTo(pager);
+    }
+
+    pager.find('.page_link:first').addClass('active');
+    pager.find('.prev_link').hide();
+    if (numPages<=1) {
+        pager.find('.next_link').hide();
+    }
+    pager.children().eq(1).addClass("active");
+
+    children.hide();
+    children.slice(0, perPage).show();
+
+    pager.find('li .page_link').click(function(){
+        var clickedPage = $(this).html().valueOf()-1;
+        goTo(clickedPage,perPage);
+        return false;
+    });
+    pager.find('li .prev_link').click(function(){
+        previous();
+        return false;
+    });
+    pager.find('li .next_link').click(function(){
+        next();
+        return false;
+    });
+
+    function previous(){
+        var goToPage = parseInt(pager.data("curr")) - 1;
+        goTo(goToPage);
+    }
+
+    function next(){
+        goToPage = parseInt(pager.data("curr")) + 1;
+        goTo(goToPage);
+    }
+
+    function goTo(page){
+        var startAt = page * perPage,
+            endOn = startAt + perPage;
+
+        children.css('display','none').slice(startAt, endOn).show();
+
+        if (page>=1) {
+            pager.find('.prev_link').show();
+        }
+        else {
+            pager.find('.prev_link').hide();
+        }
+
+        if (page<(numPages-1)) {
+            pager.find('.next_link').show();
+        }
+        else {
+            pager.find('.next_link').hide();
+        }
+
+        pager.data("curr",page);
+        pager.children().removeClass("active");
+        pager.children().eq(page+1).addClass("active");
+
+    }
+};
+
+
+
 var de = 0;
 var di=0;
 function hideint(x){
@@ -226,32 +751,7 @@ function hideext(x){
 }
 //script dat voor ervoor zorgt dat filters werken op en data wordt ingeladen
     //array met data =  mydata
-$( document ).ready(function() { // voert de volgende data uit wanneer html is ingeladen
-/*var hi = document.getElementById("hideintern");
-var he = document.getElementById("hideextern");
-var di = 0;
-    var dx = 0;
-    hi.addEventListener("click",function(){
-    var ge = document.getElementById("DynamicIntern");
-if(di==0){di=1;ge.display="none";}
-if(di==1){di=0;ge.display="block";}
 
-
-});
-
-    he.addEventListener("click",function(){
-        var ge = document.getElementById("DynamicExtern");
-        if(di==0){di=1;ge.display="none";}
-        if(di==1){di=0;ge.display="block";}
-
-
-    });
-
-*/
-
-    fillup();
-    fillupexternal();
-});
   //  console.log(mydata); // Array[0] => array[0] naam array[1] rol
 //filter
    naam = "";
@@ -291,6 +791,7 @@ function rechtenChange(value)
 };
 
 function fillup(){
+    mnnr=0;
 table = document.getElementById('DynamicIntern');
     //verwijder alles in table
 
@@ -353,9 +854,15 @@ function check(a,b){
 if(gelijk ==0){return true;}
     return false;
 }
+mnnr = 0;
     function maakitem(table, naam, Email, Rechten){
       var tr =  document.createElement("tr");
-      var td1 = document.createElement("td");
+        var firsttd = document.createElement("td");
+        firsttd.appendChild(document.createTextNode(mnnr));
+      tr.appendChild(firsttd);
+        mnnr++;
+
+        var td1 = document.createElement("td");
     td1.appendChild(document.createTextNode(naam));
       var td2 = document.createElement("td");
         td2.appendChild(document.createTextNode(Email));
@@ -450,6 +957,11 @@ function saverow(el){
 
 function maakitemexternal(table, naam, naambedrjf, adres, telefoon,email,id){
     var tr =  document.createElement("tr");
+    var tdd = document.createElement("td");
+    tdd.appendChild(document.createTextNode(mnnrext));
+    tr.appendChild(tdd);
+    mnnrext++;
+
     console.log(id);
     tr.id = id;
     var td1 = document.createElement("td");
@@ -479,9 +991,9 @@ function maakitemexternal(table, naam, naambedrjf, adres, telefoon,email,id){
     tr.appendChild(td6);
     table.appendChild(tr);
 }
-
+mnnrext = 0;
 function fillupexternal(){
-
+mnnrext=0;
     table = document.getElementById('DynamicExtern');
     //verwijder alles in table
 
@@ -686,4 +1198,10 @@ function saverowext(el){
 
 
 }
+</script>
+<script type="text/javascript">
+    // For demo to fit into DataTables site builder...
+    $('#example')
+        .removeClass( 'display' )
+        .addClass('table table-striped table-bordered');
 </script>

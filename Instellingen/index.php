@@ -184,44 +184,7 @@ $mysqli->close();
             <div class="clearfix"></div>
         </section>
 
-        <!-- Pop-up Window !-->
-        <div id="modal_intern" class="ui test modal transition" style="z-index: 100000;">
-            <!-- TODO: Close icon zoeken !-->
-            <i id="close_Popup" class="close icon"></i>
-            <div class="header">
-                Werknemer toevoegen
-            </div>
-            <div class="content">
-                <div class="left">
-                    <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
-                </div>
-                <div class="right" id="Werknemer_Info">
-                    <input type="text" placeholder="Naam werknemer"/>
-                    <input type="text" placeholder="E-mail adres"/>
-                    <div class="ui selection dropdown">
-                        <input type="hidden" name="gender">
-                        <div class="default text">Rechten</div>
-                        <i class="dropdown icon"></i>
-                        <div class="menu">
-                            <div class="item" data-value="0">Basic</div>
-                            <div class="item" data-value="1">Werkman</div>
-                            <div class="item" data-value="2">Onthaal</div>
-                            <div class="item" data-value="3">Admin</div>
-                        </div>
-                    </div>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-            <div class="actions">
-                <div class="ui black button">
-                    Annuleer
-                </div>
-                <div id="btnOpslaan_Intern" class="ui positive right labeled icon button">
-                    Maak werknemer <i class="checkmark icon"></i>
-                </div>
-                <div class="clearfix"></div>
-            </div>
-        </div>
+     
 
         <!-- Pop-up Window !-->
         <div id="modal_extern" class="ui test modal transition" style="z-index: 100000;">
@@ -240,17 +203,7 @@ $mysqli->close();
                     <input id="Adres" type="text" placeholder="Adres"/>
                     <input id="Tel_Nr" type="text" placeholder="Telefoon nr."/>
                     <input id="E-mail_Adres" type="text" placeholder="E-mail adres"/>
-                    <div class="ui selection dropdown">
-                        <input type="hidden" name="gender">
-                        <div class="default text">Rechten</div>
-                        <i class="dropdown icon"></i>
-                        <div class="menu">
-                            <div class="item" data-value="0">Basic</div>
-                            <div class="item" data-value="1">Werkman</div>
-                            <div class="item" data-value="2">Onthaal</div>
-                            <div class="item" data-value="3">Admin</div>
-                        </div>
-                    </div>
+
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -325,10 +278,10 @@ $mysqli->close();
     document.getElementById("Add_Werknemer").addEventListener("click", function(){
 
         // Indien transition niet werkt -> Bootstrap link wegdoen
-        $('#modal_intern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
+      /*  $('#modal_intern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
         $('#modal_intern')
             .modal('setting', 'transition', 'scale')
-            .modal('show');
+            .modal('show');*/
 
     }, false);
 

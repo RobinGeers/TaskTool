@@ -450,7 +450,7 @@
                             .modal('show');
 
                     // TODO: Vraag titel, beschrijving, image op van geselecteerde LI (Adhv ID)
-                    
+
                 },false);
 
 

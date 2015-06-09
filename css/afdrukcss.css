@@ -4,7 +4,7 @@ body {
 }
 
 .afbeelding {
-    width: 50%;
+    width: 100%;
     padding: 20px 10px 10px 0px;
 }
 
@@ -43,9 +43,16 @@ canvas+img{
 
 #leftdiv, #centerdiv, #rightdiv{
     margin: 20px 10px 20px 10px;
-    display: inline-block;
+    float: left;
 }
-
+/*
 #rightdiv{
     float: right;
+}*/
+#leftdiv{
+   width: 16.66666667%;
+}
+
+#centerdiv, #rightdiv{
+    width:38.5%
 }

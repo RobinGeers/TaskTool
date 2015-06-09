@@ -3,6 +3,7 @@
 $naam = "";
 if(isset($_GET['Werkman'])){
     $naam=$_GET['Werkman'];
+    strtolower($naam);
 }
 if($naam != "") {
 
@@ -39,7 +40,7 @@ if($naam != "") {
                 var List = [];
                 //  console.log(ix); is gelijk aan de int i = 0 van de for lus
                 List.push(list.id, list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
-                if (list.name.includes(<?php print "'".$naam."'" ?>)) {
+                if ((list.name.toLowerCase()).includes(<?php print "'".$naam."'" ?>)) {
                     SelectedList = list.id; //kijken of de naam die meegeven is in del ink voorkomt in in de lijst namen
 //    console.log(SelectedList);
                 }

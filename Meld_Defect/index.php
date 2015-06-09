@@ -13,7 +13,7 @@ if (isset($_POST['txtEmailadres'])) {
     $bericht = $_POST['txtEmailadres'];
     //  print "'hhhh'";
     if (isset($_POST['txtWachtwoord'])) {
-        echo "hhh";
+        //echo "hhh";
         $pw = $_POST['txtWachtwoord'];
 
         $link = ldap_connect('hogeschool-wvl.be'); // Your domain or domain server
@@ -36,7 +36,7 @@ if (isset($_POST['txtEmailadres'])) {
 
             header('Location: ../index.php?error=Foute1Inlog1Gegevens');
         } else {
-            echo " goed";
+            //echo " goed";
 
 
             $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
@@ -46,17 +46,26 @@ if (isset($_POST['txtEmailadres'])) {
             if ($mysqli->connect_error) {
                 echo "Geen connectie mogelijk met de database";
             }
-            $data = "";
+          //  $data = "";
 
 
-            $result = $mysqli->prepare("SELECT userPrincipalName,ROL FROM EmailsLeerkrachten where userPrincipalName =?");
-            echo "goed";
+            $result = $mysqli->prepare("SELECT ROL FROM EmailsLeerkrachten where userPrincipalName =?");
+           // echo "goed";
             $result->bind_param('s', $bericht);
-            print $bericht;
+           // print $bericht;
             $result->execute();
-            echo "goedsd";
-            $resul = $result->bind_result($data);
-            echo "goed";
+            //echo "goedsd";
+
+            $result->bind_result($data);
+           // $result->store_result();
+            $d = array();
+            while($result->fetch()){
+               // $d.push($data);
+                array_push($d,$data);
+            };
+
+
+            //echo "goed";
             //  while ($row = $resul->fetch_assoc()) {
 
             /*      // use your $myrow array as you would with any other fetch
@@ -65,13 +74,10 @@ if (isset($_POST['txtEmailadres'])) {
               }
   while($row = $result->fetch_array(MYSQLI_ASSOC))
   {*/
-            print $data;
-
-
             //cookie aanmaken
             setcookie("rol", hash('sha256', $data), time() + 25920000);
-            print("gelukt");
-            print hash('sha256', $data);
+            //print("gelukt");
+           // print hash('sha256', $data);
             //cookie verwijderen
             //  setcookie("rol", "", time()-3600);
 
@@ -80,7 +86,7 @@ if (isset($_POST['txtEmailadres'])) {
                     //mag alleen op meld defect
                     break;
                 case 'Werkman':
-                    $naam = explode('.', $bericht);
+                    $naam = explode('@', $bericht);
 
                     header('Location: ../Afdrukpagina.php?Werkman=' . $naam[0]);
                     break;
@@ -95,7 +101,7 @@ if (isset($_POST['txtEmailadres'])) {
             // array_push($data['merken'],$row);
 //}
 //connectie sluiten
-            $mysqli->close();
+            $results->close();
 
 
         }

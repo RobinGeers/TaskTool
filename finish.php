@@ -3,7 +3,7 @@ $naam = "";
 if(isset($_GET['id'])){
     $naam=$_GET['id'];
 }else{
-    header("location:Afdrukpagina.php");
+    //header("location:Afdrukpagina.php");
 }
 /**
  * Created by PhpStorm.
@@ -29,15 +29,22 @@ if(isset($_GET['id'])){
         <input type="radio" name="taakGelukt" value="Ja" class="radiobt" checked="checked" /> Ja
         <input type="radio" name="taakGelukt" value="Nee" class="radiobt" /> Nee <br /><br />
         <label for="bericht" class="lbl">Voeg een opmerking toe (Enkel verplicht als de taak niet kan worden afgewerkt)</label><br />
-        <textarea cols="50" rows="10" name="bericht" class="txtbericht"></textarea><br />
-        <input type="submit" id="versturen" name="versturen" class="btnverstuur" />
+        <textarea cols="50" rows="10" id="BER" name="bericht" class="txtbericht"></textarea><br />
+        <input onclick="dosome(this)" type="button" id="versturen" name="versturen" class="btnverstuur" value="versturen" />
     </form>
 </div>
 </body>
 </html>
 
 <script>
-
+function dosome(a)
+{
+    var APP_KEY = '23128bd41978917ab127f2d9ed741385';
+    var APP_SKEY = 'dfe27886101982c335c417a25919baaf7923056549ea2ff5bca0fd3953944fe1';
+    var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
+    var url_boards = "https://api.trello.com/1/members/me/boards/?&key=$key&token=$application_token";
+    var TrelloLists = [];
+    var SelectedList = "";
     var APP_KEY = '23128bd41978917ab127f2d9ed741385';
     var APP_SKEY = 'dfe27886101982c335c417a25919baaf7923056549ea2ff5bca0fd3953944fe1';
     var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
@@ -45,17 +52,36 @@ if(isset($_GET['id'])){
     var TrelloLists = [];
     var SelectedList = "";
 
-                var now = new Date();
-                var date = now.getDate() + "/" + now.getMonth()+"/"+now.getFullYear();
-                var time = now.getHours()+":"+now.getMinutes();
+    var now = new Date();
+    var date = now.getDate() + "/" + now.getMonth()+"/"+now.getFullYear();
+    var time = now.getHours()+":"+now.getMinutes();
 
 
-                            Trello.get("/cards/<?php print $naam; ?>?fields=desc&token=" + application_token, function (cardinfo) {
-carddesc = cardinfo.desc;
-                                carddesc = carddesc +"/n@"+ date + "/n@" + time;
-                                console.log(carddesc);
-                                //Trello.put("/cards/<?php print$naam; ?>?key="+APP_KEY+"&token="+application_token+"&idList=5506dbf5b32e668bde0de1b6&desc="+carddesc);
-                            });
+    Trello.get("/cards/<?php print $naam; ?>?fields=desc&token=" + application_token, function (cardinfo) {
+        carddesc = cardinfo.desc;
+        carddesc = carddesc +"/n@"+ date + "/n@" + time;
+        console.log(carddesc);
+  var getchck =  $('input[name=taakGelukt]:checked').val();
+    console.log(getchck);
+    var value = document.getElementById("BER").value;
+    console.log(value);
+    if(getchck=="Ja"){
+                  Trello.put("/cards/<?php print$naam; ?>?key="+APP_KEY+"&token="+application_token+"&idList=5506dbf5b32e668bde0de1b6&desc="+carddesc,function(){
+                      window.open("./closeme.html","_self");
+                });
+
+
+    }else{
+        carddesc = carddesc+"/n@"+value;
+            console.log(carddesc);
+            Trello.put("/cards/<?php print$naam; ?>?key="+APP_KEY+"&token="+application_token+"&idList=55098deeb3d7823addabd976&desc="+carddesc,function(){
+                window.open("./closeme.html","_self");
+            });
+
+    }
+    });
+}
+  /* */
 
 
 /*

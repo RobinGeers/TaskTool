@@ -133,7 +133,7 @@ if($naam != "") {
                             width: 150,
                             height: 150
                         });
-                        qrcode.makeCode("http://student.howest.be/sam.bauters/trello/finish.php?id=" + temparr[0]);
+                        qrcode.makeCode("https://student.howest.be/wouter.dumon/test5/finish.php?id=" + temparr[0]);
 
 
                         CardId.push(temparr)

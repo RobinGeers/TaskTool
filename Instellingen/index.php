@@ -125,7 +125,7 @@ $mysqli->close();
 
     <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
-    <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
+
 
 </head>
 <body>
@@ -396,9 +396,12 @@ var id = data.split("<p>");
 
 
 $( document ).ready(function() { // voert de volgende data uit wanneer html is ingeladen
-
     fillup();
     fillupexternal();
+    $.getScript("https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385", function(){
+console.log("script here");
+    });
+
 });
 
 var de = 0;
@@ -451,13 +454,7 @@ function rechtenChange(value)
 };
 
 function fillup(){
-    $('#DI')
-        .removeClass( 'display' )
-        .addClass('table table-striped table-bordered');
 
-    ooTable = $('#DI').DataTable({
-        "dom": '<"top">rt<"bottom"lp><"clear">'
-    });
 console.log(ooTable);
     mnnr=0;
 table = document.getElementById('DynamicIntern');
@@ -499,7 +496,13 @@ maakitem(table,b,filnaam,filrol);
         }
 }*/
     });
+    $('#DI')
+        .removeClass( 'display' )
+        .addClass('table table-striped table-bordered');
 
+    ooTable = $('#DI').DataTable({
+        "dom": '<"top">rt<"bottom"lp><"clear">'
+    });
 }
 function check(a,b){
     b = b.toLowerCase();
@@ -555,8 +558,11 @@ mnnr = 0;
      //   table.appendChild(tr);
 //   ooTable.row.add(tr).draw();
        // console.log(ooTable.row);
-        ooTable.row.add(tr).draw();
-
+     if(ooTable!=null) {
+         ooTable.row.add(tr).draw();
+     }else{
+         table.appendChild(tr);
+     }
     }
 
 function dosomething(eml){
@@ -682,21 +688,16 @@ td8.appendChild(td6);
     //var newRow = "<tr><td>row 3, cell 1</td><td>row 3, cell 2</td></tr>";
     console.log(tr);
 
-
+if(oTable!=null) {
     oTable.row.add(tr).draw();
-
+}else{
+    table.appendChild(tr);
+}
 
 }
 mnnrext = 0;
 function fillupexternal(){
-    $('#DE')
-        .removeClass( 'display' )
-        .addClass('table table-striped table-bordered');
-    oTable =   $('#DE').DataTable({
-
-        "dom": '<"top">rt<"bottom"lp><"clear">'
-    });
-mnnrext=0;
+    mnnrext=0;
     table = document.getElementById('DynamicExtern');
     //verwijder alles in table
 
@@ -742,6 +743,12 @@ console.log(myexternaldata);
 
     });
     console.log("test");
+    $('#DE')
+        .removeClass( 'display' )
+        .addClass('table table-striped table-bordered');
+    oTable = $('#DE').DataTable({
+        "dom": '<"top">rt<"bottom"lp><"clear">'
+    });
 
 }
 

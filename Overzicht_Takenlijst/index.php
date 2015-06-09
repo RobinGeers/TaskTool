@@ -280,7 +280,7 @@
                 var date = now.getDate() + "/" + now.getMonth()+"/"+now.getFullYear();
                 var time = now.getHours()+":"+now.getMinutes();
 
-                var niewedescription =  cardinfo.desc + "/n@" + naam+ "/n@"+ date+"/n@"+time;
+                var niewedescription =  cardinfo.desc + "/n@N@" + naam+ "/n@DT@"+ date+"@"+time;
 
                 Trello.put("/cards/"+cardid+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+niewedescription);
             });
@@ -301,7 +301,7 @@
             var date = now.getDate() + "/" + now.getMonth()+"/"+now.getFullYear();
             var time = now.getHours()+":"+now.getMinutes();
 
-            var niewedescription =  cardinfo.desc + "/n@" + naam+ "/n@"+ date+"/n@"+time;
+            var niewedescription =  cardinfo.desc + "/n@N@" + naam+ "/n@DT@"+ date+"@"+time;
             console.log(niewedescription);
         });
 
@@ -1093,7 +1093,7 @@
 
                 Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
                 {
-                    var niewedescription =  cardinfo.desc + "/:D@"+name;
+                    var niewedescription =  cardinfo.desc + "/n@W@"+name;
                     Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+niewedescription);
 
                 });
@@ -1227,7 +1227,7 @@ $mysqli->close();
         option.setAttribute("value",campussen[i]);
         option.innerHTML = campussen[i];
         document.getElementById("Filter_Campussen").appendChild(option);
-        console.log(campussen[i]);
+       // console.log(campussen[i]);
     }
 </script>
 </body>

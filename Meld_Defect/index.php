@@ -1,7 +1,10 @@
 <?php
 session_start();
 $thiss = getcwd();
-$a = $thiss . '/PHPMailer-master/class.phpmailer.php';
+chdir("../");
+$t = getcwd();
+$a = $t . '/PHPMailer-master/class.phpmailer.php';
+chdir($thiss);
 $target = "";
 $isfoto = 0;
 $test = "";

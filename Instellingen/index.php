@@ -138,6 +138,7 @@ $mysqli->close();
 
     <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
+    <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
 
 </head>
 <body>
@@ -268,6 +269,39 @@ $mysqli->close();
 </body>
 </html>
 <script>
+var APP_KEY = '23128bd41978917ab127f2d9ed741385';
+var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
+function createlist(naam){
+    naam = naam.split("@")[0];
+    var TrelloLists = [];
+    var SelectedList = "";
+    console.log("test");
+    Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name&token=" + application_token, function (lists) {
+        console.log("test2");
+console.log(lists);
+        console.log(naam);
+        $.each(lists["lists"], function (ix, list) {
+            var List = [];
+            //  console.log(ix); is gelijk aan de int i = 0 van de for lus
+            List.push(list.id, list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
+            console.log(list.id + "/"+list.name);
+            if (list.name.includes(naam)) {
+                SelectedList = list.id; //kijken of de naam die meegeven is in del ink voorkomt in in de lijst namen
+//    console.log(SelectedList);
+            }
+            TrelloLists.push(List);//Voeg de array list toe aan de array TrelloList
+        });
+        //console.log(TrelloLists);
+       // console.log("sel=" + SelectedList);
+        if(SelectedList=="") {
+            //console.log("juist");
+                 Trello.post("/lists?name=" + naam + "&idBoard=5506dbf5b32e668bde0de1b3&&token=" + application_token, function () {
+
+             //console.log("gelukt2");
+             });
+        }
+    });
+}
 function afmelden(a){
     console.log("test");
 
@@ -287,15 +321,6 @@ function afmelden(a){
         })
     ;
 
-    /*document.getElementById("Add_Werknemer").addEventListener("click", function(){
-
-        // Indien transition niet werkt -> Bootstrap link wegdoen
-      /*  $('#modal_intern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
-        $('#modal_intern')
-            .modal('setting', 'transition', 'scale')
-            .modal('show');*/
-
-    //}, false);
 
     document.getElementById("Add_Externe_Werknemer").addEventListener("click", function(){
 
@@ -554,12 +579,14 @@ function saverow(el){
     td3.appendChild(document.createTextNode(selectedvalue));
     el.replaceChild(td3,el.childNodes[2]);
     mylink="../ChangeInst/a2fjo4(dsf558sdf.php";
- //   window.open('#','_blank');
-//    window.open(this.href,'_self');
-
+if(selectedvalue=="Werkman"){
+    console.log(selectedvalue);
+    createlist(naam);
+}else{
+    //todo: DELETE EVENTUELE LIST
+}
     var url = mylink+"?naam="+naam+"&rol="+selectedvalue;
-    //window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
-   // window.focus();
+
     $.ajax({
         url: url,
         dataType: 'html',

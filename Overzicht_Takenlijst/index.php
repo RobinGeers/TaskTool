@@ -134,10 +134,12 @@
 
             <section id="Filters_Zoek">
                 <!--<input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."/>!-->
-                <input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."OnKeyup="TitelChange
+                <input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.." OnKeyup="TitelChange
                 (this.value)"/>
+                <i class="ui search icon"></i>
                 <input type="text" name="Filter_Lokaal" id="Filter_Lokaal" placeholder="Lokaal.."
                        OnKeyup ="LokaalChange(event,this.value)"/>
+                <i class="ui search icon"></i>
             </section>
             <div class="clearfix"></div>
         <!-- Checkbox die dynamisch aangemaakt zal worden

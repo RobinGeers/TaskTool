@@ -214,7 +214,7 @@
     var APP_KEY = '23128bd41978917ab127f2d9ed741385';
     var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
     var checkKaartInmedewerker;
-
+    var workers = [];
 
     $(document).ready(GetCards);
 
@@ -401,6 +401,7 @@
 
                     document.getElementById("Filter_Worker").appendChild(divItem);
                     divItem.appendChild(option);
+                    workers.push(list.name);
                 }
                 // console.log(selecteddiv);
             });

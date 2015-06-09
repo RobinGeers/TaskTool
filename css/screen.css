@@ -523,10 +523,7 @@ main#Overzicht_Takenlijst section#Filters section input {
 }
 
 main#Overzicht_Takenlijst section#Taken {
-    margin-left: 100px;
-    background-color: rgba(0,0,0,.05) !important;
-    border-radius: 4px;
-    padding: 10px;
+     margin-left: 100px;
 }
 
 .Overzicht_Titels {
@@ -586,15 +583,8 @@ ul li.card {
 main#Overzicht_Takenlijst section.Section_Float {
     float: left;
     margin-right: 100px;
-    background-color: rgba(0,0,0,.05) !important;
-    border-radius: 4px;
-    padding: 10px;
 }
 
-.ui.search {
-    position: relative;
-    right: 30px;
-}
 main#Overzicht_Takenlijst section#Medewerkers ul {
     list-style-type: none;
     background-color: #ffffff;
@@ -644,14 +634,14 @@ main#Overzicht_Takenlijst section#Medewerkers ul li a {
     margin-right: 35px;
 }
 
+#Card_Prioriteit {
+    width: 200px;
+}
+
 .print.icon {
     font-size: 1.5em;
     color: #337ab7;
     float: right;
-}
-
-.panel-default>.panel-heading {
-    background-color: #fff !important;
 }
 
 /* ----------- Statistieken ----------- */

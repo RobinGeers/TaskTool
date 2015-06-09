@@ -57,6 +57,10 @@
                     <option value="Dringend">Dringend</option>
                     <option value="Direct">Direct</option>
                 </select>
+                <label>Add Worker</label>
+                <select id="AddWorker" onChange="CopyCard(this)">
+
+                </select>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -587,6 +591,70 @@
 
                      }*/
 
+
+                    var worker =this.parentNode.firstChild.innerText;
+                    var select = document.getElementById("AddWorker");
+                    var otherworkers = this.getElementsByTagName("label")[0].innerHTML.split(" ");
+                    console.log(otherworkers);
+
+
+                    var element = select.firstChild;
+                    while (element){
+                        select.removeChild(element);
+                        element = select.firstChild;
+                    }
+                    var input = document.createElement("OPTION");
+                    input.setAttribute("value","Default");
+                    input.innerHTML = "Default";
+                    select.appendChild(input);
+
+                    //<option value="Default">Default</option>
+                    var temp = [];
+                    for(var i = 0;i<workers.length;i++)
+                    {
+                        if(worker != workers[i])
+                        {
+                            temp.push(workers[i]);
+                        }
+                    }
+
+                    if(otherworkers.length >1)
+                    {
+                        console.log("hahah");
+                        for(var j = 1;j<otherworkers.length;j++)
+                        {
+                            for( var i = 0;i<workers.length;i++)
+                            {
+                                if(otherworkers[j] == workers[i])
+                                {
+                                    delete workers[i];
+                                }
+                            }
+                        }
+                    }
+
+                    for( var i = 0;i<workers.length;i++)
+                    {
+                        if(workers[i]!= null)
+                        {
+                            var input = document.createElement("OPTION");
+                            input.setAttribute("value",workers[i]);
+
+                            input.innerHTML = workers[i];
+                            select.appendChild(input);
+                        }
+                    }
+
+
+
+
+
+                    var label = document.createElement("LABEL");
+                    label.style.visibility = "hidden";
+                    label.innerHTML = card.id;
+                    select.parentNode.appendChild(label);
+
+
                 },false);
 
 
@@ -627,6 +695,19 @@
                     });
                     var descriptionn = cardinfo.desc.split("/n@");
                     //console.log(descriptionn);
+
+                    var label24 = document.createElement("LABEL");
+
+                    $.each(descriptionn,function(ix,descript){
+                        var descsplit = descript.split("@");
+                        if(descsplit[0] == "AW")
+                        {
+                            //console.log("hahaha");
+                            label24.innerHTML = descsplit[1];
+
+                        }
+                    });
+
                     var p21 = document.createElement("P");
                     p21.setAttribute("Class","lokaal content");
                     p21.style.paddingTop = "10px";
@@ -651,6 +732,7 @@
                     div2.appendChild(p22);
                     div2.appendChild(div21);
                     div2.appendChild(p23);
+                    div2.appendChild(label24);
 
                 });
 
@@ -990,7 +1072,7 @@
         Filters();
     }
 
-    function PrintTasks(element)
+    function PrintTasks(element,callback)
     {
         var worker = element.parentNode.parentNode;
         var workertasks = worker.getElementsByTagName("li");
@@ -1006,26 +1088,61 @@
             {
 
                 //checkeds.push(workertasks[i].id);
-                var id = workertasks[i].id;
+                var id = workertasks[i].id
 
                 Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
                 {
-
                     var niewedescription =  cardinfo.desc + "/:D@"+name;
-
                     Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+niewedescription);
+
                 });
 
             }
         }
 
-        window.open("../Afdrukpagina.php?Werkman="+name,"_self");
+        //
         //header("location:./Afdrukpagina.php?Werkman=".listId);
 
 
     }
+    function redirect(name)
+    {
+        window.open("../Afdrukpagina.php?Werkman="+name,"_self");
+    }
 
+    function CopyCard(value) {
+        if (value.value != "Default")
+        {
+            var div = value.parentNode;
+            var id = div.getElementsByTagName("label")[1].innerHTML;
+            var li = document.getElementById(id);
+            var temp = li.getElementsByTagName("label");
+            console.log(temp);
+            Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token="+application_token,function(lists)
+            {
 
+                $.each(lists["lists"],function(ix,list)
+                {
+
+                    if(list.name == value.value)
+                    {
+                        Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
+                        {
+                            niewedescription = cardinfo.desc + "/n@AW@" + value.value;
+                            console.log(niewedescription);
+                            Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&desc="+niewedescription);
+                        });
+                        temp[0].innerText += " "+ value.value;
+                        console.log(temp[0].innerText);
+                        Trello.post("/cards?idList="+list.id+"&idCardSource="+id+"&due=null&token="+application_token+"&key"+APP_KEY);
+                    }
+                });
+
+            });
+        }
+
+    }
+    
 </script>
 <?php
 //connectie maken met db(mysql)

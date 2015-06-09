@@ -381,6 +381,10 @@ margin-top: 150px;
     width: 50%;
 }
 
+#Card_Prioriteit {
+    width: 200px;
+}
+
 .left {
     float: left;
     width: 40%;

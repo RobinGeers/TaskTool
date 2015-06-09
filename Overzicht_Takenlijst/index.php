@@ -27,7 +27,7 @@
         <ul>
             <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>
             <li><a href="#">Overzicht takenlijst</a></li>
-            <li><a href="../Statistieken/index.php">Statistieken</a></li>
+            <li><a href="../Statistieken/index.html">Statistieken</a></li>
             <li><a href="../Instellingen/index.php">Instellingen</a></li>
         </ul>
     </nav>
@@ -41,7 +41,7 @@
         <div id="Popup" class="ui test modal transition" style="z-index: 100000;">
             <!-- TODO: Close icon zoeken !-->
             <i id="close_Popup" class="close icon"></i>
-            <div id="Card_Header" class="header">
+            <div class="header">
                 Titel kaartje
             </div>
             <div class="content">
@@ -49,14 +49,9 @@
                     <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
                 </div>
                 <div class="right">
-                    <input id="Card_Titel" type="text" value="Titel kaartje"/>
-                    <input id="Card_Lokaal" type="text" value="GKG A.202b"/>
-                    <textarea id="Card_Omschrijving" cols="30" rows="10"></textarea>
-                    <select id="Card_Prioriteit">
-                        <option value="Niet dringend">Niet dringend</option>
-                        <option value="Dringend">Dringend</option>
-                        <option value="Direct">Direct</option>
-                    </select>
+                    <input type="text" value="Titel kaartje"/>
+                    <input type="text" value="GKG A.202b"/>
+                    <textarea name="" id="" cols="30" rows="10">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat</textarea>
                 </div>
                 <div class="clearfix"></div>
             </div>
@@ -210,6 +205,10 @@ function afmelden(a){
     var APP_KEY = '23128bd41978917ab127f2d9ed741385';
     var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
     var checkKaartInmedewerker;
+
+    $('.ui.dropdown')
+        .dropdown()
+    ;
 
 
      $(document).ready(GetCards);
@@ -462,130 +461,6 @@ function afmelden(a){
                             .modal('show');
 
                     // TODO: Vraag titel, beschrijving, image op van geselecteerde LI (Adhv ID)
-                    console.log(li);
-
-                    var style = window.getComputedStyle(li);
-                    var borderBottom = style.getPropertyValue('border-bottom');
-
-                    var color;
-                    var index;
-                    var prioriteit;
-                    switch (borderBottom) {
-                        case "3px solid rgb(242, 234, 19)": color = "yellow"; index = 1; prioriteit = "dringend";
-                            break;
-                        case "3px solid rgb(46, 204, 113)": color = "green"; index = 0; prioriteit = "niet dringend";
-                            break;
-                        case "3px solid rgb(220, 0, 47)": color = "red"; index = 2; prioriteit = "direct";
-                            break;
-                    }
-
-                    $('.ui.dropdown')
-                        .dropdown()
-                    ;
-
-                    var kaart_titel = li.childNodes[0].innerText;
-                    var kaart_lokaal = li.childNodes[1].childNodes[0].innerText;
-                    var kaart_omschrijving = li.childNodes[1].childNodes[3].innerText;
-
-                    var elementHeaderTitel = document.getElementById("Card_Header");
-                    elementHeaderTitel.value = kaart_titel;
-
-                    var elementTitel = document.getElementById("Card_Titel");
-                    elementTitel.value = kaart_titel;
-
-                    var elementLokaal = document.getElementById("Card_Lokaal");
-                    elementLokaal.value = kaart_lokaal;
-
-                    var elementOmschrijving = document.getElementById("Card_Omschrijving");
-                    elementOmschrijving.innerText = kaart_omschrijving;
-
-                    var elementPrioriteit = document.getElementById("Card_Prioriteit");
-                    elementPrioriteit.selectedIndex = index;
-
-                    var nieuweTitel = elementTitel.value;
-                    var nieuwLokaal = elementLokaal.value;
-                    var nieuweOmschrijving = elementOmschrijving.value;
-                    var nieuwePrioriteit = prioriteit;
-                    var listId = li.parentNode.id;
-
-
-                    document.getElementById("btnOpslaan").addEventListener("click", function(){
-                        // TODO: omschrijving samenvoegen in array en doorsturen
-                        var nieuweDescription = [nieuweOmschrijving, nieuwePrioriteit, nieuwLokaal];
-                        var descriptionMerged = nieuweDescription.join("/n");
-                        console.log(descriptionMerged);
-                        Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+nieuweOmschrijving);
-                    },false);
-
-
-
-                    /* Trello.get("/cards/"+li.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo) {
-
-                         //ASYNC!!!
-                         description.push(cardinfo.desc);
-                         carddescription = cardinfo.desc; //gaat niet aangezien dit async verloopt
-                         //kijkt naar de attachments en voegt de link toe in een array
-                         $.each(cardinfo.attachments,function(ix,attachement){
-                             attachementsarr.push(attachement.url);
-
-                         });
-                         var descriptionn = cardinfo.desc.split("/n@");
-                         console.log(descriptionn);
-                         var kaart_omschrijving = descriptionn[0];
-                         var kaart_prioriteit = descriptionn[1];
-                         var kaart_email = descriptionn[2];
-                         var kaart_lokaal = descriptionn[3];
-                         var kaart_werknemer = descriptionn[4];
-                         var kaart_datum_dag = descriptionn[5];
-                         var kaart_datum_uur = descriptionn[6];
-                         //var kaart_titel =
-
-                         var elementHeaderTitel = document.getElementById("Card_header");
-                         //elementHeaderTitel.innerText = kaart_
-
-                         var elementOmschrijving = document.getElementById("Card_Omschrijving");
-                         elementOmschrijving.innerText = kaart_omschrijving;
-
-
-                         /*var p21 = document.createElement("P");
-                         p21.setAttribute("Class","lokaal content");
-                         p21.style.paddingTop = "10px";
-                         p21.innerHTML = descriptionn[3];
-
-                         var p22 = document.createElement("P");
-                         p22.setAttribute("Class","campus content");
-                         p22.innerHTML = "";
-
-                         var div21 = document.createElement("DIV");
-                         div21.setAttribute("Class","clearfix");
-
-                         var p23 = document.createElement("P");
-                         p23.setAttribute("Class","panel-body");
-                         p23.innerHTML = descriptionn[0];
-
-                         if(descriptionn[1]=="Niet dringend"){li.classList.add("liBorderL");}
-                         else if(descriptionn[1]=="Dringend"){li.classList.add("liBorderG");}
-                         else if(descriptionn[1]=="Zeer dringend"){li.classList.add("liBorderH");}
-
-                         div2.appendChild(p21);
-                         div2.appendChild(p22);
-                         div2.appendChild(div21);
-                         div2.appendChild(p23);*/
-
-               /*     });*/
-
-
-                 /*   temparr.push(card.id,card.name,description,attachementsarr);
-                    //array met alle kaartjes in
-                    CardId.push(temparr);
-
-                    div1.appendChild(a1);
-                    div1.appendChild(input);
-                    li.appendChild(div1);
-                    li.appendChild(div2);
-                    selecteddiv.appendChild(li);
-
-                    }*/
 
                 },false);
 
@@ -1006,7 +881,7 @@ function afmelden(a){
             {
 
                 //checkeds.push(workertasks[i].id);
-                var id = workertasks[i].id;
+                var id = workertasks[i].id
 
                 Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
                 {

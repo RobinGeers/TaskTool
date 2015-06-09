@@ -4,6 +4,10 @@
     <list default="true" id="8bb1186b-ad15-4a41-917d-c95133fa3240" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Overzicht_Takenlijst/index.php" afterPath="$PROJECT_DIR$/Overzicht_Takenlijst/index.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/css/screen.css" afterPath="$PROJECT_DIR$/css/screen.css" />
+<<<<<<< HEAD
+=======
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
     </list>
     <ignored path="TaskTool.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -31,8 +35,13 @@
       <file leaf-file-name="screen.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/css/screen.css">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="0.5314685" vertical-offset="9727" max-vertical-offset="17952">
               <caret line="599" column="16" selection-start-line="599" selection-start-column="16" selection-end-line="599" selection-end-column="16" />
+=======
+            <state vertical-scroll-proportion="-15.411765" vertical-offset="7857" max-vertical-offset="17646">
+              <caret line="493" column="30" selection-start-line="493" selection-start-column="30" selection-end-line="493" selection-end-column="30" />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
               <folding />
             </state>
           </provider>
@@ -41,12 +50,19 @@
       <file leaf-file-name="index.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Overzicht_Takenlijst/index.php">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state vertical-scroll-proportion="-5.2253523" vertical-offset="2026" max-vertical-offset="19057">
               <caret line="141" column="46" selection-start-line="141" selection-start-column="46" selection-end-line="141" selection-end-column="46" />
               <folding>
                 <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
                 <element signature="e#37992#38023#0#PHP" expanded="true" />
                 <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+            <state vertical-scroll-proportion="0.6654457" vertical-offset="11627" max-vertical-offset="16830">
+              <caret line="716" column="25" selection-start-line="716" selection-start-column="25" selection-end-line="716" selection-end-column="25" />
+              <folding>
+                <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
               </folding>
             </state>
           </provider>
@@ -66,11 +82,17 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/index.php" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/Statistieken/index.html" />
         <option value="$PROJECT_DIR$/js/scripts.js" />
         <option value="$PROJECT_DIR$/Statistieken/index.php" />
+=======
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
         <option value="$PROJECT_DIR$/Overzicht/index.html" />
         <option value="$PROJECT_DIR$/Instellingen/index.php" />
+        <option value="$PROJECT_DIR$/Statistieken/index.html" />
+        <option value="$PROJECT_DIR$/js/scripts.js" />
+        <option value="$PROJECT_DIR$/css/screen.css" />
         <option value="$PROJECT_DIR$/Overzicht_Takenlijst/index.php" />
         <option value="$PROJECT_DIR$/css/screen.css" />
       </list>
@@ -197,7 +219,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
+              <option name="myItemId" value="Instellingen" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -211,7 +233,7 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="Instellingen" />
+              <option name="myItemId" value="css" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -326,6 +348,7 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="5241" max-vertical-offset="6137">
           <caret line="508" column="54" selection-start-line="508" selection-start-column="54" selection-end-line="508" selection-end-column="54" />
           <folding>
+<<<<<<< HEAD
             <element signature="e#878#2783#0" expanded="false" />
             <element signature="e#2817#4476#0" expanded="false" />
             <element signature="e#4499#5589#0" expanded="false" />
@@ -334,6 +357,18 @@
             <element signature="e#16171#17806#0" expanded="false" />
             <marker date="1433841560649" expanded="true" signature="-1:-1" placeholder="..." />
             <marker date="1433841560649" expanded="true" signature="-1:-1" placeholder="..." />
+=======
+            <element signature="e#2709#4614#0" expanded="false" />
+            <element signature="e#4648#6307#0" expanded="false" />
+            <element signature="e#6330#7420#0" expanded="false" />
+            <element signature="e#7427#8736#0" expanded="false" />
+            <element signature="e#8740#10230#0" expanded="false" />
+            <element signature="e#18002#19637#0" expanded="false" />
+            <marker date="1433792380001" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1433792380001" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1433792380001" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1433792380001" expanded="true" signature="-1:-1" placeholder="..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
@@ -351,9 +386,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15470">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+<<<<<<< HEAD
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#37992#38023#0#PHP" expanded="true" />
             <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+            <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
@@ -362,7 +401,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="6477" max-vertical-offset="22797">
           <caret line="381" column="20" selection-start-line="381" selection-start-column="20" selection-end-line="381" selection-end-column="20" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -379,9 +417,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15946">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+<<<<<<< HEAD
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#37992#38023#0#PHP" expanded="true" />
             <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+            <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
@@ -390,7 +432,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="6477" max-vertical-offset="11798">
           <caret line="381" column="26" selection-start-line="381" selection-start-column="23" selection-end-line="381" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -407,9 +448,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15198">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+<<<<<<< HEAD
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#37992#38023#0#PHP" expanded="true" />
             <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+            <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
@@ -418,7 +463,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0" vertical-offset="6200" max-vertical-offset="11186">
           <caret line="381" column="26" selection-start-line="381" selection-start-column="23" selection-end-line="381" selection-end-column="26" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -435,9 +479,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15147">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+<<<<<<< HEAD
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#37992#38023#0#PHP" expanded="true" />
             <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+            <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
@@ -455,9 +503,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15215">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+<<<<<<< HEAD
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#37992#38023#0#PHP" expanded="true" />
             <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+            <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
@@ -475,9 +527,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="15181">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+<<<<<<< HEAD
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#37992#38023#0#PHP" expanded="true" />
             <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+            <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
@@ -495,9 +551,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="13956" max-vertical-offset="14875">
           <caret line="837" column="26" selection-start-line="837" selection-start-column="13" selection-end-line="837" selection-end-column="26" />
           <folding>
+<<<<<<< HEAD
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#37992#38023#0#PHP" expanded="true" />
             <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+            <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
@@ -515,9 +575,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="13956" max-vertical-offset="14875">
           <caret line="837" column="26" selection-start-line="837" selection-start-column="13" selection-end-line="837" selection-end-column="26" />
           <folding>
+<<<<<<< HEAD
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#37992#38023#0#PHP" expanded="true" />
             <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+            <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
@@ -535,9 +599,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="13498">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
+<<<<<<< HEAD
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#37992#38023#0#PHP" expanded="true" />
             <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+            <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
@@ -554,9 +622,13 @@
         <state vertical-scroll-proportion="0.0" vertical-offset="4556" max-vertical-offset="10353">
           <caret line="268" column="0" selection-start-line="268" selection-start-column="0" selection-end-line="268" selection-end-column="0" />
           <folding>
+<<<<<<< HEAD
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#37992#38023#0#PHP" expanded="true" />
             <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+            <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
@@ -631,6 +703,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Meld_Defect/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0" vertical-offset="1717" max-vertical-offset="9095">
+          <caret line="101" column="28" selection-start-line="99" selection-start-column="19" selection-end-line="99" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/finish.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-1.6184834" vertical-offset="683" max-vertical-offset="1105">
@@ -652,16 +731,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Statistieken/index.php">
+    <entry file="file://$PROJECT_DIR$/Overzicht/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="1.7655889" vertical-offset="681" max-vertical-offset="3332">
-          <caret line="130" column="30" selection-start-line="130" selection-start-column="30" selection-end-line="130" selection-end-column="30" />
-          <folding />
+        <state vertical-scroll-proportion="-15.692307" vertical-offset="0" max-vertical-offset="578">
+          <caret line="24" column="59" selection-start-line="24" selection-start-column="59" selection-end-line="24" selection-end-column="59" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Instellingen/index.php">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state vertical-scroll-proportion="-0.647806" vertical-offset="3162" max-vertical-offset="13651">
           <caret line="153" column="10" selection-start-line="153" selection-start-column="10" selection-end-line="153" selection-end-column="10" />
           <folding>
@@ -687,14 +766,19 @@
         <state vertical-scroll-proportion="0.43187067" vertical-offset="0" max-vertical-offset="866">
           <caret line="22" column="58" selection-start-line="22" selection-start-column="58" selection-end-line="22" selection-end-column="58" />
           <folding />
+=======
+        <state vertical-scroll-proportion="0.49639422" vertical-offset="4432" max-vertical-offset="13039">
+          <caret line="285" column="6" selection-start-line="285" selection-start-column="6" selection-end-line="285" selection-end-column="6" />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/js/scripts.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-0.01934016" vertical-offset="51" max-vertical-offset="5304">
-          <caret line="2" column="0" selection-start-line="2" selection-start-column="0" selection-end-line="2" selection-end-column="0" />
+        <state vertical-scroll-proportion="0.94730943" vertical-offset="4476" max-vertical-offset="6137">
+          <caret line="508" column="54" selection-start-line="508" selection-start-column="54" selection-end-line="508" selection-end-column="54" />
           <folding>
+<<<<<<< HEAD
             <element signature="e#878#2783#0" expanded="false" />
             <element signature="e#2817#4476#0" expanded="false" />
             <element signature="e#4499#5589#0" expanded="false" />
@@ -703,10 +787,23 @@
             <element signature="e#16171#17806#0" expanded="false" />
             <marker date="1433841560649" expanded="true" signature="-1:-1" placeholder="..." />
             <marker date="1433841560649" expanded="true" signature="-1:-1" placeholder="..." />
+=======
+            <element signature="e#2709#4614#0" expanded="false" />
+            <element signature="e#4648#6307#0" expanded="false" />
+            <element signature="e#6330#7420#0" expanded="false" />
+            <element signature="e#7427#8736#0" expanded="false" />
+            <element signature="e#8740#10230#0" expanded="false" />
+            <element signature="e#18002#19637#0" expanded="false" />
+            <marker date="1433792380001" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1433792380001" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1433792380001" expanded="true" signature="-1:-1" placeholder="..." />
+            <marker date="1433792380001" expanded="true" signature="-1:-1" placeholder="..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Overzicht_Takenlijst/index.php">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="-5.2253523" vertical-offset="2026" max-vertical-offset="19057">
@@ -715,6 +812,22 @@
             <element signature="n#style#0;n#div#0;n#main#0;n#body#0;n#html#0;n#!!top" expanded="true" />
             <element signature="e#37992#38023#0#PHP" expanded="true" />
             <marker date="1433843501678" expanded="true" signature="38587:38611" placeholder="SELECT NAME ..klassen..." />
+=======
+    <entry file="file://$PROJECT_DIR$/css/screen.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-15.411765" vertical-offset="7857" max-vertical-offset="17646">
+          <caret line="493" column="30" selection-start-line="493" selection-start-column="30" selection-end-line="493" selection-end-column="30" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Overzicht_Takenlijst/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6654457" vertical-offset="11627" max-vertical-offset="16830">
+          <caret line="716" column="25" selection-start-line="716" selection-start-column="25" selection-end-line="716" selection-end-column="25" />
+          <folding>
+            <marker date="1433832431161" expanded="true" signature="32469:32493" placeholder="SELECT NAME ..klassen..." />
+>>>>>>> parent of eebf068... Wijzig pop-up tekst (nog niet volledig)
           </folding>
         </state>
       </provider>

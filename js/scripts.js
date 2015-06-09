@@ -1,8 +1,12 @@
 
 document.addEventListener("DOMContentLoaded", function(event) {
 
+    vinkAlleWerknemersAan();
+    kleurWerknemers();
     toonGrafiek1();
     toonGrafiek2();
+
+
 
 /*
     // Dropzone plugin om bestanden/foto's up te loaden
@@ -24,6 +28,51 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     };*/
 });
+
+function vinkAlleWerknemersAan() {
+    document.getElementById("Bennie").checked = true;
+    document.getElementById("Alain").checked = true;
+    document.getElementById("Erik").checked = true;
+    document.getElementById("Jef").checked = true;
+}
+
+function kleurWerknemers() {
+    if (document.getElementById("Bennie").checked) {
+        document.getElementById("Checkbox1").style.backgroundColor = "#337ab7";
+        document.getElementById("Checkbox1").style.border = "1px solid #337ab7";
+        document.getElementById("Checkbox1").style.color = "#ffffff";
+    }
+    else {
+        document.getElementById("Checkbox1").style.border = "none";
+    }
+
+    if (document.getElementById("Alain").checked) {
+        document.getElementById("Checkbox2").style.backgroundColor = "#337ab7";
+        document.getElementById("Checkbox2").style.border = "1px solid #337ab7";
+        document.getElementById("Checkbox2").style.color = "#ffffff";
+    }
+    else {
+        document.getElementById("Checkbox2").style.border = "none";
+    }
+
+    if (document.getElementById("Erik").checked) {
+        document.getElementById("Checkbox3").style.backgroundColor = "#337ab7";
+        document.getElementById("Checkbox3").style.border = "1px solid #337ab7";
+        document.getElementById("Checkbox3").style.color = "#ffffff";
+    }
+    else {
+        document.getElementById("Checkbox3").style.border = "none";
+    }
+
+    if (document.getElementById("Jef").checked) {
+        document.getElementById("Checkbox4").style.backgroundColor = "#337ab7";
+        document.getElementById("Checkbox4").style.border = "1px solid #337ab7";
+        document.getElementById("Checkbox4").style.color = "#ffffff";
+    }
+    else {
+        document.getElementById("Checkbox4").style.border = "none";
+    }
+}
 
 function toonGrafiek1() {
     // Grafiek voltooide taken per werknemer

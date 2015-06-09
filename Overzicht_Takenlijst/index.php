@@ -704,7 +704,7 @@ function afmelden(a){
 
                 for (var j = 0; j < workersUL.length; j++) {
                     if (workersUL[j].firstChild.innerText == filters[1]) {
-                        workersUL[j].style.display = "inline-block";
+                        workersUL[j].style.display = "block";
                     }
 
 

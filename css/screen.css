@@ -486,6 +486,11 @@ main#Overzicht_Takenlijst section#SelectedFilters div {
     display: inline-block;
 }
 
+main#Overzicht_Takenlijst section#SelectedFilters h3 {
+    margin-right: 10px;
+    display: inline-block;
+}
+
 main#Overzicht_Takenlijst h1 {
     text-align: center;
     margin-bottom: 50px;

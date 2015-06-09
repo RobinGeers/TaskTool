@@ -313,6 +313,9 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 //connectie sluiten
 $mysqli->close();
 ?>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<!-- laad de jquery in voor autocomplete -->
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script>
     //console.log(arraymetlokalen);
     $(function () {
@@ -335,9 +338,7 @@ $mysqli->close();
     <title>
         Meldpagina - Howest Tasktool
     </title>
-    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
-    <!-- laad de jquery in voor autocomplete -->
-    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">

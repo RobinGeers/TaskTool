@@ -1,13 +1,7 @@
-
-
 <?php
 //var url = mylink+"?naam="+myar[0]+"&bedrijf="+myar[1]+"&adres"+myar[2]+"&tel"+myar[3]+"&email"+myar[4];
-$naam = "".$_GET["naam"];
-$bedrijf = "".$_GET["bedrijf"];
-$adres = "".$_GET["adres"];
-$tel = "".$_GET["tel"];
-$email = "".$_GET["email"];
 
+$id = "".$_GET["id"];
 //CODE DIE ERVOOR ZORGT DAT NAAR DATABASE WORDT VERZET
 
 
@@ -20,20 +14,17 @@ if ($mysqli->connect_error)
     echo "Geen connectie mogelijk met de database";
     return "<p>failed</p>";
 }
-//echo "test";
+echo "test";
 //$result = $mysqli->query("SELECT userPrincipalName,ROL FROM EmailsLeerkrachten");
-//INSERT INTO table_name (column1,column2,column3,...)
-//VALUES (value1,value2,value3,...);
-$stmt = $mysqli->prepare('INSERT INTO external(Naam, NaamBedrijf, Adres, Telefoon, Emailadres) VALUES(?,?,?,?,?)');
-$stmt->bind_param('sssss',$naam,$bedrijf,$adres,$tel,$email);
+$stmt = $mysqli->prepare('DELETE FROM external WHERE id=?');
+$stmt->bind_param('s',$id);
 //$stmt->bind_param('s', $naam);
 
 
 $stmt->execute();
-//echo "hhh";
+echo "hhh";
 $result = $stmt->affected_rows;
-$data = $stmt->insert_id;
-//echo $result;$mysqli->insert_id
+echo $result;
 /*while ($row = $result->fetch_assoc()) {
     // do something with $row
 }*/
@@ -41,7 +32,6 @@ $data = $stmt->insert_id;
 
 
 $mysqli->close();
-echo "<p>".$data."</p>";
+return "<p>gelukt</p>";
 
-return;
 ?>

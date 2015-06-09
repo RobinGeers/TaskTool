@@ -116,25 +116,12 @@ $mysqli->close();
     <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
     <!--!-->
     <script src="../js/jquery-2.1.4.min.js"></script>
-    <script src="../js/scripts.js"></script>
     <script src="../js/semantic.min.js"></script>
     <script src="../js/transition.min.js"></script>
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-    <link rel="stylesheet" href="../css/icon.min.css">
-    <link rel="stylesheet" href="../css/transition.min.css">
-    <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
-    <script src="../js/jquery-2.1.4.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-    <script src="../js/scripts.js"></script>
-    <script src="../js/semantic.min.js"></script>
-    <script src="../js/transition.min.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+       <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
@@ -269,6 +256,8 @@ $mysqli->close();
 </body>
 </html>
 <script>
+oTable = null;
+ooTable = null;
 var APP_KEY = '23128bd41978917ab127f2d9ed741385';
 var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
 function createlist(naam){
@@ -291,7 +280,7 @@ console.log(lists);
             }
             TrelloLists.push(List);//Voeg de array list toe aan de array TrelloList
         });
-        //console.log(TrelloLists);
+        console.log(TrelloLists);
        // console.log("sel=" + SelectedList);
         if(SelectedList=="") {
             //console.log("juist");
@@ -299,6 +288,42 @@ console.log(lists);
 
              //console.log("gelukt2");
              });
+        }
+    });
+}
+function deletelist(naam){
+    naam = naam.split("@")[0];
+    var TrelloLists = [];
+    var SelectedList = "";
+    console.log("test");
+    Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name&token=" + application_token, function (lists) {
+        console.log("test2");
+        console.log(lists);
+        console.log(naam);
+        $.each(lists["lists"], function (ix, list) {
+            var List = [];
+            //  console.log(ix); is gelijk aan de int i = 0 van de for lus
+            List.push(list.id, list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
+            console.log(list.id + "/"+list.name);
+            if (list.name.includes(naam)) {
+                SelectedList = list.id; //kijken of de naam die meegeven is in del ink voorkomt in in de lijst namen
+//    console.log(SelectedList);
+            }
+            TrelloLists.push(List);//Voeg de array list toe aan de array TrelloList
+        });
+        //console.log(TrelloLists);
+        // console.log("sel=" + SelectedList);
+        if(SelectedList!="") {
+
+            //console.log("juist");
+            Trello.post("/lists/"+SelectedList+"/moveAllCards?&idBoard=5506dbf5b32e668bde0de1b3&idList=5506dbf5b32e668bde0de1b4&token=" + application_token, function () {
+         console.log("juist: "+SelectedList);
+                Trello.put("/lists/"+SelectedList+"/closed?value=true&token=" + application_token, function () {
+
+                    //console.log("gelukt2");
+                });
+                //console.log("gelukt2");
+            });
         }
     });
 }
@@ -342,7 +367,7 @@ function afmelden(a){
         var telNr = document.getElementById("Tel_Nr").value;
         var emailAdres = document.getElementById("E-mail_Adres").value;
         //var rechten = document.getElementById("").value;
-
+       naamWerknemer = naamWerknemer.replace(/\s+/g,".");
         id++;
         mylink="../ChangeInst/djfqs5dfqs5df46qsd4.php";
 
@@ -356,10 +381,16 @@ function afmelden(a){
             success: function(data){
                 //data returned from php
                 console.log("Gelukt");
+var id = data.split("<p>");
+                console.log(id);
+                console.log(id[1].split("</p>"));
+                id = id[1].split("</p>")[0];
+
+                maakitemexternal(table, naamWerknemer, naamBedrijf, adres, telNr, emailAdres, id);
+                createlist(naamWerknemer);
+
             }
         });
-
-        maakitemexternal(table, naamWerknemer, naamBedrijf, adres, telNr, emailAdres, id);
 
     });
 
@@ -420,6 +451,14 @@ function rechtenChange(value)
 };
 
 function fillup(){
+    $('#DI')
+        .removeClass( 'display' )
+        .addClass('table table-striped table-bordered');
+
+    ooTable = $('#DI').DataTable({
+        "dom": '<"top">rt<"bottom"lp><"clear">'
+    });
+console.log(ooTable);
     mnnr=0;
 table = document.getElementById('DynamicIntern');
     //verwijder alles in table
@@ -460,13 +499,7 @@ maakitem(table,b,filnaam,filrol);
         }
 }*/
     });
-    $('#DI')
-        .removeClass( 'display' )
-        .addClass('table table-striped table-bordered');
 
-    $('#DI').dataTable({
-               "dom": '<"top">rt<"bottom"lp><"clear">'
-    });
 }
 function check(a,b){
     b = b.toLowerCase();
@@ -519,7 +552,11 @@ mnnr = 0;
         tr.appendChild(td3);
         tr.appendChild(td4);
         td4.appendChild(iWrite);
-        table.appendChild(tr);
+     //   table.appendChild(tr);
+//   ooTable.row.add(tr).draw();
+       // console.log(ooTable.row);
+        ooTable.row.add(tr).draw();
+
     }
 
 function dosomething(eml){
@@ -584,6 +621,7 @@ if(selectedvalue=="Werkman"){
     createlist(naam);
 }else{
     //todo: DELETE EVENTUELE LIST
+    deletelist(naam);
 }
     var url = mylink+"?naam="+naam+"&rol="+selectedvalue;
 
@@ -625,18 +663,39 @@ function maakitemexternal(table, naam, naambedrjf, adres, telefoon,email,id){
         dosomethingext(tr);
 
     });
+    var t1 = document.createElement("i");
+    t1.className="remove icon";
+    t1.addEventListener("click",function(){
+
+        deleteext(tr);
+    });
 
 td8.appendChild(td6);
+    td8.appendChild(t1);
     tr.appendChild(td1);
     tr.appendChild(td2);
     tr.appendChild(td3);
     tr.appendChild(td4);
     tr.appendChild(td5);
     tr.appendChild(td8);
-    table.appendChild(tr);
+    //table.appendChild(tr);
+    //var newRow = "<tr><td>row 3, cell 1</td><td>row 3, cell 2</td></tr>";
+    console.log(tr);
+
+
+    oTable.row.add(tr).draw();
+
+
 }
 mnnrext = 0;
 function fillupexternal(){
+    $('#DE')
+        .removeClass( 'display' )
+        .addClass('table table-striped table-bordered');
+    oTable =   $('#DE').DataTable({
+
+        "dom": '<"top">rt<"bottom"lp><"clear">'
+    });
 mnnrext=0;
     table = document.getElementById('DynamicExtern');
     //verwijder alles in table
@@ -683,13 +742,7 @@ console.log(myexternaldata);
 
     });
     console.log("test");
-    $('#DE')
-        .removeClass( 'display' )
-        .addClass('table table-striped table-bordered');
-    $('#DE').dataTable({
 
-        "dom": '<"top">rt<"bottom"lp><"clear">'
-    });
 }
 
 function filterColumnext ( i,myd ) {
@@ -737,11 +790,8 @@ function emailChangeext(value)
 };
 
 function dosomethingext(eml){
-   /// console.log(eml);
-    //var naam = el.childNodes[1].innerText;
-  //  console.log(eml.firstChild);
-  //  console.log(eml.childNodes);
-  //  $.each(eml.childNodes,function(ix,a){
+
+
     var tell = 0;
  //   console.log(eml.childElementCount);
     $.each(eml.childNodes,function(ix,a){
@@ -797,6 +847,7 @@ function saverowext(el){
 
       //  console.log(el.childNodes[ix]);
         var t =  el.childNodes[ix].firstChild.value;
+
         console.log(t);
         myar.push(t);
         hoofdtd.appendChild(document.createTextNode(t));
@@ -804,6 +855,7 @@ function saverowext(el){
         el.replaceChild(hoofdtd,el.childNodes[ix]);
 
     });
+
     console.log(aa);
     mylink="../ChangeInst/sdfjl5dfqs9fdsf4.php";
     //   window.open('#','_blank');
@@ -820,5 +872,30 @@ function saverowext(el){
             console.log("Gelukt");
         }
     });
+}
+function deleteext(trr){
+
+    mylink="../ChangeInst/bcfgnlqjr5dfj45.php";
+    console.log(trr.id);
+    var url = mylink+"?id="+trr.id;
+
+  $.ajax({
+        url: url,
+        dataType: 'html',
+        success: function(data){
+            //data returned from php
+            console.log("Gelukt");
+        }
+    });
+
+    var a = document.getElementById("DynamicExtern");
+    deletelist(trr.childNodes[0].innerText);
+
+    oTable.row(trr).remove().draw();
+    $('#DE').DataTable().column(0).search(
+        ""
+    ).draw();
+    //console.log(trr.childNodes[0].innerText);
+   // console.log(trr.childNodes[0]);
 }
 </script>

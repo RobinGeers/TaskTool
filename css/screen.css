@@ -90,7 +90,12 @@ header button:hover {
 .Howestlogo
 {
     width: 180px;
-    height: 80px;}
+    height: 80px;
+}
+
+ul#ui-id-2{
+    z-index: 100000000000000;
+}
 
 /* ----------- Login Formulier ----------- */
 
@@ -493,6 +498,11 @@ margin-top: 150px;
 
 header {
     z-index: 1;
+}
+
+.ui.search.icon {
+    position: relative;
+    right: 30px;
 }
 
 main#Overzicht_Takenlijst section#SelectedFilters {

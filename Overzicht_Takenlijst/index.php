@@ -12,7 +12,6 @@
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="../js/jquery-2.1.4.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
-    <script src="../js/scripts.js"></script>
     <script src="../js/semantic.min.js"></script>
     <script src="../js/transition.min.js"></script>
     <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
@@ -42,20 +41,23 @@
         <!-- TODO: Close icon zoeken !-->
         <i id="close_Popup" class="close icon"></i>
         <div id="Card_Header" class="header">
-            Titel kaartje
         </div>
         <div class="content">
             <div class="left">
                 <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
             </div>
             <div class="right">
-                <input id="Card_Titel" type="text" value="Titel kaartje"/>
-                <input id="Card_Lokaal" type="text" value="GKG A.202b"/>
+                <input id="Card_Titel" type="text" placeholder="Titel kaartje"/>
+
+                <div class="ui-widget">
+
+                    <input id="Card_Lokaal" type="text" placeholder="GKG A.202b"/>
+                </div>
                 <textarea id="Card_Omschrijving" cols="30" rows="10"></textarea>
                 <select id="Card_Prioriteit">
-                    <option value="Niet dringend">Niet dringend</option>
+                    <option value="Niet Dringend">Niet dringend</option>
                     <option value="Dringend">Dringend</option>
-                    <option value="Direct">Direct</option>
+                    <option value="Zeer Dringend">Zeer Dringend</option>
                 </select>
                 <label>Add Worker</label>
                 <select id="AddWorker" onChange="CopyCard(this)">
@@ -111,7 +113,7 @@
             </div>
             <div onclick="PriorityChange('Direct')" class="item">
                 <div class="ui red empty circular label"></div>
-                Direct
+                Zeer Dringend
             </div>
         </div>
     </div>
@@ -199,6 +201,14 @@
     <div class="clearfix"></div>
 </main>
 <script>
+
+    $('.dropdown')
+        .dropdown({
+            // you can use any ui transition
+            transition: 'drop'
+        })
+    ;
+
     function afmelden(a){
         console.log("test");
 
@@ -466,7 +476,7 @@
                         .modal('setting', 'transition', 'scale')
                         .modal('show');
 
-                    // TODO: Vraag titel, beschrijving, image op van geselecteerde LI (Adhv ID)
+                    // li -> geselecteerde taak
                     console.log(li);
 
                     var style = window.getComputedStyle(li);
@@ -475,25 +485,23 @@
                     var color;
                     var index;
                     var prioriteit;
-                    switch (borderBottom) {
-                        case "3px solid rgb(242, 234, 19)": color = "yellow"; index = 1; prioriteit = "dringend";
+                    var classlijst = li.classList;
+                    console.log("HIERONDERRRRRRRRRRRRRRRRRRRR");
+                    console.log(classlijst[3]);
+                    switch (classlijst[3]) {
+                        case "liBorderG": color = "yellow"; index = 1; prioriteit = "Dringend";
                             break;
-                        case "3px solid rgb(46, 204, 113)": color = "green"; index = 0; prioriteit = "niet dringend";
+                        case "liBorderL": color = "green"; index = 0; prioriteit = "Niet Dringend";
                             break;
-                        case "3px solid rgb(220, 0, 47)": color = "red"; index = 2; prioriteit = "direct";
+                        case "liBorderH": color = "red"; index = 2; prioriteit = "Zeer Dringend";
                             break;
                     }
-
-                    $('.ui.dropdown')
-                        .dropdown()
-                    ;
-
                     var kaart_titel = li.childNodes[0].innerText;
                     var kaart_lokaal = li.childNodes[1].childNodes[0].innerText;
                     var kaart_omschrijving = li.childNodes[1].childNodes[3].innerText;
 
                     var elementHeaderTitel = document.getElementById("Card_Header");
-                    elementHeaderTitel.value = kaart_titel;
+                    elementHeaderTitel.innerText = kaart_titel;
 
                     var elementTitel = document.getElementById("Card_Titel");
                     elementTitel.value = kaart_titel;
@@ -507,19 +515,92 @@
                     var elementPrioriteit = document.getElementById("Card_Prioriteit");
                     elementPrioriteit.selectedIndex = index;
 
-                    var nieuweTitel = elementTitel.value;
-                    var nieuwLokaal = elementLokaal.value;
-                    var nieuweOmschrijving = elementOmschrijving.value;
-                    var nieuwePrioriteit = prioriteit;
-                    var listId = li.parentNode.id;
+
 
 
                     document.getElementById("btnOpslaan").addEventListener("click", function(){
-                        // TODO: omschrijving samenvoegen in array en doorsturen
-                        var nieuweDescription = [nieuweOmschrijving, nieuwePrioriteit, nieuwLokaal];
-                        var descriptionMerged = nieuweDescription.join("/n");
-                        console.log(descriptionMerged);
-                        Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+nieuweOmschrijving);
+
+                        var nieuweTitel = elementTitel.value;
+                        var nieuwLokaal = elementLokaal.value;
+                        var nieuweOmschrijving = elementOmschrijving.value;
+                        var nieuwePrioriteit = document.getElementById("Card_Prioriteit").value;
+                        var listId = li.parentNode.id;
+
+                        // Pas kaartje aan en toon direct de verandering
+                        var nieuweDescription = [nieuweOmschrijving, nieuwePrioriteit, "", nieuwLokaal];
+                        var descriptionMerged = nieuweDescription.join("/n@");
+                        Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+descriptionMerged+"&name="+nieuweTitel);
+
+                        var parent = li.firstChild;
+                        var parent2 = li.childNodes[1];
+                        var nieuweTitelLink = document.createElement("a");
+                        nieuweTitelLink.appendChild(document.createTextNode(nieuweTitel));
+
+                        var hx = li.firstChild.childNodes[0].href;
+                        var hr = hx.split("/");
+
+                        // Verander de titel
+                        nieuweTitelLink.href = hr[hr.length-1];
+                        nieuweTitelLink.setAttribute("data-toggle", "collapse");
+                        parent.replaceChild(nieuweTitelLink,parent.childNodes[0]);
+
+                        // Verander het lokaal
+                        var nieuwLokaalElement = document.createElement("p");
+                        var textNode = document.createTextNode(nieuwLokaal);
+                        nieuwLokaalElement.appendChild(textNode);
+                        nieuwLokaalElement.className = "lokaal content";
+                        nieuwLokaalElement.style.paddingTop = "10px";
+
+                        parent2.replaceChild(nieuwLokaalElement, parent2.firstChild);
+
+                        // Verander de omschrijving
+                        var nieuwOmschrijvingElement = document.createElement("p");
+                        nieuwOmschrijvingElement.className = "panel-body";
+                        var textNodeOmschrijving = document.createTextNode(nieuweOmschrijving);
+                        nieuwOmschrijvingElement.appendChild(textNodeOmschrijving);
+
+                        parent2.replaceChild(nieuwOmschrijvingElement, parent2.childNodes[3]);
+
+                        // Verander de prioriteit
+                        switch (nieuwePrioriteit) {
+                            case "Niet Dringend":
+                                if (li.classList.contains("liBorderL")) {
+                                    li.classList.remove("liBorderL");
+                                }
+                                else if (li.classList.contains("liBorderG")) {
+                                    li.classList.remove("liBorderG");
+                                }
+                                else if (li.classList.contains("liBorderH")) {
+                                    li.classList.remove("liBorderH");
+                                }
+                                li.classList.add("liBorderL");
+                                break;
+                            case "Dringend":
+                                if (li.classList.contains("liBorderL")) {
+                                    li.classList.remove("liBorderL");
+                                }
+                                else if (li.classList.contains("liBorderG")) {
+                                    li.classList.remove("liBorderG");
+                                }
+                                else if (li.classList.contains("liBorderH")) {
+                                    li.classList.remove("liBorderH");
+                                }
+                                li.classList.add("liBorderG");
+                                break;
+                            case "Zeer Dringend":
+                                if (li.classList.contains("liBorderL")) {
+                                    li.classList.remove("liBorderL");
+                                }
+                                else if (li.classList.contains("liBorderG")) {
+                                    li.classList.remove("liBorderG");
+                                }
+                                else if (li.classList.contains("liBorderH")) {
+                                    li.classList.remove("liBorderH");
+                                }
+                                li.classList.add("liBorderH");
+                                break;
+                        }
+
                     },false);
 
 
@@ -591,6 +672,9 @@
                      selecteddiv.appendChild(li);
 
                      }*/
+                    $( "#Card_Lokaal" ).autocomplete({
+                        source: arraymetlokalen
+                    });
 
 
                     var worker =this.parentNode.firstChild.innerText;
@@ -725,9 +809,9 @@
                     p23.setAttribute("Class","panel-body");
                     p23.innerHTML = descriptionn[0];
 
-                    if(descriptionn[1]=="Niet dringend"){li.classList.add("liBorderL");}
+                    if(descriptionn[1]=="Niet Dringend"){li.classList.add("liBorderL");}
                     else if(descriptionn[1]=="Dringend"){li.classList.add("liBorderG");}
-                    else if(descriptionn[1]=="Zeer dringend"){li.classList.add("liBorderH");}
+                    else if(descriptionn[1]=="Zeer Dringend"){li.classList.add("liBorderH");}
 
                     div2.appendChild(p21);
                     div2.appendChild(p22);
@@ -1202,6 +1286,7 @@ $mysqli->close();
         $( "#Filter_Lokaal" ).autocomplete({
             source: arraymetlokalen
         });
+
     });
 
     for(var i = 0;i<campussen.length;i++) {

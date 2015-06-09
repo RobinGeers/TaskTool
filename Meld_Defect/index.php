@@ -328,11 +328,11 @@ $mysqli->close();
 
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../css/screen.css"/>
-    <!--  <link rel="stylesheet" href="../css/dropzone.css"/>
-      <script src="../js/dropzone.js"></script>-->
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="https://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="../css/transition.min.css">
+    <script src="../js/semantic.min.js"></script>
     <link rel="stylesheet" href="../css/semantic.min.css">
     <link href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet"/>
     <script>
@@ -382,13 +382,16 @@ $mysqli->close();
             <div class="ui-widget">
 
 
-                <input type="text" id="txtLokaal" name="txtLokaal" placeholder="A.202b (Leslokaal)" tabindex="1" title="Selecteer een lokaal uit de lijst." required >
+                <input type="text" id="txtLokaal" name="txtLokaal" placeholder="A.202b (Leslokaal)" tabindex="1"
+                       title="Selecteer een lokaal uit de lijst." required/>
             </div>
             <label for="txtOnderwerp">Onderwerp:<span> *</span></label>
-            <input id="txtOnderwerp" type="text" name="txtOnderwerp" placeholder="Waterfontein is kapot" tabindex="2" required pattern=".{3,}" title="Titel moet minimum 3 karakters bevatten.">
+            <input id="txtOnderwerp" type="text" name="txtOnderwerp" placeholder="Waterfontein is kapot" tabindex="2"
+                   pattern=".{3,}" title="Titel moet minimum 3 karakters bevatten." required/>
             <label for="txtOmschrijving">Omschrijving:<span> *</span></label>
             <textarea id="txtOmschrijving" name="txtOmschrijving" cols="30" rows="7"
-                      placeholder="Vul hier uw Omschrijving in" tabindex="3" required title="Gelieve een omschrijving te geven."></textarea>
+                      placeholder="Vul hier uw Omschrijving in" tabindex="3" title="Gelieve een omschrijving te geven."
+                      required></textarea>
             <label>Prioriteit:<span> *</span></label>
             <input type="hidden" id="amount" readonly style="border:0;">
 
@@ -408,12 +411,37 @@ $mysqli->close();
             </div>
             <input type="checkbox" name="chkHoudOpDeHoogte" id="chkHoudOpDeHoogte" checked value="chkHoudOpDeHoogte">
             <label for="chkHoudOpDeHoogte">Houd mij op de hoogte</label>
-            <input type="submit" value="Meld defect!" name="submit" id="submit" tabindex="6">
+            <input type="submit" value="Meld defect!" name="submit" id="submit" tabindex="6" onsubmit="OpenPopup()">
 
             <div class="clearfix"></div>
         </form>
+
+        <div class="ui test modal transition" style="z-index: 100000;">
+            <!-- TODO: Close icon zoeken !-->
+            <i id="close_Popup" class="close icon"></i>
+
+            <div class="header">
+                Bedankt!
+            </div>
+            <div class="content">
+                <div class="center">
+                    <p>Je bericht werd succesvol verzonden.</p>
+                </div>
+                <div class="clearfix"></div>
+            </div>
+
     </section>
 </main>
+
+<script>
+    function OpenPopup()
+    {
+        $('.modal')
+            .modal('setting', 'transition', 'scale')
+            .modal('show');
+    });
+    }
+</script>
 
 <!--<script>    Dropzone.autoDiscover = false;
     Dropzone.options.myAwesomeDropzone = { // The camelized version of the ID of the form element

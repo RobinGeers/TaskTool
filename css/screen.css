@@ -276,6 +276,24 @@ main#MeldDefectFormulier input[type="submit"]:hover {
     margin-bottom: 19px;
 }
 
+main#MeldDefectFormulier span
+{
+    color: #DC002F;
+}
+
+input:required:invalid, input:focus:invalid, textarea:required:invalid {
+    background-image: url(../images/invalid.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    background-position: 450px;
+}
+input:required:valid textarea:required:valid, textarea:required:valid {
+    background-image: url(../images/valid.png);
+    background-position: right;
+    background-repeat: no-repeat;
+    background-position: 450px;
+}
+
 
 
 /* ----------- Overzicht ----------- */

@@ -11,12 +11,8 @@ if($naam != "") {
 <html>
 <head lang='en'>
     <meta charset='UTF-8'>
-
-    <link rel="stylesheet" href="css/normalize.css"/>
     <link rel="stylesheet" href="css/bootstrap.minAfdruk.css">
     <link rel="stylesheet" href="css/afdrukcss.css"/>
-    <link rel="stylesheet" media="print" href="css/print.css"/>
-
     <meta name="viewport" content="width=device-width, initial-scale=0.5">
     <title>Lijst van <?php print$naam; ?> </title>
 </head>
@@ -53,7 +49,7 @@ if($naam != "") {
 //Haal alle kaartjes op van een bepaalde lijst
             Trello.get("/lists/" + SelectedList + "?fields=name&cards=open&card_fields=name&token=" + application_token, function (cards) {
                 //console.log(cards["cards"]);
-                 CardId = [];
+                CardId = [];
 //overloop alle kaarten die we terug krijgen
                 $.each(cards["cards"], function (ix, card) {
                     //console.log(card.id);
@@ -65,7 +61,7 @@ if($naam != "") {
                     //Overloop 1 kaartje en haal de data eruit
                     Trello.get("/cards/" + card.id + "?fields=desc&attachments=true&token=" + application_token, function (cardinfo) {
                         //ASYNC!!!
-                       // description.push(cardinfo.desc);
+                        // description.push(cardinfo.desc);
                         carddescription = cardinfo.desc; //gaat niet aangezien dit async verloopt
                         console.log(cardinfo.desc);
                         //kijkt naar de attachments en voegt de link toe in een array
@@ -73,20 +69,17 @@ if($naam != "") {
                             attachementsarr.push(attachement.url);
                         });
 
-                    //Bevat 1 kaartje zijn info
-                    temparr.push(card.id, card.name, carddescription, attachementsarr);
-                  //  Trello.put('/1/cards/' + card.id + '/checklist/5506dbf5b32e668bde0de1b4/checkItem/' + ix + '/' + card.name + '&value=HAHAHAHAHAHAHHA');
-                    //array met alle kaartjes in
+                        //Bevat 1 kaartje zijn info
+                        temparr.push(card.id, card.name, carddescription, attachementsarr);
+                        //  Trello.put('/1/cards/' + card.id + '/checklist/5506dbf5b32e668bde0de1b4/checkItem/' + ix + '/' + card.name + '&value=HAHAHAHAHAHAHHA');
+                        //array met alle kaartjes in
 
+                        console.log(temparr);
 
-
- //  <!-- Maak evenveel DIV's aan als er kaartzen zijn ( zal nog in for lus moeten ) -->
-
-                    console.log('hhh');
-                    console.log(temparr);
-                    console.log('hhh');
+                        //
+                        <!-- Maak evenveel DIV's aan als er kaartzen zijn ( zal nog in for lus moeten ) -->
                         //<img src="pic_mountain.jpg" alt="Mountain View" style="width:304px;height:228px;">
-var dc = carddescription.split("/n@");
+                        var dc = carddescription.split("/n@");
 
                         //TODO
                         var hoofddiv = document.createElement("div");
@@ -95,30 +88,21 @@ var dc = carddescription.split("/n@");
                         var rightdiv = document.createElement("div");
                         var chkbox = document.createElement("input");
                         var label = document.createElement('label');
-
                         leftdiv.setAttribute("id", "leftdiv");
                         leftdiv.setAttribute("class", "col-md-2");
-
-                        centerdiv.setAttribute("class","col-md-4");
-                        centerdiv.setAttribute("id","centerdiv");
-
-                        rightdiv.setAttribute("class","col-md-4");
-                        rightdiv.setAttribute("id","rightdiv");
-
-
+                        centerdiv.setAttribute("class", "col-md-4");
+                        centerdiv.setAttribute("id", "centerdiv");
+                        rightdiv.setAttribute("class", "col-md-4");
+                        rightdiv.setAttribute("id", "rightdiv");
                         label.appendChild(document.createTextNode('Afgewerkt'));
-
-                        chkbox.setAttribute("type","checkbox");
-                        chkbox.setAttribute("name","afgewerkt");
-                        chkbox.setAttribute("value","Afgewerkt");
-                        chkbox.setAttribute("class","chkbox");
-
+                        chkbox.setAttribute("type", "checkbox");
+                        chkbox.setAttribute("name", "afgewerkt");
+                        chkbox.setAttribute("value", "Afgewerkt");
+                        chkbox.setAttribute("class", "chkbox");
                         var titel = document.createElement("h1");
                         var p2 = document.createElement("p");
-                        var node = document.createTextNode(""+dc[0]);
-                        var node2 = document.createTextNode(""+temparr[1]);
-
-
+                        var node = document.createTextNode("" + dc[0]);
+                        var node2 = document.createTextNode("" + temparr[1]);
                         titel.appendChild(node2);
                         p2.appendChild(node);
                         hoofddiv.appendChild(leftdiv);
@@ -128,18 +112,12 @@ var dc = carddescription.split("/n@");
                         centerdiv.appendChild(p2);
                         rightdiv.appendChild(chkbox);
                         rightdiv.appendChild(label);
-
-
-                        hoofddiv.setAttribute("id","qrcode"+ix);
-                        hoofddiv.setAttribute("class","row");
-
-                       // console.log(element);
-
-                        //   document.write("<input type='checkbox' name='smiley' value='Ja'>Afgewerkt<br>");
+                        hoofddiv.setAttribute("id", "qrcode" + ix);
+                        hoofddiv.setAttribute("class", "row");
                         $.each(temparr[3], function (ix, temp) {
                             console.log("naam is:" + temp);
                             var extension = temp.substr(temp.length - 3); // => "Tabs1"
-                            if (extension == "jpg" || extension == "png") {
+                            if (extension.toLowerCase() == "jpg" || extension.toLocaleLowerCase() == "png") {
                                 var pimg = document.createElement("img");
                                 pimg.setAttribute("src", temp);
                                 pimg.setAttribute("class", "afbeelding");
@@ -158,35 +136,11 @@ var dc = carddescription.split("/n@");
                         qrcode.makeCode("http://student.howest.be/sam.bauters/trello/finish.php?id=" + temparr[0]);
 
 
-
-                CardId.push(temparr)
-                }); });
-  /*  <div id="qrcode1" style="width:100px; height:100px; margin-top:15px;"></div>
-    <div id="qrcode2" style="width:100px; height:100px; margin-top:100px;"></div>
-    <div id="qrcode3" style="width:100px; height:100px; margin-top:150px;"></div>
-    <div id="qrcode4" style="width:100px; height:100px; margin-top:200px;"></div>
-    <div id="qrcode5" style="width:100px; height:100px; margin-top:250px;"></div>*/
-
+                        CardId.push(temparr)
+                    });
                 });
-
-/*
-        var loop = CardId.length; // 6-1 = 5 hij zal 5 keer in de loop terecht komen
-        for (i = 0; i < loop+1; i++) {
-            var qrcode = new QRCode(document.getElementById("qrcode" + i), {
-                width: 100,
-                height: 100
             });
-            //console.log(qrcode);
-
-            //maak de qr code aan
-            qrcode.makeCode("http://student.howest.be/wouter.dumon/ProjectTEst/PROJECT/root/Afdrukpagina.html");
-        }*/
-
-
-            });
-
-     //   });
-
+        });
 
     </script>
 

@@ -450,7 +450,7 @@
                 if(!izworker)
                 {
 
-                    li.style.maxWidth = "250px";
+                    li.style.maxWidth = "400px";
                 }
                 else
                 {

@@ -542,11 +542,12 @@ main#Overzicht_Takenlijst section#Filters section input {
 
 main#Overzicht_Takenlijst section#Taken {
      margin-left: 100px;
+
 }
 
 .Overzicht_Titels {
     background-color: #337ab7;
-    width: 250px;
+    width: 400px;
     text-align: center;
     color: #ffffff;
     font-weight: 300;
@@ -583,7 +584,7 @@ ul li.card {
 .lastcard {
     list-style-type: none;
     background-color: #ffffff;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
     box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
     margin-top: -15px;
@@ -594,19 +595,24 @@ ul li.card {
 
 .card_final {
     list-style-type: none;
-    width: 250px;
-    max-width: 250px;
+    width: 400px;
+    max-width: 400px;
 }
 
 main#Overzicht_Takenlijst section.Section_Float {
     float: left;
-    margin-right: 100px;
+    margin-right: 40px;
+    background-color: rgba(107,107,107,0.05);
+    -webkit-box-shadow: 2px 2px 7px -2px rgba(107,107,107,0.70);
+    -moz-box-shadow: 2px 2px 7px -2px rgba(107,107,107,0.70);
+    box-shadow: 2px 2px 7px -2px rgba(107,107,107,0.70);
 }
 
 main#Overzicht_Takenlijst section#Medewerkers ul {
     list-style-type: none;
     background-color: #ffffff;
-    margin-bottom: 10px;
+    margin-bottom: 0px;
+    margin-top: 10px;
     padding: 20px;
     box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
     border-radius: 4px;

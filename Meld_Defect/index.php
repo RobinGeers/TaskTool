@@ -132,15 +132,7 @@ if (isset($_POST['priori'])) {
 
 
 if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Prioriteit)) {
-    ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script>
-        $('.modal')
-            .modal('setting', 'transition', 'scale')
-            .modal('show');
 
-    </script>
-    <?php
 
     //   print $Prioriteit;
     //Sessie maken dat hij is ingelogd
@@ -251,6 +243,17 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
       //  header('Location: ../Overzicht');
     }
     //TODO: sessie leeg maken
+
+    ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+            $('.modal')
+                .modal('setting', 'transition', 'scale')
+                .modal('show');
+        });
+    </script>
+<?php
 }//einde isset
 else {
 //Waardes bestaan nog niet => geen goed form of slechte input
@@ -290,9 +293,6 @@ if ($mysqli->connect_error) {
 $data = array();
 ?>
 <!-- uery zelf in -->
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
-<!-- laad de jquery in voor autocomplete -->
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 <script>    var arraymetlokalen = [];</script>
 
 <?php
@@ -315,12 +315,12 @@ $mysqli->close();
 ?>
 <script>
     //console.log(arraymetlokalen);
-    /*$(function () {
+    $(function () {
 
         $("#txtLokaal").autocomplete({
             source: arraymetlokalen
         });
-    });*/
+    });
 
 
 </script>
@@ -335,7 +335,9 @@ $mysqli->close();
     <title>
         Meldpagina - Howest Tasktool
     </title>
-
+    <script src="//code.jquery.com/jquery-1.10.2.js"></script>
+    <!-- laad de jquery in voor autocomplete -->
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
@@ -442,16 +444,6 @@ $mysqli->close();
 
     </section>
 </main>
-
-<script>
-    function OpenPopup()
-    {
-        $('.modal')
-            .modal('setting', 'transition', 'scale')
-            .modal('show');
-
-    }
-</script>
 
 <!--<script>    Dropzone.autoDiscover = false;
     Dropzone.options.myAwesomeDropzone = { // The camelized version of the ID of the form element

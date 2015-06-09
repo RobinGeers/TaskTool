@@ -131,7 +131,7 @@
     </div>
 
     <!--Oude filter op campussen!-->
-    <select name="Filter_Campussen" id="Filter_Campussen" onchange="CampusChange(this.value)">
+    <select class="ui search dropdown" name="Filter_Campussen" id="Filter_Campussen" onchange="CampusChange(this.value)">
         <option value="Default">Campus</option>
     </select>
 

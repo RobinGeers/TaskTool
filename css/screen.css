@@ -493,7 +493,16 @@ margin-top: 150px;
 #Filters_Zoek input {
     border-radius: 4px;
     padding: 10px;
-    border: 1px solid #cccccc;
+    border: 1px solid #e0e0e0;
+    background-color: #e0e0e0;
+}
+
+#Filters_Zoek input:first-child {
+    margin-left: 5px;
+}
+
+#Filters_Zoek input:nth-child(3) {
+    margin-left: -20px;
 }
 
 header {
@@ -882,6 +891,10 @@ section#WerknemersFilter label{
     z-index: 0;
 }
 
+.ui.search.dropdown.selection {
+    background-color: #e0e0e0;
+    border: 1px solid #e0e0e0;
+}
 /* ----------- Instellingen ----------- */
 
 main#Instellingen h1 {

@@ -79,13 +79,13 @@ if (isset($_POST['txtEmailadres'])) {
                 case 'Werkman':
                     $naam = explode('.', $bericht);
 
-                    header('Location: ../Afdrukpagina.php?Werkman=' . $naam[0]);
+             //       header('Location: ../Afdrukpagina.php?Werkman=' . $naam[0]);
                     break;
                 case 'Onthaal':
-                    header('Location: ../Overzicht');
+             //       header('Location: ../Overzicht');
                     break;
                 case 'Admin':
-                    header('Location: ../Overzicht');
+              //      header('Location: ../Overzicht');
                     break;
             }
             // print_r($row['NAME']);
@@ -132,6 +132,16 @@ if (isset($_POST['priori'])) {
 
 
 if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Prioriteit)) {
+    ?>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script>
+        $('.modal')
+            .modal('setting', 'transition', 'scale')
+            .modal('show');
+
+    </script>
+    <?php
+
     //   print $Prioriteit;
     //Sessie maken dat hij is ingelogd
     // $_SESSION[''] = $eml;
@@ -238,7 +248,7 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
         //   header('Location: ../index.php?data=1');
 
     } else {
-        header('Location: ../Overzicht');
+      //  header('Location: ../Overzicht');
     }
     //TODO: sessie leeg maken
 }//einde isset
@@ -305,12 +315,12 @@ $mysqli->close();
 ?>
 <script>
     //console.log(arraymetlokalen);
-    $(function () {
+    /*$(function () {
 
         $("#txtLokaal").autocomplete({
             source: arraymetlokalen
         });
-    });
+    });*/
 
 
 </script>
@@ -439,7 +449,7 @@ $mysqli->close();
         $('.modal')
             .modal('setting', 'transition', 'scale')
             .modal('show');
-    });
+
     }
 </script>
 

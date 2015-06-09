@@ -79,13 +79,13 @@ if (isset($_POST['txtEmailadres'])) {
                 case 'Werkman':
                     $naam = explode('.', $bericht);
 
-             //       header('Location: ../Afdrukpagina.php?Werkman=' . $naam[0]);
+                    header('Location: ../Afdrukpagina.php?Werkman=' . $naam[0]);
                     break;
                 case 'Onthaal':
-             //       header('Location: ../Overzicht');
+                    header('Location: ../Overzicht');
                     break;
                 case 'Admin':
-              //      header('Location: ../Overzicht');
+                    header('Location: ../Overzicht');
                     break;
             }
             // print_r($row['NAME']);

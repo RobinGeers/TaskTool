@@ -111,7 +111,7 @@
                 <div class="ui yellow empty circular label"></div>
                 Dringend
             </div>
-            <div onclick="PriorityChange('Direct')" class="item">
+            <div onclick="PriorityChange('Zeer Dringend')" class="item">
                 <div class="ui red empty circular label"></div>
                 Zeer Dringend
             </div>
@@ -985,7 +985,7 @@
             if (priorityfilters[i].id.split("/")[1] == "Dringend") {
                 priority = "liBorderG";
             }
-            else if (priorityfilters[i].id.split("/")[1] == "Direct") {
+            else if (priorityfilters[i].id.split("/")[1] == "Zeer Dringend") {
                 priority = "liBorderH";
             }
 

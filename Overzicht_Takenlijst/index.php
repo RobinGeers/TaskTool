@@ -1156,7 +1156,7 @@
         }
 
         //
-        //header("location:./Afdrukpagina.php?Werkman=".listId);
+        header("location:./Afdrukpagina.php?Werkman=".listId);
 
 
     }

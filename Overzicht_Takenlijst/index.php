@@ -759,6 +759,10 @@
                     p21.style.paddingTop = "10px";
                     p21.innerHTML = descriptionn[3];
 
+                    var spanlokaal = document.createElement("span");
+                    spanlokaal.setAttribute("Class","hoverLokaal");
+                    spanlokaal.innerHTML = descriptionn[3];
+
                     var p22 = document.createElement("P");
                     p22.setAttribute("Class","campus content");
                     p22.innerHTML = "";
@@ -774,6 +778,7 @@
                     else if(descriptionn[1]=="Dringend"){li.classList.add("liBorderG");}
                     else if(descriptionn[1]=="Zeer Dringend"){li.classList.add("liBorderH");}
 
+                    div1.appendChild(spanlokaal);
                     div2.appendChild(p21);
                     div2.appendChild(p22);
                     div2.appendChild(div21);

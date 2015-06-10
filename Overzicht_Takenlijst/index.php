@@ -44,7 +44,7 @@
         </div>
         <div class="content">
             <div class="left">
-                <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
+                <img id="Card_Image"/>
             </div>
             <div class="right">
                 <input id="Card_Titel" type="text" placeholder="Titel kaartje"/>
@@ -499,6 +499,8 @@
                     var kaart_titel = li.childNodes[0].innerText;
                     var kaart_lokaal = li.childNodes[1].childNodes[0].innerText;
                     var kaart_omschrijving = li.childNodes[1].childNodes[3].innerText;
+                    var imageSource = li.childNodes[1].childNodes[5].src;
+                    console.log("KIJK HIERONDER");
 
                     var elementHeaderTitel = document.getElementById("Card_Header");
                     elementHeaderTitel.innerText = kaart_titel;
@@ -515,8 +517,8 @@
                     var elementPrioriteit = document.getElementById("Card_Prioriteit");
                     elementPrioriteit.selectedIndex = index;
 
-
-
+                    var elementImage = document.getElementById("Card_Image");
+                    elementImage.src = imageSource;
 
                     document.getElementById("btnOpslaan").addEventListener("click", function(){
 
@@ -607,81 +609,16 @@
 
                         var nieuweTitel = elementTitel.value;
                         var listId = li.parentNode.id;
+                        var ul = li.parentNode;
 
+                        // Verwijder kaart in Trello
                         Trello.delete("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token);
 
+                        // Verwijder kaart op pagina
+                        ul.removeChild(li);
 
                     },false);
 
-
-
-                    /* Trello.get("/cards/"+li.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo) {
-
-                     //ASYNC!!!
-                     description.push(cardinfo.desc);
-                     carddescription = cardinfo.desc; //gaat niet aangezien dit async verloopt
-                     //kijkt naar de attachments en voegt de link toe in een array
-                     $.each(cardinfo.attachments,function(ix,attachement){
-                     attachementsarr.push(attachement.url);
-
-                     });
-                     var descriptionn = cardinfo.desc.split("/n@");
-                     console.log(descriptionn);
-                     var kaart_omschrijving = descriptionn[0];
-                     var kaart_prioriteit = descriptionn[1];
-                     var kaart_email = descriptionn[2];
-                     var kaart_lokaal = descriptionn[3];
-                     var kaart_werknemer = descriptionn[4];
-                     var kaart_datum_dag = descriptionn[5];
-                     var kaart_datum_uur = descriptionn[6];
-                     //var kaart_titel =
-
-                     var elementHeaderTitel = document.getElementById("Card_header");
-                     //elementHeaderTitel.innerText = kaart_
-
-                     var elementOmschrijving = document.getElementById("Card_Omschrijving");
-                     elementOmschrijving.innerText = kaart_omschrijving;
-
-
-                     /*var p21 = document.createElement("P");
-                     p21.setAttribute("Class","lokaal content");
-                     p21.style.paddingTop = "10px";
-                     p21.innerHTML = descriptionn[3];
-
-                     var p22 = document.createElement("P");
-                     p22.setAttribute("Class","campus content");
-                     p22.innerHTML = "";
-
-                     var div21 = document.createElement("DIV");
-                     div21.setAttribute("Class","clearfix");
-
-                     var p23 = document.createElement("P");
-                     p23.setAttribute("Class","panel-body");
-                     p23.innerHTML = descriptionn[0];
-
-                     if(descriptionn[1]=="Niet dringend"){li.classList.add("liBorderL");}
-                     else if(descriptionn[1]=="Dringend"){li.classList.add("liBorderG");}
-                     else if(descriptionn[1]=="Zeer dringend"){li.classList.add("liBorderH");}
-
-                     div2.appendChild(p21);
-                     div2.appendChild(p22);
-                     div2.appendChild(div21);
-                     div2.appendChild(p23);*/
-
-                    /*     });*/
-
-
-                    /*   temparr.push(card.id,card.name,description,attachementsarr);
-                     //array met alle kaartjes in
-                     CardId.push(temparr);
-
-                     div1.appendChild(a1);
-                     div1.appendChild(input);
-                     li.appendChild(div1);
-                     li.appendChild(div2);
-                     selecteddiv.appendChild(li);
-
-                     }*/
                     $( "#Card_Lokaal" ).autocomplete({
                         source: arraymetlokalen
                     });
@@ -803,6 +740,20 @@
                         }
                     });
 
+                    var hasImage = false;
+                    if (cardinfo.attachments.length > 0) {
+                        console.log(cardinfo.attachments[0].url);
+
+                        var imageLink = document.createElement("img");
+                        imageLink.src = cardinfo.attachments[0].url;
+                        imageLink.className = "Card_Image";
+
+                        hasImage = true;
+                    }
+
+                    var divclearfix = document.createElement("DIV");
+                    divclearfix.setAttribute("Class","clearfix");
+
                     var p21 = document.createElement("P");
                     p21.setAttribute("Class","lokaal content");
                     p21.style.paddingTop = "10px";
@@ -828,6 +779,10 @@
                     div2.appendChild(div21);
                     div2.appendChild(p23);
                     div2.appendChild(label24);
+                    if (hasImage == true) {
+                        div2.appendChild(imageLink);
+                    }
+                    div2.appendChild(divclearfix);
 
                 });
 

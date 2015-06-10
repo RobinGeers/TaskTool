@@ -401,6 +401,14 @@ main#Overzicht a#first:active, main#Overzicht a#second:active, main#Overzicht a#
     background-color: #fff !important;
 }
 
+.Card_Image {
+    max-width: 200px;
+    display: inline-block;
+    float: right;
+    margin-right: 35px;
+    margin-bottom: 20px;
+}
+
 main{
 margin-top: 150px;
 
@@ -621,6 +629,10 @@ ul li.card {
     list-style-type: none;
     width: 400px;
     max-width: 400px;
+}
+
+.card_final label {
+    margin-left: 15px;
 }
 
 main#Overzicht_Takenlijst section.Section_Float {

@@ -281,7 +281,7 @@ else {
     } else {
         if (isset($_SESSION['loggedin'])) {
         } else {
-            header('Location: ../index.php?data=2');
+           // header('Location: ../index.php?data=2');
         }
     }
 }

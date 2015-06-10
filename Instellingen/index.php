@@ -678,13 +678,15 @@ console.log(eml.childNodes);
 function saverow(el){
     var selectedvalue= el.childNodes[2].firstChild.value;
     var naam = el.childNodes[1].innerText;
+    var tdd = document.createElement("td");
     var td4 = document.createElement("i");
     td4.className="write icon";
     td4.addEventListener("click",function() {
         dosomething(el);
 
     });
-    el.replaceChild(td4,el.childNodes[3]);
+    tdd.appendChild(td4);
+    el.replaceChild(tdd,el.childNodes[3]);
     var td3 = document.createElement("td");
     td3.appendChild(document.createTextNode(selectedvalue));
     el.replaceChild(td3,el.childNodes[2]);

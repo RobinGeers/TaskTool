@@ -1,7 +1,7 @@
 <script>
     mydata= [];
     myexternaldata = [];
-
+    lokalen = [];
 
 </script>
 
@@ -80,6 +80,8 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
     }
 }
 
+
+
 ?>
 
     dat = [];
@@ -101,6 +103,39 @@ print_r($dataext);*/
 //connectie sluiten
 $mysqli->close();
 ?>
+
+// Tabel met lokalen
+<?php
+
+$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+
+//controleren op fouten
+//echo "h";
+if ($mysqli->connect_error)
+{
+echo "Geen connectie mogelijk met de database";
+}
+$dataint = array();
+$dataext = array();
+$result = $mysqli->query("SELECT IDNUMMERING, NAME, DESCRIPTION, USER_TEXT_1, DISABLED FROM klassen");
+//print $_COOKIE['inlognaam'];
+while($row = $result->fetch_array(MYSQLI_ASSOC)) {
+?>
+dat = [];
+dat.push('<?php print $row['IDNUMMERING'];?>');
+dat.push('<?php print $row['NAME'] ?>');
+dat.push('<?php print addslashes($row['DESCRIPTION']) ?>');
+dat.push('<?php print $row['USER_TEXT_1'] ?>');
+dat.push('<?php print $row['DISABLED'] ?>');
+lokalen.push(dat);
+
+<?php
+}
+
+//connectie sluiten
+$mysqli->close();
+?>
+
 </script>
 
 
@@ -266,6 +301,21 @@ $mysqli->close();
 
                 </tbody>
             </table>
+
+            <table id="DL">
+                <thead>
+                <tr>
+                    <th>Id</th>
+                    <th>Naam lokaal</th>
+                    <th>Omschrijving</th>
+                    <th>Extra info</th>
+                    <th>Bewerk</th>
+                </tr>
+                </thead>
+                <tbody id="DynamicLokalen" class="display" cellspacing="0" width="70%">
+
+                </tbody>
+            </table>
         </section>
     </main>
 </body>
@@ -273,6 +323,7 @@ $mysqli->close();
 <script>
 oTable = null;
 ooTable = null;
+oooTable = null;
 var APP_KEY = '23128bd41978917ab127f2d9ed741385';
 var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
 function createlist(naam){
@@ -413,6 +464,7 @@ var id = data.split("<p>");
 $( document ).ready(function() { // voert de volgende data uit wanneer html is ingeladen
     fillup();
     fillupexternal();
+    filluplokalen();
     $.getScript("https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385", function(){
 console.log("script here");
     });
@@ -691,7 +743,7 @@ function maakitemexternal(table, naam, naambedrjf, adres, telefoon,email,id){
         deleteext(tr);
     });
 
-td8.appendChild(td6);
+    td8.appendChild(td6);
     td8.appendChild(t1);
     tr.appendChild(td1);
     tr.appendChild(td2);
@@ -710,7 +762,58 @@ if(oTable!=null) {
 }
 
 }
+
+function maakitemlokaal(table, idnummering, naam, omschrijving, user_text_1, disabled){
+    var tr =  document.createElement("tr");
+    var tdd = document.createElement("td");
+
+    tr.id = idnummering;
+    var td0 = document.createElement("td");
+    td0.appendChild(document.createTextNode(idnummering));
+    var td1 = document.createElement("td");
+    td1.appendChild(document.createTextNode(naam));
+    var td2 = document.createElement("td");
+    td2.appendChild(document.createTextNode(omschrijving));
+    var td3 = document.createElement("td");
+    td3.appendChild(document.createTextNode(user_text_1));
+    var td4 = document.createElement("td");
+    td4.appendChild(document.createTextNode(disabled));
+    var td8 = document.createElement("td");
+
+    var td6 = document.createElement("i");
+    td6.className="write icon";
+    td6.addEventListener("click",function() {
+        //       dosomething(tr);
+        dosomethinglokalen(tr);
+
+    });
+    var t1 = document.createElement("i");
+    t1.className="remove icon";
+    t1.addEventListener("click",function(){
+
+        deleteext(tr);
+    });
+
+    td8.appendChild(td6);
+    td8.appendChild(t1);
+    tr.appendChild(td0);
+    tr.appendChild(td1);
+    tr.appendChild(td2);
+    tr.appendChild(td3);
+    tr.appendChild(td8);
+    //table.appendChild(tr);
+    //var newRow = "<tr><td>row 3, cell 1</td><td>row 3, cell 2</td></tr>";
+    console.log(tr);
+
+    if(oooTable!=null) {
+        oooTable.row.add(tr).draw();
+    }else{
+        table.appendChild(tr);
+    }
+
+}
 mnnrext = 0;
+
 function fillupexternal(){
     mnnrext=0;
     table = document.getElementById('DynamicExtern');
@@ -762,6 +865,58 @@ console.log(myexternaldata);
         .removeClass( 'display' )
         .addClass('table table-striped table-bordered');
     oTable = $('#DE').DataTable({
+        "dom": '<"top">rt<"bottom"lp><"clear">'
+    });
+
+}
+
+function filluplokalen(){
+    mnnrext=0;
+    table = document.getElementById('DynamicLokalen');
+    //verwijder alles in table
+
+    var element = table.firstChild;
+
+    while( element ) {
+        table.removeChild(element);
+        element = table.firstChild;
+    }
+
+    //console.log(lokalen);
+    $.each(lokalen,function(ix,ar) {
+        idnummering = "";
+        naam = "";
+        omschrijving = "";
+        user_text_1 = "";
+        disabled = "";
+        $.each(ar, function (i, fill) {
+
+
+            if (i == 0) {
+                idnummering = fill;
+
+            } else if (i == 1) {
+                naam = fill;
+            } else if (i == 2) {
+                omschrijving = fill;
+            } else if (i == 3) {
+                user_text_1 = fill;
+            } else if (i == 4) {
+                disabled = fill;
+            }
+        });
+
+        //PASSED FILTERS
+        maakitemlokaal(table, idnummering, naam, omschrijving, user_text_1, disabled);
+        // console.log('maak');
+
+
+    });
+    console.log("test");
+    $('#DL')
+        .removeClass( 'display' )
+        .addClass('table table-striped table-bordered');
+    oooTable = $('#DL').DataTable({
         "dom": '<"top">rt<"bottom"lp><"clear">'
     });
 
@@ -846,6 +1001,40 @@ function dosomethingext(eml){
     });
 }
 
+function dosomethinglokalen(eml) {
+
+    var tell = 0;
+    //   console.log(eml.childElementCount);
+    $.each(eml.childNodes,function(ix,a){
+
+        //  console.log(ix);
+        a = eml.childNodes[ix];
+        if(ix==4){
+            //  console.log("JA VIJF");
+            var newicon = document.createElement("i");
+            newicon.className = "save icon";
+            newicon.addEventListener("click",function(){
+                saverowlokalen(eml);
+            });
+            eml.replaceChild(newicon,eml.childNodes[ix]);
+            return;
+        }
+        var hoofdtd = document.createElement("td");
+
+        var t = a.innerText;
+        var i = document.createElement("input");
+        i.type ="text";
+        i.name="inputs[]";
+        i.id="inputs"+ix;
+        i.setAttribute('value', 'default');
+        //i.addEventListener('keyup',function(val){i.value=val.value;  });
+        i.value = t;
+        hoofdtd.appendChild(i);
+        eml.replaceChild(hoofdtd,eml.childNodes[ix]);
+//console.log(eml.childNodes[ix]);
+    });
+}
+
 function saverowext(el){
     var myar = [];
     var aa="";
@@ -855,13 +1044,22 @@ function saverowext(el){
       //  console.log(el.childNodes[ix]);
         //console.log(a);
         if(ix==5){
+            var tdd = document.createElement("td");
             var td4 = document.createElement("i");
             td4.className="write icon";
             td4.addEventListener("click",function() {
                 dosomethingext(el);
-
+//HIER
             });
-            el.replaceChild(td4,el.childNodes[ix]);
+            var t1 = document.createElement("i");
+            t1.className="remove icon";
+            t1.addEventListener("click",function(){
+
+                deleteext(tr);
+            });
+            tdd.appendChild(td4);
+            tdd.appendChild(t1);
+            el.replaceChild(tdd,el.childNodes[ix]);
             return;
         }
 
@@ -886,6 +1084,65 @@ function saverowext(el){
   //
  //  window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
  //   window.focus();
+    $.ajax({
+        url: url,
+        dataType: 'html',
+        success: function(data){
+            //data returned from php
+            console.log("Gelukt");
+        }
+    });
+}
+
+function saverowlokalen(el) {
+    var myar = [];
+    var aa="";
+    aa=el.id;
+    console.log("HIEREUEUHDFSDJFSDF");
+    console.log(el);
+    $.each(el.childNodes,function(ix,a){
+        //  console.log(el.childNodes[ix]);
+        //console.log(a);
+        if(ix==4){
+            var tdd = document.createElement("td");
+            var td4 = document.createElement("i");
+            td4.className="write icon";
+            td4.addEventListener("click",function() {
+                dosomethinglokalen(el);
+//HIER
+            });
+            var t1 = document.createElement("i");
+            t1.className="remove icon";
+            t1.addEventListener("click",function(){
+                deletelokalen(el);
+            });
+            tdd.appendChild(td4);
+            tdd.appendChild(t1);
+            el.replaceChild(tdd,el.childNodes[ix]);
+            return;
+        }
+
+        var hoofdtd = document.createElement("td");
+
+        //  console.log(el.childNodes[ix]);
+        var t =  el.childNodes[ix].firstChild.value;
+
+        console.log(t);
+        myar.push(t);
+        hoofdtd.appendChild(document.createTextNode(t));
+
+        el.replaceChild(hoofdtd,el.childNodes[ix]);
+
+    });
+
+    console.log(aa);
+    mylink="../ChangeInst/sdfjl5dfqs9fdsf4.php";
+    //   window.open('#','_blank');
+//    window.open(this.href,'_self');
+    var url = mylink+"?naam="+myar[0]+"&bedrijf="+myar[1]+"&adres="+myar[2]+"&tel="+myar[3]+"&email="+myar[4]+"&id="+aa;
+    //
+    //  window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
+    //   window.focus();
     $.ajax({
         url: url,
         dataType: 'html',
@@ -920,4 +1177,27 @@ function deleteext(trr){
     //console.log(trr.childNodes[0].innerText);
    // console.log(trr.childNodes[0]);
 }
+
+    function deletelokalen(trr) {
+        mylink="../ChangeInst/Delete_lokaal.php";
+        console.log(trr.id);
+        var url = mylink+"?id="+trr.id;
+
+        $.ajax({
+            url: url,
+            dataType: 'html',
+            success: function(data){
+                //data returned from php
+                console.log("Gelukt");
+            }
+        });
+
+        var a = document.getElementById("DynamicLokalen");
+        deletelist(trr.childNodes[0].innerText);
+
+        oTable.row(trr).remove().draw();
+        $('#DL').DataTable().column(0).search(
+            ""
+        ).draw();
+    }
 </script>

@@ -603,6 +603,16 @@
 
                     },false);
 
+                    document.getElementById("btnVerwijder").addEventListener("click", function(){
+
+                        var nieuweTitel = elementTitel.value;
+                        var listId = li.parentNode.id;
+
+                        Trello.delete("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token);
+
+
+                    },false);
+
 
 
                     /* Trello.get("/cards/"+li.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo) {

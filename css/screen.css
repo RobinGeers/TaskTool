@@ -396,6 +396,11 @@ main#Overzicht a#first:active, main#Overzicht a#second:active, main#Overzicht a#
 }
 
 /* ----------- Overzicht takenlijst ----------- */
+
+.panel-default>.panel-heading {
+    background-color: #fff !important;
+}
+
 main{
 margin-top: 150px;
 

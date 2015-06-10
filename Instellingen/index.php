@@ -148,20 +148,18 @@ $mysqli->close();
 
             <p>Zoeken op interne werknemer: </p>
 
-                <input type="text" name="Filter_Naam" id="Filter_Naam" placeholder="Naam" onkeyup="naamChange(this)"  data-column="0" />
-                <!-- <input type="text" name="Filter_Naam_Medewerker" id="Filter_Naam_Medewerker" placeholder="Naam medewerker.."/>-->
-                <input type="text" name="Filter_email" id="Filter_email" placeholder="email" onkeyup="emailChange(this)" data-column="1" />
-                <input type="text" name="Filter_rechten" id="Filter_rechten" placeholder="rechten" onkeyup="rechtenChange(this)"  data-column="2" />
-            <div class="clearfix"></div>
-            <p>Zoeken op externe werknemer: </p>
-
-            <input type="text" name="Filter_eNaam" id="Filter_eNaam" placeholder="Naam" onkeyup="naamChangeext(this)" />
-            <input type="text" name="Filter_ebedrijf" id="Filter_ebedrijf" placeholder="bedrijf" onkeyup="bedrijfChangeext(this)" />
-            <input type="text" name="Filter_eadres" id="Filter_eadres" placeholder="adres" onkeyup="adresChangeext(this)" />
-            <input type="text" name="Filter_etel" id="Filter_etel" placeholder="telefoon" onkeyup="telChangeext(this)" />
-            <input type="text" name="Filter_eemail" id="Filter_eemail" placeholder="email" onkeyup="emailChangeext(this)" />
+            <input type="text" name="Filter_Naam" id="Filter_Naam" placeholder="Naam" onkeyup="naamChange(this)" data-column="0"/>
+            <i class="ui search icon"></i>
+            <!-- <input type="text" name="Filter_Naam_Medewerker" id="Filter_Naam_Medewerker" placeholder="Naam medewerker.."/>-->
+            <input type="text" name="Filter_email" id="Filter_email" placeholder="E-mail" onkeyup="emailChange(this)"
+                   data-column="1"/>
+            <i class="ui search icon"></i>
+            <input type="text" name="Filter_rechten" id="Filter_rechten" placeholder="Rechten"
+                   onkeyup="rechtenChange(this)" data-column="2"/>
+            <i class="ui search icon"></i>
 
             <div class="clearfix"></div>
+
             <!--<div id="Add_Werknemer" class="ui small primary labeled icon button">
                 <i class="user icon"></i> Update werknemer
             </div>!-->
@@ -235,6 +233,23 @@ $mysqli->close();
             <h3 class="ib">Externe werknemers</h3>
 
             <a id="hideextern" class="ib ibb" onclick="hideext(this)">Hide/Show</a>
+
+            <section id="Filters_Extern">
+                <p>Zoeken op externe werknemer: </p>
+
+                <input type="text" name="Filter_eNaam" id="Filter_eNaam" placeholder="Naam" onkeyup="naamChangeext(this)" />
+                <i class="ui search icon"></i>
+                <input type="text" name="Filter_ebedrijf" id="Filter_ebedrijf" placeholder="Bedrijf" onkeyup="bedrijfChangeext(this)" />
+                <i class="ui search icon"></i>
+                <input type="text" name="Filter_eadres" id="Filter_eadres" placeholder="Adres" onkeyup="adresChangeext(this)" />
+                <i class="ui search icon"></i>
+                <input type="text" name="Filter_etel" id="Filter_etel" placeholder="Telefoon" onkeyup="telChangeext(this)" />
+                <i class="ui search icon"></i>
+                <input type="text" name="Filter_eemail" id="Filter_eemail" placeholder="E-mail" onkeyup="emailChangeext(this)" />
+                <i class="ui search icon"></i>
+            </section>
+
+            <div class="clearfix"></div>
 
             <table id="DE">
                 <thead>

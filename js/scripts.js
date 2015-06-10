@@ -1,10 +1,21 @@
+var workers  ;
+var complete =[];
+function Initialize(workersection,workersindesc)
+{
 
-document.addEventListener("DOMContentLoaded", function(event) {
-
+    workers = workersection.getElementsByTagName("div");
+    countComplete(workersindesc);
+    //console.log(workers);
     vinkAlleWerknemersAan();
     kleurWerknemers();
     toonGrafiek1();
-    toonGrafiek2();
+    //toonGrafiek2();
+
+}
+
+document.addEventListener("DOMContentLoaded", function(event) {
+
+
 
 
 
@@ -29,48 +40,66 @@ document.addEventListener("DOMContentLoaded", function(event) {
     };*/
 });
 
-function vinkAlleWerknemersAan() {
-    document.getElementById("Bennie").checked = true;
-    document.getElementById("Alain").checked = true;
-    document.getElementById("Erik").checked = true;
-    document.getElementById("Jef").checked = true;
+function countComplete(base)
+{
+
+
+    //complete.push(temp);
+
+    for(var i = 0;i<base.length;i++)
+    {
+        var returnvalue = finddouble(base[i],complete);
+        if(returnvalue<= -1)
+        {
+            var temp=[base[i],1];
+            complete.push(temp);
+        }
+        else
+        {
+            complete[returnvalue][1]++;
+        }
+    }
+    console.log(complete);
+}
+function finddouble(value,list)
+{
+    for(var j = 0;j<list.length;j++)
+    {
+        if(value == complete[j][0])
+        {
+            return j;
+            console.log("whaaaat");
+        }
+    }
+    return -1;
 }
 
-function kleurWerknemers() {
-    if (document.getElementById("Bennie").checked) {
-        document.getElementById("Checkbox1").style.backgroundColor = "#337ab7";
-        document.getElementById("Checkbox1").style.border = "1px solid #337ab7";
-        document.getElementById("Checkbox1").style.color = "#ffffff";
-    }
-    else {
-        document.getElementById("Checkbox1").style.border = "none";
-    }
 
-    if (document.getElementById("Alain").checked) {
-        document.getElementById("Checkbox2").style.backgroundColor = "#337ab7";
-        document.getElementById("Checkbox2").style.border = "1px solid #337ab7";
-        document.getElementById("Checkbox2").style.color = "#ffffff";
+function vinkAlleWerknemersAan() {
+    for(var i = 0;i<workers.length;i++)
+    {
+        workers[i].firstChild.checked = true;
+        // console.log(workers[i].firstChild);
     }
-    else {
-        document.getElementById("Checkbox2").style.border = "none";
-    }
+}
 
-    if (document.getElementById("Erik").checked) {
-        document.getElementById("Checkbox3").style.backgroundColor = "#337ab7";
-        document.getElementById("Checkbox3").style.border = "1px solid #337ab7";
-        document.getElementById("Checkbox3").style.color = "#ffffff";
-    }
-    else {
-        document.getElementById("Checkbox3").style.border = "none";
-    }
+function kleurWerknemers()
+{
+    for(var i = 0;i<workers.length;i++)
+    {
+        if( workers[i].firstChild.checked == true)
+        {
+            workers[i].style.backgroundColor = "#337ab7";
+            workers[i].style.border = "1px solid #337ab7";
+            workers[i].style.color = "#ffffff";
+        }
+        else
+        {
+            workers[i].style.border = "none";
+            workers[i].style.backgroundColor = "#FFFFFF";
+            workers[i].style.color = "#337ab7";
 
-    if (document.getElementById("Jef").checked) {
-        document.getElementById("Checkbox4").style.backgroundColor = "#337ab7";
-        document.getElementById("Checkbox4").style.border = "1px solid #337ab7";
-        document.getElementById("Checkbox4").style.color = "#ffffff";
-    }
-    else {
-        document.getElementById("Checkbox4").style.border = "none";
+        }
     }
 }
 
@@ -329,109 +358,88 @@ function toonGrafiek1() {
 
     // Toon statistieken van geselecteerde werknemers
 
+    var values = [];
+    var letters = '0123456789ABCDEF'.split('');
+    for(var i = 0;i<workers.length;i++) {
+        var returnvalue = finddouble(workers[i].firstChild.id, complete);
 
-    // Data van Bennie
-    var dataBennie =
-    {
-        value: 20,
-        color:"#F7464A",
-        highlight: "#FF5A5E",
-        label: "Bennie"
-    };
+        var color = '#';
+        for (var c = 0; c < 6; c++) {
+            color += letters[Math.floor(Math.random() * 16)];
+        }
+        if (returnvalue <= -1) {
 
-    // Data van Alain
-    var dataAlain =
-    {
-        value: 80,
-        color: "#46BFBD",
-        highlight: "#5AD3D1",
-        label: "Alain"
-    };
+            var dataErik =
+            {
 
-    // Data van Erik
-    var dataErik =
-    {
-        value: 40,
-        color: "#FDB45C",
-        highlight: "#FFC870",
-        label: "Erik"
-    };
+                value: 0,
+                color: "#FDB45C",
+                highlight: "#FFC870",
+                label: workers[i].firstChild.id
+            };
+            values.push(dataErik);
+        }
+        else {
 
-    // Data van Jef
-    var dataJef =
-    {
-        value: 35,
-        color:"#248DCC",
-        highlight: "#39B0F7",
-        label: "Jef"
-    };
 
-    // Bennie knop ophalen
+            var dataErik =
+            {
+
+                value: complete[returnvalue][1],
+                color: color,
+                highlight: "#FFC870",
+                label: workers[i].firstChild.id
+            };
+            values.push(dataErik);
+        }
+
+
+    }
+
+
     var generatedLegende;
-    var checkBennie = document.getElementById("Bennie");
-    var checkboxDiv1 = document.getElementById("Checkbox1");
-
-    // Alain knop ophalen
-    var checkAlain = document.getElementById("Alain");
-    var checkboxDiv2 = document.getElementById("Checkbox2");
-
-    // Erik knop ophalen
-    var checkErik = document.getElementById("Erik");
-    var checkboxDiv3 = document.getElementById("Checkbox3");
-
-    // Jef knop ophalen
-    var checkJef = document.getElementById("Jef");
-    var checkboxDiv4 = document.getElementById("Checkbox4");
+    for(var i = 0;i<workers.length;i++)
+    {
+        var checkWorker = workers[i].firstChild;
+        //console.log(checkWorker);
+        var checkboxWorker = workers[i];
 
 
-    // Geklikt op Bennie
-    if (checkBennie.checked) {
-        toonData(checkboxDiv1, dataPie, dataBennie, myLineChart);
+
+        if(checkWorker.checked)
+        {
+            toonData(checkboxWorker,dataPie,values[i],myLineChart) ;
+        }
+        checkWorker.addEventListener("change",function(event){
+            var element;
+            for(var j = 0;j<values.length;j++)
+            {
+                if(values[j].label== event.target.value)
+                {
+                    element = j;
+                }
+            }
+
+            toonData(checkboxWorker,dataPie,values[element],myLineChart);
+            kleurWerknemers();
+        },false);
     }
-
-    if (checkAlain.checked) {
-        toonData(checkboxDiv2, dataPie, dataAlain, myLineChart);
-    }
-
-    if (checkErik.checked) {
-        toonData(checkboxDiv3, dataPie, dataErik, myLineChart);
-    }
-
-    if (checkJef.checked) {
-        toonData(checkboxDiv4, dataPie, dataJef, myLineChart);
-    }
-
-    // addEventListeners MOETEN blijven staan -> Anders verdwijnt werknemer niet als je er op klikt
-    checkBennie.addEventListener("change", function(){
-        toonData(checkboxDiv1, dataPie, dataBennie, myLineChart);
-        kleurWerknemers();
-    }, false);
-
-    // Geklikt op Alain
-    checkAlain.addEventListener("change", function(){
-        toonData(checkboxDiv2, dataPie, dataAlain, myLineChart);
-        kleurWerknemers();
-    }, false);
-
-    // Geklikt op Erik
-    checkErik.addEventListener("change", function(){
-        toonData(checkboxDiv3, dataPie, dataErik, myLineChart);
-        kleurWerknemers();
-    }, false);
-
-    // Geklikt op Jef
-    checkJef.addEventListener("change", function(){
-        toonData(checkboxDiv4, dataPie, dataJef, myLineChart);
-        kleurWerknemers();
-    }, false);
 }
 
 function toonData(checkboxDiv, dataPie, dataWerkman, myLineChart) {
     // Positie van dataBennie in de array
     var positionData = dataPie.indexOf(dataWerkman);
-
-    // Controleer of Bennie zijn data al getoond wordt
-    if (positionData == 0 || positionData == 1 || positionData == 2 || positionData == 3) {
+    var legende =  document.getElementById("GeneratedLegende").getElementsByTagName("li");
+    var  found = false;
+    for(var i = 0;i<legende.length;i++)
+    {
+        if(dataWerkman.label == legende[i].innerText)
+        {
+            found = true;
+        }
+    }
+    if(found)
+    {
         dataPie.splice(positionData, 1);
         myLineChart.removeData(positionData);
         myLineChart.update();
@@ -441,7 +449,8 @@ function toonData(checkboxDiv, dataPie, dataWerkman, myLineChart) {
         checkboxDiv.style.backgroundColor = "#ffffff";
         checkboxDiv.style.color = "#000000";
     }
-    else { // Als data er nog niet getoond wordt
+    else
+    {
         dataPie.push(dataWerkman);
         myLineChart.addData(dataWerkman);
         myLineChart.update();

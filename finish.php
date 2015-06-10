@@ -18,6 +18,7 @@ if(isset($_GET['id'])){
 <head lang='en'>
     <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
+    <meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no" />
     <link rel="stylesheet" href="css/screen.css"/>
     <meta charset='UTF-8'>
     <title>Lijst van <?php print$naam; ?> </title>

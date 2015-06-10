@@ -497,10 +497,16 @@ margin-top: 150px;
 
 #Filter1 {
     margin-left: 100px;
+    margin-right: 15px;
+}
+
+#Filter2 {
+    margin-right: 15px;
 }
 
 #Filters_Zoek {
     display: inline-block;
+    margin-left:15px;
 }
 
 #Filters_Zoek input {
@@ -510,12 +516,8 @@ margin-top: 150px;
     background-color: #e0e0e0;
 }
 
-#Filters_Zoek input:first-child {
-    margin-left: 5px;
-}
-
 #Filters_Zoek input:nth-child(3) {
-    margin-left: -20px;
+    margin-left: -10px;
 }
 
 header {
@@ -639,9 +641,9 @@ main#Overzicht_Takenlijst section.Section_Float {
     float: left;
     margin-right: 40px;
     background-color: rgba(107,107,107,0.05);
-    -webkit-box-shadow: 2px 2px 7px -2px rgba(107,107,107,0.70);
-    -moz-box-shadow: 2px 2px 7px -2px rgba(107,107,107,0.70);
-    box-shadow: 2px 2px 7px -2px rgba(107,107,107,0.70);
+    -webkit-box-shadow: 1px 1px 4px -2px rgba(107,107,107,0.70);
+    -moz-box-shadow: 1px 2px 4px -2px rgba(107,107,107,0.70);
+    box-shadow: 1px 1px 4px -2px rgba(107,107,107,0.70);
 }
 
 main#Overzicht_Takenlijst section#Medewerkers ul {
@@ -675,7 +677,7 @@ main#Overzicht_Takenlijst section#Medewerkers ul li p {
 }
 
 main#Overzicht_Takenlijst section#Medewerkers ul li a {
-    font-size: 1.2em;
+    font-size: 1em;
     color: #000000;
 }
 
@@ -702,6 +704,15 @@ main#Overzicht_Takenlijst section#Medewerkers ul li a {
     font-size: 1.5em;
     color: #337ab7;
     float: right;
+}
+
+.panel{
+    margin-bottom: 10px;
+    padding:10px;
+}
+
+.panel-default > .panel-heading {
+    border-color: transparent;
 }
 
 /* ----------- Statistieken ----------- */

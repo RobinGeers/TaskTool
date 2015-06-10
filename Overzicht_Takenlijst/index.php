@@ -4,8 +4,8 @@
     <meta charset="UTF-8">
     <title>TaskTool Howest | Overzicht takenlijst</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
+    <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
     <link rel="stylesheet" href="../css/icon.min.css">
     <link rel="stylesheet" href="../css/transition.min.css">
@@ -119,7 +119,7 @@
     </div>
 
     <!-- Filter op Werknemer !-->
-    <div class="ui floating dropdown labeled icon button">
+    <div id="Filter2" class="ui floating dropdown labeled icon button">
         <i class="filter icon"></i>
         <span class="text">Filter werknemer</span>
         <div class="menu" id="Filter_Worker">

@@ -8,7 +8,7 @@ if($_SERVER["HTTPS"] != "on")
 if(isset($_SESSION['loggedin']))
 {
     header('Location: ./Meld_Defect/index.php');
-    //echo "session gevonden";
+     //echo "session gevonden";
 }
 
 $errormessage = "";

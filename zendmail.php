@@ -1,4 +1,10 @@
 <?php
+if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
+
+}else {
+    header("Location: ./"); // Sessie bestaat niet je ben tniet ingelogd
+}
+
 $b = "Uw aanvraag met als onderwerp".$_GET["n"]." is zojuist behandeld geweest";
 $b=$b."/br";
 $b=$b.$_GET["e"];

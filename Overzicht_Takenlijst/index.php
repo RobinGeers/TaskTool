@@ -869,6 +869,10 @@
         label.innerHTML = name;
         label.className = "ui blue large horizontal label";
 
+        var icon = document.createElement("i");
+        icon.className = "delete icon";
+
+        label.appendChild(icon);
         div.appendChild(label);
 
         FilterSection.appendChild(div);
@@ -1163,10 +1167,6 @@
 
         //
         window.open("../Afdrukpagina.php?Werkman="+name,"_self");
-<<<<<<< HEAD
-=======
-
->>>>>>> origin/master
 
     }
     function redirect(name)

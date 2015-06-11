@@ -58,7 +58,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: white;
+    background-color: #4FD2FF;
     color: black;
     -webkit-transition: all 0.4s;
     transition: all 0.4s;
@@ -169,6 +169,10 @@ section#Login input[type="submit"] {
     padding: 15px 0;
 }
 
+section#Login input[type="submit"]:hover {
+    background-color: #47AAFF;
+}
+
 /* ----------- Meld Defect Formulier ----------- */
 
 main#MeldDefectFormulier {
@@ -259,9 +263,9 @@ main#MeldDefectFormulier textarea {
 main#MeldDefectFormulier input[type="submit"] {
     float: right;
     margin: 20px 0;
-    background-color: #44c8f5;
+    background-color: #47AAFF;
     border-radius: 4px;
-    border: 1px solid #44c8f5;
+    border: 1px solid #47AAFF;
     color: #ffffff;
     width: 100px;
     padding: 10px 0;
@@ -271,7 +275,9 @@ main#MeldDefectFormulier input[type="submit"] {
 }
 
 main#MeldDefectFormulier input[type="submit"]:hover {
-    background-color: #337ab7;
+    background-color: #4FD2FF;
+    -webkit-transition: all 0.3s; /* Safari */
+    transition: all 0.3s;
 }
 
 #slider.ui-slider .ui-slider-handle {
@@ -365,6 +371,7 @@ main#Overzicht a#first {
 }
 
 main#Overzicht a#first:hover {
+    transition: background-color 0.2s ease;
     background-color: #2EB5D6;
     color: #ffffff;
 }
@@ -375,6 +382,7 @@ main#Overzicht a#second {
 }
 
 main#Overzicht a#second:hover {
+    transition: background-color 0.2s ease;
     background-color: #FF7352;
     color: #ffffff;
 }
@@ -385,6 +393,7 @@ main#Overzicht a#third {
 }
 
 main#Overzicht a#third:hover {
+    transition: background-color 0.2s ease;
     background-color: #32CE9B;
     color: #ffffff;
 }
@@ -395,6 +404,7 @@ main#Overzicht a#fourth {
 }
 
 main#Overzicht a#fourth:hover {
+    transition: background-color 0.2s ease;
     background-color: #EECA32;
     color: #ffffff;
 }
@@ -589,7 +599,7 @@ main#Overzicht_Takenlijst section#Taken {
 
 .Overzicht_Titels {
     background-color: #337ab7;
-    width: 400px;
+    width: 380px;
     text-align: center;
     color: #ffffff;
     font-weight: 300;
@@ -637,7 +647,7 @@ ul li.card {
 
 .card_final {
     list-style-type: none;
-    width: 400px;
+    width: 380px;
     max-width: 400px;
 }
 
@@ -648,7 +658,8 @@ ul li.card {
 main#Overzicht_Takenlijst section.Section_Float {
     float: left;
     margin-right: 40px;
-    background-color: rgba(107,107,107,0.05);
+    padding: 10px;
+    background-color: rgba(107,107,107,0.12);
     -webkit-box-shadow: 1px 1px 4px -2px rgba(107,107,107,0.70);
     -moz-box-shadow: 1px 2px 4px -2px rgba(107,107,107,0.70);
     box-shadow: 1px 1px 4px -2px rgba(107,107,107,0.70);

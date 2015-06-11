@@ -11,9 +11,8 @@ $ber = $_SESSION['loggedin'];
 }else {
     header("Location: ../");
 }
-print $_COOKIE["rol"];
-echo "<br>";
-print $ber;
+$rol = $_COOKIE["rol"];
+
 
 //connectie maken met db(mysql)
 //local
@@ -36,7 +35,7 @@ while($result->fetch()){
     array_push($d,$data);
 };
 echo "<br>";
-print $data;
+//print $data;
 $ha =  md5("exteralayersecuresalt".$data);
 echo "<br>";
 print $ha;
@@ -46,12 +45,37 @@ if($ha==$rol){
     //GOED
     print $data;
 }else{
-//header("Location: ../");
+header("Location: ../");
 }
 
 //connectie sluiten
 $mysqli->close();
-return;
+
+switch($data){
+    case 'Basic':
+        header("Location:../");
+
+       // $naam = explode('@', $bericht);
+      //  header('Location: ../Afdrukpagina.php?Werkman=' . $naam[0]);
+
+        break;
+    case 'Werkman':
+        header("../Werkman");
+        break;
+    case 'Onthaal':
+        header('Location: ../Overzicht');
+        //connectie sluiten
+        $results->close();
+        break;
+    case 'Admin':
+        header('Location: ../Overzicht');
+        //connectie sluiten
+        $results->close();
+        break;
+}
+
+
+
 ?>
 
 <!DOCTYPE html>

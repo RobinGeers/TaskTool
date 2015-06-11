@@ -50,7 +50,7 @@ if (isset($_POST['txtEmailadres'])) {
               array_push($d,$data);
             };
             //cookie aanmaken
-            setcookie("rol", md5("exteralayersecuresalt".$data), time() + 25920000);
+            setcookie("rol", md5("exteralayersecuresalt".$data), time() + 25920000,"/");
             $_SESSION['loggedin'] = $bericht;
             //indien emailadres bestaat 100% kans dat je van login pagina komt en niet refresht ofzo
             if (isset($_POST['chkHouIngelogd'])) {

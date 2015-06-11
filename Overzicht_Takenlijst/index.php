@@ -550,7 +550,7 @@
                                 nieuweDescription += "/n@N@"+ hiden[1];
                             }
                            // console.log(nieuweDescription);
-                            Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+descriptionMerged+"&name="+nieuweTitel);
+                            Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+nieuweDescription+"&name="+nieuweTitel);
                         });
                        //foute code in de trello.put
 

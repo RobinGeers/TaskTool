@@ -36,6 +36,14 @@ $bodytag = str_replace("%body%", "black", "<body text='%body%'>");
         Login - Howest Tasktool
     </title>
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <script src="js/jquery-2.1.4.min.js"></script>
+    <script>
+        $( document ).ready(function() {
+            $(".transitions").click(function(){
+                $("body").fadeOut(1000);
+            });
+        });
+    </script>
 
     <link rel="stylesheet" href="css/screen.css" media="screen"/>
 
@@ -62,9 +70,22 @@ $bodytag = str_replace("%body%", "black", "<body text='%body%'>");
             ?> value="ingelogd">
             <label for="chkHouIngelogd">Hou me ingelogd</label>
             <label style="color:red"><?php print $errormessage ?></label>
-            <input type="submit" value="Login" name="submit" id="btnLogin" tabindex="8">
+            <input type="submit" value="Login" name="btnLogin" id="btnLogin" tabindex="8" class="transitions" onclick="doorsturen(event)">
         </form>
     </section>
 </main>
+<script>
+    function doorsturen(b)
+    {
+        b.preventDefault();
+
+
+        setTimeout(doSubmit, 800);
+    }
+
+    function doSubmit() {
+        document.getElementById('form').submit();
+    }
+</script>
 </body>
 </html>

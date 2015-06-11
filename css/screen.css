@@ -448,6 +448,10 @@ main#Instellingen_Overzicht div:nth-child(4) {
     margin-right: 0;
 }
 
+main#Instellingen_Overzicht div:nth-child(2) {
+    margin-left: 50px;
+}
+
 main#Instellingen_Overzicht div a p {
     padding-top: 10px;
 }

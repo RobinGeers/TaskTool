@@ -5,6 +5,9 @@ if($_SERVER["HTTPS"] != "on")
     header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
     exit();
 }
+?>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+<?php
 //verander naar directory voor php mailer op te halen
 $thiss = getcwd();
 chdir("../");
@@ -245,17 +248,28 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
 //connectie sluiten
 $mysqli->close();
 ?>
-<script src="https://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
-<!-- laad de jquery in voor autocomplete -->
-<script src="https://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
+<script src=""></script>
 <script>
     //console.log(arraymetlokalen);
-    $(function () {
+    $.getScript( "https://code.jquery.com/ui/1.9.1/jquery-ui.min.js", function() {
+        $(function () {
 
-        $("#txtLokaal").autocomplete({
-            source: arraymetlokalen
+
+            $("#txtLokaal").autocomplete({
+                source: arraymetlokalen
+            });
+            $("#slider").slider({
+                min: 1,
+                max: 100,
+                slide: function (event, ui) {
+                    $("#amount").val(ui.value);
+                }
+            });
+            $("#slider").css('background', 'linear-gradient(to right,green,orange,red');
+            $("#slider").css('border-width', '0px');
         });
     });
+
 
 
 </script>
@@ -273,26 +287,11 @@ $mysqli->close();
 
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../css/screen.css"/>
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script> -->
     <link rel="stylesheet" href="../css/transition.min.css">
     <script src="../js/semantic.min.js"></script>
     <link rel="stylesheet" href="../css/semantic.min.css">
     <link href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet"/>
-    <script>
-        $(function () {
-            $("#slider").slider({
-                min: 1,
-                max: 100,
-                slide: function (event, ui) {
-                    $("#amount").val(ui.value);
-                }
-            });
-            $("#slider").css('background', 'linear-gradient(to right,green,orange,red');
-            $("#slider").css('border-width', '0px');
-        });
-    </script>
+
 </head>
 <body>
 <header>
@@ -314,7 +313,13 @@ $mysqli->close();
     <section id="MeldDefect">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" id="form" enctype="multipart/form-data">
             <label for="txtEmail">Email: <span> *</span></label>
-            <input id="txtEmail" type="email" name="txtEmail" value="sam.bauters@student.howest.be" placeholder="voornaam.achternaam@howest.be" readonly="readonly" required>
+            <input id="txtEmail" type="email" name="txtEmail" value="<?php
+            if (isset($_SESSION['loggedin'])) {
+                print $_SESSION['loggedin'];
+            } else {
+                print $bericht;
+            }
+            ?>" placeholder="voornaam.achternaam@howest.be" readonly="readonly" required>
             <label for="txtLokaal">Lokaal:<span> *</span></label>
 
             <div class="ui-widget">

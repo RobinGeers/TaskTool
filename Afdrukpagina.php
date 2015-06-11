@@ -88,6 +88,9 @@ if($naam != "") {
                         var rightdiv = document.createElement("div");
                         var chkbox = document.createElement("input");
                         var label = document.createElement('label');
+                        var prioriteitslabel = document.createElement('p');
+                        var prioriteit = document.createElement('span');
+                        prioriteit.setAttribute("class","prioriteit");
                         leftdiv.setAttribute("id", "leftdiv");
                         leftdiv.setAttribute("class", "col-md-2");
                         centerdiv.setAttribute("class", "col-md-4");
@@ -103,12 +106,16 @@ if($naam != "") {
                         var p2 = document.createElement("p");
                         var node = document.createTextNode("" + dc[0]);
                         var node2 = document.createTextNode("" + temparr[1]);
+                        var prioriteitsnode = document.createTextNode("" + dc[1]);
                         titel.appendChild(node2);
                         p2.appendChild(node);
                         hoofddiv.appendChild(leftdiv);
                         hoofddiv.appendChild(centerdiv);
                         hoofddiv.appendChild(rightdiv);
                         centerdiv.appendChild(titel);
+                        prioriteit.appendChild(prioriteitsnode);
+                        prioriteitslabel.appendChild(prioriteit);
+                        centerdiv.appendChild(prioriteitslabel);
                         centerdiv.appendChild(p2);
                         rightdiv.appendChild(chkbox);
                         rightdiv.appendChild(label);

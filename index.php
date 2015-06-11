@@ -41,7 +41,7 @@ $bodytag = str_replace("%body%", "black", "<body text='%body%'>");
 
 
 </head>
-<body>
+<body id="Body_Login">
 <main id="LoginFormulier">
 <a href="./Overzicht/index.html"><img src="images/howestlogo.png" alt="Howest Logo"/></a>
     <section id="Login">

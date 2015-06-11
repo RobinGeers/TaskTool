@@ -2,7 +2,11 @@ body {
     font-family: 'Roboto', sans-serif !important;
     margin: 0;
     padding: 0;
-    background-color: #e9e9e9 !important;
+    background-color: #fff !important;
+}
+
+body#Body_Login {
+    background-color: #44c8f5 !important;
 }
 
 .clearfix {
@@ -10,12 +14,13 @@ body {
 }
 
 header {
-    background-color: #44c8f5;
+    background-color: #337ab7;
     padding: 10px 0;
     position: fixed;
     width: 100%;
     top: 0;
     left: 0;
+    border-bottom: 3px solid #47AAFF;
 }
 
 button {
@@ -61,15 +66,15 @@ nav ul li a:hover {
 }
 
 nav ul li a[href="#"] {
-    background-color: #337ab7;
+    background-color: #47AAFF;
     color: #ffffff;
 }
 
 header button {
     margin-top: 60px;
-    background-color: #337ab7;
+    background-color: #47AAFF;
     border-radius: 4px;
-    border: 1px solid #337ab7;
+    border: 1px solid #47AAFF;
     width: 100px;
     padding: 10px 0;
     float: right;
@@ -83,9 +88,10 @@ header button a {
 }
 
 header button:hover {
-    background-color: #1D4669;
+    background-color: #4FD2FF;
     -webkit-transition: all 0.3s; /* Safari */
     transition: all 0.3s;
+    cursor: pointer;
 }
 .Howestlogo
 {
@@ -114,7 +120,9 @@ section#Login {
     background-color: #ffffff;
     border-bottom: 40px solid #f2f2f2;
     border-radius: 8px;
-    border-top: 8px solid #44c8f5;
+    /*border-top: 8px solid #44c8f5;*/
+    padding-top: 10px;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.07);
 }
 
 section#Login h1 {
@@ -175,7 +183,7 @@ main#MeldDefectFormulier h1 {
 }
 
 main#MeldDefectFormulier section#MeldDefect {
-    background-color: #ffffff;
+    background-color: #f7f7f7;
     border-top: 8px solid #44c8f5;
     border-bottom: 40px solid #f2f2f2;
     border-radius: 8px;

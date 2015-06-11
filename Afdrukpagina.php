@@ -3,28 +3,27 @@
 $naam = "";
 if(isset($_GET['Werkman'])){
     $naam=$_GET['Werkman'];
-    strtolower($naam);
 }
 if($naam != "") {
 
     ?>
-<!DOCTYPE html>
-<html>
-<head lang='en'>
-    <meta charset='UTF-8'>
-    <link rel="stylesheet" href="css/bootstrap.minAfdruk.css">
-    <link rel="stylesheet" href="css/afdrukcss.css"/>
-    <meta name="viewport" content="width=device-width, initial-scale=0.5">
-    <title>Lijst van <?php print$naam; ?> </title>
-</head>
-<body>
+    <!DOCTYPE html>
+    <html>
+    <head lang='en'>
+        <meta charset='UTF-8'>
+        <link rel="stylesheet" href="css/bootstrap.minAfdruk.css">
+        <link rel="stylesheet" href="css/afdrukcss.css"/>
+        <meta name="viewport" content="width=device-width, initial-scale=0.5">
+        <title>Lijst van <?php print$naam; ?> </title>
+    </head>
+    <body>
     <div id="container"></div>
     </body>
-</html>
+    </html>
 
     <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
-<script type="text/javascript" src="qrcodejs-master/qrcode.js"></script> <!-- Laad de qrcode js in ( MIT license ) -->
+    <script type="text/javascript" src="qrcodejs-master/qrcode.js"></script> <!-- Laad de qrcode js in ( MIT license ) -->
     <script>
 
         var APP_KEY = '23128bd41978917ab127f2d9ed741385';
@@ -40,7 +39,7 @@ if($naam != "") {
                 var List = [];
                 //  console.log(ix); is gelijk aan de int i = 0 van de for lus
                 List.push(list.id, list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
-                if ((list.name.toLowerCase()).includes(<?php print "'".$naam."'" ?>)) {
+                if (list.name.includes(<?php print "'".$naam."'" ?>)) {
                     SelectedList = list.id; //kijken of de naam die meegeven is in del ink voorkomt in in de lijst namen
 //    console.log(SelectedList);
                 }
@@ -134,7 +133,7 @@ if($naam != "") {
                             width: 150,
                             height: 150
                         });
-                        qrcode.makeCode("https://student.howest.be/wouter.dumon/test5/finish.php?id=" + temparr[0]);
+                        qrcode.makeCode("https://student.howest.be/wouter.dumon/pitch/finish.php?id=" + temparr[0]);
 
 
                         CardId.push(temparr)

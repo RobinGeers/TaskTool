@@ -392,13 +392,7 @@ $mysqli->close();
     <section id="MeldDefect">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" id="form" enctype="multipart/form-data">
             <label for="txtEmail">Email: <span> *</span></label>
-            <input id="txtEmail" type="email" name="txtEmail" value="<?php
-
-            if (isset($_SESSION['loggedin'])) {
-                print $_SESSION['loggedin'];
-            } else {
-                print $bericht;
-            } ?>" placeholder="voornaam.achternaam@howest.be" readonly="readonly" required>
+            <input id="txtEmail" type="email" name="txtEmail" value="sam.bauters@student.howest.be" placeholder="voornaam.achternaam@howest.be" readonly="readonly" required>
             <label for="txtLokaal">Lokaal:<span> *</span></label>
 
             <div class="ui-widget">

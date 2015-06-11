@@ -1,3 +1,59 @@
+<?php
+session_start();
+if($_SERVER["HTTPS"] != "on")
+{
+    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    exit();
+}
+
+if(isset($_SESSION['loggedin'])){
+$ber = $_SESSION['loggedin'];
+}else {
+    header("Location: ../");
+}
+print $_COOKIE["rol"];
+echo "<br>";
+print $ber;
+
+//connectie maken met db(mysql)
+//local
+//$mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
+//$mysqli = new mysqli('mysqlstudent','cedriclecat','ooDohQuuo2uh','cedriclecat');
+//student howest
+$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+if ($mysqli->connect_error)
+{
+    echo "Geen connectie mogelijk met de database";
+}
+$data = array();
+
+$result = $mysqli->prepare("SELECT ROL FROM EmailsLeerkrachten where userPrincipalName =?");
+$result->bind_param('s', $ber);
+$result->execute();
+$result->bind_result($data);
+$d = array();
+while($result->fetch()){
+    array_push($d,$data);
+};
+echo "<br>";
+print $data;
+$ha =  md5("exteralayersecuresalt".$data);
+echo "<br>";
+print $ha;
+echo "<br>";
+print $ha; print " === "; print $rol;
+if($ha==$rol){
+    //GOED
+    print $data;
+}else{
+//header("Location: ../");
+}
+
+//connectie sluiten
+$mysqli->close();
+return;
+?>
+
 <!DOCTYPE html>
 <html>
 <head lang="en">

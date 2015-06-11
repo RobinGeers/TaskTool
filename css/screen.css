@@ -103,6 +103,39 @@ ul#ui-id-2{
     z-index: 100000000000000;
 }
 
+/* Dropdown menu bij Instellingen */
+nav ul ul {
+    display: none;
+}
+
+nav ul li:hover > ul {
+    display: block;
+}
+
+nav ul ul {
+    background: #5f6975; border-radius: 0; padding: 0;
+    position: absolute; top: 100%;
+}
+nav ul ul li {
+    float: none;
+    display: block;
+    background-color: #47AAFF;
+    border-top: 1px solid #6b727c;
+    border-bottom: 1px solid #575f6a;
+    position: relative;
+    padding: 15px 15px;
+}
+nav ul ul li a {
+    color: #fff;
+}
+
+nav ul li ul li:first-child {
+    margin-top: -20px;
+}
+
+nav ul li ul li:hover {
+    background-color: #4FD2FF;
+}
 /* ----------- Login Formulier ----------- */
 
 main#LoginFormulier {

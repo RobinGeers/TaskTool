@@ -486,8 +486,8 @@
                     var index;
                     var prioriteit;
                     var classlijst = li.classList;
-                    console.log("HIERONDERRRRRRRRRRRRRRRRRRRR");
-                    console.log(classlijst[3]);
+                   // console.log("HIERONDERRRRRRRRRRRRRRRRRRRR");
+                   // console.log(classlijst[3]);
                     switch (classlijst[3]) {
                         case "liBorderG": color = "yellow"; index = 1; prioriteit = "Dringend";
                             break;
@@ -532,6 +532,10 @@
                         var nieuweDescription = [nieuweOmschrijving, nieuwePrioriteit, "", nieuwLokaal];
                         var descriptionMerged = nieuweDescription.join("/n@");
                         Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+descriptionMerged+"&name="+nieuweTitel);
+                        //foute code in de trello.put
+
+
+
 
                         var parent = li.firstChild;
                         var parent2 = li.childNodes[1];
@@ -576,6 +580,7 @@
                                     li.classList.remove("liBorderH");
                                 }
                                 li.classList.add("liBorderL");
+                                console.log("low");
                                 break;
                             case "Dringend":
                                 if (li.classList.contains("liBorderL")) {
@@ -586,6 +591,7 @@
                                 }
                                 else if (li.classList.contains("liBorderH")) {
                                     li.classList.remove("liBorderH");
+                                    console.log("mid");
                                 }
                                 li.classList.add("liBorderG");
                                 break;

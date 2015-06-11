@@ -295,18 +295,20 @@ $mysqli->close();
 </head>
 <body>
 <header>
-    <a href="../Overzicht/index.html" class="Howestlogo"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
+    <a href="../Overzicht/index.php" class="Howestlogo"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
     <button><a onclick="afmelden(this)">Afmelden</a></button>
     <nav>
         <ul>
             <li><a href="#">Probleem melden</a></li>
             <li><a href="../Overzicht_Takenlijst/">Overzicht takenlijst</a></li>
             <li><a href="../Statistieken">Statistieken</a></li>
-<<<<<<< HEAD
             <li><a href="../Instellingen">Instellingen</a></li>
-=======
-            <li><a href="../Instellingen_Overzicht/index.html">Instellingen</a></li>
->>>>>>> origin/master
+            <li><a href="../Instellingen_Overzicht/index.html" class="instellingen">Instellingen</a>
+                <ul>
+                    <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
+                    <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
+                    <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
+                </ul>
         </ul>
     </nav>
 

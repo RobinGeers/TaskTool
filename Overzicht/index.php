@@ -53,24 +53,24 @@ $mysqli->close();
 
 switch($data){
     case 'Basic':
-        header("Location:../");
+        //header("Location:../");
 
        // $naam = explode('@', $bericht);
       //  header('Location: ../Afdrukpagina.php?Werkman=' . $naam[0]);
 
         break;
     case 'Werkman':
-        header("../Werkman");
+       // header("../Werkman");
         break;
     case 'Onthaal':
-        header('Location: ../Overzicht');
+      //  header('Location: ../Overzicht');
         //connectie sluiten
-        $results->close();
+        //$results->close();
         break;
     case 'Admin':
-        header('Location: ../Overzicht');
+        //header('Location: ../Overzicht');
         //connectie sluiten
-        $results->close();
+        //$results->close();
         break;
 }
 

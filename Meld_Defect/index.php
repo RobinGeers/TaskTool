@@ -1,128 +1,90 @@
 <?php
 session_start();
+if($_SERVER["HTTPS"] != "on")
+{
+    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    exit();
+}
+//verander naar directory voor php mailer op te halen
 $thiss = getcwd();
 chdir("../");
 $t = getcwd();
 $a = $t . '/PHPMailer-master/class.phpmailer.php';
-chdir($thiss);
+chdir($thiss); // terug zetten naar juiste direcotry
 $target = "";
 $isfoto = 0;
 $test = "";
 require_once($a);
 if (isset($_POST['txtEmailadres'])) {
     $bericht = $_POST['txtEmailadres'];
-    //  print "'hhhh'";
     if (isset($_POST['txtWachtwoord'])) {
-        //echo "hhh";
         $pw = $_POST['txtWachtwoord'];
-
-        $link = ldap_connect('hogeschool-wvl.be'); // Your domain or domain server
-
+        $link = ldap_connect('172.20.0.5'); // Your domain or domain server
         if (!$link) {
             //GEEN TOEGANG TOT DE LDAP SERVER!!!!!
             session_destroy();
             header('Location: ../index.php?error=geen1toegang1tot1Active1Directory');
-            echo "mis";
-            // Could not connect to server - handle error appropriately
         }
-
         ldap_set_option($link, LDAP_OPT_PROTOCOL_VERSION, 3); // Recommended for AD
-
-// Now try to authenticate with credentials provided by user
+        // Now try to authenticate with credentials provided by user
         if (!ldap_bind($link, $bericht, $pw)) {
             // Invalid credentials! Handle error appropriately
-            echo "error";
             session_destroy();
-
             header('Location: ../index.php?error=Foute1Inlog1Gegevens');
         } else {
-            //echo " goed";
-
-
+            //JUISTE INLOGGEVENS
             $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
-
-//controleren op fouten
-//echo "h";
             if ($mysqli->connect_error) {
                 echo "Geen connectie mogelijk met de database";
+                header('Location: ../index.php?error=Geen1toegang1tot1de1database');
             }
-          //  $data = "";
-
-
             $result = $mysqli->prepare("SELECT ROL FROM EmailsLeerkrachten where userPrincipalName =?");
-           // echo "goed";
             $result->bind_param('s', $bericht);
-           // print $bericht;
             $result->execute();
-            //echo "goedsd";
-
             $result->bind_result($data);
-           // $result->store_result();
             $d = array();
             while($result->fetch()){
-               // $d.push($data);
-                array_push($d,$data);
+              array_push($d,$data);
             };
-
-
-            //echo "goed";
-            //  while ($row = $resul->fetch_assoc()) {
-
-            /*      // use your $myrow array as you would with any other fetch
-                  printf("%s is in district %s\n", $city, $myrow['district']);
-
-              }
-  while($row = $result->fetch_array(MYSQLI_ASSOC))
-  {*/
             //cookie aanmaken
-            setcookie("rol", hash('sha256', $data), time() + 25920000);
-            //print("gelukt");
-           // print hash('sha256', $data);
-            //cookie verwijderen
-            //  setcookie("rol", "", time()-3600);
-
+            setcookie("rol", md5("exteralayersecuresalt".$data), time() + 25920000);
+            $_SESSION['loggedin'] = $bericht;
+            //indien emailadres bestaat 100% kans dat je van login pagina komt en niet refresht ofzo
+            if (isset($_POST['chkHouIngelogd'])) {
+                //cookie aanmaken
+                setcookie("inlognaam", $bericht, time() + 25920000);
+            } else {
+                //cookie verwijderen
+                setcookie("inlognaam", "", time() - 3600);
+            }
             switch ($data) {
                 case 'Basic':
                     //mag alleen op meld defect
+                    //connectie sluiten
+                    $results->close();
                     break;
                 case 'Werkman':
                     $naam = explode('@', $bericht);
-
                     header('Location: ../Afdrukpagina.php?Werkman=' . $naam[0]);
+                    //connectie sluiten
+                    $results->close();
                     break;
                 case 'Onthaal':
                     header('Location: ../Overzicht');
+                    //connectie sluiten
+                    $results->close();
                     break;
                 case 'Admin':
                     header('Location: ../Overzicht');
+                    //connectie sluiten
+                    $results->close();
                     break;
-            }
-            // print_r($row['NAME']);
-            // array_push($data['merken'],$row);
-//}
-//connectie sluiten
-            $results->close();
-
-
+                     }
         }
-// Bind was successful - continue
-
-
     }
+}//END ISSET EMAILADRES
 
-
-    $_SESSION['loggedin'] = $bericht;
-//indien emailadres bestaat 100% kans dat je van login pagina komt en niet refresht ofzo
-    if (isset($_POST['chkHouIngelogd'])) {
-        //cookie aanmaken
-        setcookie("inlognaam", $bericht, time() + 25920000);
-    } else {
-        //cookie verwijderen
-        setcookie("inlognaam", "", time() - 3600);
-    }
-}
-
-
+//Controle of velden zijn ingevuld
 if (isset($_POST['txtEmail'])) {
     $eml = $_POST['txtEmail'];
 }
@@ -142,14 +104,9 @@ if (isset($_POST['priori'])) {
 
 if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Prioriteit)) {
 
-
-    //   print $Prioriteit;
-    //Sessie maken dat hij is ingelogd
-    // $_SESSION[''] = $eml;
-
     //STUUR MAIL HIER EN REDIRECT NAAR LOGIN WAAR ZE BEVESTIGING GEVEN DAT HET GEBERUD IS
     $valid_file = true;
-//Houd de data bij in een grote string zodat we deze uit de upload maps kunnen verwijderen wanneer dit klaar is
+    //Houd de data bij in een grote string zodat we deze uit de upload maps kunnen verwijderen wanneer dit klaar is
     $targetstrings = "";
     $prio = $Prioriteit;
     //ZEND DE EMAIL
@@ -232,27 +189,15 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
     $arraywithtargets = explode("/n@", $targetstrings);
     foreach ($arraywithtargets as $targ) {
         //targ is hier 1 pad naar een bestand die in de uploads map zit
-        //  print("test1");
         $targ = str_replace('\\', '/', $targ);
         //kijk of het ad de map uploads bevat
 
         if (strpos($targ, 'uploads') !== false) {//zoekt de positie van het woord uploads ( soort van contains )
             unlink($targ); // delete de file uit de uploads folder
-            // print($targ);
         }
 
 
     }
-    //Navigeer de user terug naar de login OF start pagian, indien onthaal medewerker
-    //TODO: code nog hier voor directory
-    if ($eml == 'docent@howest.be') {
-        //   header('Location: ../index.php?data=1');
-
-    } else {
-      //  header('Location: ../Overzicht');
-    }
-    //TODO: sessie leeg maken
-
     ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
@@ -267,64 +212,42 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
 else {
 //Waardes bestaan nog niet => geen goed form of slechte input
     if (isset($bericht)) {
-//emailadres bestaat der is ingelogd
-        $str = explode("@", $bericht);
-        if ($str[1] == "howest.be") {
-            //Klopt is goed
-        } else {
-            if (isset($_SESSION['loggedin'])) {
-            } else {
-//Klopt niet return
-                header('Location: ../index.php?data=2');
-            }
-        }
     } else {
         if (isset($_SESSION['loggedin'])) {
         } else {
-           // header('Location: ../index.php?data=2');
+            header('Location: ../index.php?data=2');
         }
     }
 }
 //data ophalen en printen in een javascript array
-
-//connectie maken met db(mysql)
 //local
 //$mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
-
 //student howest
 $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
-
-//controleren op fouten
-//echo "h";
 if ($mysqli->connect_error) {
     echo "Geen connectie mogelijk met de database";
+session_destroy();
+    header('Location: ../index.php?error=Geen1toegang1tot1de1database');
 }
 $data = array();
 ?>
-<!-- uery zelf in -->
 <script>    var arraymetlokalen = [];</script>
-
 <?php
 //alles ophalen en in array steken
-//echo 'h';
 $result = $mysqli->query("SELECT NAME FROM klassen");
-//print_r($result);
 while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
-    // print_r($row['NAME']);
     ?>
     <script>
-        //    console.log("h");
         arraymetlokalen.push(<?php print "'".$row['NAME']."'" ?>);
     </script>
     <?php
-    // array_push($data['merken'],$row);
 }
 //connectie sluiten
 $mysqli->close();
 ?>
-<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="https://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
 <!-- laad de jquery in voor autocomplete -->
-<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="https://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
 <script>
     //console.log(arraymetlokalen);
     $(function () {
@@ -351,8 +274,8 @@ $mysqli->close();
     <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-    <script src="https://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script>
+   <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.9.1/jquery-ui.min.js"></script> -->
     <link rel="stylesheet" href="../css/transition.min.css">
     <script src="../js/semantic.min.js"></script>
     <link rel="stylesheet" href="../css/semantic.min.css">
@@ -371,7 +294,6 @@ $mysqli->close();
         });
     </script>
 </head>
-
 <body>
 <header>
     <a href="../Overzicht/index.html" class="Howestlogo"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>

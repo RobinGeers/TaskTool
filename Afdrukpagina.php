@@ -5,7 +5,8 @@ if(isset($_GET['Werkman'])){
     $naam=$_GET['Werkman'];
 }
 if($naam != "") {
-
+   $naam= strtolower($naam);
+print $naam;
     ?>
     <!DOCTYPE html>
     <html>
@@ -39,9 +40,11 @@ if($naam != "") {
                 var List = [];
                 //  console.log(ix); is gelijk aan de int i = 0 van de for lus
                 List.push(list.id, list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
-                if (list.name.includes(<?php print "'".$naam."'" ?>)) {
+                a =list.name.toLowerCase();
+                console.log(a);
+                if (a.includes(<?php print "'".$naam."'" ?>)) {
                     SelectedList = list.id; //kijken of de naam die meegeven is in del ink voorkomt in in de lijst namen
-//    console.log(SelectedList);
+
                 }
                 TrelloLists.push(List);//Voeg de array list toe aan de array TrelloList
             });
@@ -71,11 +74,8 @@ if($naam != "") {
 
                         //Bevat 1 kaartje zijn info
                         temparr.push(card.id, card.name, carddescription, attachementsarr);
-                        //  Trello.put('/1/cards/' + card.id + '/checklist/5506dbf5b32e668bde0de1b4/checkItem/' + ix + '/' + card.name + '&value=HAHAHAHAHAHAHHA');
                         //array met alle kaartjes in
-
                         console.log(temparr);
-
                         //
                         <!-- Maak evenveel DIV's aan als er kaartzen zijn ( zal nog in for lus moeten ) -->
                         //<img src="pic_mountain.jpg" alt="Mountain View" style="width:304px;height:228px;">

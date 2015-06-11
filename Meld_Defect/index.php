@@ -302,7 +302,7 @@ $mysqli->close();
             <li><a href="#">Probleem melden</a></li>
             <li><a href="../Overzicht_Takenlijst/">Overzicht takenlijst</a></li>
             <li><a href="../Statistieken">Statistieken</a></li>
-            <li><a href="">Instellingen</a></li>
+            <li><a href="../Instellingen">Instellingen</a></li>
         </ul>
     </nav>
 

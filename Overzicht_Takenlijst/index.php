@@ -14,7 +14,7 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="../js/semantic.min.js"></script>
     <script src="../js/transition.min.js"></script>
-    <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
+    <script src="https://api.trello.com/1/client.js?key=58a39dc0f4ff34f42e6340210093dfe9"></script>
     <!-- laad de jquery in voor autocomplete -->
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
@@ -221,8 +221,8 @@
             }
         });
     }
-    var APP_KEY = '23128bd41978917ab127f2d9ed741385';
-    var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
+    var APP_KEY = '58a39dc0f4ff34f42e6340210093dfe9';
+    var application_token = "f21b36c1a99f16d2889030eb156990845b1059cc10909a8ed3b63e08608d8f19";
     var checkKaartInmedewerker;
     var workers = [];
 
@@ -344,7 +344,7 @@
 
     function GetCards()
     {
-        Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token="+application_token,function(lists)
+        Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token="+application_token+"",function(lists)
         {
             $.each(lists["lists"],function(ix,list)
             {
@@ -1209,7 +1209,7 @@
                         {
                             niewedescription = cardinfo.desc + "/n@AW@" + value.value;
                             console.log(niewedescription);
-                            Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&desc="+niewedescription);
+                            //Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&desc="+niewedescription);
                         });
                         temp[0].innerText += " "+ value.value;
                         console.log(temp[0].innerText);
@@ -1226,10 +1226,10 @@
 <?php
 //connectie maken met db(mysql)
 //local
-$mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
+//$mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
 //$mysqli = new mysqli('mysqlstudent','cedriclecat','ooDohQuuo2uh','cedriclecat');
 //student howest
-//$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
 if ($mysqli->connect_error)
 {
     echo "Geen connectie mogelijk met de database";

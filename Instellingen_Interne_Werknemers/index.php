@@ -180,13 +180,6 @@ $mysqli->close();
 <main id="Instellingen_Extern">
     <h1>Beheer interne werknemers</h1>
 
-    <div id="Breadcrumb" class="ui breadcrumb">
-        <a class="section" href="../Overzicht/index.html">Overzicht</a>
-        <i class="right chevron icon divider"></i>
-        <a class="section" href="../Instellingen_Overzicht/index.html">Instellingen</a>
-        <i class="right chevron icon divider"></i>
-        <div class="active section">Interne werknemers</div>
-    </div>
     <section id="Toevoegen">
 
         <p>Filter op interne werknemer: </p>

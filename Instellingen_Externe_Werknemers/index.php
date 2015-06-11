@@ -181,14 +181,6 @@ $mysqli->close();
 
     <h1>Beheer externe werknemers</h1>
 
-    <div id="Breadcrumb" class="ui breadcrumb">
-        <a class="section" href="../Overzicht/index.html">Overzicht</a>
-        <i class="right chevron icon divider"></i>
-        <a class="section" href="../Instellingen_Overzicht/index.html">Instellingen</a>
-        <i class="right chevron icon divider"></i>
-        <div class="active section">Externe werknemers</div>
-    </div>
-
     <section id="Toevoegen">
 
         <div id="Add_Externe_Werknemer" class="ui small primary labeled icon button">

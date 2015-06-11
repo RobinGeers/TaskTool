@@ -165,7 +165,7 @@ $mysqli->close();
 </head>
 <body>
 <header>
-    <a href="../Overzicht/index.html"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
+    <a href="../Overzicht/index.php"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
     <button><a onclick="afmelden(this)">Afmelden</a></button>
     <nav>
         <ul>

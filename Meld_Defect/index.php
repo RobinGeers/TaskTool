@@ -340,7 +340,7 @@ $mysqli->close(); //connectie sluiten
     switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via display ) weer welke knoppen ej recht tot hebt
         case 'Basic':
 ?>
-        MD.style.display = "block";
+        MD.style.display = "inline-block";
         OT.style.display = "none";
         S.style.display = "none";
         I.style.display = "none";
@@ -350,7 +350,7 @@ $mysqli->close(); //connectie sluiten
                     break;
                 case 'Werkman':
         ?>
-        MD.style.display = "block";
+        MD.style.display = "inline-block";
         OT.style.display = "none";
         S.style.display = "none";
         I.style.display = "none";
@@ -359,19 +359,19 @@ $mysqli->close(); //connectie sluiten
                     break;
                 case 'Onthaal':
         ?>
-        MD.style.display = "block";
-        OT.style.display = "block";
-        S.style.display = "block";
+        MD.style.display = "inline-block";
+        OT.style.display = "inline-block";
+        S.style.display = "inline-block";
         I.style.display = "none";
 
         <?php
                             break;
                         case 'Admin':
              ?>
-        MD.style.display = "block";
-        OT.style.display = "block";
-        S.style.display = "block";
-        I.style.display = "block";
+        MD.style.display = "inline-block";
+        OT.style.display = "inline-block";
+        S.style.display = "inline-block";
+        I.style.display = "inline-block";
 
         <?php
                                     break;

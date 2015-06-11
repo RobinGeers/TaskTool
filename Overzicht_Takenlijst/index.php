@@ -486,8 +486,7 @@
                     var index;
                     var prioriteit;
                     var classlijst = li.classList;
-                   // console.log("HIERONDERRRRRRRRRRRRRRRRRRRR");
-                   // console.log(classlijst[3]);
+
                     switch (classlijst[3]) {
                         case "liBorderG": color = "yellow"; index = 1; prioriteit = "Dringend";
                             break;
@@ -500,9 +499,11 @@
                     var kaart_lokaal = li.childNodes[1].childNodes[0].innerText;
                     var kaart_omschrijving = li.childNodes[1].childNodes[3].innerText;
                     var imageSource = li.childNodes[1].childNodes[5].src;
-                    console.log("KIJK HIERONDER");
+
+
 
                     var elementHeaderTitel = document.getElementById("Card_Header");
+
                     elementHeaderTitel.innerText = kaart_titel;
 
                     var elementTitel = document.getElementById("Card_Titel");
@@ -520,8 +521,10 @@
                     var elementImage = document.getElementById("Card_Image");
                     elementImage.src = imageSource;
 
-                    document.getElementById("btnOpslaan").addEventListener("click", function(){
 
+
+                    document.getElementById("btnOpslaan").addEventListener("click", function(){
+                        console.log("uitgevoerd");
                         var nieuweTitel = elementTitel.value;
                         var nieuwLokaal = elementLokaal.value;
                         var nieuweOmschrijving = elementOmschrijving.value;
@@ -529,10 +532,22 @@
                         var listId = li.parentNode.id;
 
                         // Pas kaartje aan en toon direct de verandering
-                        var nieuweDescription = [nieuweOmschrijving, nieuwePrioriteit, "", nieuwLokaal];
-                        var descriptionMerged = nieuweDescription.join("/n@");
-                        Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+descriptionMerged+"&name="+nieuweTitel);
-                        //foute code in de trello.put
+
+
+                        Trello.get("/cards/"+card.id+"?fields=desc&token="+application_token,function(carddesc)
+                        {
+                            var odesc = carddesc.desc.split("/n@");
+                            var nieuweDescription = nieuweOmschrijving + "/n@" +nieuwePrioriteit+"/n@"+odesc[2]+"/n@"+ nieuwLokaal;
+                            var hiden = carddesc.desc.split("/n@N@");
+                            console.log(hiden);
+                            if(hiden.length > 1)
+                            {
+                                nieuweDescription += "/n@N@"+ hiden[1];
+                            }
+                           // console.log(nieuweDescription);
+                            Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+descriptionMerged+"&name="+nieuweTitel);
+                        });
+                       //foute code in de trello.put
 
 
 
@@ -580,7 +595,7 @@
                                     li.classList.remove("liBorderH");
                                 }
                                 li.classList.add("liBorderL");
-                                console.log("low");
+
                                 break;
                             case "Dringend":
                                 if (li.classList.contains("liBorderL")) {
@@ -591,7 +606,7 @@
                                 }
                                 else if (li.classList.contains("liBorderH")) {
                                     li.classList.remove("liBorderH");
-                                    console.log("mid");
+
                                 }
                                 li.classList.add("liBorderG");
                                 break;
@@ -633,7 +648,7 @@
                     var worker =this.parentNode.firstChild.innerText;
                     var select = document.getElementById("AddWorker");
                     var otherworkers = this.getElementsByTagName("label")[0].innerHTML.split(" ");
-                    console.log(otherworkers);
+                    //console.log(otherworkers);
 
 
                     var element = select.firstChild;
@@ -658,7 +673,7 @@
 
                     if(otherworkers.length >1)
                     {
-                        console.log("hahah");
+
                         for(var j = 1;j<otherworkers.length;j++)
                         {
                             for( var i = 0;i<workers.length;i++)
@@ -748,7 +763,7 @@
 
                     var hasImage = false;
                     if (cardinfo.attachments.length > 0) {
-                        console.log(cardinfo.attachments[0].url);
+                        //console.log(cardinfo.attachments[0].url);
 
                         var imageLink = document.createElement("img");
                         imageLink.src = cardinfo.attachments[0].url;
@@ -1075,7 +1090,7 @@
                 }
             }
         }
-        console.log(tempLokaal);
+        //console.log(tempLokaal);
         if (tempLokaal.length != 0)
         {
             endfilterobjects = tempLokaal;
@@ -1211,10 +1226,10 @@
 <?php
 //connectie maken met db(mysql)
 //local
-// $mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
+$mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
 //$mysqli = new mysqli('mysqlstudent','cedriclecat','ooDohQuuo2uh','cedriclecat');
 //student howest
-$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+//$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
 if ($mysqli->connect_error)
 {
     echo "Geen connectie mogelijk met de database";

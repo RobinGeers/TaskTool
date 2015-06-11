@@ -103,6 +103,39 @@ ul#ui-id-2{
     z-index: 100000000000000;
 }
 
+/* Dropdown menu bij Instellingen */
+nav ul ul {
+    display: none;
+}
+
+nav ul li:hover > ul {
+    display: block;
+}
+
+nav ul ul {
+    background: #5f6975; border-radius: 0; padding: 0;
+    position: absolute; top: 100%;
+}
+nav ul ul li {
+    float: none;
+    display: block;
+    background-color: #47AAFF;
+    border-top: 1px solid #6b727c;
+    border-bottom: 1px solid #575f6a;
+    position: relative;
+    padding: 15px 15px;
+}
+nav ul ul li a {
+    color: #fff;
+}
+
+nav ul li ul li:first-child {
+    margin-top: -20px;
+}
+
+nav ul li ul li:hover {
+    background-color: #4FD2FF;
+}
 /* ----------- Login Formulier ----------- */
 
 main#LoginFormulier {
@@ -167,6 +200,7 @@ section#Login input[type="submit"] {
     color: #ffffff;
     width: 320px;
     padding: 15px 0;
+    cursor: pointer;
 }
 
 section#Login input[type="submit"]:hover {
@@ -365,6 +399,59 @@ main#Overzicht div:nth-child(3), main#Overzicht div:nth-child(5) {
     margin-right: 0;
 }
 
+main#Overzicht h1 {
+    text-align: center;
+    margin-bottom: 75px;
+    margin-top: 75px;
+    font-size: 3em;
+    font-weight: normal;
+}
+
+main#Instellingen_Overzicht {
+    width: 960px;
+    margin: 0 auto;
+    margin-top: 150px;
+}
+
+
+main#Instellingen_Overzicht a {
+    float: left;
+    width: 240px;
+    margin-bottom: 75px;
+    height: 220px;
+    background-color: #ffffff;
+    border: 1px solid #cccccc;
+    border-radius: 8px;
+    box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.07);
+    text-align: center;
+    text-decoration: none;
+    color: #a9a9a9;
+    font-size: 1.4em;
+    font-weight: 300;
+}
+
+main#Instellingen_Overzicht i {
+    margin: 0 auto;
+    margin-top: 70px;
+    font-size: 3em;
+    width: 140px;
+    margin-bottom: 40px;
+}
+
+main#Instellingen_Overzicht div {
+    float: left;
+    width: 240px;
+    margin-right: 75px;
+}
+
+main#Instellingen_Overzicht div:nth-child(4) {
+    margin-right: 0;
+}
+
+main#Instellingen_Overzicht div a p {
+    padding-top: 10px;
+}
+
 main#Overzicht a#first {
     background-color: #66b5d6;
     color: #ffffff;
@@ -410,6 +497,62 @@ main#Overzicht a#fourth:hover {
 }
 
 main#Overzicht a#first:active, main#Overzicht a#second:active, main#Overzicht a#third:active, main#Overzicht a#fourth:active {
+    box-shadow: inset -3px -3px 1px rgba(0, 0, 0, 0.07);
+}
+
+main#Instellingen_Overzicht h1 {
+    text-align: center;
+    margin-bottom: 150px;
+    margin-top: 200px;
+    font-size: 3em;
+}
+
+main#Instellingen_Overzicht a#first {
+    background-color: #66b5d6;
+    color: #ffffff;
+}
+
+main#Instellingen_Overzicht a#first:hover {
+    transition: background-color 0.2s ease;
+    background-color: #2EB5D6;
+    color: #ffffff;
+}
+
+
+main#Instellingen_Overzicht a#second {
+    background-color: #e87352;
+    color: #ffffff;
+}
+
+main#Instellingen_Overzicht a#second:hover {
+    transition: background-color 0.2s ease;
+    background-color: #FF7352;
+    color: #ffffff;
+}
+
+main#Instellingen_Overzicht a#third {
+    background-color: #5fce9b;
+    color: #ffffff;
+}
+
+main#Instellingen_Overzicht a#third:hover {
+    transition: background-color 0.2s ease;
+    background-color: #32CE9B;
+    color: #ffffff;
+}
+
+main#Instellingen_Overzicht a#fourth {
+    background-color: #eeca5a;
+    color: #ffffff;
+}
+
+main#Instellingen_Overzicht a#fourth:hover {
+    transition: background-color 0.2s ease;
+    background-color: #EECA32;
+    color: #ffffff;
+}
+
+main#Instellingen_Overzicht a#first:active, main#Instellingen_Overzicht a#second:active, main#Instellingen_Overzicht a#third:active {
     box-shadow: inset -3px -3px 1px rgba(0, 0, 0, 0.07);
 }
 
@@ -993,7 +1136,7 @@ section#WerknemersFilter label{
 
 main#Instellingen h1 {
     text-align: center;
-    margin: 50px;
+    margin-top: 150px;
 }
 
 main#Instellingen h2 {
@@ -1046,12 +1189,12 @@ float:right;
 }
 #Add_Externe_Werknemer {
     margin-top: -20px !important;
+    margin-left: 150px;
 }
 
 #Add_Werknemer, #Add_Externe_Werknemer {
     width: 250px;
     display: block;
-    margin-left: 100px;
 }
 
 main#Instellingen section#Tabel table.table.table2 {
@@ -1062,11 +1205,11 @@ main#Instellingen section#Toevoegen section {
     float: left;
 }
 
-main#Instellingen section#Toevoegen p  {
+/*main#Instellingen section#Toevoegen p  {
     float: left;
     margin-right: 50px;
     margin-left: 100px;
-}
+}*/
 
 main#Instellingen section#Toevoegen input {
     width: 150px;
@@ -1081,16 +1224,16 @@ main#Instellingen section#Toevoegen input {
     margin-bottom: 50px;
 }
 
-section#Toevoegen p {
+/*section#Toevoegen p {
     margin-top: 10px;
-}
+}*/
 
 #hideintern, #hideextern {
     text-decoration: underline;
 }
 
 /* ----------- Instellingen ----------- */
-
+/*
 main#Instellingen h1 {
     text-align: center;
     margin: 50px;
@@ -1155,11 +1298,102 @@ main#Instellingen input {
 main#Instellingen section#Filters_Extern {
     margin-left: 285px;
     margin-top: 20px;
+}*/
+
+
+main#Instellingen_Extern h1 {
+    text-align: center;
+    margin-top: 200px;
+    margin-bottom: 50px;
 }
 
-main#Instellingen section#Filters_Extern p {
-
+main#Instellingen_Extern h2 {
+    margin-left: 100px;
 }
+
+main#Instellingen_Extern h3 {
+    margin-left: 290px;
+}
+
+main#Instellingen_Extern section#Tabel {
+    margin-top: 50px;
+}
+
+main#Instellingen_Extern section#Tabel table.table {
+    width: 70%;
+    margin: 0 auto;
+}
+
+main#Instellingen_Extern #Add_Externe_Werknemer {
+    margin-top: 20px;
+}
+
+main#Instellingen_Extern #Add_Werknemer, main#Instellingen_Extern #Add_Externe_Werknemer {
+    width: 250px;
+    display: block;
+    margin-left: 290px;
+}
+
+main#Instellingen_Extern section#Tabel table.table.table2 {
+    margin-bottom: 50px;
+}
+
+main#Instellingen_Extern section#Toevoegen section {
+    float: left;
+}
+
+main#Instellingen_Extern input {
+    width: 150px;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 50px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    background-color: #e0e0e0;
+}
+
+main#Instellingen_Extern section#Filters_Extern {
+    margin-left: 285px;
+    margin-top: 20px;
+}
+
+main#Instellingen_Extern section#Filters_Extern p  {
+    font-size: 1.5em;
+}
+
+main#Instellingen_Extern section#Toevoegen p {
+    margin-left: 290px;
+    font-size: 1.5em;
+  }
+
+main#Instellingen_Extern .right {
+    float: none;
+}
+
+main#Instellingen_Extern div#Breadcrumb {
+    margin-top: -120px;
+    margin-left: 290px;
+}
+
+.instellingen {
+    background-color: #47AAFF;
+    color: #ffffff;
+}
+
+main#Instellingen_Extern section#Toevoegen input {
+    width: 150px;
+    padding: 10px;
+    font-family: 'Roboto', sans-serif;
+    margin-bottom: 50px;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    background-color: #e0e0e0;
+}
+
+main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
+    margin-left: 290px;
+}
+
 /* FINISH PAGINA */
 
 .btnverstuur{

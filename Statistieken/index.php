@@ -23,7 +23,7 @@
                 <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>
                 <li><a href="../Overzicht_Takenlijst/index.php">Overzicht takenlijst</a></li>
                 <li><a href="#">Statistieken</a></li>
-                <li><a href="../Instellingen/index.php">Instellingen</a></li>
+                <li><a href="../Instellingen_Overzicht/index.html">Instellingen</a></li>
             </ul>
         </nav>
         <div class="clearfix"></div>

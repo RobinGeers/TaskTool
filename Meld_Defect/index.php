@@ -457,7 +457,7 @@ $mysqli->close(); //connectie sluiten
             <div id="slider" onmouseover="Prioriteit()"></div>
             <p id="prior"></p>
             <input type="text" style="display: none" id="priori" name="priori">
-            <label>Bijlage:</label>
+           <!--<label>Bijlage:</label>-->
             <!--   <div class="dropzone dz-clickable" id="my-awesome-dropzone">
                    <div class="dz-message" data-dz-message>
                        Klik of sleep hier je foto van het probleem<br />
@@ -465,7 +465,7 @@ $mysqli->close(); //connectie sluiten
                    </div>
                </div>-->
             <div id="DFoto">
-                <label for="Foto">Foto:</label>
+                <label for="Foto">Bijlage:</label>
                 <input type="file" name="Foto[]" id="Foto" multiple tabindex="5">
             </div>
             <input type="checkbox" name="chkHoudOpDeHoogte" id="chkHoudOpDeHoogte" checked value="chkHoudOpDeHoogte">

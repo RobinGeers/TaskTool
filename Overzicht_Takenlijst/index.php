@@ -36,7 +36,7 @@ $mysqli->close(); //connectie sluiten
 
 ?>
 <script>
-    document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
+    /*document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
         //Haal alle "div's" op in overzicht die een pagina voorstellen
         var MD =  document.getElementById("first").parentElement;
         var OT =  document.getElementById("second").parentElement;
@@ -45,6 +45,7 @@ $mysqli->close(); //connectie sluiten
         <?php
         switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via display ) weer welke knoppen ej recht tot hebt
             case 'Basic':
+
   header("Location: ../Overzicht");
 
                     break;
@@ -72,7 +73,7 @@ $mysqli->close(); //connectie sluiten
                             }
                         ?>
 
-    });
+    });*/
 </script>
 <!DOCTYPE html>
 <html>

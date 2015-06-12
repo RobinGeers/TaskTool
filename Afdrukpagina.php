@@ -2,7 +2,7 @@
 if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
 
 }else {
-    header("Location: ./"); // Sessie bestaat niet je ben tniet ingelogd
+    //header("Location: ./"); // Sessie bestaat niet je ben tniet ingelogd
 }
 $naam = "";
 if(isset($_GET['Werkman'])){
@@ -45,119 +45,135 @@ print $naam;
                 //  console.log(ix); is gelijk aan de int i = 0 van de for lus
                 List.push(list.id, list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
                 a =list.name.toLowerCase();
-                console.log(a);
+                //console.log(a);
                 if (a.includes(<?php print "'".$naam."'" ?>)) {
                     SelectedList = list.id; //kijken of de naam die meegeven is in del ink voorkomt in in de lijst namen
 
                 }
                 TrelloLists.push(List);//Voeg de array list toe aan de array TrelloList
             });
-            console.log(TrelloLists);
+            //console.log(TrelloLists);
 //Haal alle kaartjes op van een bepaalde lijst
             Trello.get("/lists/" + SelectedList + "?fields=name&cards=open&card_fields=name&token=" + application_token, function (cards) {
-                //console.log(cards["cards"]);
+
                 CardId = [];
 //overloop alle kaarten die we terug krijgen
-                $.each(cards["cards"], function (ix, card) {
+                $.each(cards["cards"], function (ix, card)
+                {
 
-                    Trello.get("/cards/"+card.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo)
-                    {
-                        var descsplilt = cardinfo.desc.split("/n@");
-                        if(descpart.split("@")[0] == "W")
-                        {
-                            console.log("taak bij werknemer gevonden");
-                            console.log(desc);
-                        }
-                    }
-                    //console.log(card.id);
                     var temparr = [];
                     var attachementsarr = [];
                     var description = [];
                     var carddescription = "";
-                    //1/cards/"+card.id+"?fields=desc&attachments=true&token=a0fdcb022ad19ba6de1a849f4d325e9d8aedf95f086570718a3054d4e4bf4681
-                    //Overloop 1 kaartje en haal de data eruit
-                    Trello.get("/cards/" + card.id + "?fields=desc&attachments=true&token=" + application_token, function (cardinfo) {
+                    Trello.get("/cards/"+card.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo)
+                    {
+
+                        //1/cards/"+card.id+"?fields=desc&attachments=true&token=a0fdcb022ad19ba6de1a849f4d325e9d8aedf95f086570718a3054d4e4bf4681
+                        //Overloop 1 kaartje en haal de data eruit
+                        
                         //ASYNC!!!
                         // description.push(cardinfo.desc);
                         carddescription = cardinfo.desc; //gaat niet aangezien dit async verloopt
-                        console.log(cardinfo.desc);
+                        //console.log(cardinfo.desc);
                         //kijkt naar de attachments en voegt de link toe in een array
                         $.each(cardinfo.attachments, function (ix, attachement) {
                             attachementsarr.push(attachement.url);
                         });
 
-                        //Bevat 1 kaartje zijn info
-                        temparr.push(card.id, card.name, carddescription, attachementsarr);
-                        //array met alle kaartjes in
-                        console.log(temparr);
-                        //
-                        <!-- Maak evenveel DIV's aan als er kaartzen zijn ( zal nog in for lus moeten ) -->
-                        //<img src="pic_mountain.jpg" alt="Mountain View" style="width:304px;height:228px;">
-                        var dc = carddescription.split("/n@");
 
-                        //TODO
-                        var hoofddiv = document.createElement("div");
-                        var leftdiv = document.createElement("div");
-                        var centerdiv = document.createElement("div");
-                        var rightdiv = document.createElement("div");
-                        var chkbox = document.createElement("input");
-                        var label = document.createElement('label');
-                        var prioriteitslabel = document.createElement('p');
-                        var prioriteit = document.createElement('span');
-                        prioriteit.setAttribute("class","prioriteit");
-                        leftdiv.setAttribute("id", "leftdiv");
-                        leftdiv.setAttribute("class", "col-md-2");
-                        centerdiv.setAttribute("class", "col-md-4");
-                        centerdiv.setAttribute("id", "centerdiv");
-                        rightdiv.setAttribute("class", "col-md-4");
-                        rightdiv.setAttribute("id", "rightdiv");
-                        label.appendChild(document.createTextNode('Afgewerkt'));
-                        chkbox.setAttribute("type", "checkbox");
-                        chkbox.setAttribute("name", "afgewerkt");
-                        chkbox.setAttribute("value", "Afgewerkt");
-                        chkbox.setAttribute("class", "chkbox");
-                        var titel = document.createElement("h1");
-                        var p2 = document.createElement("p");
-                        var node = document.createTextNode("" + dc[0]);
-                        var node2 = document.createTextNode("" + temparr[1]);
-                        var prioriteitsnode = document.createTextNode("" + dc[1]);
-                        titel.appendChild(node2);
-                        p2.appendChild(node);
-                        hoofddiv.appendChild(leftdiv);
-                        hoofddiv.appendChild(centerdiv);
-                        hoofddiv.appendChild(rightdiv);
-                        centerdiv.appendChild(titel);
-                        prioriteit.appendChild(prioriteitsnode);
-                        prioriteitslabel.appendChild(prioriteit);
-                        centerdiv.appendChild(prioriteitslabel);
-                        centerdiv.appendChild(p2);
-                        rightdiv.appendChild(chkbox);
-                        rightdiv.appendChild(label);
-                        hoofddiv.setAttribute("id", "qrcode" + ix);
-                        hoofddiv.setAttribute("class", "row");
-                        $.each(temparr[3], function (ix, temp) {
-                            console.log("naam is:" + temp);
-                            var extension = temp.substr(temp.length - 3); // => "Tabs1"
-                            if (extension.toLowerCase() == "jpg" || extension.toLocaleLowerCase() == "png") {
-                                var pimg = document.createElement("img");
-                                pimg.setAttribute("src", temp);
-                                pimg.setAttribute("class", "afbeelding");
-                                rightdiv.appendChild(pimg);
+
+                        var descsplilt = cardinfo.desc.split("/n@");
+                        $.each(descsplilt,function(ix,descpart){
+                            if(descpart.split("@")[0] == "W")
+                            {
+                                /*console.log("taak bij werknemer gevonden");
+                                console.log(cardinfo.desc);*/
+
+                                //Bevat 1 kaartje zijn info
+                                temparr.push(card.id, card.name, carddescription, attachementsarr);
+                                //array met alle kaartjes in
+                                //console.log(temparr);
+                                //
+                                <!-- Maak evenveel DIV's aan als er kaartzen zijn ( zal nog in for lus moeten ) -->
+                                //<img src="pic_mountain.jpg" alt="Mountain View" style="width:304px;height:228px;">
+                                var dc = carddescription.split("/n@");
+
+                                //TODO
+                                var hoofddiv = document.createElement("div");
+                                var leftdiv = document.createElement("div");
+                                var centerdiv = document.createElement("div");
+                                var rightdiv = document.createElement("div");
+                                var chkbox = document.createElement("input");
+                                var label = document.createElement('label');
+                                var prioriteitslabel = document.createElement('p');
+                                var prioriteit = document.createElement('span');
+                                prioriteit.setAttribute("class","prioriteit");
+                                leftdiv.setAttribute("id", "leftdiv");
+                                leftdiv.setAttribute("class", "col-md-2");
+                                centerdiv.setAttribute("class", "col-md-4");
+                                centerdiv.setAttribute("id", "centerdiv");
+                                rightdiv.setAttribute("class", "col-md-4");
+                                rightdiv.setAttribute("id", "rightdiv");
+                                label.appendChild(document.createTextNode('Afgewerkt'));
+                                chkbox.setAttribute("type", "checkbox");
+                                chkbox.setAttribute("name", "afgewerkt");
+                                chkbox.setAttribute("value", "Afgewerkt");
+                                chkbox.setAttribute("class", "chkbox");
+                                var titel = document.createElement("h1");
+                                var p2 = document.createElement("p");
+                                var node = document.createTextNode("" + dc[0]);
+                                var node2 = document.createTextNode("" + temparr[1]);
+                                var prioriteitsnode = document.createTextNode("" + dc[1]);
+                                titel.appendChild(node2);
+                                p2.appendChild(node);
+                                hoofddiv.appendChild(leftdiv);
+                                hoofddiv.appendChild(centerdiv);
+                                hoofddiv.appendChild(rightdiv);
+                                centerdiv.appendChild(titel);
+                                prioriteit.appendChild(prioriteitsnode);
+                                prioriteitslabel.appendChild(prioriteit);
+                                centerdiv.appendChild(prioriteitslabel);
+                                centerdiv.appendChild(p2);
+                                rightdiv.appendChild(chkbox);
+                                rightdiv.appendChild(label);
+                                hoofddiv.setAttribute("id", "qrcode" + ix);
+                                hoofddiv.setAttribute("class", "row");
+                                $.each(temparr[3], function (ix, temp) {
+                                    console.log("naam is:" + temp);
+                                    var extension = temp.substr(temp.length - 3); // => "Tabs1"
+                                    if (extension.toLowerCase() == "jpg" || extension.toLocaleLowerCase() == "png") {
+                                        var pimg = document.createElement("img");
+                                        pimg.setAttribute("src", temp);
+                                        pimg.setAttribute("class", "afbeelding");
+                                        rightdiv.appendChild(pimg);
+                                    }
+
+                                });
+                                var element = document.getElementById("container");
+                                element.setAttribute("class", "container-fluid");
+                                element.appendChild(hoofddiv);
+
+                                var qrcode = new QRCode(leftdiv, {
+                                    width: 150,
+                                    height: 150
+                                });
+                                qrcode.makeCode("https://student.howest.be/wouter.dumon/pitch/finish.php?id=" + temparr[0]);
+
+
+                                CardId.push(temparr)
+
+
+
+
                             }
-
                         });
-                        var element = document.getElementById("container");
-                        element.setAttribute("class", "container-fluid");
-                        element.appendChild(hoofddiv);
-
-                        var qrcode = new QRCode(leftdiv, {
-                            width: 150,
-                            height: 150
-                        });
-                        qrcode.makeCode("https://student.howest.be/wouter.dumon/pitch/finish.php?id=" + temparr[0]);
 
 
-                        CardId.push(temparr)
+
+
+
+
+
                     });
                 });
             });

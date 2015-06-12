@@ -428,8 +428,7 @@ $mysqli->close(); //connectie sluiten
     <h1>Meld hier een defect/taak</h1>
     <section id="MeldDefect">
         <form action="<?php echo $_SERVER['PHP_SELF']; ?>" method="POST" id="form" enctype="multipart/form-data">
-            <label for="txtEmail">Email: <span> *</span></label>
-            <input id="txtEmail" type="email" name="txtEmail" value="<?php
+            <input id="txtEmail" type="hidden" name="txtEmail" value="<?php
             if (isset($_SESSION['loggedin'])) {
                 print $_SESSION['loggedin'];
             } else {

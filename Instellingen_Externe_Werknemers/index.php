@@ -227,7 +227,7 @@ $mysqli->close();
             <li><a href="../Instellingen_Overzicht/index.php" class="instellingen">Instellingen</a>
             <ul>
                 <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
-                <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
+                <li><a href="../Instellingen_Externe_Werknemers/index.php">Onderaannemers</a></li>
                 <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
             </ul>
             </li>
@@ -237,12 +237,12 @@ $mysqli->close();
 </header>
 <main id="Instellingen_Extern">
 
-    <h1>Beheer externe werknemers</h1>
+    <h1>Beheer onderaannemers</h1>
 
     <section id="Toevoegen">
 
         <div id="Add_Externe_Werknemer" class="ui small primary labeled icon button">
-            <i class="user icon"></i> Voeg externe werknemer toe
+            <i class="user icon"></i>Nieuwe onderaannemer toevoegen
         </div>
         <div class="clearfix"></div>
     </section>
@@ -254,7 +254,7 @@ $mysqli->close();
         <!-- TODO: Close icon zoeken !-->
         <i id="close_Popup" class="close icon"></i>
         <div class="header">
-            Werknemer toevoegen
+            Nieuwe onderaannemer toevoegen
         </div>
         <div class="content">
             <div class="left">
@@ -275,7 +275,7 @@ $mysqli->close();
                 Annuleer
             </div>
             <div id="btnOpslaan_Extern" class="ui positive right labeled icon button">
-                Maak werknemer <i class="checkmark icon"></i>
+                Voltooien <i class="checkmark icon"></i>
             </div>
             <div class="clearfix"></div>
         </div>
@@ -285,7 +285,7 @@ $mysqli->close();
     <section id="Tabel">
 
         <section id="Filters_Extern">
-            <p>Filter op externe werknemers: </p>
+            <p>Filter op onderaannemers: </p>
 
             <input type="text" name="Filter_eNaam" id="Filter_eNaam" placeholder="Naam" onkeyup="naamChangeext(this)" />
             <i class="ui search icon"></i>

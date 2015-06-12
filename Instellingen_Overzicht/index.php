@@ -88,7 +88,7 @@ switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via disp
     <main id="Instellingen_Overzicht">
         <h1>Instellingen</h1>
         <div><a id="first" href="../Instellingen_Interne_Werknemers/index.php"><i class="ui users icon"></i><p>Interne werknemers</p></a></div>
-        <div><a id="second" href="../Instellingen_Externe_Werknemers/index.php"><i class="ui shipping icon"></i><p>Externe werknemers</p></a></div>
+        <div><a id="second" href="../Instellingen_Externe_Werknemers/index.php"><i class="ui shipping icon"></i><p>Onderaannemers</p></a></div>
         <div><a id="third" href="../Instellingen_Lokalen/index.php"><i class="ui university icon"></i><p>Lokalen</p></a></div>
         <div class="clearfix"></div>
     </main>

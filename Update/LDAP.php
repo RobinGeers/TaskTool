@@ -22,7 +22,7 @@ header('Location: ../index.php?error=Foute1Inlog1Gegevens');
 } else {
     // start searching
 //CN=Organizational-Unit,CN=Schema,CN=Configuration,DC=hogeschool-wvl,DC=be
-    ldap_search($link, "ou=Personeel,ou=Howest,dc=hogeschool-wvl,dc=be", "(objectCategory=CN=Organizational-Unit,CN=Schema,CN=Configuration,DC=hogeschool-wvl,DC=be)") or die ("Error in search query");
+    ldap_search($link, "CN=Pennings Anouk-Louise,OU=Studenten,OU=Howest,DC=hogeschool-wvl,DC=be", "(CN=*)") or die ("Error in search query");
 
 // get entry data as array
     $info = ldap_get_entries($link, $result);

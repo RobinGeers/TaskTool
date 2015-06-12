@@ -8,7 +8,7 @@ if($_SERVER["HTTPS"] != "on")
 if(isset($_SESSION['loggedin']))
 {
     header('Location: ./Meld_Defect/index.php');
-    //echo "session gevonden";
+     //echo "session gevonden";
 }
 
 $errormessage = "";
@@ -35,7 +35,7 @@ $bodytag = str_replace("%body%", "black", "<body text='%body%'>");
     <title>
         Login - Howest Tasktool
     </title>
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
     <script src="js/jquery-2.1.4.min.js"></script>
     <script>
         $( document ).ready(function() {

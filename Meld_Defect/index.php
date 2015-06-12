@@ -50,7 +50,7 @@ if (isset($_POST['txtEmailadres'])) {
               array_push($d,$data);
             };
             //cookie aanmaken
-            setcookie("rol", md5("exteralayersecuresalt".$data), time() + 25920000);
+            setcookie("rol", md5("exteralayersecuresalt".$data), time() + 25920000,"/");
             $_SESSION['loggedin'] = $bericht;
             //indien emailadres bestaat 100% kans dat je van login pagina komt en niet refresht ofzo
             if (isset($_POST['chkHouIngelogd'])) {
@@ -60,20 +60,38 @@ if (isset($_POST['txtEmailadres'])) {
                 //cookie verwijderen
                 setcookie("inlognaam", "", time() - 3600);
             }
+?>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
+        //Haal alle "div's" op in overzicht die een pagina voorstellen
+        var MD =  document.getElementById("first").parentElement;
+        var OT =  document.getElementById("second").parentElement;
+        var S =  document.getElementById("third").parentElement;
+        var I =  document.getElementById("fourth").parentElement;
+        <?php
             switch ($data) {
                 case 'Basic':
+                  ?>
+        MD.style.display = "inline-block";
+        OT.style.display = "none";
+        S.style.display = "none";
+        I.style.display = "none";
+
+        <?php
                     //mag alleen op meld defect
                     //connectie sluiten
                     $results->close();
                     break;
                 case 'Werkman':
-                    $naam = explode('@', $bericht);
-                    header('Location: ../Afdrukpagina.php?Werkman=' . $naam[0]);
+
+        header("Location: ../Overzicht");
+                    //$naam = explode('@', $bericht);
+                    //header('Location: ../Afdrukpagina.php?Werkman=' . $naam[0]);
                     //connectie sluiten
                     $results->close();
                     break;
                 case 'Onthaal':
-                    header('Location: ../Overzicht');
+                           header('Location: ../Overzicht');
                     //connectie sluiten
                     $results->close();
                     break;
@@ -275,6 +293,96 @@ $mysqli->close();
 
 </script>
 
+<?php
+if($_SERVER["HTTPS"] != "on")
+{ // zet de site om naar https indien het http is MEOT VOOR SECURE VAN DATA
+    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    exit();
+}
+
+if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
+    $ber = $_SESSION['loggedin']; // stop de sessie in een variabele
+}else {
+    header("Location: ../"); // Sessie bestaat niet je ben tniet ingelogd
+}
+$rol = $_COOKIE["rol"]; // haal de gehashde rol uit de cookie
+$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj'); //connectie tot de database
+if ($mysqli->connect_error)
+{
+    echo "Geen connectie mogelijk met de database";
+    return; // error message dat je geen toegang / verbinding hebt met de database ( 500 internal server error )
+}
+$data = array();
+$result = $mysqli->prepare("SELECT ROL FROM EmailsLeerkrachten where userPrincipalName =?"); // prepare je statement waar ? iedere keer een parameter zal zijn die beschermd is tegen SQL injectie
+$result->bind_param('s', $ber); //voeg de param $ber toe aan de query
+$result->execute(); // voort het prepared sql statement uit
+$result->bind_result($data); //steek het resultaat in een parameter
+$d = array();
+while($result->fetch()){
+    array_push($d,$data); //steek de data in een array moest er meer dan 1 zijn ( kan in dit geval niet )
+};
+$ha =  md5("exteralayersecuresalt".$data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
+if($ha==$rol){//roll is gelijk aan wat er in de cookie zit
+}else{
+    header("Location: ../"); // rol is niet juist => hack attempt
+}
+$mysqli->close(); //connectie sluiten
+
+?>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
+        //Haal alle "div's" op in overzicht die een pagina voorstellen
+        var MD =  document.getElementById("first").parentElement;
+        var OT =  document.getElementById("second").parentElement;
+        var S =  document.getElementById("third").parentElement;
+        var I =  document.getElementById("fourth").parentElement;
+        <?php
+    switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via display ) weer welke knoppen ej recht tot hebt
+        case 'Basic':
+?>
+        MD.style.display = "inline-block";
+        OT.style.display = "none";
+        S.style.display = "none";
+        I.style.display = "none";
+
+        <?php
+
+                    break;
+                case 'Werkman':
+        ?>
+        MD.style.display = "inline-block";
+        OT.style.display = "none";
+        S.style.display = "none";
+        I.style.display = "none";
+
+        <?php
+                    break;
+                case 'Onthaal':
+        ?>
+        MD.style.display = "inline-block";
+        OT.style.display = "inline-block";
+        S.style.display = "inline-block";
+        I.style.display = "none";
+
+        <?php
+                            break;
+                        case 'Admin':
+             ?>
+        MD.style.display = "inline-block";
+        OT.style.display = "inline-block";
+        S.style.display = "inline-block";
+        I.style.display = "inline-block";
+
+        <?php
+                                    break;
+                            }
+                        ?>
+
+    });
+</script>
+
+
+
 
 <!DOCTYPE html>
 <html>
@@ -286,11 +394,12 @@ $mysqli->close();
         Meldpagina - Howest Tasktool
     </title>
 
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="../css/screen.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../css/transition.min.css">
     <script src="../js/semantic.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
+    <link rel="stylesheet" href="../css/screen.css"/>
     <link href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet"/>
 
 </head>
@@ -300,11 +409,11 @@ $mysqli->close();
     <button><a onclick="afmelden(this)">Afmelden</a></button>
     <nav>
         <ul>
-            <li><a href="#">Probleem melden</a></li>
-            <li><a href="../Overzicht_Takenlijst/">Overzicht takenlijst</a></li>
-            <li><a href="../Statistieken">Statistieken</a></li>
-            <li><a href="../Instellingen">Instellingen</a></li>
-            <li><a href="../Instellingen_Overzicht/index.html" class="instellingen">Instellingen</a>
+            <li><a id="first"  href="#">Probleem melden</a></li>
+            <li><a id="second" href="../Overzicht_Takenlijst/">Overzicht takenlijst</a></li>
+            <li><a id="third"  href="../Statistieken">Statistieken</a></li>
+           <!--<li><a  href="../Instellingen">Instellingen</a></li>
+           --> <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
                 <ul>
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
                     <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
@@ -348,7 +457,7 @@ $mysqli->close();
             <div id="slider" onmouseover="Prioriteit()"></div>
             <p id="prior"></p>
             <input type="text" style="display: none" id="priori" name="priori">
-            <label>Bijlage:</label>
+           <!--<label>Bijlage:</label>-->
             <!--   <div class="dropzone dz-clickable" id="my-awesome-dropzone">
                    <div class="dz-message" data-dz-message>
                        Klik of sleep hier je foto van het probleem<br />
@@ -356,7 +465,7 @@ $mysqli->close();
                    </div>
                </div>-->
             <div id="DFoto">
-                <label for="Foto">Foto:</label>
+                <label for="Foto">Bijlage:</label>
                 <input type="file" name="Foto[]" id="Foto" multiple tabindex="5">
             </div>
             <input type="checkbox" name="chkHoudOpDeHoogte" id="chkHoudOpDeHoogte" checked value="chkHoudOpDeHoogte">
@@ -437,16 +546,6 @@ $mysqli->close();
             }
         });
     }
-    /*
-     var btn = document.getElementById("submit");
-     var article = document.getElementById("Article");
-     var lokaal = document.getElementById("txtLokaal");
-     var achternaam = document.getElementById("txtOnderwerp");
-     var email = document.getElementById("txtEmail");
-     var stad = document.getElementById("txtOmschrijving");
-     var stop = false;
-
-     */
     function Prioriteit() {
         var prioriteit = document.getElementById("amount").value;
 
@@ -463,73 +562,6 @@ $mysqli->close();
             document.getElementById("priori").value = "Zeer dringend";
         }
     }
-    /*    //var count = 0;
-     lokaal.addEventListener("input",function(e){
-     var chck = e.target;
-     checkvalidity(chck);
-     } );
-     achternaam.addEventListener("input",function(e){
-     var chck = e.target;
-     checkvalidity(chck);
-     } );
-     email.addEventListener("input",function(e){
-     var chck = e.target;
-     checkvalidityemail(chck);
-     } );
-     stad.addEventListener("input",function(e){
-     var chck = e.target;
-     checkvalidity(chck);
-     });
-     function checkvalidity(input){
-     input.setCustomValidity("");
-     if(input.validity.valid){
-     input.style.border = "solid #0a7f2e 2px";
-     input.style.backgroundColor = "#99ddae";
-     input.style.borderRadius =  "5px";
-     input.style.marginRight = "9px";
-     }else{
-     input.style.border = "solid #423737 3px";
-     input.style.backgroundColor = "#d4d4d4";
-     input.style.marginRight = "9px";
-     input.style.borderRadius =  "5px";
-
-     }}
-     function checkvalidityemail(input){
-
-     input.setCustomValidity("");
-     if(input.validity.valid){
-     input.style.border = "solid #0a7f2e 2px";
-     input.style.backgroundColor = "#99ddae";
-     input.style.borderRadius =  "5px";
-     input.style.marginRight = "9px";
-     }else{
-     input.setCustomValidity("Gelieve een geldige email in te geven");
-     input.style.border = "solid #423737 3px";
-     input.style.backgroundColor = "#d4d4d4";
-     input.style.marginRight = "9px";
-     input.style.borderRadius =  "5px";
-
-     }
-     }
-     btn.addEventListener("click", function(click){
-
-     var ok = true;
-     /*
-     if(achternaam.validity.valid == false){
-     achternaam.setCustomValidity("Gelieve een familienaam in te geven");
-     ok = false;
-     }
-
-     if(email.validity.valid == false){
-     email.setCustomValidity("Gelieve een geldige email in te geven");
-     ok = false;
-     }
-     if(stad.validity.valid == false){
-     stad.setCustomValidity("Gelieve een stad in te geven");
-     ok = false;
-     }
-     */
-    //   });
 </script>
 
 </body>

@@ -1,4 +1,9 @@
 <?php
+if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
+
+}else {
+    header("Location: ./"); // Sessie bestaat niet je ben tniet ingelogd
+}
 $naam = "";
 if(isset($_GET['id'])){
     $naam=$_GET['id'];

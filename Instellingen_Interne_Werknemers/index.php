@@ -1,3 +1,55 @@
+<?php
+session_start(); // Verplicht als je wilt werken met sessie's
+if($_SERVER["HTTPS"] != "on")
+{ // zet de site om naar https indien het http is MEOT VOOR SECURE VAN DATA
+    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    exit();
+}
+
+if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
+    $ber = $_SESSION['loggedin']; // stop de sessie in een variabele
+}else {
+    header("Location: ../"); // Sessie bestaat niet je ben tniet ingelogd
+}
+$rol = $_COOKIE["rol"]; // haal de gehashde rol uit de cookie
+$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj'); //connectie tot de database
+if ($mysqli->connect_error)
+{
+    echo "Geen connectie mogelijk met de database";
+    return; // error message dat je geen toegang / verbinding hebt met de database ( 500 internal server error )
+}
+$data = array();
+$result = $mysqli->prepare("SELECT ROL FROM EmailsLeerkrachten where userPrincipalName =?"); // prepare je statement waar ? iedere keer een parameter zal zijn die beschermd is tegen SQL injectie
+$result->bind_param('s', $ber); //voeg de param $ber toe aan de query
+$result->execute(); // voort het prepared sql statement uit
+$result->bind_result($data); //steek het resultaat in een parameter
+$d = array();
+while($result->fetch()){
+    array_push($d,$data); //steek de data in een array moest er meer dan 1 zijn ( kan in dit geval niet )
+};
+$ha =  md5("exteralayersecuresalt".$data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
+if($ha==$rol){//roll is gelijk aan wat er in de cookie zit
+}else{
+    header("Location: ../"); // rol is niet juist => hack attempt
+}
+$mysqli->close(); //connectie sluiten
+
+
+switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via display ) weer welke knoppen ej recht tot hebt
+    case 'Basic':
+        header("Location: ../");
+
+        break;
+    case 'Werkman':
+        header("Location: ../");
+        break;
+    case 'Onthaal':
+        header("Location: ../");
+        break;
+    case 'Admin':
+
+        break;
+}?>
 <script>
     mydata= [];
     myexternaldata = [];
@@ -172,7 +224,7 @@ $mysqli->close();
             <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>
             <li><a href="../Overzicht_Takenlijst/index.php">Overzicht takenlijst</a></li>
             <li><a href="../Statistieken/index.php">Statistieken</a></li>
-            <li><a href="../Instellingen_Overzicht/index.html" class="instellingen">Instellingen</a>
+            <li><a href="../Instellingen_Overzicht/index.php" class="instellingen">Instellingen</a>
                 <ul>
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
                     <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
@@ -206,10 +258,6 @@ $mysqli->close();
             <i class="user icon"></i> Update werknemer
         </div>!-->
 
-        <div id="Add_Externe_Werknemer" class="ui small primary labeled icon button">
-            <i class="user icon"></i> Voeg externe werknemer toe
-        </div>
-        <div class="clearfix"></div>
     </section>
 
 
@@ -247,7 +295,7 @@ $mysqli->close();
     </div>
 
 
-    <section id="Tabel">
+    <section class="geenmargintop" id="Tabel">
 
         <table id="DI">
             <thead>
@@ -356,57 +404,7 @@ $mysqli->close();
         .dropdown({
             // you can use any ui transition
             transition: 'drop'
-        })
-    ;
-
-
-    document.getElementById("Add_Externe_Werknemer").addEventListener("click", function(){
-
-        // Indien transition niet werkt -> Bootstrap link wegdoen
-        $('#modal_extern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
-        $('#modal_extern')
-            .modal('setting', 'transition', 'scale')
-            .modal('show');
-
-    }, false);
-
-    var id = 3;
-    document.getElementById("btnOpslaan_Extern").addEventListener("click", function(){
-
-        var table = document.getElementById("DynamicExtern");
-        var naamWerknemer = document.getElementById("Naam_Werknemer").value;
-        var naamBedrijf  = document.getElementById("Naam_Bedrijf").value;
-        var adres = document.getElementById("Adres").value;
-        var telNr = document.getElementById("Tel_Nr").value;
-        var emailAdres = document.getElementById("E-mail_Adres").value;
-        //var rechten = document.getElementById("").value;
-        naamWerknemer = naamWerknemer.replace(/\s+/g,".");
-        id++;
-        mylink="../ChangeInst/djfqs5dfqs5df46qsd4.php";
-
-        var url = mylink+"?naam="+naamWerknemer+"&bedrijf="+naamBedrijf+"&adres="+adres+"&tel="+telNr+"&email="+emailAdres;
-        //
-        /*   window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();*/
-
-        $.ajax({
-            url: url,
-            dataType: 'html',
-            success: function(data){
-                //data returned from php
-                console.log("Gelukt");
-                var id = data.split("<p>");
-                console.log(id);
-                console.log(id[1].split("</p>"));
-                id = id[1].split("</p>")[0];
-
-                maakitemexternal(table, naamWerknemer, naamBedrijf, adres, telNr, emailAdres, id);
-                createlist(naamWerknemer);
-
-            }
         });
-
-    });
-
 
     $( document ).ready(function() { // voert de volgende data uit wanneer html is ingeladen
         fillup();

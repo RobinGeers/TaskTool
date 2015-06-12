@@ -103,7 +103,7 @@ $mysqli->close(); //connectie sluiten
             <li><a id="first" href="../Meld_Defect/index.php">Probleem melden</a></li>
             <li><a id="second" href="#">Overzicht takenlijst</a></li>
             <li><a id="third" href="../Statistieken/index.php">Statistieken</a></li>
-            <li><a id="fourth" href="../Instellingen_Overzicht/index.html" class="instellingen">Instellingen</a>
+            <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
                 <ul>
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
                     <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>

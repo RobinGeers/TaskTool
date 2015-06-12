@@ -114,7 +114,7 @@ $mysqli->close(); //connectie sluiten
         <div><a id="first" href="../Meld_Defect/index.php"><i class="fa fa-bell"></i><p>Meld een defect</p></a></div>
         <div ><a id="second" href="../Overzicht_Takenlijst/index.php"><i class="fa fa-list-ul"></i><p>Overzicht takenlijst</p></a></div>
         <div><a id="third" href="../Statistieken/index.php"><i class="fa fa-line-chart"></i><p>Statistieken</p></a></div>
-        <div><a id="fourth" href="../Instellingen_Overzicht/index.html"><i class="fa fa-cogs"></i><p>Instellingen</p></a></div>
+        <div><a id="fourth" href="../Instellingen_Overzicht/index.php"><i class="fa fa-cogs"></i><p>Instellingen</p></a></div>
         <div><a id="fifth" href="../Afdrukpagina.php?Werkman="+<?php  ?>><i class=""></i><p>Afdruklijst</p></a></div>
         <div class="clearfix"></div>
     </main>

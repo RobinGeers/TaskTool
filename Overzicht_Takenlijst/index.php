@@ -378,8 +378,8 @@ $mysqli->close(); //connectie sluiten
         }
         else
         {
-            document.getElementById(data).style.maxWidth = "250px";
-            console.log("nie in nen medewerker");
+            //document.getElementById(data).style.maxWidth = "250px";
+            //console.log("nie in nen medewerker");
             Trello.put("/cards/"+cardid+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"");//&desc=is verzet
         }
 

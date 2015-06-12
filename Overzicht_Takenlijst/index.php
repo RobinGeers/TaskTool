@@ -1249,7 +1249,7 @@ $mysqli->close(); //connectie sluiten
             {
 
                 //checkeds.push(workertasks[i].id);
-                var id = workertasks[i].id
+                var id = workertasks[i].id;
 
                 Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
                 {

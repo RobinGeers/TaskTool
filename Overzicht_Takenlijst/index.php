@@ -269,15 +269,17 @@ $mysqli->close(); //connectie sluiten
         <h2 class="Overzicht_Titels">Medewerkers</h2>
 
     </section>
-    <section id="Voltooid" class="Section_Float draglist">
-        <h2 class="Overzicht_Titels">Voltooid</h2>
 
-    </section>
     <section id="OnHold" class="Section_Float draglist">
         <h2 class="Overzicht_Titels">On hold</h2>
         <ul class="cardlist draglist">
 
         </ul>
+    </section>
+
+    <section id="Voltooid" class="Section_Float draglist">
+        <h2 class="Overzicht_Titels">Voltooid</h2>
+
     </section>
     <div class="clearfix"></div>
 </main>

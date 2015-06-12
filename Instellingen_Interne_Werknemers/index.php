@@ -316,6 +316,13 @@ $mysqli->close();
 </body>
 </html>
 <script>
+    window.onbeforeunload = confirmExit;
+    function confirmExit() {
+        if (formmodified == 1) {
+            return "Je hebt je bewerkte informatie nog niet opgeslaan. Bent u zeker dat u de pagina wilt verlaten?";
+        }
+    }
+
     oTable = null;
     ooTable = null;
     oooTable = null;
@@ -558,7 +565,7 @@ $mysqli->close();
         iWrite.className="write icon";
         iWrite.addEventListener("click",function() {
             dosomething(tr);
-
+            formmodified = 1;
         });
 
 
@@ -611,6 +618,7 @@ $mysqli->close();
         newicon.className = "save icon";
         newicon.addEventListener("click",function(){
             saverow(eml);
+            formmodified = 0;
         });
         eml.replaceChild(newicon,eml.childNodes[3]);
         //table = document.getElementById('DynamicIntern');

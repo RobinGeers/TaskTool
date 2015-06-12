@@ -408,6 +408,11 @@ main#Overzicht h1 {
     font-size: 3em;
 }
 
+.save.icon {
+    padding: 35px;
+    padding-top: 40px;
+}
+
 main#Instellingen_Overzicht {
     width: 960px;
     margin: 0 auto;

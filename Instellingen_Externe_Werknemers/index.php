@@ -321,6 +321,13 @@ $mysqli->close();
 </body>
 </html>
 <script>
+    window.onbeforeunload = confirmExit;
+    function confirmExit() {
+        if (formmodified == 1) {
+            return "Je hebt je bewerkte informatie nog niet opgeslaan. Bent u zeker dat u de pagina wilt verlaten?";
+        }
+    }
+
     oTable = null;
     ooTable = null;
     oooTable = null;
@@ -983,6 +990,7 @@ $mysqli->close();
                 newicon.className = "save icon";
                 newicon.addEventListener("click",function(){
                     saverowext(eml);
+                    formmodified = 0;
                 });
                 eml.replaceChild(newicon,eml.childNodes[ix]);
                 return;
@@ -1051,7 +1059,7 @@ $mysqli->close();
                 td4.className="write icon";
                 td4.addEventListener("click",function() {
                     dosomethingext(el);
-//HIER
+                    formmodified = 1;
                 });
                 var t1 = document.createElement("i");
                 t1.className="remove icon";

@@ -59,6 +59,16 @@ print $naam;
                 CardId = [];
 //overloop alle kaarten die we terug krijgen
                 $.each(cards["cards"], function (ix, card) {
+
+                    Trello.get("/cards/"+card.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo)
+                    {
+                        var descsplilt = cardinfo.desc.split("/n@");
+                        if(descpart.split("@")[0] == "W")
+                        {
+                            console.log("taak bij werknemer gevonden");
+                            console.log(desc);
+                        }
+                    }
                     //console.log(card.id);
                     var temparr = [];
                     var attachementsarr = [];

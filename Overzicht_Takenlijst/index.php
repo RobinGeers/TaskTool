@@ -90,7 +90,7 @@ $mysqli->close(); //connectie sluiten
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
     <script src="../js/semantic.min.js"></script>
     <script src="../js/transition.min.js"></script>
-    <script src="https://api.trello.com/1/client.js?key=58a39dc0f4ff34f42e6340210093dfe9"></script>
+    <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
     <!-- laad de jquery in voor autocomplete -->
     <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 </head>
@@ -302,8 +302,8 @@ $mysqli->close(); //connectie sluiten
             }
         });
     }
-    var APP_KEY = '58a39dc0f4ff34f42e6340210093dfe9';
-    var application_token = "f21b36c1a99f16d2889030eb156990845b1059cc10909a8ed3b63e08608d8f19";
+    var APP_KEY = '23128bd41978917ab127f2d9ed741385';
+    var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
     var checkKaartInmedewerker;
     var workers = [];
 
@@ -1255,14 +1255,13 @@ $mysqli->close(); //connectie sluiten
         {
             id = tasks[i].id;
 
-<<<<<<< HEAD
+
             Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
             {
                 var niewedescription =  cardinfo.desc + "/n@W@"+name;
-=======
+
                 //checkeds.push(workertasks[i].id);
                 var id = workertasks[i].id;
->>>>>>> origin/master
 
                 SetTag(cardinfo.id,listId,niewedescription,checkeds,name);
 

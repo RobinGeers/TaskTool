@@ -1266,7 +1266,29 @@ $mysqli->close(); //connectie sluiten
                 //checkeds.push(workertasks[i].id);
                 var id = workertasks[i].id;
 
-                SetTag(cardinfo.id,listId,niewedescription,checkeds,name);
+
+                var descsplilt = cardinfo.desc.split("/n@");
+                var found = false;
+                $.each(descsplilt,function(ix,descpart) {
+                    if (descpart.split("@")[0] == "W" && descpart.split("@")[1] == name)
+                    {
+                        console.log("tsta der al in");
+                        count++;
+                        found = true;
+                        if(count == checkeds)
+                        {
+                            console.log("redirecting nu");
+                            redirect(name);
+                        }
+
+                    }
+                });
+                if(!found)
+                {
+                    console.log("uitgevoerd");
+                    SetTag(cardinfo.id,listId,niewedescription,checkeds,name);
+
+                }
 
             });
 
@@ -1290,14 +1312,15 @@ $mysqli->close(); //connectie sluiten
 
             if(count == lengte)
             {
-                console.log("redirect");
+
                 redirect(naam);
             }
         });
     }
     function redirect(name)
     {
-        window.open("../Afdrukpagina.php?Werkman="+name,"_self");
+        console.log("redirect");
+       window.open("../Afdrukpagina.php?Werkman="+name,"_self");
     }
 
     function CopyCard(value) {
@@ -1320,11 +1343,13 @@ $mysqli->close(); //connectie sluiten
                         {
                             niewedescription = cardinfo.desc + "/n@AW@" + value.value;
                             console.log(niewedescription);
-                            //Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&desc="+niewedescription);
+                            Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&desc="+niewedescription,function(){
+                                Trello.post("/cards?idList="+list.id+"&idCardSource="+id+"&due=null&token="+application_token+"&key"+APP_KEY);
+                            });
                         });
                         temp[0].innerText += " "+ value.value;
                         console.log(temp[0].innerText);
-                        Trello.post("/cards?idList="+list.id+"&idCardSource="+id+"&due=null&token="+application_token+"&key"+APP_KEY);
+
                     }
                 });
 

@@ -1156,38 +1156,66 @@
         element.parentNode.removeChild(element);
         Filters();
     }
-
+    var count;
     function PrintTasks(element,callback)
     {
+        count = 0;
         var worker = element.parentNode.parentNode;
         var workertasks = worker.getElementsByTagName("li");
 
         var name = worker.firstChild.innerText;
         var listId = worker.id;
 
+        var checkeds = 0;
+        var tasks = [];
         for(var i = 1;i<workertasks.length;i++)
         {
-            var checkbox = workertasks[i].firstChild.firstChild.nextSibling;
 
+            var checkbox = workertasks[i].firstChild.firstChild.nextSibling;
             if(checkbox.checked)
             {
-
-                //checkeds.push(workertasks[i].id);
-                var id = workertasks[i].id
-
-                Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
-                {
-                    var niewedescription =  cardinfo.desc + "/n@W@"+name;
-                    Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+niewedescription);
-
-                });
-
+                checkeds++;
+                tasks.push(workertasks[i]);
             }
         }
+       // console.log(checkeds);
+
+        for(var i = 0;i<tasks.length;i++)
+        {
+            id = tasks[i].id;
+
+            Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
+            {
+                var niewedescription =  cardinfo.desc + "/n@W@"+name;
+
+                SetTag(cardinfo.id,listId,niewedescription,checkeds,name);
+
+            });
+
+
+        }
+
 
         //
-        window.open("../Afdrukpagina.php?Werkman="+name,"_self");
+       // window.open("../Afdrukpagina.php?Werkman="+name,"_self");
 
+    }
+
+    function SetTag(id,listId,nieuwedescription,lengte,naam)
+    {
+        Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+nieuwedescription,function()
+        {
+
+            count++;
+            console.log(id);
+            //console.log(nieuwedescription);
+
+            if(count == lengte)
+            {
+                console.log("redirect");
+                redirect(naam);
+            }
+        });
     }
     function redirect(name)
     {

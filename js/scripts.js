@@ -1,15 +1,18 @@
 var workers  ;
 var complete =[];
-function Initialize(workersection,workersindesc)
-{
+var StartTimes = [];
 
+function Initialize(workersection,workersindesc,StartTimings)
+{
+    //console.log(StartTimings);
     workers = workersection.getElementsByTagName("div");
     countComplete(workersindesc);
+    CountTimes(StartTimings);
     //console.log(workers);
     vinkAlleWerknemersAan();
     kleurWerknemers();
     toonGrafiek1();
-    //toonGrafiek2();
+    toonGrafiek2();
 
 }
 
@@ -39,7 +42,26 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     };*/
 });
-
+function CountTimes(base)
+{
+    console.log(base.length);
+    for(var i = 0;i<base.length;i++)
+    {
+        var returnvalue = finddouble(base[i],StartTimes);
+        console.log(returnvalue);
+         if(returnvalue<= -1)
+        {
+            var temp=[base[i],1];
+            console.log(temp);
+            StartTimes.push()
+        }
+      /* else
+        {
+            StartTimes[returnvalue][1]++;
+        }*/
+    }
+    console.log(StartTimes);
+}
 function countComplete(base)
 {
 
@@ -65,7 +87,7 @@ function finddouble(value,list)
 {
     for(var j = 0;j<list.length;j++)
     {
-        if(value == complete[j][0])
+        if(value == list[j][0])
         {
             return j;
             console.log("whaaaat");

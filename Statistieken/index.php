@@ -151,6 +151,8 @@
             var workers = [];
             var workerId = [];
             var workersindesc = [];
+            var StartTimes = [];
+
             $(document).ready(GetWorkers);
             function GetWorkers()
             {
@@ -187,6 +189,33 @@
                             div.appendChild(label);
                             werknemers.appendChild(div);
 
+                            Trello.get("/lists/"+list.id+"?fields=name&cards=open&card_fields=name&token" +
+                            "="+application_token, function(cards) {
+
+                                $.each(cards["cards"], function(ix, card){
+
+                                    Trello.get("/cards/"+card.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo)
+                                    {
+
+                                        var descsplilt = cardinfo.desc.split("/n@");
+                                        $.each(descsplilt,function(ix,descpart){
+
+                                            if(descpart.split("@")[0] == "T")
+                                            {
+                                                //console.log(descpart.split("@")[1]);
+                                                StartTimes.push(descpart.split("@")[1]);
+                                            }
+
+                                        });
+
+                                    });
+                                });
+
+
+                            });
+
+
+
                         }
                         if(list.name == "Voltooid")
                         {
@@ -200,23 +229,31 @@
 
                                         var descsplilt = cardinfo.desc.split("/n@");
                                         $.each(descsplilt,function(ix,descpart){
+
                                             if(descpart.split("@")[0] == "N")
                                             {
                                                 //console.log(descpart.split("@")[1]);
                                                 workersindesc.push(descpart.split("@")[1]);
                                             }
+                                            if(descpart.split("@")[0] == "T")
+                                            {
+                                                //console.log(descpart.split("@")[1]);
+                                                StartTimes.push(descpart.split("@")[1]);
+                                            }
 
                                         });
-                                        console.log(workersindesc);
+
                                     });
                                 });
 
 
                             });
                         }
+
                     });
+
                     var timer = setInterval(function () {Initialize(werknemers,
-                        workersindesc);clearInterval(timer);
+                        workersindesc,StartTimes);clearInterval(timer);
                     }, 2000);
 
 

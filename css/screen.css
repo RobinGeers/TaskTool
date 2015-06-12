@@ -999,37 +999,41 @@ section#Werknemers h2 {
 }
 
 
-section#Prestaties h2 {
+section#Prestaties h2, section#PrioriteitDoorlooptijd h2 {
     margin-bottom: 50px;
 }
 
-section#Prestaties table {
+section#Prestaties table, section#PrioriteitDoorlooptijd table{
     width: 90%;
     text-align: center;
     margin: 0 auto;
 }
 
-section#Prestaties table tbody tr td {
+section#PrioriteitDoorlooptijd table{
+    width: 30%;
+}
+
+section#Prestaties table tbody tr td, section#PrioriteitDoorlooptijd table tbody tr td{
     text-align: center;
 }
 
-section#Prestaties table tbody tr th {
+section#Prestaties table tbody tr th, section#PrioriteitDoorlooptijd table tbody tr th {
     font-size: 1.3em;
 }
 
 
 
-section#Prestaties th {
+section#Prestaties th, section#PrioriteitDoorlooptijd th {
     text-align: center;
 }
 
-section#Prestaties table {
+section#Prestaties table, section#PrioriteitDoorlooptijd table {
     border-collapse: collapse;
     margin-bottom: 100px;
     box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.07);
     margin-left: 100px;
 }
-section#Prestaties table th, section#Prestaties table tr, section#Prestaties table td {
+section#Prestaties table th, section#Prestaties table tr, section#Prestaties table td, section#PrioriteitDoorlooptijd table th, section#PrioriteitDoorlooptijd table tr, section#PrioriteitDoorlooptijd table td{
     border: 1px solid #ddd;
 }
 

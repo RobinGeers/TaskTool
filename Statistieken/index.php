@@ -173,7 +173,7 @@ $mysqli->close(); //connectie sluiten
                 <thead>
                 <tr>
                     <th>Werknemers</th>
-                    <th>Reactietijd</th>
+                    <th>Gemiddelde Reactietijd</th>
                     <th>Gemiddelde doorlooptijd</th>
                     <th>Prestatie index</th>
                 </tr>
@@ -201,6 +201,30 @@ $mysqli->close(); //connectie sluiten
                     <td>2 uur</td>
                     <td>1 dag</td>
                     <td>75%</td>
+                </tr>
+            </table>
+        </section>
+
+        <section id="PrioriteitDoorlooptijd">
+            <h2>Doorlooptijd taken per prioriteit</h2>
+            <table class="ui table">
+                <thead>
+                <tr>
+                    <th>Prioriteit</th>
+                    <th>Gemiddelde doorlooptijd</th>
+                </tr>
+                </thead>
+                <tr>
+                    <th>Niet dringend</th>
+                    <td>2 uur</td>
+                </tr>
+                <tr>
+                    <th>Dringend</th>
+                    <td>2 uur</td>
+                </tr>
+                <tr>
+                    <th>Zeer dringend</th>
+                    <td>2 uur</td>
                 </tr>
             </table>
         </section>

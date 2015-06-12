@@ -80,9 +80,9 @@ $mysqli->close(); //connectie sluiten
     <meta charset="UTF-8">
     <title>TaskTool Howest | Overzicht takenlijst</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="../css/screen.css"/>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
+    <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="../css/icon.min.css">
     <link rel="stylesheet" href="../css/transition.min.css">
     <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">

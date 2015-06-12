@@ -56,8 +56,9 @@ switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via disp
     <meta charset="UTF-8">
     <title>TaskTool Howest | Overzicht</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/semantic.min.css">
     <link rel="stylesheet" href="../css/screen.css"/>
-    <link rel="stylesheet" href="../css/semantic.min.css"/>
     <script src="../js/jquery-2.1.4.min.js"></script>
     <script src="../js/semantic.min.js"></script>
 </head>

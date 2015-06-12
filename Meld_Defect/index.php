@@ -394,11 +394,12 @@ $mysqli->close(); //connectie sluiten
         Meldpagina - Howest Tasktool
     </title>
 
-    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet' type='text/css'>
-    <link rel="stylesheet" href="../css/screen.css"/>
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../css/transition.min.css">
     <script src="../js/semantic.min.js"></script>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
+    <link rel="stylesheet" href="../css/screen.css"/>
     <link href="https://code.jquery.com/ui/1.9.2/themes/base/jquery-ui.css" rel="stylesheet"/>
 
 </head>

@@ -81,8 +81,9 @@ $mysqli->close(); //connectie sluiten
     <title>TaskTool Howest | Statistieken</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
     <script src="../js/jquery-2.1.4.min.js"></script>
-    <link rel="stylesheet" href="../css/screen.css"/>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
+    <link rel="stylesheet" href="../css/screen.css"/>
     <!--<link rel="stylesheet" href="../css/icon.min.css">!-->
     <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
     <script src="../js/scripts.js"></script>

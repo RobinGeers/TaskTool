@@ -97,6 +97,8 @@ $mysqli->close(); //connectie sluiten
     <meta charset="UTF-8">
     <title>TaskTool Howest | Overzicht</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="../css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="../css/semantic.min.css">
     <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <script src="../js/jquery-2.1.4.min.js"></script>

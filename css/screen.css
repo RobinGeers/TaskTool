@@ -218,7 +218,8 @@ main#MeldDefectFormulier {
 main#MeldDefectFormulier h1 {
     text-align: center;
     margin-bottom: 50px;
-    margin-top: 230px;
+    margin-top: 190px;
+    font-size: 3em;
 }
 
 main#MeldDefectFormulier section#MeldDefect {
@@ -713,6 +714,7 @@ main#Overzicht_Takenlijst h1 {
     text-align: center;
     margin-bottom: 50px;
     margin-top: 190px;
+    font-size: 3em;
 }
 
 main#Overzicht_Takenlijst section#Filters p {
@@ -922,10 +924,12 @@ main#Statistieken h1 {
     text-align: center;
     margin-bottom: 50px;
     margin-top: 190px;
+    font-size: 3em;
 }
 
 section#Werknemers p {
     margin-left: 100px;
+    font-size: 1.5em;
 }
 
 section#Werknemers button:nth-child(2), section#Werknemers i:nth-child(2) {
@@ -1301,8 +1305,9 @@ main#Instellingen section#Filters_Extern {
 
 main#Instellingen_Extern h1 {
     text-align: center;
-    margin-top: 200px;
+    margin-top: 190px;
     margin-bottom: 50px;
+    font-size: 3em;
 }
 
 main#Instellingen_Extern h2 {

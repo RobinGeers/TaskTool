@@ -406,7 +406,6 @@ main#Overzicht h1 {
     margin-bottom: 75px;
     margin-top: 200px;
     font-size: 3em;
-    font-weight: normal;
 }
 
 main#Instellingen_Overzicht {
@@ -708,6 +707,7 @@ main#Overzicht_Takenlijst section#SelectedFilters div {
 main#Overzicht_Takenlijst section#SelectedFilters h3 {
     margin-right: 10px;
     display: inline-block;
+    font-size:1.5em;
 }
 
 main#Overzicht_Takenlijst h1 {

@@ -253,7 +253,7 @@ $mysqli->close(); //connectie sluiten
 
     <section id="SelectedFilters">
         <div>
-            <h3>Geselecteerde Filters</h3>
+            <h3>Geselecteerde Filters: </h3>
             <div id="TitelFilter" onclick="TitelRemove(this)">
                 <label></label>
             </div>

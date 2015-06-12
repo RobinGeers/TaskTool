@@ -441,7 +441,7 @@ $mysqli->close(); //connectie sluiten
 
 
                 <input type="text" id="txtLokaal" name="txtLokaal" placeholder="A.202b (Leslokaal)" tabindex="1"
-                       title="Selecteer een lokaal uit de lijst." required/>
+                       title="Typ en selecteer een lokaal uit de lijst." required/>
             </div>
             <label for="txtOnderwerp">Onderwerp:<span> *</span></label>
             <input id="txtOnderwerp" type="text" name="txtOnderwerp" placeholder="Waterfontein is kapot" tabindex="2"

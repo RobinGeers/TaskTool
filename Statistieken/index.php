@@ -173,7 +173,7 @@ $mysqli->close(); //connectie sluiten
                 <thead>
                 <tr>
                     <th>Werknemers</th>
-                    <th>Gemiddelde Reactietijd</th>
+                    <th>Gemiddelde reactietijd</th>
                     <th>Gemiddelde doorlooptijd</th>
                     <th>Prestatie index</th>
                 </tr>

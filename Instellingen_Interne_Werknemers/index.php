@@ -258,10 +258,6 @@ $mysqli->close();
             <i class="user icon"></i> Update werknemer
         </div>!-->
 
-        <div id="Add_Externe_Werknemer" class="ui small primary labeled icon button">
-            <i class="user icon"></i> Voeg externe werknemer toe
-        </div>
-        <div class="clearfix"></div>
     </section>
 
 
@@ -299,7 +295,7 @@ $mysqli->close();
     </div>
 
 
-    <section id="Tabel">
+    <section class="geenmargintop" id="Tabel">
 
         <table id="DI">
             <thead>
@@ -408,57 +404,7 @@ $mysqli->close();
         .dropdown({
             // you can use any ui transition
             transition: 'drop'
-        })
-    ;
-
-
-    document.getElementById("Add_Externe_Werknemer").addEventListener("click", function(){
-
-        // Indien transition niet werkt -> Bootstrap link wegdoen
-        $('#modal_extern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
-        $('#modal_extern')
-            .modal('setting', 'transition', 'scale')
-            .modal('show');
-
-    }, false);
-
-    var id = 3;
-    document.getElementById("btnOpslaan_Extern").addEventListener("click", function(){
-
-        var table = document.getElementById("DynamicExtern");
-        var naamWerknemer = document.getElementById("Naam_Werknemer").value;
-        var naamBedrijf  = document.getElementById("Naam_Bedrijf").value;
-        var adres = document.getElementById("Adres").value;
-        var telNr = document.getElementById("Tel_Nr").value;
-        var emailAdres = document.getElementById("E-mail_Adres").value;
-        //var rechten = document.getElementById("").value;
-        naamWerknemer = naamWerknemer.replace(/\s+/g,".");
-        id++;
-        mylink="../ChangeInst/djfqs5dfqs5df46qsd4.php";
-
-        var url = mylink+"?naam="+naamWerknemer+"&bedrijf="+naamBedrijf+"&adres="+adres+"&tel="+telNr+"&email="+emailAdres;
-        //
-        /*   window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();*/
-
-        $.ajax({
-            url: url,
-            dataType: 'html',
-            success: function(data){
-                //data returned from php
-                console.log("Gelukt");
-                var id = data.split("<p>");
-                console.log(id);
-                console.log(id[1].split("</p>"));
-                id = id[1].split("</p>")[0];
-
-                maakitemexternal(table, naamWerknemer, naamBedrijf, adres, telNr, emailAdres, id);
-                createlist(naamWerknemer);
-
-            }
         });
-
-    });
-
 
     $( document ).ready(function() { // voert de volgende data uit wanneer html is ingeladen
         fillup();

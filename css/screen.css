@@ -58,7 +58,7 @@ nav ul li a {
 }
 
 nav ul li a:hover {
-    background-color: #4FD2FF;
+    background-color: #47AAFF;
     color: black;
     -webkit-transition: all 0.4s;
     transition: all 0.4s;
@@ -1159,6 +1159,10 @@ main#Instellingen section#Toevoegen {
 
 main#Instellingen section#Tabel {
     margin-top: 50px;
+}
+
+.geenmargintop {
+    margin-top: 0 !important;
 }
 
 main#Instellingen section#Tabel table.table {

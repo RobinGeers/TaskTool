@@ -1085,7 +1085,7 @@ $mysqli->close();
 
             //  console.log(el.childNodes[ix]);
             var t =  el.childNodes[ix].firstChild.value;
-
+            console.log("IK WIL T WETEN");
             console.log(t);
             myar.push(t);
             hoofdtd.appendChild(document.createTextNode(t));
@@ -1095,10 +1095,11 @@ $mysqli->close();
         });
 
         console.log(aa);
-        mylink="../ChangeInst/sdfjl5dfqs9fdsf4.php";
+        mylink="../ChangeInst/Save_Lokaal.php";
         //   window.open('#','_blank');
 //    window.open(this.href,'_self');
-        var url = mylink+"?naam="+myar[0]+"&bedrijf="+myar[1]+"&adres="+myar[2]+"&tel="+myar[3]+"&email="+myar[4]+"&id="+aa;
+        // DOORSTUREN hieronder
+        var url = mylink+"?IDNUMMERING="+myar[0]+"&NAME="+myar[1]+"&DESCRIPTION="+myar[2]+"&USER_TEXT_1="+myar[3];
         //
         //  window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
         //   window.focus();

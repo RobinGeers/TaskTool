@@ -712,6 +712,7 @@ main#Overzicht_Takenlijst section#SelectedFilters h3 {
 main#Overzicht_Takenlijst h1 {
     text-align: center;
     margin-bottom: 50px;
+    margin-top: 190px;
 }
 
 main#Overzicht_Takenlijst section#Filters p {
@@ -882,20 +883,6 @@ main#Overzicht_Takenlijst section#Medewerkers ul li a {
     border-color: transparent;
 }
 
-.hoverLokaal{
-    font-weight: bold;
-    margin-left: 10px;
-    display: none;
-}
-
-.panel-heading:hover .hoverLokaal {
-    display: inline-block;
-    animation: fadein 0.5s;
-    -moz-animation: fadein 0.5s; /* Firefox */
-    -webkit-animation: fadein 0.5s; /* Safari and Chrome */
-    -o-animation: fadein 0.5s; /* Opera */
-}
-
 @keyframes fadein {
     from {
         opacity:0;
@@ -933,6 +920,8 @@ main#Overzicht_Takenlijst section#Medewerkers ul li a {
 
 main#Statistieken h1 {
     text-align: center;
+    margin-bottom: 50px;
+    margin-top: 190px;
 }
 
 section#Werknemers p {

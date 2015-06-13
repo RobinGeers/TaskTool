@@ -81,7 +81,7 @@ function countComplete(base)
             complete[returnvalue][1]++;
         }
     }
-    console.log(complete);
+    //console.log(complete);
 }
 function finddouble(value,list)
 {
@@ -90,7 +90,7 @@ function finddouble(value,list)
         if(value == list[j][0])
         {
             return j;
-            console.log("whaaaat");
+
         }
     }
     return -1;
@@ -543,30 +543,106 @@ function toonLegende2(myLineChart) {
     divLegende.appendChild(node);
 }
 
-function firstlastDate()
+function GetDateRange()
 {
-    var date = [];
-    for(var i = 0;i<StartTimezzz.length;i++)
+    var minY = 10000;
+    var maxY = 0;
+    var minM =  30;
+    var maxM = 0;
+    var daypermonth = [31,28,31,30,31,30,31,31,30,31,30,31];
+    //years
+
+     for(var i = 0;i<StartTimezzz.length;i++)
     {
-        date.push(new Date(StartTimezzz[i][0]));
+        var dates = StartTimezzz[i][0].split(" ");
+        if(dates[0]< minY)minY = dates[0];
+        if(dates[0]> maxY)maxY = dates[0];
+    }
+    //monts
+
+   for(var i = 0;i<StartTimezzz.length;i++)
+    {
+        var dates = StartTimezzz[i][0].split(" ");
+        if(dates[0] == minY)
+        {
+            if(dates[1]< minM) minM = dates[1];
+        }
+        if(dates[0]==maxY)
+        {
+            if(dates[1]> maxM) maxM = dates[1];
+        }
     }
 
-    var maxDate=new Date(Math.max.apply(null,date));
-    var minDate=new Date(Math.min.apply(null,date));
 
-    console.log(maxDate,minDate);
+    //maak legende
+    var years = maxY - minY;
+    var months = maxM - minM + years*12;
+    var temp = parseInt(minM) + parseInt(months);
+    var days = 0;
+    for(var i = minM;i<=temp;i++)
+    {
+        var month = i;
+        if(i > 12)
+        {
+            month = i-12;
+        }
 
+        days += daypermonth[month-1];
+    }
+    //console.log(days);
+
+    var legende = [];
+    var day = 1;
+    var month = minM;
+    var year = minY;
+
+    for(var i = 0;i<days;i++)
+    {
+        var legenddate = year + " "+ month + " "+ day;
+        legende.push(legenddate);
+           day++;
+           if(day > daypermonth[month-1])
+           {
+               month++;
+               day = 1;
+           }
+            if(month > 12)
+            {
+                year++;
+                month = 1;
+            }
+    }
+    //console.log(legende);
+    return legende;
 }
+
+
 
 function toonGrafiek2() {
 
     // Grafiek van algemeen overzicht
     var ctx2 = document.getElementById("myChart2").getContext("2d");
 
-    firstlastDate();
+    var legende = GetDateRange();
+    var valuesINC = [];
+
+    for(var i = 0;i<legende.length;i++)
+    {
+        var returnvalue = finddouble(legende[i],StartTimezzz);
+        if(returnvalue<= -1)
+        {
+            valuesINC.push(0);
+        }
+        else
+        {
+            valuesINC.push(StartTimezzz[returnvalue][1]);
+        }
+    }
+
+   // console.log(values);
     //hier aanpassen
     var data2 = {
-        labels: ["January", "February", "March", "April", "May", "June", "July"],
+        labels: legende,
         datasets: [
             {
                 label: "Gemeldde defecten",
@@ -576,7 +652,7 @@ function toonGrafiek2() {
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(230, 126, 34,1)",
-                data: [65, 59, 80, 81, 56, 55, 40]
+                data: valuesINC
             },
             {
                 label: "Opgeloste defecten",
@@ -586,7 +662,7 @@ function toonGrafiek2() {
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(0, 177, 106,1)",
-                data: [28, 48, 40, 19, 86, 27, 90]
+                data: [0, 5, 1, 2, 0, 1, 1]
             }
         ]
     };

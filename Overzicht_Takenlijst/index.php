@@ -1,12 +1,13 @@
 <?php
 session_start(); // Verplicht als je wilt werken met sessie's
+
 if($_SERVER["HTTPS"] != "on")
 { // zet de site om naar https indien het http is MEOT VOOR SECURE VAN DATA
     header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
     exit();
 }
 
-if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
+if(isset($_SESSION['loggedin'])){  // kijkt of er een sessie is
     $ber = $_SESSION['loggedin']; // stop de sessie in een variabele
 }else {
     header("Location: ../"); // Sessie bestaat niet je ben tniet ingelogd
@@ -74,7 +75,33 @@ $mysqli->close(); //connectie sluiten
                         ?>
 
     });
+
+    var mijnarray = [];
 </script>
+<?php
+$data = unserialize($_COOKIE['cookie']);
+print_r($data);
+foreach($data as $d){
+?>
+<script>
+    console.log(mijnarray);
+    mijnarray.push(<?php print  '"'.$d.'"' ?>);
+</script>
+<?php
+}
+?>
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+        $.each(mijnarray,function(ix,value){
+            var x = value.split("/");
+            makeDiv(x[0],x[1]);
+                    });
+        Filters("niks","/");
+    });
+
+</script>
+<?php
+?>
 <!DOCTYPE html>
 <html>
 <head lang="en">
@@ -935,7 +962,7 @@ $mysqli->close(); //connectie sluiten
         if(value != "Default")
         {
             makeDiv(value,"P");
-            Filters();
+            Filters(value,"P");
         }
 
     }
@@ -944,7 +971,7 @@ $mysqli->close(); //connectie sluiten
         if(value != "Default")
         {
             makeDiv(value,"W");
-            Filters();
+            Filters(value,"W");
         }
     }
     function CampusChange(value)
@@ -952,7 +979,7 @@ $mysqli->close(); //connectie sluiten
         if(value != "Default")
         {
             makeDiv(value, "C");
-            Filters();
+            Filters(value,"C");
         }
     }
 
@@ -981,14 +1008,14 @@ $mysqli->close(); //connectie sluiten
         var TitelFilter = document.getElementById("TitelFilter");
         TitelFilter = TitelFilter.firstChild.nextSibling;
         TitelFilter.innerText = value;
-        Filters();
+        Filters("niks","/");
 
     }
     function TitelRemove(element)
     {
         //console.log(element.firstChild.nextSibling);
         element.firstChild.nextSibling.innerHTML ="";
-        Filters();
+        Filters("niks","/");
     }
 
     function LokaalChange(event,value)
@@ -998,13 +1025,13 @@ $mysqli->close(); //connectie sluiten
         {
             //console.log(value);
             makeDiv(value,"L");
-            Filters();
+            Filters(value,"L");
         }
 
 
     }
 
-    function Filters() {
+    function Filters(el,ely) {
         var divs = FilterSection.getElementsByTagName("Div");
         var campusfilters = [];
         var priorityfilters = [];
@@ -1211,6 +1238,28 @@ $mysqli->close(); //connectie sluiten
 
             SetWorkersVisible();
         }
+        Cookiefilter(el,ely);
+    }
+
+    function Cookiefilter(text,id){
+        //maak cookie aan
+        if(id=="/"){return;}
+text = String(text);
+        if( ""+text.indexOf('[object HTMLDivElement]') >= 0){
+            // Found world
+        }else{
+            console.log("tesst");
+            //maak cookie
+            $.ajax({
+                url: '../CookieMaker.php?val='+text+'/'+id,
+                dataType: 'html',
+                success: function(data){
+                    //data returned from php
+                  // window.open("../","_self");
+                }
+            });
+        }
+
     }
 
 
@@ -1232,7 +1281,7 @@ $mysqli->close(); //connectie sluiten
     {
         console.log(element);
         element.parentNode.removeChild(element);
-        Filters();
+        Filters(element);
     }
     var count;
     function PrintTasks(element,callback)

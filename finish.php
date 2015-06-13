@@ -1,5 +1,11 @@
 <?php
 session_start();
+if($_SERVER["HTTPS"] != "on")
+{
+    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
+    exit();
+}
+
 if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
 
 }else {
@@ -10,13 +16,8 @@ if(isset($_GET['id'])){
     $naam=$_GET['id'];
 }else{
     //header("location:Afdrukpagina.php");
+    print "Geen id of foutieve id meegegeven";
 }
-/**
- * Created by PhpStorm.
- * User: wouter
- * Date: 3/06/2015
- * Time: 10:16
- */
 
 ?>
 <!DOCTYPE html>

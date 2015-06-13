@@ -80,8 +80,7 @@ switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via disp
             </ul>
         </nav>
         <a href="../Overzicht/index.php"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
-
-
+        <p id="Ingelogd">U bent ingelogd als: <span><?php print $_SESSION["loggedin"] ?></span></p>
         <div class="clearfix"></div>
     </header>
 
@@ -92,6 +91,11 @@ switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via disp
         <div><a id="third" href="../Instellingen_Lokalen/index.php"><i class="ui university icon"></i><p>Lokalen</p></a></div>
         <div class="clearfix"></div>
     </main>
+    <div class="clearfix"></div>
+    <footer>
+        <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de handleiding</p>
+    </footer>
+    <div class="clearfix"></div>
 </body>
 </html>
         <script>

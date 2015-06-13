@@ -107,7 +107,7 @@ $mysqli->close(); //connectie sluiten
     <header>
         <a href="#"></a><img src="../images/howestlogo.png" alt="Howest Logo"/>
         <button><a onclick="afmelden(this)">Afmelden</a></button>
-
+        <p id="Ingelogd">U bent ingelogd als: <span><?php print $_SESSION["loggedin"] ?></span></p>
         <div class="clearfix"></div>
     </header>
 
@@ -120,6 +120,11 @@ $mysqli->close(); //connectie sluiten
         <div><a id="fifth" href="../Afdrukpagina.php?Werkman="+<?php  ?>><i class=""></i><p>Afdruklijst</p></a></div>
         <div class="clearfix"></div>
     </main>
+    <div class="clearfix"></div>
+    <footer>
+        <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de handleiding</p>
+    </footer>
+<div class="clearfix"></div>
 </body>
 </html>
         <script>

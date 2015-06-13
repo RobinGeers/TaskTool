@@ -210,9 +210,8 @@ $mysqli->close();
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
-    <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
-
+    <link rel="stylesheet" href="../css/screen.css"/>
 
 </head>
 <body>
@@ -233,6 +232,7 @@ $mysqli->close();
             </li>
         </ul>
     </nav>
+    <p id="Ingelogd">U bent ingelogd als: <span><?php print $_SESSION["loggedin"] ?></span></p>
     <div class="clearfix"></div>
 </header>
 <main id="Instellingen_Extern">
@@ -261,7 +261,7 @@ $mysqli->close();
                 <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
             </div>
             <div class="right" id="Werknemer_Info">
-                <input id="Naam_Werknemer" type="text" placeholder="Naam werknemer"/>
+                <input id="Naam_Werknemer" type="text" placeholder="Naam onderaannemer"/>
                 <input id="Naam_Bedrijf" type="text" placeholder="Naam bedrijf"/>
                 <input id="Adres" type="text" placeholder="Adres"/>
                 <input id="Tel_Nr" type="text" placeholder="Telefoon nr."/>
@@ -318,6 +318,11 @@ $mysqli->close();
         </table>
     </section>
 </main>
+<div class="clearfix"></div>
+<footer>
+    <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de handleiding</p>
+</footer>
+<div class="clearfix"></div>
 </body>
 </html>
 <script>

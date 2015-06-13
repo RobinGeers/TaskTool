@@ -36,7 +36,7 @@ if(isset($_GET['id'])){
         <input type="radio" name="taakGelukt" value="Nee" class="radiobt" /> Nee <br /><br />
         <label for="bericht" class="lbl">Voeg een opmerking toe (Enkel verplicht als de taak niet kan worden afgewerkt)</label><br />
         <textarea cols="50" rows="10" id="BER" name="bericht" class="txtbericht"></textarea><br />
-        <input onclick="dosome(this)" type="button" id="versturen" name="versturen" class="btnverstuur" value="versturen" />
+        <input onclick="dosome(this)" type="button" id="versturen" name="versturen" class="btnverstuur" value="Verstuur" />
     </form>
 </div>
 </body>

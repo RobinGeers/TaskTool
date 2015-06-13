@@ -375,7 +375,7 @@ $mysqli->close(); //connectie sluiten
                 var naam = unfnaam[0];
 
                 var now = new Date();
-                var date = now.getDate() + "/" + now.getMonth() + "/" + now.getFullYear();
+                var date =now.getFullYear()  + " " + now.getMonth() + " " + now.getDate();
                 var time = now.getHours() + ":" + now.getMinutes();
 
                 var niewedescription = cardinfo.desc + "/n@N@" + naam + "/n@DT@" + date + "@" + time;

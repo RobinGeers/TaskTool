@@ -347,6 +347,10 @@ $mysqli->close(); //connectie sluiten
                                                 //console.log(descpart.split("@")[1]);
                                                 StartTimes.push(descpart.split("@")[1]);
                                             }
+                                            if(descpart.split("@")[0] == "DT")
+                                            {
+
+                                            }
 
                                         });
 

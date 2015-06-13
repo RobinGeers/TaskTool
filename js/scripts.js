@@ -1,6 +1,6 @@
 var workers  ;
 var complete =[];
-var StartTimes = [];
+var StartTimezzz = [];
 
 function Initialize(workersection,workersindesc,StartTimings)
 {
@@ -47,20 +47,20 @@ function CountTimes(base)
     console.log(base.length);
     for(var i = 0;i<base.length;i++)
     {
-        var returnvalue = finddouble(base[i],StartTimes);
-        console.log(returnvalue);
+        var returnvalue = finddouble(base[i],StartTimezzz);
+        console.log(returnvalue,base.length);
          if(returnvalue<= -1)
         {
             var temp=[base[i],1];
             console.log(temp);
-            StartTimes.push()
+            StartTimezzz.push(temp)
         }
-      /* else
+        else
         {
-            StartTimes[returnvalue][1]++;
-        }*/
+             StartTimezzz[returnvalue][1]++;
+        }
     }
-    console.log(StartTimes);
+    console.log(StartTimezzz);
 }
 function countComplete(base)
 {
@@ -543,12 +543,28 @@ function toonLegende2(myLineChart) {
     divLegende.appendChild(node);
 }
 
+function firstlastDate()
+{
+    var date = [];
+    for(var i = 0;i<StartTimezzz.length;i++)
+    {
+        date.push(new Date(StartTimezzz[i][0]));
+    }
+
+    var maxDate=new Date(Math.max.apply(null,date));
+    var minDate=new Date(Math.min.apply(null,date));
+
+    console.log(maxDate,minDate);
+
+}
 
 function toonGrafiek2() {
 
     // Grafiek van algemeen overzicht
     var ctx2 = document.getElementById("myChart2").getContext("2d");
 
+    firstlastDate();
+    //hier aanpassen
     var data2 = {
         labels: ["January", "February", "March", "April", "May", "June", "July"],
         datasets: [

@@ -55,10 +55,10 @@ if (isset($_POST['txtEmailadres'])) {
             //indien emailadres bestaat 100% kans dat je van login pagina komt en niet refresht ofzo
             if (isset($_POST['chkHouIngelogd'])) {
                 //cookie aanmaken
-                setcookie("inlognaam", $bericht, time() + 25920000);
+                setcookie("inlognaam", $bericht, time() + 25920000,"/");
             } else {
                 //cookie verwijderen
-                setcookie("inlognaam", "", time() - 3600);
+                setcookie("inlognaam", "", time() - 3600,"/");
             }
 ?>
 <script>

@@ -1,8 +1,10 @@
 <?php
+session_start();
 if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
 
 }else {
-    //header("Location: ./"); // Sessie bestaat niet je ben tniet ingelogd
+
+    header("Location: ./"); // Sessie bestaat niet je ben tniet ingelogd
 }
 $naam = "";
 if(isset($_GET['Werkman'])){
@@ -165,7 +167,14 @@ print $naam;
                                     width: 150,
                                     height: 150
                                 });
-                                qrcode.makeCode("https://student.howest.be/wouter.dumon/pitch/finish.php?id=" + temparr[0]);
+
+                             //  console.log(document.location.href);
+                                var current = document.location.href;
+                                //var ndew =  "../"+current;
+                                //console.log(ndew);
+                            var newlink = current.split("Afdruk");
+                         //       console.log(newlink[0]);
+                               qrcode.makeCode( newlink[0] + "finish.php?id=" + temparr[0]);
 
 
                                 CardId.push(temparr)

@@ -36,7 +36,7 @@ $mysqli->close(); //connectie sluiten
 
 ?>
 <script>
-    /*document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
+    document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
         //Haal alle "div's" op in overzicht die een pagina voorstellen
         var MD =  document.getElementById("first").parentElement;
         var OT =  document.getElementById("second").parentElement;
@@ -73,7 +73,7 @@ $mysqli->close(); //connectie sluiten
                             }
                         ?>
 
-    });*/
+    });
 </script>
 <!DOCTYPE html>
 <html>
@@ -366,27 +366,26 @@ $mysqli->close(); //connectie sluiten
 
         newtarget.appendChild(document.getElementById(data));
 
-        if(newtarget.parentNode.id == "Medewerkers")
-        {
+        if(newtarget.parentNode.id == "Medewerkers") {
             document.getElementById(data).style.width = "350px";
             document.getElementById(data).style.maxWidth = "400px";
             console.log("in nen mederwerk gesleept");
-            Trello.get("/cards/"+cardid+"?fields=desc&token="+application_token,function(cardinfo)
-            {
+            Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
                 var unfnaam = newtarget.firstChild.innerHTML.split("<");
                 var naam = unfnaam[0];
 
                 var now = new Date();
-                var date = now.getDate() + "/" + now.getMonth()+"/"+now.getFullYear();
-                var time = now.getHours()+":"+now.getMinutes();
+                var date = now.getDate() + "/" + now.getMonth() + "/" + now.getFullYear();
+                var time = now.getHours() + ":" + now.getMinutes();
 
-                var niewedescription =  cardinfo.desc + "/n@N@" + naam+ "/n@DT@"+ date+"@"+time;
+                var niewedescription = cardinfo.desc + "/n@N@" + naam + "/n@DT@" + date + "@" + time;
 
-                Trello.put("/cards/"+cardid+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+niewedescription);
+                Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + niewedescription);
             });
         }
         else
         {
+            document.getElementById(data).style.width = "380px";
             //document.getElementById(data).style.maxWidth = "250px";
             //console.log("nie in nen medewerker");
             Trello.put("/cards/"+cardid+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"");//&desc=is verzet
@@ -426,7 +425,6 @@ $mysqli->close(); //connectie sluiten
         document.getElementsByClassName("draglist")[i].setAttribute("ondrop", "drop(event)");
         document.getElementsByClassName("draglist")[i].setAttribute("ondragover", "allowDrop(event)");
     }
-
 
 
     //trello

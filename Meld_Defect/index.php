@@ -144,7 +144,7 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
     }
 
 
-    $email->Body = $Omschrijving . "/n@" . $prio . "/n@" . $lokaal . "/n@T@". date('Y n j');
+    $email->Body = $Omschrijving . "/n@" . $prio . "/n@" . $lokaal . "/n@T@". date('Y n j')."@".date('H:i');
 
 
     $email->AddAddress('howesttasktool+msde5lytyugsq63acucg@boards.trello.com'); //new email

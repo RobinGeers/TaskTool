@@ -240,7 +240,7 @@ $mysqli->close(); //connectie sluiten
 </html>
 <script>
             function afmelden(a){
-                console.log("test");
+
 
                 $.ajax({
                     url: '../logout.php',
@@ -260,6 +260,9 @@ $mysqli->close(); //connectie sluiten
             var workersindesc = [];
             var StartTimes = [];
             var FinishTimes = [];
+
+
+            var doorlooppriority = [];
 
             $(document).ready(GetWorkers);
             function GetWorkers()
@@ -310,7 +313,9 @@ $mysqli->close(); //connectie sluiten
                                     Trello.get("/cards/"+card.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo)
                                     {
 
+                                        var temp = [];
                                         var descsplilt = cardinfo.desc.split("/n@");
+                                        temp.push(descsplilt[1]);
                                         $.each(descsplilt,function(ix,descpart){
 
                                             if(descpart.split("@")[0] == "N")
@@ -322,14 +327,16 @@ $mysqli->close(); //connectie sluiten
                                             {
                                                 //console.log(descpart.split("@")[1]);
                                                 StartTimes.push(descpart.split("@")[1]);
+                                                temp.push(descpart.split("@")[1]+"@"+descpart.split("@")[2]);
                                             }
                                             if(descpart.split("@")[0] == "DT")
                                             {
                                                 FinishTimes.push(descpart.split("@")[1]);
+                                                temp.push(descpart.split("@")[1]+"@"+descpart.split("@")[2]);
                                             }
 
                                         });
-
+                                        doorlooppriority.push(temp);
                                     });
                                 });
 
@@ -393,7 +400,7 @@ $mysqli->close(); //connectie sluiten
                     });
 
                     var timer = setInterval(function () {Initialize(werknemers,
-                        workersindesc,StartTimes,FinishTimes);clearInterval(timer);
+                        workersindesc,StartTimes,FinishTimes);clearInterval(timer);PriorityTabel();
                     }, 2000);
 
 
@@ -402,4 +409,78 @@ $mysqli->close(); //connectie sluiten
 
                 });
             }
+
+
+         function PriorityTabel()
+         {
+             var nd = [];
+             var d = [];
+             var zd = [];
+             $.each(doorlooppriority,function(ix,starttime)
+             {
+                    var startD = starttime[1].split("@")[0];
+                    var startH = starttime[1].split("@")[1];
+                    var stopD = starttime[2].split("@")[0];
+                    var stopH = starttime[2].split("@")[1];
+
+                     var hours = 0;
+                     var minutes= 0;
+                     var months= 0;
+                     var days = 0;
+
+                    var totaltime = 0;
+
+                    if(startD == stopD)
+                    {
+                        hours = stopH.split(":")[0] -startH.split(":")[0];
+                        minutes = stopH.split(":")[1] -startH.split(":")[1];
+                        if(minutes < 0)
+                        {
+                            minutes = 60+minutes;;
+                            hours--;
+                        }
+                    }
+                    else
+                    {
+
+                        months = stopD.split(" ")[1]-startD.split(" ")[1];
+
+                        days = stopD.split(" ")[2]-startD.split(" ")[2];
+                        hours = stopH.split(":")[0] -startH.split(":")[0];
+
+                        minutes = stopH.split(":")[1] -startH.split(":")[1];
+
+
+                        if(minutes < 0)
+                        {
+                            60 + minutes;
+                            hours--;
+                        }
+                        if(hours < 0)
+                        {
+                            hours = 24+hours;
+                            days--;
+                        }
+
+                        if(days < 0)
+                        {
+                            days = 31+days;
+                            months--;
+                        }
+
+
+                        totaltime = minutes + (hours*60) + (days*24*60)+ (months *31*24*60);
+                    }
+
+
+
+                    if(starttime[0] =="Niet dringend")
+                    {nd.push(totaltime);}
+                    else if(starttime[0] =="Dringend")
+                    {d.push(totaltime);}
+                    else if(starttime[0] =="Zeer dringend")
+                    {zd.push(totaltime);}
+             });
+         }
+
 </script>

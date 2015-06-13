@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 function CountTimes(base,array)
 {
-    console.log(base.length);
+   // console.log(base.length);
     for(var i = 0;i<base.length;i++)
     {
         var returnvalue = finddouble(base[i],array);
@@ -62,7 +62,7 @@ function CountTimes(base,array)
             array[returnvalue][1]++;
         }
     }
-    console.log(array);
+   // console.log(array);
 }
 function countComplete(base)
 {
@@ -648,7 +648,7 @@ function toonGrafiek2() {
         }
         else
         {
-            valuesOUT.push(StartTimezzz[returnvalue][1]);
+            valuesOUT.push(FinishDatezzz[returnvalue][1]);
         }
     }
 

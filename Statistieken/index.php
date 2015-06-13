@@ -115,7 +115,7 @@ $mysqli->close(); //connectie sluiten
     <h1>Statistieken van werknemers</h1>
     <section id="Werknemers">
         <section id="WerkerSelection">
-            <p>Bekijk statistieken van de volgende werknemers</p>
+            <p>Klik op een of meerdere werknemers</p>
            <!-- <div id="Checkbox1" class="Checkbox_Werknemer">
                 <input type="checkbox" value="Bennie" id="Bennie"/>
                 <label for="Bennie">Bennie</label>
@@ -159,7 +159,7 @@ $mysqli->close(); //connectie sluiten
             <div class="clearfix"></div>
         </div>
         <section id="Algemeen">
-            <h2>Algemeen overzicht</h2>
+            <h2>Algemeen overzicht van aantal defecten</h2>
             <canvas id="myChart2"></canvas>
             <div id="Legende2">
                 <p>Legende</p>
@@ -169,7 +169,7 @@ $mysqli->close(); //connectie sluiten
         </section>
 
         <section id="Prestaties">
-            <h2>Prestaties van werkmannen</h2>
+            <h2>Prestaties van medewerkers</h2>
             <table class="ui table">
                 <thead>
                 <tr>

@@ -1,8 +1,10 @@
 <?php
+session_start();
 if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
 
 }else {
-    //header("Location: ./"); // Sessie bestaat niet je ben tniet ingelogd
+
+    header("Location: ./"); // Sessie bestaat niet je ben tniet ingelogd
 }
 $naam = "";
 if(isset($_GET['Werkman'])){

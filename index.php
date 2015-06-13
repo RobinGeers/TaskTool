@@ -68,7 +68,7 @@ $bodytag = str_replace("%body%", "black", "<body text='%body%'>");
             }
 
             ?> value="ingelogd">
-            <label for="chkHouIngelogd">Hou me ingelogd</label>
+            <label for="chkHouIngelogd">Onthoud mij</label>
             <label style="color:red"><?php print $errormessage ?></label>
             <input type="submit" value="Login" name="btnLogin" id="btnLogin" tabindex="8" class="transitions" onclick="doorsturen(event)">
         </form>

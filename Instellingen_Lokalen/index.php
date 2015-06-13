@@ -200,9 +200,6 @@ $mysqli->close();
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="../css/icon.min.css">
     <link rel="stylesheet" href="../css/transition.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
-    <!--!-->
     <script src="../js/jquery-2.1.4.min.js"></script>
     <script src="../js/semantic.min.js"></script>
     <script src="../js/transition.min.js"></script>

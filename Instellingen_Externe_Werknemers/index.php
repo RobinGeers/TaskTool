@@ -200,7 +200,6 @@ $mysqli->close();
     <link rel="stylesheet" href="../css/icon.min.css">
     <link rel="stylesheet" href="../css/transition.min.css">
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
-    <link rel="stylesheet" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
     <!--!-->
     <script src="../js/jquery-2.1.4.min.js"></script>
     <script src="../js/semantic.min.js"></script>
@@ -208,7 +207,6 @@ $mysqli->close();
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="../css/semantic.min.css">
     <link rel="stylesheet" href="../css/screen.css"/>

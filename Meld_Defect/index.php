@@ -171,7 +171,8 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
 
     $file_ary = reArrayFiles($_FILES['Foto']);
     //print_r($file_ary);
-    foreach ($file_ary as $file) {
+      foreach($file_ary as $file)
+    {
         $tmp_naam = $file['tmp_name'];
         $type = $file['type'];
         $name = $file['name'];
@@ -179,29 +180,33 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
         $error = $file['error'];
         //Hier ophalen verzetten en attachen aan de email
         //print($error);
-        if ($error != 0) {
+        if($error != 0){
             $valid_file = false;
             $message = "error";
-        } else {
+        }else{
             $nieuw_file_naam = strtolower($tmp_naam);
-            if ($size > (21000000)) {
+            if($size > (21000000)){
                 $valid_file = false;
                 $message = "Te groot";
             }//einde error
             //      print($valid_file);
             //       print($message);
-            if ($valid_file) {//false indien te groot of een error optreed
+            if($valid_file){//false indien te groot of een error optreed
                 //   print("attachadded1");
                 $currentdir = getcwd();
-                $target = $currentdir . '/uploads/' . $name;
+                $target = $currentdir.'/uploads/'.$name;
 
-                $targetstrings = $targetstrings . "/n@" . $target;
+                $targetstrings = $targetstrings."/n@".$target;
                 $test = $name;
+
                 move_uploaded_file($tmp_naam, $target);
-                $message = 'File\' s are sended';
-                $email->AddAttachment($target, $naamvanfoto); // voeg attachment aan email toe
+                $message='File\' s are sended';
+                $email->AddAttachment( $target , $test ); // voeg attachment aan email toe
                 // hier wordt de data opgelsaan in een grote string ( pad naar waar de afbeelding staat )
 
+print $target;
+echo "<br>"; echo "hhhh";
+print $naamvanfoto;
             }//einde valid file
         } // einde foreach
     }//einde isset
@@ -215,7 +220,7 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
         //kijk of het ad de map uploads bevat
 
         if (strpos($targ, 'uploads') !== false) {//zoekt de positie van het woord uploads ( soort van contains )
-            unlink($targ); // delete de file uit de uploads folder
+           unlink($targ); // delete de file uit de uploads folder
         }
 
 

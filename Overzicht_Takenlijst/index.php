@@ -919,7 +919,7 @@ foreach($data as $d){
                         div2.appendChild(imageLink);
                     }
                     div2.appendChild(divclearfix);
-
+                    Filters("niks","/");
                 });
 
 
@@ -1001,6 +1001,7 @@ foreach($data as $d){
         div.appendChild(label);
 
         FilterSection.appendChild(div);
+
     }
 
     function TitelChange(value)
@@ -1281,7 +1282,19 @@ text = String(text);
     {
         console.log(element);
         element.parentNode.removeChild(element);
-        Filters(element);
+     //   Filters(element);
+var e = element.id;
+        var x = e.split("/");
+
+        $.ajax({
+            url: '../CookieDeleter.php?val='+x[1],
+            dataType: 'html',
+            success: function(data){
+Filters("niks","/");
+                //data returned from php
+                // window.open("../","_self");
+            }
+        });
     }
     var count;
     function PrintTasks(element,callback)

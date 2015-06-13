@@ -16,13 +16,22 @@ $data = unserialize($_COOKIE['cookie']);
 if($data == null){
     $data = array();
 }
+$newdata = array();
 //print_r($data); echo"<br>";
 $waarde =  $_GET["val"];
+foreach ($data as $d) {
+  $a =  explode("/",$d);
+
+    if($a[0]==$waarde){}else{
+array_push($newdata,$d);
+    }
+
+}
 //print $waarde;
-array_push($data,$waarde);
+//array_push($data,$waarde);
 //print_r($data);
 echo "<br>";
-setcookie('cookie', serialize($data), time()+36000000,"/");
+setcookie('cookie', serialize($newdata), time()+36000000,"/");
 //print_r($data);
 echo "<p>gelukt</p>";
 return;

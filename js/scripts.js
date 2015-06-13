@@ -1,13 +1,15 @@
 var workers  ;
 var complete =[];
 var StartTimezzz = [];
+var FinishDatezzz = [];
 
-function Initialize(workersection,workersindesc,StartTimings)
+function Initialize(workersection,workersindesc,StartTimings,finishtimes)
 {
-    //console.log(StartTimings);
+
     workers = workersection.getElementsByTagName("div");
     countComplete(workersindesc);
-    CountTimes(StartTimings);
+    CountTimes(StartTimings,StartTimezzz);
+    CountTimes(finishtimes,FinishDatezzz);
     //console.log(workers);
     vinkAlleWerknemersAan();
     kleurWerknemers();
@@ -42,25 +44,25 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
     };*/
 });
-function CountTimes(base)
+function CountTimes(base,array)
 {
     console.log(base.length);
     for(var i = 0;i<base.length;i++)
     {
-        var returnvalue = finddouble(base[i],StartTimezzz);
+        var returnvalue = finddouble(base[i],array);
         console.log(returnvalue,base.length);
          if(returnvalue<= -1)
         {
             var temp=[base[i],1];
             console.log(temp);
-            StartTimezzz.push(temp)
+            array.push(temp)
         }
         else
         {
-             StartTimezzz[returnvalue][1]++;
+            array[returnvalue][1]++;
         }
     }
-    console.log(StartTimezzz);
+    console.log(array);
 }
 function countComplete(base)
 {
@@ -625,6 +627,7 @@ function toonGrafiek2() {
 
     var legende = GetDateRange();
     var valuesINC = [];
+    var valuesOUT = [];
 
     for(var i = 0;i<legende.length;i++)
     {
@@ -636,6 +639,16 @@ function toonGrafiek2() {
         else
         {
             valuesINC.push(StartTimezzz[returnvalue][1]);
+        }
+
+        returnvalue = finddouble(legende[i],FinishDatezzz);
+        if(returnvalue<= -1)
+        {
+            valuesOUT.push(0);
+        }
+        else
+        {
+            valuesOUT.push(StartTimezzz[returnvalue][1]);
         }
     }
 
@@ -662,7 +675,7 @@ function toonGrafiek2() {
                 pointStrokeColor: "#fff",
                 pointHighlightFill: "#fff",
                 pointHighlightStroke: "rgba(0, 177, 106,1)",
-                data: [0, 5, 1, 2, 0, 1, 1]
+                data: valuesOUT
             }
         ]
     };

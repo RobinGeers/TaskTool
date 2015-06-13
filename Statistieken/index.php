@@ -259,45 +259,22 @@ $mysqli->close(); //connectie sluiten
             var workerId = [];
             var workersindesc = [];
             var StartTimes = [];
+            var FinishTimes = [];
 
             $(document).ready(GetWorkers);
             function GetWorkers()
             {
                 Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token="+application_token,function(lists)
                 {
+
                     var werknemers = document.getElementById("WerkerSelection");
                     $.each(lists["lists"],function(ix,list)
                     {
-                        if(list.name != "Taken"&& list.name != "Voltooid" && list.name != "On hold")
+                        //workers
+                        if(list.name == "Taken"&& list.name == "Voltooid" && list.name == "On hold")
                         {
-                            workerId.push(list.id);
-                            workers.push(list.name);
-
-
-                            //console.log(werknemers);
-
-                            var div = document.createElement("DIV");
-                            div.setAttribute("id",list.id);
-                            div.setAttribute("class","Checkbox_Werknemer");
-                            //div.style = border: 1px solid rgb(51, 122, 183); color: rgb(255, 255,
-                            // 255); background-color: rgb(51, 122, 183);
-
-                            var input = document.createElement("INPUT");
-                            input.setAttribute("type","checkbox");
-                            input.setAttribute("value",list.name);
-                            input.setAttribute("id",list.name);
-
-                            var label = document.createElement("LABEL");
-                            label.setAttribute("for",list.name);
-                            label.innerHTML = list.name;
-
-
-                            div.appendChild(input);
-                            div.appendChild(label);
-                            werknemers.appendChild(div);
-
                             Trello.get("/lists/"+list.id+"?fields=name&cards=open&card_fields=name&token" +
-                            "="+application_token, function(cards) {
+                                "="+application_token, function(cards) {
 
                                 $.each(cards["cards"], function(ix, card){
 
@@ -307,10 +284,9 @@ $mysqli->close(); //connectie sluiten
                                         var descsplilt = cardinfo.desc.split("/n@");
                                         $.each(descsplilt,function(ix,descpart){
 
-                                            if(descpart.split("@")[0] == "T")
+                                            if(descpart.split("@")[0] == "DT")
                                             {
-                                                //console.log(descpart.split("@")[1]);
-                                                StartTimes.push(descpart.split("@")[1]);
+                                                FinishTimes.push(descpart.split("@")[1]);
                                             }
 
                                         });
@@ -349,7 +325,60 @@ $mysqli->close(); //connectie sluiten
                                             }
                                             if(descpart.split("@")[0] == "DT")
                                             {
+                                                FinishTimes.push(descpart.split("@")[1]);
+                                            }
 
+                                        });
+
+                                    });
+                                });
+
+
+                            });
+                        }
+                        else
+                        {
+                            workerId.push(list.id);
+                            workers.push(list.name);
+
+
+                            //console.log(werknemers);
+
+                            var div = document.createElement("DIV");
+                            div.setAttribute("id",list.id);
+                            div.setAttribute("class","Checkbox_Werknemer");
+                            //div.style = border: 1px solid rgb(51, 122, 183); color: rgb(255, 255,
+                            // 255); background-color: rgb(51, 122, 183);
+
+                            var input = document.createElement("INPUT");
+                            input.setAttribute("type","checkbox");
+                            input.setAttribute("value",list.name);
+                            input.setAttribute("id",list.name);
+
+                            var label = document.createElement("LABEL");
+                            label.setAttribute("for",list.name);
+                            label.innerHTML = list.name;
+
+
+                            div.appendChild(input);
+                            div.appendChild(label);
+                            werknemers.appendChild(div);
+
+                            Trello.get("/lists/"+list.id+"?fields=name&cards=open&card_fields=name&token" +
+                                "="+application_token, function(cards) {
+
+                                $.each(cards["cards"], function(ix, card){
+
+                                    Trello.get("/cards/"+card.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo)
+                                    {
+
+                                        var descsplilt = cardinfo.desc.split("/n@");
+                                        $.each(descsplilt,function(ix,descpart){
+
+                                            if(descpart.split("@")[0] == "T")
+                                            {
+                                                //console.log(descpart.split("@")[1]);
+                                                StartTimes.push(descpart.split("@")[1]);
                                             }
 
                                         });
@@ -364,7 +393,7 @@ $mysqli->close(); //connectie sluiten
                     });
 
                     var timer = setInterval(function () {Initialize(werknemers,
-                        workersindesc,StartTimes);clearInterval(timer);
+                        workersindesc,StartTimes,FinishTimes);clearInterval(timer);
                     }, 2000);
 
 

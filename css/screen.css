@@ -1214,14 +1214,14 @@ main#Instellingen section#Tabel table.table {
     width: 70%;
     margin: 0 auto;
 }
-#DI_length, #DE_length, #DL_length{
+#DI_length, #DE_length, #DL_length, #OT_length{
     display:inline-block;
 }
 
 #DL_wrapper {
     margin-bottom: 50px;
 }
-#DI_paginate, #DE_paginate{
+#DI_paginate, #DE_paginate, #DL_paginate, #OT_paginate{
     display:inline-block;
 float:right;
 }

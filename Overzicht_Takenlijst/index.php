@@ -472,7 +472,7 @@ foreach($data as $d){
 
                 if(list.name== "Taken")
                 {
-
+console.log(list);
                     var taken = document.getElementById("Taken");
                     var unorderedlist= maakUL(list.id,false);
                     getCards(unorderedlist,list.id,false);

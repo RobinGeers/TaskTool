@@ -1478,3 +1478,10 @@ main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
 .lbl{
     font-weight: bold;
 }
+.picturetable{
+    width: 100px;
+    height: 100px;
+}
+.opmaaktabel{
+    width: 70%;margin: 0 auto;
+}

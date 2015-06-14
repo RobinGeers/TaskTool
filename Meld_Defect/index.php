@@ -141,6 +141,8 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
         //checkbox aangeklikt
         $prio = $prio . "/n@" . $eml;
 
+    }else{
+    $prio = $prio."/n@";
     }
 
 

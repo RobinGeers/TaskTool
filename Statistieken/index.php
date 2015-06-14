@@ -439,6 +439,7 @@ $mysqli->close(); //connectie sluiten
                             minutes = 60+minutes;;
                             hours--;
                         }
+                        totaltime = parseInt(minutes) + parseInt(hours*60) + parseInt(days*24*60)+ parseInt(months *31*24*60);
                     }
                     else
                     {
@@ -469,7 +470,7 @@ $mysqli->close(); //connectie sluiten
                         }
 
 
-                        totaltime = minutes + (hours*60) + (days*24*60)+ (months *31*24*60);
+                        totaltime = parseInt(minutes) + parseInt(hours*60) + parseInt(days*24*60)+ parseInt(months *31*24*60);
                     }
 
 
@@ -480,7 +481,43 @@ $mysqli->close(); //connectie sluiten
                     {d.push(totaltime);}
                     else if(starttime[0] =="Zeer dringend")
                     {zd.push(totaltime);}
+
+                    var nietdringend = GetAverage(nd);
+                    var dringend = GetAverage(d);
+                    var zeerdringend = GetAverage(zd);
+
+                    nietdringend = MinutestoMHDM(nietdringend);
+                    dringend = MinutestoMHDM(dringend);
+                    zeerdringend = MinutestoMHDM(zeerdringend);
+
+
+                 //MinutestoMHDM(2400);
              });
          }
+
+        function GetAverage(array)
+        {
+            var total;
+            for(var i = 0;i<array.length;i++)
+            {
+                total += array[i];
+
+            }
+
+            return (total/array.length);
+        }
+        function MinutestoMHDM(minutes)
+        {
+            var minutezz= 0
+            var hours = 0;
+            var days = 0;
+
+            minutezz = minutes %60;
+            hours = Math.floor((minutes /60))%24;
+            days = Math.floor((minutes /60)/24);
+
+            return "Days "+days+" hours " + hours + "minutes "+minutezz;
+
+        }
 
 </script>

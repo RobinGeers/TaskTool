@@ -680,49 +680,6 @@ $mysqli->close();
 
 
 
-    function filterColumnext ( i,myd ) {
-
-        console.log( $('#DE').DataTable().column( i ));
-        console.log(myd);
-        $('#DE').DataTable().column( i ).search(
-            myd
-        ).draw();
-    }
-    function naamChangeext(value)
-    {
-        if(value != "Default")
-        {
-            filterColumnext(0,value.value);
-        }
-    };
-    function bedrijfChangeext(value)
-    {
-        if(value != "Default")
-        {
-            filterColumnext(1,value.value);
-        }
-    };
-    function adresChangeext(value)
-    {
-        if(value != "Default")
-        {
-            filterColumnext(2,value.value);
-        }
-    };
-    function telChangeext(value)
-    {
-        if(value != "Default")
-        {
-            filterColumnext(3,value.value);
-        }
-    };
-    function emailChangeext(value)
-    {
-        if(value != "Default")
-        {
-            filterColumnext(4,value.value);
-        }
-    };
 
 
 </script>

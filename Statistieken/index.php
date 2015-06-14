@@ -215,17 +215,17 @@ $mysqli->close(); //connectie sluiten
                     <th>Gemiddelde doorlooptijd</th>
                 </tr>
                 </thead>
-                <tr>
+                <tr >
                     <th>Niet dringend</th>
-                    <td>2 uur</td>
+                    <td id="ND">2 uur</td>
                 </tr>
                 <tr>
                     <th>Dringend</th>
-                    <td>2 uur</td>
+                    <td id="D">2 uur</td>
                 </tr>
                 <tr>
                     <th>Zeer dringend</th>
-                    <td>2 uur</td>
+                    <td id="ZD">2 uur</td>
                 </tr>
             </table>
         </section>
@@ -482,28 +482,39 @@ $mysqli->close(); //connectie sluiten
                     else if(starttime[0] =="Zeer dringend")
                     {zd.push(totaltime);}
 
-                    var nietdringend = GetAverage(nd);
-                    var dringend = GetAverage(d);
-                    var zeerdringend = GetAverage(zd);
 
-                    nietdringend = MinutestoMHDM(nietdringend);
-                    dringend = MinutestoMHDM(dringend);
-                    zeerdringend = MinutestoMHDM(zeerdringend);
 
 
                  //MinutestoMHDM(2400);
              });
+             var nietdringend = GetAverage(nd);
+             var dringend = GetAverage(d);
+             var zeerdringend = GetAverage(zd);
+
+             nietdringend = MinutestoMHDM(nietdringend);
+             dringend = MinutestoMHDM(dringend);
+             zeerdringend = MinutestoMHDM(zeerdringend);
+
+             var thnietdringend = document.getElementById("ND");
+             thnietdringend.innerHTML = nietdringend;
+             var thdringend = document.getElementById("D");
+             thdringend.innerHTML = dringend;
+             var thzeerdringend = document.getElementById("ZD");
+             thzeerdringend.innerHTML = zeerdringend;
          }
 
         function GetAverage(array)
         {
-            var total;
+            var total = 0;
             for(var i = 0;i<array.length;i++)
             {
                 total += array[i];
 
             }
-
+            if(total <=0)
+            {
+                return 0;
+            }
             return (total/array.length);
         }
         function MinutestoMHDM(minutes)
@@ -512,11 +523,11 @@ $mysqli->close(); //connectie sluiten
             var hours = 0;
             var days = 0;
 
-            minutezz = minutes %60;
+            minutezz = Math.floor(minutes %60);
             hours = Math.floor((minutes /60))%24;
             days = Math.floor((minutes /60)/24);
 
-            return "Days "+days+" hours " + hours + "minutes "+minutezz;
+            return "Days:"+days+"  hours:" + hours + "  minutes:"+minutezz;
 
         }
 

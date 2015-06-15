@@ -1008,14 +1008,27 @@ console.log(list);
     {
         var TitelFilter = document.getElementById("TitelFilter");
         TitelFilter = TitelFilter.firstChild.nextSibling;
-        TitelFilter.innerText = value;
-        Filters("niks","/");
+        TitelFilter.className = "ui blue large horizontal label";
 
+        var icon = document.createElement("i");
+        icon.className = "delete icon";
+
+        TitelFilter.innerText = value;
+
+
+        Filters("niks","/");
+        TitelFilter.appendChild(icon);
+
+        if (value == "") {
+            TitelFilter.className = "";
+            icon.className = "";
+        }
     }
     function TitelRemove(element)
     {
         //console.log(element.firstChild.nextSibling);
         element.firstChild.nextSibling.innerHTML ="";
+        element.firstChild.nextSibling.className = "";
         Filters("niks","/");
     }
 

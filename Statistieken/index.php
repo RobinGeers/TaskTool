@@ -321,7 +321,7 @@ $mysqli->close(); //connectie sluiten
 
 
                     });
-                }
+                } else if(list.name == "Taken" || list.name == "On hold") {}
                 else {
                     workerId.push(list.id);
                     workers.push(list.name);

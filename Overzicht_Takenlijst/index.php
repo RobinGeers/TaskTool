@@ -108,6 +108,7 @@ foreach($data as $d){
     <meta charset="UTF-8">
     <title>TaskTool Howest | Overzicht takenlijst</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/bootstrap.min.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
     <link rel="stylesheet" href="../css/screen.css"/>
@@ -259,12 +260,9 @@ foreach($data as $d){
     </section>
 
     <section id="Grid">
-        <p>Verander weergave van taken</p>
-        <div>
-            <i class="grid layout icon popup" data-content="Tabel"></i>
-        </div>
+        <i class="fa fa-list-alt popup" data-content="Tabel weergave"></i>
 
-        <i class="list layout icon popup" data-content="Kaartjes"></i>
+        <i class="fa fa-th-large popup" data-content="Kaartjes weergave"></i>
     </section>
     <div class="clearfix"></div>
     <!-- Checkbox die dynamisch aangemaakt zal worden

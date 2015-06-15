@@ -602,7 +602,53 @@ console.log(list);
         return ul;
     }
 
+    function checkforother(klas){
 
+        //HIERBENIK
+        if(mnarray!=null){
+            if(mnarray.indexOf(klas)==-1){
+                mnarray.push(klas);
+                $( "#Filter_Lokaal" ).autocomplete({
+                    source: mnarray
+
+                });
+            }
+
+        }else{
+            mnarray.push(klas);
+            $( "#Filter_Lokaal" ).autocomplete({
+                source: mnarray
+
+            });
+        }
+        var camp = klas.split(".")[0];
+        if(mnarray2!=null){
+            if(mnarray2.indexOf(camp)==-1){
+                mnarray2.push(camp);
+            }
+
+        }else{
+            mnarray2.push(camp);
+        }
+        var x =      document.getElementById("Filter_Campussen");
+        var element = x.firstChild;
+        while(element){
+            x.removeChild(element);
+            element = x.firstChild;
+
+        }
+
+        var option = document.createElement("OPTION");
+        option.setAttribute("value","Default");
+        option.innerHTML = "Campus";
+        document.getElementById("Filter_Campussen").appendChild(option);
+        $.each(mnarray2,function(ix,campussen){
+            var option = document.createElement("OPTION");
+            option.setAttribute("value",campussen);
+            option.innerHTML = campussen;
+            document.getElementById("Filter_Campussen").appendChild(option);
+        });
+    }
     function getCards(selecteddiv,listID,izworker)
     {
         //Haal alle kaartjes op van een bepaalde lijst
@@ -720,6 +766,10 @@ console.log(list);
                             {
                                 nieuweDescription += "/n@T@"+ hiden[1];
                             }
+                            mnarray.splice(mnarray.indexOf(odesc[3]),1);
+                            console.log(mnarray2.indexOf(odesc[3].split(".")[0]));
+                            mnarray2.splice(mnarray2.indexOf(odesc[3].split(".")[0]),1);
+                            checkforother(nieuwLokaal);
                            // console.log(nieuweDescription);
                             Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+nieuweDescription+"&name="+nieuweTitel);
 

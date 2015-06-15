@@ -632,11 +632,15 @@ formmodified=1;
 console.log(carddesc["desc"].split("/n@"));
             var ma = carddesc["desc"].split("/n@");
             //["aula muur", "ver of muur is oneven geschilderd en geeftplekken bij projectie", "Niet Dringend", "RDR.A.0.06"]
+            mnarray.splice(mnarray.indexOf(ma[3]),1);
+            console.log(mnarray2.indexOf(ma[3].split(".")[0]));
+            mnarray2.splice(mnarray2.indexOf(ma[3].split(".")[0]),1);
 ma[0] = myar[1];
             ma[1] = myar[2];
             ma[3] = myar[3];
 
             var nieuwedesc = ma[0] + "/n@" + ma[1]  + "/n@"+ ma[2] + "/n@" + ma[3] + "/n@" + ma[4];
+            checkforother(ma[3]);
             //["ver of muur is oneven geschilderd en geeftplekken bij projectie", "Niet Dringend", "cedric.lecat@student.howest.be", "RDR.A.0.06", "T@2015 6 15@15:23"]
             Trello.put("/cards/" + aa + "?key=" + APP_KEY + "&token=" + application_token + "&name="+ myar[0] + "&desc=" + nieuwedesc,function(){
                 formmodified=0;
@@ -663,7 +667,52 @@ ma[0] = myar[1];
         });*/
     }
 
+function checkforother(klas){
 
+    //HIERBENIK
+    if(mnarray!=null){
+        if(mnarray.indexOf(klas)==-1){
+            mnarray.push(klas);
+            $( "#Filter_Lokaal" ).autocomplete({
+                source: mnarray
+
+            });
+        }
+
+    }else{
+        mnarray.push(klas);
+        $( "#Filter_Lokaal" ).autocomplete({
+            source: mnarray
+
+        });
+    }
+    var camp = klas.split(".")[0];
+    if(mnarray2!=null){
+        if(mnarray2.indexOf(camp)==-1){
+            mnarray2.push(camp);
+        }
+
+    }else{
+mnarray2.push(camp);
+    }
+    var x =      document.getElementById("Filter_Campussen");
+    var element = x.firstChild;
+    while(element){
+        x.removeChild(element);
+        element = x.firstChild;
+
+    }
+    var option = document.createElement("OPTION");
+    option.setAttribute("value","Default");
+    option.innerHTML = "Campus";
+    document.getElementById("Filter_Campussen").appendChild(option);
+    $.each(mnarray2,function(ix,campussen){
+        var option = document.createElement("OPTION");
+        option.setAttribute("value",campussen);
+        option.innerHTML = campussen;
+        document.getElementById("Filter_Campussen").appendChild(option);
+    });
+}
     var FilterSection=document.getElementById("SelectedFilters");
     function PriorityChange(value)
     {

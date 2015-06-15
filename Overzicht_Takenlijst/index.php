@@ -962,7 +962,25 @@ var carddesc = cardinfo.desc;
 
                     });
                     var descriptionn = cardinfo.desc.split("/n@");
-                    //console.log(descriptionn);
+
+                    // Haal de datum uit de kaartjes
+                    var hiden = cardinfo.desc.split("/n@N@");
+                    console.log("HIER MOET JE KIJKEN");
+                    if(hiden.length > 1) {
+                        var ingegevenDatum = hiden[0].split("/n@");
+                        var ingegevenDatum2 = ingegevenDatum[ingegevenDatum.length - 1];
+                        var correcteDatum = ingegevenDatum2.split("T@");
+
+                        var definitieveDatum = correcteDatum[1];
+                        var correctUur = definitieveDatum.split("@");
+                        var definitieveDatum2 = definitieveDatum.split("@");
+
+                        var finalDatum = definitieveDatum2[0];
+                        var finaluur = definitieveDatum2[1];
+                        console.log("DEFINITIEVE DATUM: " + finalDatum + " UUR: " + finaluur);
+
+                        // TODO: Als de aangemaakte (final) datum langer dan een maand geleden is -> Toon door bv. een uitroepteken op het kaartje,..
+                    }
 
                     var label24 = document.createElement("LABEL");
 

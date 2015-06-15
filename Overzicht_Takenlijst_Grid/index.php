@@ -334,6 +334,17 @@ function maakitem(id, name, desc,attach){
     var eml = x[2];
     var klas = x[3];
 
+    var color;
+    // Toon kleur op basis van prioriteit
+    switch (prio) {
+        case "Niet Dringend": color = "#5bbd72";
+            break;
+        case "Dringend": color = "#f2c61f";
+            break;
+        case "Zeer Dringend": color = "#d95c5c";
+            break;
+    }
+
     if(mnarray!=null){
         if(mnarray.indexOf(klas)==-1){
             mnarray.push(klas);
@@ -359,7 +370,13 @@ function maakitem(id, name, desc,attach){
     var td2 = document.createElement("td");
     td2.appendChild(document.createTextNode(de));
     var td3 = document.createElement("td");
-    td3.appendChild(document.createTextNode(prio));
+    //td3.appendChild(document.createTextNode(prio));
+    var div = document.createElement("div");
+    div.style.borderRadius = "10px";
+    div.style.backgroundColor = color;
+    div.style.width = "15px";
+    div.style.height = "15px";
+    td3.appendChild(div);
     var td99 = document.createElement("td");
     td99.appendChild(document.createTextNode(klas));
 

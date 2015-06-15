@@ -1187,6 +1187,7 @@ function Filters(el, ely) {
         blocks[i].style.display = "none";
     }
 
+    //workers afzetten
     for (var i = 1; i < divs.length; i++) {
         var filters = divs[i].id.split("/" +
         "");
@@ -1204,6 +1205,7 @@ function Filters(el, ely) {
         }
     }
 
+    //prioriteiten
     for (var i = 0; i < priorityfilters.length; i++) {
 
         var priority;
@@ -1220,11 +1222,15 @@ function Filters(el, ely) {
 
         for (var j = 0; j < blocks.length; j++) {
             if (blocks[j].className.split(" ")[3] == priority) {
-                //onhold[j].style.display="inline-block";
+                //onhold[j].style.displa    y="inline-block";
                 filtered.push(blocks[j]);
             }
         }
 
+    }
+    if(filtered.length <= 0)
+    {
+        filtered = 0;
     }
 
     if (priorityfilters.length <= 0) {
@@ -1251,6 +1257,7 @@ function Filters(el, ely) {
 
     }
 
+
     var endfilterobjects;
     if (filtered1.length != 0) {
         endfilterobjects = filtered1;
@@ -1260,6 +1267,11 @@ function Filters(el, ely) {
     }
     else {
         endfilterobjects = blocks;
+    }
+
+    if(filtered1.length == 0)
+    {
+        endfilterobjects = 0;
     }
 
 
@@ -1277,9 +1289,16 @@ function Filters(el, ely) {
         }
     }
 
+
+
     if (temptitel.length != 0) {
         endfilterobjects = temptitel;
     }
+    else
+    {
+        endfilterobjects = [];
+    }
+
     var tempLokaal = [];
     for (var i = 0; i < lokaalfilters.length; i++) {
 
@@ -1297,10 +1316,15 @@ function Filters(el, ely) {
     if (tempLokaal.length != 0) {
         endfilterobjects = tempLokaal;
     }
+    else
+    {
+        endfilterobjects = [];
+    }
 
     for (var i = 0; i < endfilterobjects.length; i++) {
         endfilterobjects[i].style.display = "inline-block";
     }
+
     if (divs.length <= 1) {
         var onhold = document.getElementById("OnHold").getElementsByTagName("LI");
         var voltooid = document.getElementById("Voltooid").getElementsByTagName("LI");

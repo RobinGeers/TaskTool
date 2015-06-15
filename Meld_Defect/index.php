@@ -289,6 +289,7 @@ $mysqli->close();
             $("#slider").slider({
                 min: 1,
                 max: 100,
+                value: 1,
                 slide: function (event, ui) {
                     $("#amount").val(ui.value);
                 }

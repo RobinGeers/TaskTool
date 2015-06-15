@@ -257,6 +257,15 @@ foreach($data as $d){
                OnKeyup ="LokaalChange(event,this.value)"/>
         <i class="ui search icon"></i>
     </section>
+
+    <section id="Grid">
+        <p>Verander weergave van taken</p>
+        <div>
+            <i class="grid layout icon popup" data-content="Tabel"></i>
+        </div>
+
+        <i class="list layout icon popup" data-content="Kaartjes"></i>
+    </section>
     <div class="clearfix"></div>
     <!-- Checkbox die dynamisch aangemaakt zal worden
 
@@ -323,6 +332,18 @@ foreach($data as $d){
         .dropdown({
             // you can use any ui transition
             transition: 'drop'
+        })
+    ;
+
+    $('.popup')
+        .popup({
+            inline   : true,
+            hoverable: true,
+            position : 'bottom left',
+            delay: {
+                show: 100,
+                hide: 100
+            }
         })
     ;
 

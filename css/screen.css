@@ -620,6 +620,27 @@ main#Instellingen_Overzicht a#first:active, main#Instellingen_Overzicht a#second
 
 /* ----------- Overzicht takenlijst ----------- */
 
+#Grid {
+    display: inline-block;
+}
+
+#Grid p {
+    display: inline-block;
+}
+
+#Grid i {
+    background-color: #e0e0e0;
+    color: white;
+    color: rgba(0,0,0,.8);
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+#Grid i {
+    display: inline-block;
+    font-size: 1.7em;
+}
+
 .panel-default>.panel-heading {
     background-color: #fff !important;
 }

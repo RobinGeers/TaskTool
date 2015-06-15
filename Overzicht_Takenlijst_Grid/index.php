@@ -135,7 +135,7 @@ $mysqli->close(); //connectie sluiten
             </div>
             <div onclick="PriorityChange('Niet Dringend')" class="item">
                 <div class="ui green empty circular label"></div>
-                Niet dringend
+                Niet Dringend
             </div>
             <div onclick="PriorityChange('Dringend')" class="item">
                 <div class="ui yellow empty circular label"></div>
@@ -409,6 +409,7 @@ function maakitem(id, name, desc,attach){
     div.style.display = "inline-block";
     div.style.float = "right";
     div.style.marginRight = "10px";
+    if(prio=="Dringend"){prio="Dringend ";}
     td3.appendChild(document.createTextNode(prio));
     td3.appendChild(div);
     var td99 = document.createElement("td");
@@ -466,7 +467,7 @@ console.log(at);
         if(value != "Default")
         {
             makeDiv(value,"P");
-          //  Filters(value,"P");
+            filterglobaal();
         }
 
     }
@@ -475,7 +476,7 @@ console.log(at);
         if(value != "Default")
         {
             makeDiv(value,"W");
-          //  Filters(value,"W");
+            filterglobaal();
         }
     }
     function CampusChange(value)
@@ -484,6 +485,7 @@ console.log(at);
         {
             makeDiv(value, "C");
           //  Filters(value,"C");
+            filterglobaal();
         }
     }
 
@@ -508,7 +510,37 @@ console.log(at);
 
     }
 function filterglobaal(){
-    document.getElementById();
+   // document.getElementById();
+    var filt = document.getElementById("SelectedFilters");
+    //document.getElementById("SelectedFilters").childNodes[3].id.split("/")[1];
+ //   console.log(filt.childNodes);
+    var a = "";
+    $.each(filt.childNodes, function (ix, c) {
+        if (ix <= 2) {
+            if(ix==1) {
+                console.log(c.childNodes[3].childNodes[1].innerHTML);
+                var id = c.childNodes[3].childNodes[1].innerHTML;
+                if (a == "") {
+                    a = id;
+                } else {
+                    a = a + "|" + id;
+                }
+            }
+        } else {
+            // console.log("YEUY");
+            //  console.log(c);
+            var id = c.id.split("/")[1];
+            if(id=="Dringend"){id="Dringend ";}
+            if (a == "") {
+                a = id;
+            } else {
+                a = a + "|" + id;
+            }
+        }
+    });
+    console.log(a);
+    //  a = "Niet Dringend|Dringend|RSS|GKG";
+    ooTable.search(a, true, true).draw();
 }
     function TitelChange(value)
     {
@@ -516,6 +548,7 @@ function filterglobaal(){
         TitelFilter = TitelFilter.firstChild.nextSibling;
         TitelFilter.innerText = value;
       //  Filters("niks","/");
+        filterglobaal();
 
     }
     function TitelRemove(element)
@@ -523,6 +556,7 @@ function filterglobaal(){
         //console.log(element.firstChild.nextSibling);
         element.firstChild.nextSibling.innerHTML ="";
         //Filters("niks","/");
+        filterglobaal();
     }
 
     function LokaalChange(event,value)
@@ -532,7 +566,7 @@ function filterglobaal(){
         {
             //console.log(value);
             makeDiv(value,"L");
-           // Filters(value,"L");
+            filterglobaal();
         }
 
 
@@ -544,6 +578,7 @@ function filterglobaal(){
         //   Filters(element);
         var e = element.id;
         var x = e.split("/");
+        filterglobaal();
 /*
         $.ajax({
             url: '../CookieDeleter.php?val='+x[1],

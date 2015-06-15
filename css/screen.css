@@ -178,7 +178,13 @@ footer p {
 }
 
 footer p a {
-    color: #47AAFF;
+    color: #ffffff;
+    text-decoration: underline;
+}
+
+footer p a:hover, footer p a:visited, footer p a:link {
+    color: #ffffff;
+    text-decoration: underline;
 }
 
 /* ----------- Login Formulier ----------- */
@@ -593,7 +599,7 @@ main#Instellingen_Overzicht a#first {
 
 main#Instellingen_Overzicht a#first:hover {
     transition: background-color 0.2s ease;
-    background-color: #2EB5D6;
+    background-color: white;
     color: #ffffff;
 }
 

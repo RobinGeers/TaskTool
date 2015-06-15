@@ -1546,3 +1546,6 @@ main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
     margin-top: 300px;
     width: 20%;
 }
+.mijnklasse{
+   margin-top: 0px !important;
+}

@@ -146,7 +146,7 @@ $mysqli->close(); //connectie sluiten
         </div>
     </div>
 
-    <!-- Filter op Werknemer !-->
+    <!-- Filter op Werknemer
     <div id="Filter2" class="ui floating dropdown labeled icon button">
         <i class="filter icon"></i>
         <span class="text">Filter werknemer</span>
@@ -157,7 +157,7 @@ $mysqli->close(); //connectie sluiten
             </div>
         </div>
     </div>
-
+!-->
     <!--Oude filter op campussen!-->
     <select class="ui search dropdown" name="Filter_Campussen" id="Filter_Campussen" onchange="CampusChange(this.value)">
         <option value="Default">Campus</option>
@@ -188,7 +188,7 @@ $mysqli->close(); //connectie sluiten
     </section>
     <div class="clearfix"></div>
 
-    <h1>Overzicht taken</h1>
+    <h1 class="mijnklasse">Overzicht taken</h1>
     <section class="geenmargintop" id="Tabel">
 
         <table id="OT" class="opmaaktabel">

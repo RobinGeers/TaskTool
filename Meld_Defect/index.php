@@ -499,8 +499,9 @@ $mysqli->close(); //connectie sluiten
             </div>
 
     </section>
+    <div class="clearfooter"></div>
 </main>
-<div class="clearfix"></div>
+
 <footer>
     <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de handleiding</p>
 </footer>

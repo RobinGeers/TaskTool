@@ -240,7 +240,7 @@ $mysqli->close();
     <section id="Toevoegen">
 
         <div id="Add_Externe_Werknemer" class="ui small primary labeled icon button">
-            <i class="user icon"></i>Nieuwe onderaannemer toevoegen
+            <i class="user icon"></i>onderaannemer toevoegen
         </div>
         <div class="clearfix"></div>
     </section>
@@ -315,12 +315,12 @@ $mysqli->close();
             </tbody>
         </table>
     </section>
+    <div class="clearfooter"></div>
 </main>
-<div class="clearfix"></div>
+
 <footer>
     <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de handleiding</p>
 </footer>
-<div class="clearfix"></div>
 </body>
 </html>
 <script>
@@ -330,6 +330,7 @@ $mysqli->close();
             return "Je hebt je bewerkte informatie nog niet opgeslaan. Bent u zeker dat u de pagina wilt verlaten?";
         }
     }
+
 
     oTable = null;
     ooTable = null;

@@ -1,7 +1,6 @@
 <?php
 session_start();
-if($_SERVER["HTTPS"] != "on")
-{
+if ($_SERVER["HTTPS"] != "on") {
     header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
     exit();
 }
@@ -19,55 +18,55 @@ $isfoto = 0;
 $test = "";
 require_once($a);
 if (isset($_POST['txtEmailadres'])) {
-    $bericht = $_POST['txtEmailadres'];
-    if (isset($_POST['txtWachtwoord'])) {
-        $pw = $_POST['txtWachtwoord'];
-        $link = ldap_connect('172.20.0.5'); // Your domain or domain server
-        if (!$link) {
-            //GEEN TOEGANG TOT DE LDAP SERVER!!!!!
-            session_destroy();
-            header('Location: ../index.php?error=geen1toegang1tot1Active1Directory');
-        }
-        ldap_set_option($link, LDAP_OPT_PROTOCOL_VERSION, 3); // Recommended for AD
-        // Now try to authenticate with credentials provided by user
-        if (!ldap_bind($link, $bericht, $pw)) {
-            // Invalid credentials! Handle error appropriately
-            session_destroy();
-            header('Location: ../index.php?error=Foute1Inlog1Gegevens');
-        } else {
-            //JUISTE INLOGGEVENS
-            $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
-            if ($mysqli->connect_error) {
-                echo "Geen connectie mogelijk met de database";
-                header('Location: ../index.php?error=Geen1toegang1tot1de1database');
-            }
-            $result = $mysqli->prepare("SELECT ROL FROM EmailsLeerkrachten where userPrincipalName =?");
-            $result->bind_param('s', $bericht);
-            $result->execute();
-            $result->bind_result($data);
-            $d = array();
-            while($result->fetch()){
-              array_push($d,$data);
-            };
-            //cookie aanmaken
-            setcookie("rol", md5("exteralayersecuresalt".$data), time() + 25920000,"/");
-            $_SESSION['loggedin'] = $bericht;
-            //indien emailadres bestaat 100% kans dat je van login pagina komt en niet refresht ofzo
-            if (isset($_POST['chkHouIngelogd'])) {
-                //cookie aanmaken
-                setcookie("inlognaam", $bericht, time() + 25920000,"/");
-            } else {
-                //cookie verwijderen
-                setcookie("inlognaam", "", time() - 3600,"/");
-            }
+$bericht = $_POST['txtEmailadres'];
+if (isset($_POST['txtWachtwoord'])) {
+$pw = $_POST['txtWachtwoord'];
+$link = ldap_connect('172.20.0.5'); // Your domain or domain server
+if (!$link) {
+    //GEEN TOEGANG TOT DE LDAP SERVER!!!!!
+    session_destroy();
+    header('Location: ../index.php?error=geen1toegang1tot1Active1Directory');
+}
+ldap_set_option($link, LDAP_OPT_PROTOCOL_VERSION, 3); // Recommended for AD
+// Now try to authenticate with credentials provided by user
+if (!ldap_bind($link, $bericht, $pw)) {
+    // Invalid credentials! Handle error appropriately
+    session_destroy();
+    header('Location: ../index.php?error=Foute1Inlog1Gegevens');
+} else {
+//JUISTE INLOGGEVENS
+$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+if ($mysqli->connect_error) {
+    echo "Geen connectie mogelijk met de database";
+    header('Location: ../index.php?error=Geen1toegang1tot1de1database');
+}
+$result = $mysqli->prepare("SELECT ROL FROM EmailsLeerkrachten where userPrincipalName =?");
+$result->bind_param('s', $bericht);
+$result->execute();
+$result->bind_result($data);
+$d = array();
+while ($result->fetch()) {
+    array_push($d, $data);
+};
+//cookie aanmaken
+setcookie("rol", md5("exteralayersecuresalt" . $data), time() + 25920000, "/");
+$_SESSION['loggedin'] = $bericht;
+//indien emailadres bestaat 100% kans dat je van login pagina komt en niet refresht ofzo
+if (isset($_POST['chkHouIngelogd'])) {
+    //cookie aanmaken
+    setcookie("inlognaam", $bericht, time() + 25920000, "/");
+} else {
+    //cookie verwijderen
+    setcookie("inlognaam", "", time() - 3600, "/");
+}
 ?>
 <script>
-    document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
+    document.addEventListener("DOMContentLoaded", function (event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
         //Haal alle "div's" op in overzicht die een pagina voorstellen
-        var MD =  document.getElementById("first").parentElement;
-        var OT =  document.getElementById("second").parentElement;
-        var S =  document.getElementById("third").parentElement;
-        var I =  document.getElementById("fourth").parentElement;
+        var MD = document.getElementById("first").parentElement;
+        var OT = document.getElementById("second").parentElement;
+        var S = document.getElementById("third").parentElement;
+        var I = document.getElementById("fourth").parentElement;
         <?php
             switch ($data) {
                 case 'Basic':
@@ -228,10 +227,12 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
 
     }
     ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <
+        script
+        src = "https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js" ></script>
     <script>
         // Voeg achteraan zeker nog eens de addclass scrolling toe om de height aan te passen
-        $( document ).ready(function() {
+        $(document).ready(function () {
             $('.modal')
                 .modal('setting', 'transition', 'scale')
                 .modal('show');
@@ -257,7 +258,7 @@ else {
 $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
 if ($mysqli->connect_error) {
     echo "Geen connectie mogelijk met de database";
-session_destroy();
+    session_destroy();
     header('Location: ../index.php?error=Geen1toegang1tot1de1database');
 }
 $data = array();
@@ -271,7 +272,7 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
     <script>
         arraymetlokalen.push(<?php print "'".$row['NAME']."'" ?>);
     </script>
-    <?php
+<?php
 }
 //connectie sluiten
 $mysqli->close();
@@ -279,7 +280,7 @@ $mysqli->close();
 <script src=""></script>
 <script>
     //console.log(arraymetlokalen);
-    $.getScript( "https://code.jquery.com/ui/1.9.1/jquery-ui.min.js", function() {
+    $.getScript("https://code.jquery.com/ui/1.9.1/jquery-ui.min.js", function () {
         $(function () {
 
 
@@ -300,25 +301,22 @@ $mysqli->close();
     });
 
 
-
 </script>
 
 <?php
-if($_SERVER["HTTPS"] != "on")
-{ // zet de site om naar https indien het http is MEOT VOOR SECURE VAN DATA
+if ($_SERVER["HTTPS"] != "on") { // zet de site om naar https indien het http is MEOT VOOR SECURE VAN DATA
     header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
     exit();
 }
 
-if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
+if (isset($_SESSION['loggedin'])) { // kijkt of er een sessie is
     $ber = $_SESSION['loggedin']; // stop de sessie in een variabele
-}else {
+} else {
     header("Location: ../"); // Sessie bestaat niet je ben tniet ingelogd
 }
 $rol = $_COOKIE["rol"]; // haal de gehashde rol uit de cookie
 $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj'); //connectie tot de database
-if ($mysqli->connect_error)
-{
+if ($mysqli->connect_error) {
     echo "Geen connectie mogelijk met de database";
     return; // error message dat je geen toegang / verbinding hebt met de database ( 500 internal server error )
 }
@@ -328,24 +326,24 @@ $result->bind_param('s', $ber); //voeg de param $ber toe aan de query
 $result->execute(); // voort het prepared sql statement uit
 $result->bind_result($data); //steek het resultaat in een parameter
 $d = array();
-while($result->fetch()){
-    array_push($d,$data); //steek de data in een array moest er meer dan 1 zijn ( kan in dit geval niet )
+while ($result->fetch()) {
+    array_push($d, $data); //steek de data in een array moest er meer dan 1 zijn ( kan in dit geval niet )
 };
-$ha =  md5("exteralayersecuresalt".$data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
-if($ha==$rol){//roll is gelijk aan wat er in de cookie zit
-}else{
+$ha = md5("exteralayersecuresalt" . $data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
+if ($ha == $rol) {//roll is gelijk aan wat er in de cookie zit
+} else {
     header("Location: ../"); // rol is niet juist => hack attempt
 }
 $mysqli->close(); //connectie sluiten
 
 ?>
 <script>
-    document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
+    document.addEventListener("DOMContentLoaded", function (event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
         //Haal alle "div's" op in overzicht die een pagina voorstellen
-        var MD =  document.getElementById("first").parentElement;
-        var OT =  document.getElementById("second").parentElement;
-        var S =  document.getElementById("third").parentElement;
-        var I =  document.getElementById("fourth").parentElement;
+        var MD = document.getElementById("first").parentElement;
+        var OT = document.getElementById("second").parentElement;
+        var S = document.getElementById("third").parentElement;
+        var I = document.getElementById("fourth").parentElement;
         <?php
     switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via display ) weer welke knoppen ej recht tot hebt
         case 'Basic':
@@ -392,8 +390,6 @@ $mysqli->close(); //connectie sluiten
 </script>
 
 
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -419,11 +415,12 @@ $mysqli->close(); //connectie sluiten
     <button><a onclick="afmelden(this)">Afmelden</a></button>
     <nav>
         <ul>
-            <li><a id="first"  href="#">Probleem melden</a></li>
+            <li><a id="first" href="#">Probleem melden</a></li>
             <li><a id="second" href="../Overzicht_Takenlijst/">Overzicht takenlijst</a></li>
-            <li><a id="third"  href="../Statistieken">Statistieken</a></li>
-           <!--<li><a  href="../Instellingen">Instellingen</a></li>
-           --> <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
+            <li><a id="third" href="../Statistieken">Statistieken</a></li>
+            <!--<li><a  href="../Instellingen">Instellingen</a></li>
+            -->
+            <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
                 <ul>
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
                     <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
@@ -432,6 +429,7 @@ $mysqli->close(); //connectie sluiten
         </ul>
     </nav>
     <p id="Ingelogd">U bent ingelogd als: <span><?php print $_SESSION["loggedin"] ?></span></p>
+
     <div class="clearfix"></div>
 </header>
 <main id="MeldDefectFormulier">
@@ -466,7 +464,7 @@ $mysqli->close(); //connectie sluiten
             <div id="slider" onmouseover="Prioriteit()"></div>
             <p id="prior"></p>
             <input type="text" style="display: none" id="priori" name="priori">
-           <!--<label>Bijlage:</label>-->
+            <!--<label>Bijlage:</label>-->
             <!--   <div class="dropzone dz-clickable" id="my-awesome-dropzone">
                    <div class="dz-message" data-dz-message>
                        Klik of sleep hier je foto van het probleem<br />
@@ -503,7 +501,8 @@ $mysqli->close(); //connectie sluiten
 </main>
 
 <footer>
-    <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de handleiding</p>
+    <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de
+        handleiding</p>
 </footer>
 <div class="clearfix"></div>
 <!--<script>    Dropzone.autoDiscover = false;

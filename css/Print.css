@@ -1,24 +1,24 @@
-* {
+*{
 
 }
 
 @media print {
-    .afbeelding {
-        width: 150%;
-        display: block;
-    }
-
-    #leftdiv {
+ .afbeelding{
+     width: 150%;
+     display: block;
+ }
+    #leftdiv
+    {
         float: left;
         width: auto;
     }
 
-    #centerdiv {
+    #centerdiv{
         float: left;
         width: auto;
     }
 
-    #rightdiv {
+    #rightdiv{
         width: auto;
     }
 }

@@ -1,13 +1,13 @@
 <?php
 session_start();
-if (isset($_SESSION['loggedin'])) { // kijkt of er een sessie is
+if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
 
-} else {
+}else {
     header("Location: ./"); // Sessie bestaat niet je ben tniet ingelogd
 }
 
 $b = "Beste, \n\n";
-$b = $b . "U meldde een defect met de naam: '" . $_GET["n"] . "'.\n\n";
+$b = $b . "U meldde een defect met de naam: '".$_GET["n"]."'.\n\n";
 $b = $b . "Wij sturen u deze mail om u te verwittigen dat deze taak is afgewerkt.";
 //$b=$b.$_GET["e"];
 $thiss = getcwd();
@@ -25,7 +25,7 @@ $email->From = "Tasktool@howest.be\n";
 $email->FromName = "Tasktool@howest.be";
 $email->Subject = "Uw aanvraag was voltooid";
 
-$email->Body = $b;
+$email->Body =$b;
 
 $email->AddAddress('robin_geers@hotmail.com'); //new email
 

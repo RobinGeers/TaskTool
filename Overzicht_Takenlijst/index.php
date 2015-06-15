@@ -604,6 +604,9 @@ console.log(list);
         //Haal alle kaartjes op van een bepaalde lijst
         Trello.get("/lists/"+listID+"?fields=name&cards=open&card_fields=name&token="+application_token, function(cards) {
 
+            var count = 0;
+
+
             //console.log(cards["cards"]);
             var CardId = [];
 //overloop alle kaarten die we terug krijgen
@@ -611,6 +614,8 @@ console.log(list);
             var mijnstopsignaal = cards["cards"].length;
             mijnteller = 0;
             $.each(cards["cards"], function(ix, card){
+
+                count++;
                 //console.log(card.id);
                 var temparr = [];
                 var attachementsarr = [];
@@ -642,7 +647,7 @@ console.log(list);
                         .modal('show');
 
                     // li -> geselecteerde taak
-                    console.log(li);
+                    //console.log(li);
 
                     var style = window.getComputedStyle(li);
                     var borderBottom = style.getPropertyValue('border-bottom');
@@ -705,11 +710,11 @@ console.log(list);
                           /*  */
                             var odesc = carddesc.desc.split("/n@");
                             var nieuweDescription = nieuweOmschrijving + "/n@" +nieuwePrioriteit+"/n@"+odesc[2]+"/n@"+ nieuwLokaal;
-                            var hiden = carddesc.desc.split("/n@N@");
+                            var hiden = carddesc.desc.split("/n@T@");
                             console.log(hiden);
                             if(hiden.length > 1)
                             {
-                                nieuweDescription += "/n@N@"+ hiden[1];
+                                nieuweDescription += "/n@T@"+ hiden[1];
                             }
                            // console.log(nieuweDescription);
                             Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+nieuweDescription+"&name="+nieuweTitel);
@@ -1026,6 +1031,7 @@ var carddesc = cardinfo.desc;
                 div1.appendChild(input);
                 li.appendChild(div1);
                 li.appendChild(div2);
+
                 selecteddiv.appendChild(li);
 
 
@@ -1033,6 +1039,8 @@ var carddesc = cardinfo.desc;
 
                 //<li class="lastcard"><i class="fa fa-refresh"></i></li>
             });
+
+            //console.log(selecteddiv);
 
             if(!izworker)
             {
@@ -1044,6 +1052,13 @@ var carddesc = cardinfo.desc;
 
                 selecteddiv.parentElement.appendChild(liend);
 
+
+
+            }
+            else
+            {
+                console.log(selecteddiv.firstChild.innerText,count);
+                //selecteddiv.firstChild.innerText += "("+ count+")";
             }
 
             //console.log(CardId); //print de arrat met alle kaartjes of in de console
@@ -1246,6 +1261,11 @@ var carddesc = cardinfo.desc;
         if (priorityfilters.length <= 0) {
             filtered = blocks;
 
+
+        }
+        if(filtered.length<=0)
+        {
+            filtered =-1;
         }
 
 
@@ -1274,8 +1294,13 @@ var carddesc = cardinfo.desc;
         else if (filtered.length != 0) {
             endfilterobjects = filtered;
         }
-        else {
+        else if(filtered.length != -1)
+        {
             endfilterobjects = blocks;
+        }
+        else
+        {
+            endfilterobjects = 0;
         }
 
 
@@ -1296,6 +1321,10 @@ var carddesc = cardinfo.desc;
         if (temptitel.length != 0) {
             endfilterobjects = temptitel;
         }
+        else
+        {
+            endfilterobjects = 0;
+        }
         var tempLokaal = [];
         for (var i = 0; i < lokaalfilters.length; i++) {
 
@@ -1314,6 +1343,7 @@ var carddesc = cardinfo.desc;
         {
             endfilterobjects = tempLokaal;
         }
+
 
         for( var i = 0;i<endfilterobjects.length;i++)
         {

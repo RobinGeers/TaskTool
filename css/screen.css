@@ -52,10 +52,10 @@ nav ul li {
     padding: 5px;
 }
 nav>ul{
-	margin-top: 14px; 
+	margin-top: 20px;
 }
 nav ul li a {
-	      font-family: 'Roboto', sans-serif;
+    font-family: 'Roboto', sans-serif;
 	font-size: 16px;
     text-decoration: none;
     color: white;
@@ -78,6 +78,10 @@ nav ul li a[href="#"] {
 nav ul li ul li a:hover {
     background-color: transparent;
     color: white;
+}
+
+ul li:hover ul{
+    display: block; /* display the dropdown */
 }
 
 header button {

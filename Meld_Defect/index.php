@@ -206,9 +206,9 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
                 $email->AddAttachment( $target , $test ); // voeg attachment aan email toe
                 // hier wordt de data opgelsaan in een grote string ( pad naar waar de afbeelding staat )
 
-print $target;
-echo "<br>"; echo "hhhh";
-print $naamvanfoto;
+//print $target;
+//echo "<br>"; echo "hhhh";
+//print $naamvanfoto;
             }//einde valid file
         } // einde foreach
     }//einde isset
@@ -572,8 +572,8 @@ $mysqli->close(); //connectie sluiten
             document.getElementById("priori").value = "Dringend";
         }
         else if (prioriteit > 70) {
-            document.getElementById("prior").innerHTML = "Zeer dringend";
-            document.getElementById("priori").value = "Zeer dringend";
+            document.getElementById("prior").innerHTML = "Zeer Dringend";
+            document.getElementById("priori").value = "Zeer Dringend";
         }
     }
     $('.modal').addClass("scrolling");

@@ -218,6 +218,8 @@ $mysqli->close(); //connectie sluiten
 </html>
 <script>
 var mnarray=[];
+var mnarray2=[];
+var mnarray3=[];
     $('.dropdown')
         .dropdown({
             // you can use any ui transition
@@ -309,6 +311,13 @@ maakitem(tempy[0],tempy[1],tempy[2],tempy[3]);
                     $(function() {
                         $( "#Filter_Lokaal" ).autocomplete({
                             source: mnarray
+
+                        });
+                        $.each(mnarray2,function(ix,campussen){
+                            var option = document.createElement("OPTION");
+                            option.setAttribute("value",campussen);
+                            option.innerHTML = campussen;
+                            document.getElementById("Filter_Campussen").appendChild(option);
                         });
 
                     });
@@ -333,7 +342,15 @@ function maakitem(id, name, desc,attach){
     }else{
         mnarray.push(klas);
     }
+    var camp = klas.split(".")[0];
+    if(mnarray2!=null){
+        if(mnarray2.indexOf(camp)==-1){
+            mnarray2.push(camp);
+        }
 
+    }else{
+        mnarray2.push(camp);
+    }
 
     var tr =  document.createElement("tr");
     tr.id = id;
@@ -538,38 +555,3 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 //connectie sluiten
 $mysqli->close();
 ?>
-<script>
-    //console.log(arraymetlokalen);
-  /*  $(function() {
-        $( "#Filter_Lokaal" ).autocomplete({
-            source: arraymetlokalen
-        });
-
-    });
-*/
-    for(var i = 0;i<campussen.length;i++) {
-
-        /* Nieuwe code -> Bug moet nog opgelost worden 'mutable variable i'
-         var divItem = document.createElement("div");
-         divItem.className = "ui item";
-         divItem.onclick = function (){CampusChange(campussen[i])};
-
-         var option = document.createElement("OPTION");
-         option.setAttribute("value", campussen[i]);
-         option.setAttribute("name", campussen[i]);
-         option.innerHTML = campussen[i];
-
-         document.getElementById("Filter_Campussen").appendChild(divItem);
-         divItem.appendChild(option);
-
-         //console.log(divItem.childNodes[0].getAttribute("value"));
-         //console.log(campussen[i]);*/
-
-        /* OUDE CODE */
-        var option = document.createElement("OPTION");
-        option.setAttribute("value",campussen[i]);
-        option.innerHTML = campussen[i];
-        document.getElementById("Filter_Campussen").appendChild(option);
-        // console.log(campussen[i]);
-    }
-</script>

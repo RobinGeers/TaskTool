@@ -447,18 +447,15 @@ main#Overzicht h1 {
 }
 
 body#Intern .save.icon {
-    padding-top: 10px;
-    padding-left: 70px;
+    padding: 10px;
 }
 
 body#Extern .save.icon {
-    padding-top: 40px;
-    padding-left: 65px;
+    padding: 10px;
 }
 
 body#Lokalen .save.icon {
-    padding-top: 45px;
-    padding-left: 35px;
+    padding: 10px;
 }
 
 main#Instellingen_Overzicht {

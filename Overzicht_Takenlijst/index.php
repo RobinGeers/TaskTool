@@ -213,7 +213,7 @@ foreach($data as $d){
                 <i class="tags icon"></i>
                 Prioriteit
             </div>
-            <div onclick="PriorityChange('Niet dringend')" class="item">
+            <div onclick="PriorityChange('Niet Dringend')" class="item">
                 <div class="ui green empty circular label"></div>
                 Niet dringend
             </div>
@@ -1008,14 +1008,27 @@ console.log(list);
     {
         var TitelFilter = document.getElementById("TitelFilter");
         TitelFilter = TitelFilter.firstChild.nextSibling;
-        TitelFilter.innerText = value;
-        Filters("niks","/");
+        TitelFilter.className = "ui blue large horizontal label";
 
+        var icon = document.createElement("i");
+        icon.className = "delete icon";
+
+        TitelFilter.innerText = value;
+
+
+        Filters("niks","/");
+        TitelFilter.appendChild(icon);
+
+        if (value == "") {
+            TitelFilter.className = "";
+            icon.className = "";
+        }
     }
     function TitelRemove(element)
     {
         //console.log(element.firstChild.nextSibling);
         element.firstChild.nextSibling.innerHTML ="";
+        element.firstChild.nextSibling.className = "";
         Filters("niks","/");
     }
 
@@ -1115,7 +1128,7 @@ console.log(list);
         for (var i = 0; i < priorityfilters.length; i++) {
 
             var priority;
-            if (priorityfilters[i].id.split("/")[1] == "Niet dringend") {
+            if (priorityfilters[i].id.split("/")[1] == "Niet Dringend") {
                 priority = "liBorderL";
             }
             if (priorityfilters[i].id.split("/")[1] == "Dringend") {

@@ -76,7 +76,7 @@ function dosome(a)
         });
         console.log(test);
 
-        carddesc = carddesc +"/n@"+ date + "/n@" + time;
+        carddesc = carddesc +"/n@DT@" + date + "@" + time;
         console.log(carddesc);
   var getchck =  $('input[name=taakGelukt]:checked').val();
     console.log(getchck);

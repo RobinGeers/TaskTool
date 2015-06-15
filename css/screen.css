@@ -263,6 +263,7 @@ p#Ingelogd {
     margin-top: 80px;
     position: relative;
     left: 30px;
+    display: inline-block;
 }
 
 p#Ingelogd span {

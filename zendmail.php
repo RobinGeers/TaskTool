@@ -6,9 +6,10 @@ if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
     header("Location: ./"); // Sessie bestaat niet je ben tniet ingelogd
 }
 
-$b = "Uw aanvraag met als onderwerp".$_GET["n"]." is zojuist behandeld geweest";
-$b=$b."/br";
-$b=$b.$_GET["e"];
+$b = "Beste, \n\n";
+$b = $b . "U meldde een defect met de naam: '".$_GET["n"]."'.\n\n";
+$b = $b . "Wij sturen u deze mail om u te verwittigen dat deze taak is afgewerkt.";
+//$b=$b.$_GET["e"];
 $thiss = getcwd();
 $a = $thiss . '/PHPMailer-master/class.phpmailer.php';
 $target = "";
@@ -20,13 +21,13 @@ require_once($a);
 $targetstrings = "";
 //ZEND DE EMAIL
 $email = new PHPMailer();
-$email->From = "Tasktool@howest.be";
+$email->From = "Tasktool@howest.be\n";
 $email->FromName = "Tasktool@howest.be";
 $email->Subject = "Uw aanvraag was voltooid";
 
 $email->Body =$b;
 
-$email->AddAddress('wouterdumon@hotmail.com'); //new email
+$email->AddAddress('robin_geers@hotmail.com'); //new email
 
 $email->Send();
 

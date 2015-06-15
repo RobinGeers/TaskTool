@@ -337,6 +337,10 @@ foreach($data as $d){
         setTimeout(function(){window.location = newLocation; }, 600);
     }, false);
 
+    var im = document.getElementById('Card_Image');
+    im.onerror = function(){
+        im.src = '../images/noimage.png';
+    };
 
 var mnarray=[];
 var mnarray2=[];

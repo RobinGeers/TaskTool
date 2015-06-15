@@ -1515,6 +1515,14 @@ main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
     margin-left: 290px;
 }
 
+/* LOKALEN */
+#Add_Lokaal{
+    width: 250px;
+    display: block;
+    margin-left: 290px;
+    margin-bottom: 50px;
+}
+
 /* FINISH PAGINA */
 
 .btnverstuur{

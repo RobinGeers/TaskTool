@@ -239,6 +239,11 @@ $mysqli->close();
 </header>
 <main id="Instellingen_Extern">
     <h1>Beheer lokalen</h1>
+
+    <div onclick="myfunction(this)" id="Add_Lokaal" class="ui small primary labeled icon button">
+        <i class="user icon"></i> Voeg een nieuw lokaal toe
+    </div>
+
     <section id="Toevoegen">
 
         <p>Filter op lokalen:</p>
@@ -254,10 +259,6 @@ $mysqli->close();
         <i class="ui search icon"></i>
 
         <div class="clearfix"></div>
-
-        <div onclick="myfunction(this)" id="Add_Lokaal" class="ui small primary labeled icon button">
-            <i class="user icon"></i> Voeg een nieuw lokaal toe
-        </div>
 
     </section>
 <script>
@@ -276,7 +277,7 @@ $mysqli->close();
         <!-- TODO: Close icon zoeken !-->
         <i id="close_Popup" class="close icon"></i>
         <div class="header">
-            Werknemer toevoegen
+            Lokaal toevoegen
         </div>
         <div class="content">
             <div class="left">

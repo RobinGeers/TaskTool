@@ -91,12 +91,14 @@ $mysqli->close(); //connectie sluiten
     <link rel="stylesheet" type="text/css" href="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.css">
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
     <script type="text/javascript" language="javascript" src="//cdn.datatables.net/plug-ins/1.10.7/integration/bootstrap/3/dataTables.bootstrap.js"></script>
-
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.11.4/themes/smoothness/jquery-ui.css">
     <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css">
 
     <link rel="stylesheet" href="../css/screen.css"/>
     <link rel="stylesheet" href="../css/semantic.min.css">
+    <!-- laad de jquery in voor autocomplete -->
+    <script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
 
 </head>
 <body>
@@ -121,6 +123,71 @@ $mysqli->close(); //connectie sluiten
 
 </header>
 <main id="Overzicht_Takenlijst">
+    <div id="Filter1" class="ui floating dropdown labeled icon button">
+        <i class="filter icon"></i>
+        <span class="text">Filter prioriteit</span>
+        <div class="menu">
+            <div value="Default" class="header">
+                <i class="tags icon"></i>
+                Prioriteit
+            </div>
+            <div onclick="PriorityChange('Niet Dringend')" class="item">
+                <div class="ui green empty circular label"></div>
+                Niet dringend
+            </div>
+            <div onclick="PriorityChange('Dringend')" class="item">
+                <div class="ui yellow empty circular label"></div>
+                Dringend
+            </div>
+            <div onclick="PriorityChange('Zeer Dringend')" class="item">
+                <div class="ui red empty circular label"></div>
+                Zeer Dringend
+            </div>
+        </div>
+    </div>
+
+    <!-- Filter op Werknemer !-->
+    <div id="Filter2" class="ui floating dropdown labeled icon button">
+        <i class="filter icon"></i>
+        <span class="text">Filter werknemer</span>
+        <div class="menu" id="Filter_Worker">
+            <div value="Default" class="header">
+                <i class="tags icon"></i>
+                Werknemer
+            </div>
+        </div>
+    </div>
+
+    <!--Oude filter op campussen!-->
+    <select class="ui search dropdown" name="Filter_Campussen" id="Filter_Campussen" onchange="CampusChange(this.value)">
+        <option value="Default">Campus</option>
+    </select>
+
+
+
+
+    <section id="Filters_Zoek">
+        <!--<input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."/>!-->
+        <input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.." OnKeyup="TitelChange
+                (this.value)"/>
+        <i class="ui search icon"></i>
+        <input type="text" name="Filter_Lokaal" id="Filter_Lokaal" placeholder="Lokaal.."
+               OnKeyup ="LokaalChange(event,this.value)"/>
+        <i class="ui search icon"></i>
+    </section>
+    <div class="clearfix"></div>
+
+    <section id="SelectedFilters">
+        <div>
+            <h3>Geselecteerde Filters: </h3>
+            <div id="TitelFilter" onclick="TitelRemove(this)">
+                <label></label>
+            </div>
+        </div>
+
+    </section>
+    <div class="clearfix"></div>
+
     <h1>Overzicht taken</h1>
     <section class="geenmargintop" id="Tabel">
 
@@ -150,6 +217,13 @@ $mysqli->close(); //connectie sluiten
 </body>
 </html>
 <script>
+var mnarray=[];
+    $('.dropdown')
+        .dropdown({
+            // you can use any ui transition
+            transition: 'drop'
+        })
+    ;
 window.onbeforeunload = confirmExit;
 function confirmExit() {
     if (formmodified == 1) {
@@ -232,6 +306,12 @@ maakitem(tempy[0],tempy[1],tempy[2],tempy[3]);
                     ooTable = $('#OT').DataTable({
                         "dom": '<"top">rt<"bottom"lp><"clear">'
                     });
+                    $(function() {
+                        $( "#Filter_Lokaal" ).autocomplete({
+                            source: mnarray
+                        });
+
+                    });
                 }
             });
         });
@@ -244,6 +324,16 @@ function maakitem(id, name, desc,attach){
     var prio = x[1];
     var eml = x[2];
     var klas = x[3];
+
+    if(mnarray!=null){
+        if(mnarray.indexOf(klas)==-1){
+            mnarray.push(klas);
+        }
+
+    }else{
+        mnarray.push(klas);
+    }
+
 
     var tr =  document.createElement("tr");
     tr.id = id;
@@ -302,4 +392,184 @@ console.log(at);
     }
 }
 
+    var FilterSection=document.getElementById("SelectedFilters");
+    function PriorityChange(value)
+    {
+        if(value != "Default")
+        {
+            makeDiv(value,"P");
+          //  Filters(value,"P");
+        }
+
+    }
+    function WorkerChange(value)
+    {
+        if(value != "Default")
+        {
+            makeDiv(value,"W");
+          //  Filters(value,"W");
+        }
+    }
+    function CampusChange(value)
+    {
+        if(value != "Default")
+        {
+            makeDiv(value, "C");
+          //  Filters(value,"C");
+        }
+    }
+
+    function makeDiv(name,idprefix)
+    {
+        var div = document.createElement("DIV");
+        div.setAttribute("class","");
+        div.setAttribute("Onclick","DeleteFilter(this)");
+        div.setAttribute("id",idprefix+"/"+name);
+
+        var label = document.createElement("LABEL");
+        label.innerHTML = name;
+        label.className = "ui blue large horizontal label";
+
+        var icon = document.createElement("i");
+        icon.className = "delete icon";
+
+        label.appendChild(icon);
+        div.appendChild(label);
+
+        FilterSection.appendChild(div);
+
+    }
+
+    function TitelChange(value)
+    {
+        var TitelFilter = document.getElementById("TitelFilter");
+        TitelFilter = TitelFilter.firstChild.nextSibling;
+        TitelFilter.innerText = value;
+      //  Filters("niks","/");
+
+    }
+    function TitelRemove(element)
+    {
+        //console.log(element.firstChild.nextSibling);
+        element.firstChild.nextSibling.innerHTML ="";
+        //Filters("niks","/");
+    }
+
+    function LokaalChange(event,value)
+    {
+        var code = event.keyCode;
+        if(code == 13)
+        {
+            //console.log(value);
+            makeDiv(value,"L");
+           // Filters(value,"L");
+        }
+
+
+    }
+    function DeleteFilter(element)
+    {
+        console.log(element);
+        element.parentNode.removeChild(element);
+        //   Filters(element);
+        var e = element.id;
+        var x = e.split("/");
+/*
+        $.ajax({
+            url: '../CookieDeleter.php?val='+x[1],
+            dataType: 'html',
+            success: function(data){
+                Filters("niks","/");
+                //data returned from php
+                // window.open("../","_self");
+            }
+        });*/
+    }
+
      </script>
+<?php
+//connectie maken met db(mysql)
+//local
+//$mysqli = new mysqli('localhost', 'root', 'usbw', 'tasktool');
+//$mysqli = new mysqli('mysqlstudent','cedriclecat','ooDohQuuo2uh','cedriclecat');
+//student howest
+$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+if ($mysqli->connect_error)
+{
+    echo "Geen connectie mogelijk met de database";
+}
+$data = array();
+?>
+
+
+<script>    var arraymetlokalen =[]; var campussen=[]</script>
+<?php
+//alles ophalen en in array steken
+//echo 'h';
+$result = $mysqli->query("SELECT NAME FROM klassen");
+while($row = $result->fetch_array(MYSQLI_ASSOC))
+{
+    ?>
+    <script>
+        //    console.log("h");
+        var lokaal = <?php print "'".$row['NAME']."'" ?>;
+        arraymetlokalen.push(lokaal);
+        var campus = lokaal.split(".");
+        //console.log(campus[0]);
+        if(doesExist(campus[0]))
+        {
+            campussen.push(campus[0]);
+        }
+        function doesExist(name)
+        {
+            for(var i = 0;i<campussen.length;i++)
+            {
+                if(name == campussen[i])
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+    </script>
+    <?php
+    // array_push($data['merken'],$row);
+}
+//connectie sluiten
+$mysqli->close();
+?>
+<script>
+    //console.log(arraymetlokalen);
+  /*  $(function() {
+        $( "#Filter_Lokaal" ).autocomplete({
+            source: arraymetlokalen
+        });
+
+    });
+*/
+    for(var i = 0;i<campussen.length;i++) {
+
+        /* Nieuwe code -> Bug moet nog opgelost worden 'mutable variable i'
+         var divItem = document.createElement("div");
+         divItem.className = "ui item";
+         divItem.onclick = function (){CampusChange(campussen[i])};
+
+         var option = document.createElement("OPTION");
+         option.setAttribute("value", campussen[i]);
+         option.setAttribute("name", campussen[i]);
+         option.innerHTML = campussen[i];
+
+         document.getElementById("Filter_Campussen").appendChild(divItem);
+         divItem.appendChild(option);
+
+         //console.log(divItem.childNodes[0].getAttribute("value"));
+         //console.log(campussen[i]);*/
+
+        /* OUDE CODE */
+        var option = document.createElement("OPTION");
+        option.setAttribute("value",campussen[i]);
+        option.innerHTML = campussen[i];
+        document.getElementById("Filter_Campussen").appendChild(option);
+        // console.log(campussen[i]);
+    }
+</script>

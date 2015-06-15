@@ -327,7 +327,8 @@ foreach($data as $d){
 </footer>
 <div class="clearfix"></div>
 <script>
-
+var mnarray=[];
+var mnarray2=[];
     $('.dropdown')
         .dropdown({
             // you can use any ui transition
@@ -597,12 +598,14 @@ console.log(list);
             var CardId = [];
 //overloop alle kaarten die we terug krijgen
 
-
+            var mijnstopsignaal = cards["cards"].length;
+            mijnteller = 0;
             $.each(cards["cards"], function(ix, card){
                 //console.log(card.id);
                 var temparr = [];
                 var attachementsarr = [];
                 var description = [];
+
 
                 var li = document.createElement("LI");
                 li.setAttribute("class","panel panel-default card_final");
@@ -688,6 +691,8 @@ console.log(list);
 
                         Trello.get("/cards/"+card.id+"?fields=desc&token="+application_token,function(carddesc)
                         {
+
+                          /*  */
                             var odesc = carddesc.desc.split("/n@");
                             var nieuweDescription = nieuweOmschrijving + "/n@" +nieuwePrioriteit+"/n@"+odesc[2]+"/n@"+ nieuwLokaal;
                             var hiden = carddesc.desc.split("/n@N@");
@@ -698,6 +703,9 @@ console.log(list);
                             }
                            // console.log(nieuweDescription);
                             Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+nieuweDescription+"&name="+nieuweTitel);
+
+
+
                         });
                        //foute code in de trello.put
 
@@ -893,6 +901,46 @@ console.log(list);
                     //ASYNC!!!
                     description.push(cardinfo.desc);
                     carddescription = cardinfo.desc; //gaat niet aangezien dit async verloopt
+var carddesc = cardinfo.desc;
+                    var klas = (carddesc).split("/n@")[3];
+                    if(mnarray!=null){
+                        if(mnarray.indexOf(klas)==-1){
+                            mnarray.push(klas);
+                        }
+
+                    }else{
+                        mnarray.push(klas);
+                    }
+                    var camp = klas.split(".")[0];
+                    if(mnarray2!=null){
+                        if(mnarray2.indexOf(camp)==-1){
+                            mnarray2.push(camp);
+                        }
+
+                    }else{
+                        mnarray2.push(camp);
+                    }
+                    mijnteller++;
+                    if(mijnteller==mijnstopsignaal){
+                        console.log("gedaan");
+
+                        $(function() {
+                            $( "#Filter_Lokaal" ).autocomplete({
+                                source: mnarray
+                            });
+                            $.each(mnarray2,function(ix,campussen){
+                                var option = document.createElement("OPTION");
+                                option.setAttribute("value",campussen);
+                                option.innerHTML = campussen;
+                                document.getElementById("Filter_Campussen").appendChild(option);
+                            });
+
+
+                        });
+
+                    };
+
+
                     //kijkt naar de attachments en voegt de link toe in een array
                     $.each(cardinfo.attachments,function(ix,attachement){
                         attachementsarr.push(attachement.url);
@@ -1473,8 +1521,30 @@ Filters("niks","/");
         }
 
     }
-    
+
+
+        /* Nieuwe code -> Bug moet nog opgelost worden 'mutable variable i'
+         var divItem = document.createElement("div");
+         divItem.className = "ui item";
+         divItem.onclick = function (){CampusChange(campussen[i])};
+
+         var option = document.createElement("OPTION");
+         option.setAttribute("value", campussen[i]);
+         option.setAttribute("name", campussen[i]);
+         option.innerHTML = campussen[i];
+
+         document.getElementById("Filter_Campussen").appendChild(divItem);
+         divItem.appendChild(option);
+
+         //console.log(divItem.childNodes[0].getAttribute("value"));
+         //console.log(campussen[i]);*/
+
+        /* OUDE CODE */
+
+       // console.log(campussen[i]);
+
 </script>
+
 <?php
 //connectie maken met db(mysql)
 //local
@@ -1526,40 +1596,6 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 //connectie sluiten
 $mysqli->close();
 ?>
-<script>
-    //console.log(arraymetlokalen);
-    $(function() {
-        $( "#Filter_Lokaal" ).autocomplete({
-            source: arraymetlokalen
-        });
 
-    });
-
-    for(var i = 0;i<campussen.length;i++) {
-
-        /* Nieuwe code -> Bug moet nog opgelost worden 'mutable variable i'
-         var divItem = document.createElement("div");
-         divItem.className = "ui item";
-         divItem.onclick = function (){CampusChange(campussen[i])};
-
-         var option = document.createElement("OPTION");
-         option.setAttribute("value", campussen[i]);
-         option.setAttribute("name", campussen[i]);
-         option.innerHTML = campussen[i];
-
-         document.getElementById("Filter_Campussen").appendChild(divItem);
-         divItem.appendChild(option);
-
-         //console.log(divItem.childNodes[0].getAttribute("value"));
-         //console.log(campussen[i]);*/
-
-        /* OUDE CODE */
-        var option = document.createElement("OPTION");
-        option.setAttribute("value",campussen[i]);
-        option.innerHTML = campussen[i];
-        document.getElementById("Filter_Campussen").appendChild(option);
-       // console.log(campussen[i]);
-    }
-</script>
 </body>
 </html>

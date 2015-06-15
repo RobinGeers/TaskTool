@@ -451,6 +451,13 @@ console.log(at);
     });
 
     td4.appendChild(iWrite);
+    var t1 = document.createElement("i");
+    t1.className="remove icon";
+    t1.addEventListener("click",function(){
+
+        deletee(tr);
+    });
+    td4.appendChild(t1);
     tr.appendChild(td4);
 
     if(ooTable!=null) {
@@ -460,6 +467,177 @@ console.log(at);
         table.appendChild(tr);
     }
 }
+
+    function deletee(trr) {
+        mylink="../ChangeInst/Delete_lokaal.php";
+        console.log(trr.id);
+        var url = mylink+"?id="+trr.id;
+
+  /*      $.ajax({
+            url: url,
+            dataType: 'html',
+            success: function(data){
+                //data returned from php
+                console.log("Gelukt");
+            }
+        });*/
+
+        //var a = document.getElementById("DynamicLokalen");
+        //deletelist(trr.childNodes[0].innerText);
+
+        ooTable.row(trr).remove().draw();
+      filterglobaal();
+    }
+    function dosomething(eml) {
+
+        var tell = 0;
+        //   console.log(eml.childElementCount);
+        $.each(eml.childNodes,function(ix,a){
+
+            //  console.log(ix);
+            a = eml.childNodes[ix];
+            if(ix==5){
+                //  console.log("JA VIJF");
+                var hftd = document.createElement("td");
+                var newicon = document.createElement("i");
+                newicon.className = "save icon";
+                newicon.addEventListener("click",function(){
+                    saverow(eml);
+                    formmodified = 0;
+                });
+                hftd.appendChild(newicon);
+                eml.replaceChild(hftd,eml.childNodes[ix]);
+                return;
+            }else if(ix==4){}else if(ix==2){
+                var hoofdtd = document.createElement("td");
+
+                var t = a.innerText;
+                var i = document.createElement("input");
+                i.type ="text";
+                i.name="inputs[]";
+                i.id="inputs"+ix;
+                i.setAttribute('value', 'default');
+                //i.addEventListener('keyup',function(val){i.value=val.value;  });
+                i.value = t;
+                hoofdtd.appendChild(i);
+                eml.replaceChild(hoofdtd,eml.childNodes[ix]);
+
+            }else{
+                var hoofdtd = document.createElement("td");
+
+                var t = a.innerText;
+                console.log(t);
+                var i = document.createElement("input");
+                i.type ="text";
+                i.name="inputs[]";
+                i.id="inputs"+ix;
+                i.setAttribute('value', 'default');
+                //i.addEventListener('keyup',function(val){i.value=val.value;  });
+                i.value = t;
+                hoofdtd.appendChild(i);
+                eml.replaceChild(hoofdtd,eml.childNodes[ix]);
+            }
+
+//console.log(eml.childNodes[ix]);
+        });
+    }
+
+    function saverow(el){
+        var myar = [];
+        var aa="";
+        aa=el.id;
+        // console.log(el);
+        $.each(el.childNodes,function(ix,a){
+            //  console.log(el.childNodes[ix]);
+            //console.log(a);
+            if(ix==5){
+                var tdd = document.createElement("td");
+                var td4 = document.createElement("i");
+                td4.className="write icon";
+                td4.addEventListener("click",function() {
+                    dosomething(el);
+//HIER
+                });
+                var t1 = document.createElement("i");
+                t1.className="remove icon";
+                t1.addEventListener("click",function(){
+
+                    deletee(el);
+                });
+                tdd.appendChild(td4);
+                tdd.appendChild(t1);
+                el.replaceChild(tdd,el.childNodes[ix]);
+                return;
+            }else if(ix==4){}else if(ix==2){
+                var hoofdtd = document.createElement("td");
+                var t = el.childNodes[ix].firstChild.value;
+                console.log(t);
+                var color;
+                // Toon kleur op basis van prioriteit
+                if(t=="Dringend "){t="Dringend";}
+                myar.push(t);
+                switch (t) {
+                    case "Niet Dringend": color = "#5bbd72";
+                        break;
+                    case "Dringend": color = "#f2c61f";
+                        break;
+                    case "Zeer Dringend": color = "#d95c5c";
+                        break;
+                }
+                var div = document.createElement("div");
+                div.style.borderRadius = "10px";
+                div.style.backgroundColor = color;
+                div.style.width = "15px";
+                div.style.height = "15px";
+                div.style.display = "inline-block";
+                div.style.float = "right";
+                div.style.marginRight = "10px";
+                if(t=="Dringend"){t="Dringend ";}
+                hoofdtd.appendChild(document.createTextNode(t));
+                hoofdtd.appendChild(div);
+
+                //  console.log(el.childNodes[ix]);
+
+
+                console.log(t);
+
+               // hoofdtd.appendChild(document.createTextNode(t));
+
+                el.replaceChild(hoofdtd, el.childNodes[ix]);
+
+            }else {
+
+                var hoofdtd = document.createElement("td");
+
+                //  console.log(el.childNodes[ix]);
+                var t = el.childNodes[ix].firstChild.value;
+
+                console.log(t);
+                myar.push(t);
+                hoofdtd.appendChild(document.createTextNode(t));
+
+                el.replaceChild(hoofdtd, el.childNodes[ix]);
+            }
+        });
+
+        console.log(aa);
+        mylink="../ChangeInst/sdfjl5dfqs9fdsf4.php";
+        //   window.open('#','_blank');
+//    window.open(this.href,'_self');
+        var url = mylink+"?naam="+myar[0]+"&bedrijf="+myar[1]+"&adres="+myar[2]+"&tel="+myar[3]+"&email="+myar[4]+"&id="+aa;
+        //
+        //  window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
+        //   window.focus();
+       /* $.ajax({
+            url: url,
+            dataType: 'html',
+            success: function(data){
+                //data returned from php
+                console.log("Gelukt");
+            }
+        });*/
+    }
+
 
     var FilterSection=document.getElementById("SelectedFilters");
     function PriorityChange(value)

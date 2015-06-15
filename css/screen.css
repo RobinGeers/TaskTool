@@ -374,18 +374,18 @@ main#MeldDefectFormulier span
     color: #DC002F;
 }
 
-input:required:invalid, input:focus:invalid, textarea:required:invalid {
-    background-image: url(../images/invalid.png);
+input, textarea {
+    background-image: url(../images/tooltip_icon.png);
     background-position: right;
     background-repeat: no-repeat;
     background-position: 450px;
 }
-input:required:valid textarea:required:valid, textarea:required:valid {
-    background-image: url(../images/valid.png);
+/*input:required:valid textarea:required:valid, textarea:required:valid {
+    background-image: url(../images/tooltip_icon.png);
     background-position: right;
     background-repeat: no-repeat;
     background-position: 450px;
-}
+}*/
 
 
 

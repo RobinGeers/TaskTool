@@ -80,10 +80,6 @@ nav ul li ul li a:hover {
     color: white;
 }
 
-ul li:hover ul{
-    display: block; /* display the dropdown */
-}
-
 header button {
     margin-top: 60px;
     background-color: #47AAFF;

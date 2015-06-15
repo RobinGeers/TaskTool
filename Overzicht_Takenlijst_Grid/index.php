@@ -471,8 +471,11 @@ console.log(at);
     function deletee(trr) {
         mylink="../ChangeInst/Delete_lokaal.php";
         console.log(trr.id);
-        var url = mylink+"?id="+trr.id;
-
+       // var url = mylink+"?id="+trr.id;
+        formmodified=1;
+        Trello.delete("/cards/"+trr.id+"?key="+APP_KEY+"&token="+application_token,function(){
+            formmodified=0;
+        });
   /*      $.ajax({
             url: url,
             dataType: 'html',
@@ -619,12 +622,34 @@ console.log(at);
                 el.replaceChild(hoofdtd, el.childNodes[ix]);
             }
         });
-
+formmodified=1;
+        console.log("hhh");
+        console.log(myar);
         console.log(aa);
-        mylink="../ChangeInst/sdfjl5dfqs9fdsf4.php";
+        //trello.get desc
+
+        Trello.get("/cards/"+aa+"?fields=desc&token="+application_token,function(carddesc) {
+console.log(carddesc["desc"].split("/n@"));
+            var ma = carddesc["desc"].split("/n@");
+            //["aula muur", "ver of muur is oneven geschilderd en geeftplekken bij projectie", "Niet Dringend", "RDR.A.0.06"]
+ma[0] = myar[1];
+            ma[1] = myar[2];
+            ma[3] = myar[3];
+
+            var nieuwedesc = ma[0] + "/n@" + ma[1]  + "/n@"+ ma[2] + "/n@" + ma[3] + "/n@" + ma[4];
+            //["ver of muur is oneven geschilderd en geeftplekken bij projectie", "Niet Dringend", "cedric.lecat@student.howest.be", "RDR.A.0.06", "T@2015 6 15@15:23"]
+            Trello.put("/cards/" + aa + "?key=" + APP_KEY + "&token=" + application_token + "&name="+ myar[0] + "&desc=" + nieuwedesc,function(){
+                formmodified=0;
+            });
+        });
+        //
+
         //   window.open('#','_blank');
 //    window.open(this.href,'_self');
-        var url = mylink+"?naam="+myar[0]+"&bedrijf="+myar[1]+"&adres="+myar[2]+"&tel="+myar[3]+"&email="+myar[4]+"&id="+aa;
+       // var url = mylink+"?naam="+myar[0]+"&bedrijf="+myar[1]+"&adres="+myar[2]+"&tel="+myar[3]+"&email="+myar[4]+"&id="+aa;
+
+        //update
+
         //
         //  window.open(url, "s", "width=10, height= 10, left=0, top=0, resizable=yes, toolbar=no, location=no, directories=no, status=no, menubar=no, scrollbars=no, resizable=no, copyhistory=no").blur();
         //   window.focus();

@@ -6,11 +6,11 @@ body {
     height: auto !important;
 }
 
-html {
+html{
     height: 100%;
 }
 
-main {
+main{
     min-height: 100%;
     margin-bottom: -80px;
     position: relative;
@@ -57,18 +57,16 @@ nav {
 }
 
 nav ul li {
-
+  
     display: inline-block;
     padding: 5px;
 }
-
-nav > ul {
-    margin-top: 20px;
+nav>ul{
+	margin-top: 20px;
 }
-
 nav ul li a {
     font-family: 'Roboto', sans-serif;
-    font-size: 16px;
+	font-size: 16px;
     text-decoration: none;
     color: white;
     padding: 10px;
@@ -114,13 +112,13 @@ header button:hover {
     transition: all 0.3s;
     cursor: pointer;
 }
-
-.Howestlogo {
+.Howestlogo
+{
     width: 180px;
     height: 80px;
 }
 
-ul#ui-id-2 {
+ul#ui-id-2{
     z-index: 100000000000000;
 }
 
@@ -134,13 +132,9 @@ nav ul li:hover > ul {
 }
 
 nav ul ul {
-    background: #5f6975;
-    border-radius: 0;
-    padding: 0;
-    position: absolute;
-    top: 100%;
+    background: #5f6975; border-radius: 0; padding: 0;
+    position: absolute; top: 100%;
 }
-
 nav ul ul li {
     float: none;
     display: block;
@@ -150,7 +144,6 @@ nav ul ul li {
     position: relative;
     padding: 15px 15px;
 }
-
 nav ul ul li a {
     color: #fff;
 }
@@ -170,7 +163,7 @@ footer {
     position: relative;
 }
 
-.clearfooter {
+.clearfooter{
     clear: both;
     height: 80px;
 }
@@ -309,7 +302,7 @@ main#MeldDefectFormulier section#MeldDefect form {
     margin-top: 30px;
 }
 
-main#MeldDefectFormulier section#MeldDefect input[type="text"], main#MeldDefectFormulier section#MeldDefect input[type="email"] {
+main#MeldDefectFormulier section#MeldDefect input[type="text"],main#MeldDefectFormulier section#MeldDefect input[type="email"]  {
     width: 100%;
     display: block;
     border-radius: 4px;
@@ -324,25 +317,29 @@ div.gradient {
     height: 50px;
     background-color: red;
     border-radius: 8px;
-    background: -webkit-linear-gradient(
+    background:
+    -webkit-linear-gradient(
             to right,
             green,
             orange,
             red
     );
-    background: -o-linear-gradient(
+    background:
+    -o-linear-gradient(
             to right,
             green,
             orange,
             red
-    );
-    background: -moz-linear-gradient(
+);
+    background:
+    -moz-linear-gradient(
             to right,
             green,
             orange,
             red
-    );
-    background: linear-gradient(
+);
+    background:
+    linear-gradient(
             to right,
             green,
             orange,
@@ -394,14 +391,14 @@ main#MeldDefectFormulier input[type="submit"]:hover {
     color: black;
 
 }
-
 #slider {
     height: 10px;
     margin-top: 19px;
     margin-bottom: 19px;
 }
 
-main#MeldDefectFormulier span {
+main#MeldDefectFormulier span
+{
     color: #DC002F;
 }
 
@@ -411,13 +408,14 @@ input, textarea {
     background-repeat: no-repeat;
     background-position: 450px;
 }
-
 /*input:required:valid textarea:required:valid, textarea:required:valid {
     background-image: url(../images/tooltip_icon.png);
     background-position: right;
     background-repeat: no-repeat;
     background-position: 450px;
 }*/
+
+
 
 /* ----------- Overzicht ----------- */
 
@@ -493,6 +491,7 @@ main#Instellingen_Overzicht {
     margin: 0 auto;
     margin-top: 150px;
 }
+
 
 main#Instellingen_Overzicht a {
     float: left;
@@ -603,6 +602,7 @@ main#Instellingen_Overzicht a#first:hover {
     color: #ffffff;
 }
 
+
 main#Instellingen_Overzicht a#second {
     background-color: #e87352;
     color: #ffffff;
@@ -665,7 +665,7 @@ main#Overzicht_Takenlijst h1.topp {
     font-size: 1.8em;
     background-color: #e0e0e0;
     color: white;
-    color: rgba(0, 0, 0, .8);
+    color: rgba(0,0,0,.8);
     border-radius: 4px;
     cursor: pointer;
     padding: 8px;
@@ -677,7 +677,8 @@ main#Overzicht_Takenlijst h1.topp {
     background-color: #47AAFF;
 }
 
-.panel-default > .panel-heading {
+
+.panel-default>.panel-heading {
     background-color: #fff !important;
 }
 
@@ -689,11 +690,10 @@ main#Overzicht_Takenlijst h1.topp {
     margin-bottom: 20px;
 }
 
-main {
-    margin-top: 150px;
+main{
+margin-top: 150px;
 
 }
-
 #Popup {
     width: 50%;
 }
@@ -823,7 +823,7 @@ main#Overzicht_Takenlijst section#SelectedFilters div {
 main#Overzicht_Takenlijst section#SelectedFilters h3 {
     margin-right: 10px;
     display: inline-block;
-    font-size: 1.5em;
+    font-size:1.5em;
 }
 
 main#Overzicht_Takenlijst h1 {
@@ -836,6 +836,7 @@ main#Overzicht_Takenlijst h1 {
 main#Overzicht_Takenlijst section#Filters p {
     margin-left: 100px;
 }
+
 
 main#Overzicht_Takenlijst section#Filters section:first-child {
     margin-top: -15px;
@@ -859,7 +860,7 @@ main#Overzicht_Takenlijst section#Filters section input {
 }
 
 main#Overzicht_Takenlijst section#Taken {
-    margin-left: 100px;
+     margin-left: 100px;
 
 }
 
@@ -902,6 +903,7 @@ ul li.card {
     max-width: 400px;
 }
 
+
 .lastcard {
     list-style-type: none;
     background-color: #ffffff;
@@ -928,10 +930,10 @@ main#Overzicht_Takenlijst section.Section_Float {
     float: left;
     margin-right: 40px;
     padding: 10px;
-    background-color: rgba(107, 107, 107, 0.12);
-    -webkit-box-shadow: 1px 1px 4px -2px rgba(107, 107, 107, 0.70);
-    -moz-box-shadow: 1px 2px 4px -2px rgba(107, 107, 107, 0.70);
-    box-shadow: 1px 1px 4px -2px rgba(107, 107, 107, 0.70);
+    background-color: rgba(107,107,107,0.12);
+    -webkit-box-shadow: 1px 1px 4px -2px rgba(107,107,107,0.70);
+    -moz-box-shadow: 1px 2px 4px -2px rgba(107,107,107,0.70);
+    box-shadow: 1px 1px 4px -2px rgba(107,107,107,0.70);
 }
 
 main#Overzicht_Takenlijst section#Medewerkers ul {
@@ -951,6 +953,7 @@ main#Overzicht_Takenlijst section#Medewerkers ul {
     font-weight: bold;
     font-size: 1.5em;
 }
+
 
 main#Overzicht_Takenlijst section#Medewerkers ul li {
     border-bottom: 1px solid #cccccc;
@@ -993,9 +996,9 @@ main#Overzicht_Takenlijst section#Medewerkers ul li a {
     float: right;
 }
 
-.panel {
+.panel{
     margin-bottom: 10px;
-    padding: 10px;
+    padding:10px;
 }
 
 .panel-default > .panel-heading {
@@ -1004,37 +1007,31 @@ main#Overzicht_Takenlijst section#Medewerkers ul li a {
 
 @keyframes fadein {
     from {
-        opacity: 0;
+        opacity:0;
     }
     to {
-        opacity: 1;
+        opacity:1;
     }
 }
-
-@-moz-keyframes fadein {
-    /* Firefox */
+@-moz-keyframes fadein { /* Firefox */
     from {
-        opacity: 0;
+        opacity:0;
     }
     to {
-        opacity: 1;
+        opacity:1;
     }
 }
-
-@-webkit-keyframes fadein {
-    /* Safari and Chrome */
+@-webkit-keyframes fadein { /* Safari and Chrome */
     from {
-        opacity: 0;
+        opacity:0;
     }
     to {
-        opacity: 1;
+        opacity:1;
     }
 }
-
-@-o-keyframes fadein {
-    /* Opera */
+@-o-keyframes fadein { /* Opera */
     from {
-        opacity: 0;
+        opacity:0;
     }
     to {
         opacity: 1;
@@ -1121,27 +1118,30 @@ section#Werknemers h2 {
     margin-left: 100px;
 }
 
+
 section#Prestaties h2, section#PrioriteitDoorlooptijd h2 {
     margin-bottom: 50px;
 }
 
-section#Prestaties table, section#PrioriteitDoorlooptijd table {
+section#Prestaties table, section#PrioriteitDoorlooptijd table{
     width: 90%;
     text-align: center;
     margin: 0 auto;
 }
 
-section#PrioriteitDoorlooptijd table {
+section#PrioriteitDoorlooptijd table{
     width: 30%;
 }
 
-section#Prestaties table tbody tr td, section#PrioriteitDoorlooptijd table tbody tr td {
+section#Prestaties table tbody tr td, section#PrioriteitDoorlooptijd table tbody tr td{
     text-align: center;
 }
 
 section#Prestaties table tbody tr th, section#PrioriteitDoorlooptijd table tbody tr th {
     font-size: 1.3em;
 }
+
+
 
 section#Prestaties th, section#PrioriteitDoorlooptijd th {
     text-align: center;
@@ -1153,8 +1153,7 @@ section#Prestaties table, section#PrioriteitDoorlooptijd table {
     box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.07);
     margin-left: 100px;
 }
-
-section#Prestaties table th, section#Prestaties table tr, section#Prestaties table td, section#PrioriteitDoorlooptijd table th, section#PrioriteitDoorlooptijd table tr, section#PrioriteitDoorlooptijd table td {
+section#Prestaties table th, section#Prestaties table tr, section#Prestaties table td, section#PrioriteitDoorlooptijd table th, section#PrioriteitDoorlooptijd table tr, section#PrioriteitDoorlooptijd table td{
     border: 1px solid #ddd;
 }
 
@@ -1214,38 +1213,33 @@ section#Werknemers div#Legende1 div#GeneratedLegende ul li, div#Legende2 div#Gen
     list-style-type: none;
 }
 
-section#Werknemers div#Legende1 div#GeneratedLegende ul li span, div#Legende2 div#GeneratedLegende2 ul li span {
+section#Werknemers div#Legende1 div#GeneratedLegende ul li span, div#Legende2 div#GeneratedLegende2 ul li span  {
     padding: 5px;
     margin-right: 5px;
     display: inline-block;
 }
 
-.liBorderH {
+.liBorderH{
     border-style: solid;
     border-bottom: 3px solid #dc002f !important;
 }
-
-.liBorderG {
+.liBorderG{
     border-style: solid;
     border-bottom: 3px solid #f2ea13 !important;
 }
-
-.liBorderL {
+.liBorderL{
     border-style: solid;
     border-bottom: 3px solid #2ecc71 !important;
 }
-
-section#WerknemersFilter {
+section#WerknemersFilter{
     margin-top: 20px;
     width: 2000px;
-    margin-left: 100px;
+    margin-left:100px;
 }
-
-section#WerknemersFilter div {
-    float: left;
+section#WerknemersFilter div{
+    float:left;
 }
-
-section#WerknemersFilter label {
+section#WerknemersFilter label{
     margin-left: 30px;
     margin-top: 5px;
 }
@@ -1258,7 +1252,6 @@ section#WerknemersFilter label {
     background-color: #e0e0e0;
     border: 1px solid #e0e0e0;
 }
-
 /* ----------- Instellingen ----------- */
 
 main#Instellingen h1 {
@@ -1291,40 +1284,33 @@ main#Instellingen section#Tabel table.table {
     width: 70%;
     margin: 0 auto;
 }
-
-#DI_length, #DE_length, #DL_length, #OT_length {
-    display: inline-block;
+#DI_length, #DE_length, #DL_length, #OT_length{
+    display:inline-block;
 }
 
 #DL_wrapper {
     margin-bottom: 50px;
 }
-
-#DI_paginate, #DE_paginate, #DL_paginate, #OT_paginate {
-    display: inline-block;
-    float: right;
+#DI_paginate, #DE_paginate, #DL_paginate, #OT_paginate{
+    display:inline-block;
+float:right;
 }
-
-.bottom {
+.bottom{
     margin: 0 auto;
     width: 70%;
 
 }
-
 .write.icon, .save.icon, .remove.icon {
     color: #3b83c0;
     font-size: 1.5em;
     cursor: pointer;
 }
-
-.ib {
+.ib{
     display: inline-block;
 }
-
-.ibb:hover {
+.ibb:hover{
     cursor: hand;
 }
-
 #Add_Externe_Werknemer {
     margin-top: -20px !important;
     margin-left: 150px;
@@ -1434,6 +1420,7 @@ main#Instellingen section#Filters_Extern {
     margin-top: 20px;
 }*/
 
+
 main#Instellingen_Extern h1 {
     text-align: center;
     margin-top: 190px;
@@ -1491,14 +1478,14 @@ main#Instellingen_Extern section#Filters_Extern {
     margin-top: 20px;
 }
 
-main#Instellingen_Extern section#Filters_Extern p {
+main#Instellingen_Extern section#Filters_Extern p  {
     font-size: 1.5em;
 }
 
 main#Instellingen_Extern section#Toevoegen p {
     margin-left: 290px;
     font-size: 1.5em;
-}
+  }
 
 main#Instellingen_Extern .right {
     float: none;
@@ -1530,7 +1517,7 @@ main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
 
 /* FINISH PAGINA */
 
-.btnverstuur {
+.btnverstuur{
     margin: 20px 0;
     text-align: center;
     background-color: #44c8f5;
@@ -1541,30 +1528,27 @@ main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
     padding: 15px 0;
 }
 
-.finishcontainer {
+.finishcontainer{
     margin: 10px;
 }
 
-.txtbericht {
+.txtbericht{
     margin-top: 20px;
 }
 
-.radiobt {
+.radiobt{
     margin-top: 20px;
 }
 
-.lbl {
+.lbl{
     font-weight: bold;
 }
-
-.picturetable {
+.picturetable{
     width: 100px;
     height: 100px;
 }
-
-.opmaaktabel {
-    width: 70%;
-    margin: 0 auto;
+.opmaaktabel{
+    width: 70%;margin: 0 auto;
 }
 
 #Bedankt {
@@ -1572,7 +1556,6 @@ main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
     margin-top: 50%;
     width: 100%;
 }
-
-.mijnklasse {
-    margin-top: 0px !important;
+.mijnklasse{
+   margin-top: 0px !important;
 }

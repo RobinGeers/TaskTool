@@ -643,6 +643,10 @@ main#Instellingen_Overzicht a#first:active, main#Instellingen_Overzicht a#second
 
 /* ----------- Overzicht takenlijst ----------- */
 
+main#Overzicht_Takenlijst h1.topp {
+    margin-top: 200px !important;
+}
+
 #Grid {
     display: inline-block;
     vertical-align: middle;

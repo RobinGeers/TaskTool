@@ -83,6 +83,7 @@ $mysqli->close(); //connectie sluiten
     <meta charset="UTF-8">
     <title>TaskTool Howest | Instellingen</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
     <link rel="stylesheet" href="../css/icon.min.css">
     <link rel="stylesheet" href="../css/transition.min.css">
     <script src="../js/jquery-2.1.4.min.js"></script>
@@ -123,6 +124,7 @@ $mysqli->close(); //connectie sluiten
 
 </header>
 <main id="Overzicht_Takenlijst" class="hidden">
+    <h1 class="mijnklasse topp">Overzicht takenlijst</h1>
     <div id="Filter1" class="ui floating dropdown labeled icon button">
         <i class="filter icon"></i>
         <span class="text">Filter prioriteit</span>
@@ -175,6 +177,16 @@ $mysqli->close(); //connectie sluiten
                OnKeyup ="LokaalChange(event,this.value)"/>
         <i class="ui search icon"></i>
     </section>
+
+    <section id="Grid">
+        <a href="#">
+            <i id="Weergave_Tabel" class="fa fa-list-alt popup" data-content="Tabel weergave"></i>
+        </a>
+        <a href="../Overzicht_Takenlijst/index.php">
+            <i id="Weergave_Kaartjes" class="fa fa-th-large popup" data-content="Kaartjes weergave"></i>
+        </a>
+
+    </section>
     <div class="clearfix"></div>
 
     <section id="SelectedFilters">
@@ -188,7 +200,6 @@ $mysqli->close(); //connectie sluiten
     </section>
     <div class="clearfix"></div>
 
-    <h1 class="mijnklasse">Overzicht taken</h1>
     <section class="geenmargintop" id="Tabel">
 
         <table id="OT" class="opmaaktabel">
@@ -217,6 +228,25 @@ $mysqli->close(); //connectie sluiten
 </body>
 </html>
 <script>
+
+    document.getElementById("Weergave_Kaartjes").addEventListener("click", function(e){
+        e.preventDefault();
+        $("#Overzicht_Takenlijst").fadeOut(400);
+        newLocation = document.getElementById("Weergave_Kaartjes").parentNode.href;
+        setTimeout(function(){window.location = newLocation; }, 400);
+    }, false);
+
+    $('.popup')
+        .popup({
+            inline   : true,
+            hoverable: true,
+            position : 'bottom left',
+            delay: {
+                show: 100,
+                hide: 100
+            }
+        });
+
 var mnarray=[];
 var mnarray2=[];
 var mnarray3=[];
@@ -376,6 +406,10 @@ function maakitem(id, name, desc,attach){
     div.style.backgroundColor = color;
     div.style.width = "15px";
     div.style.height = "15px";
+    div.style.display = "inline-block";
+    div.style.float = "right";
+    div.style.marginRight = "10px";
+    td3.appendChild(document.createTextNode(prio));
     td3.appendChild(div);
     var td99 = document.createElement("td");
     td99.appendChild(document.createTextNode(klas));
@@ -577,7 +611,7 @@ $mysqli->close();
 <script>
     $(document).ready(function(){
         // Element moet hidden staan voor dat het ingefade wordt
-        $("#Overzicht_Takenlijst").fadeIn(400).removeClass('hidden');
+        $("#Overzicht_Takenlijst").fadeIn(600).removeClass('hidden');
     });
 
 </script>

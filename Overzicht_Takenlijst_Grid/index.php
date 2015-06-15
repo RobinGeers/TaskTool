@@ -214,6 +214,14 @@ $mysqli->close(); //connectie sluiten
     <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de handleiding</p>
 </footer>
 <div class="clearfix"></div>
+<script>
+    $(document).ready(function(){
+    console.log("ok");
+    console.log($("#Overzicht_Takenlijst"));
+        $("#Overzicht_Takenlijst").fadeIn(2000);
+    });
+
+</script>
 </body>
 </html>
 <script>

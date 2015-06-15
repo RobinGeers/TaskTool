@@ -1,19 +1,21 @@
 <?php
 session_start(); // Verplicht als je wilt werken met sessie's
 
-if ($_SERVER["HTTPS"] != "on") { // zet de site om naar https indien het http is MEOT VOOR SECURE VAN DATA
+if($_SERVER["HTTPS"] != "on")
+{ // zet de site om naar https indien het http is MEOT VOOR SECURE VAN DATA
     header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
     exit();
 }
 
-if (isset($_SESSION['loggedin'])) {  // kijkt of er een sessie is
+if(isset($_SESSION['loggedin'])){  // kijkt of er een sessie is
     $ber = $_SESSION['loggedin']; // stop de sessie in een variabele
-} else {
+}else {
     header("Location: ../"); // Sessie bestaat niet je ben tniet ingelogd
 }
 $rol = $_COOKIE["rol"]; // haal de gehashde rol uit de cookie
 $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj'); //connectie tot de database
-if ($mysqli->connect_error) {
+if ($mysqli->connect_error)
+{
     echo "Geen connectie mogelijk met de database";
     return; // error message dat je geen toegang / verbinding hebt met de database ( 500 internal server error )
 }
@@ -23,56 +25,56 @@ $result->bind_param('s', $ber); //voeg de param $ber toe aan de query
 $result->execute(); // voort het prepared sql statement uit
 $result->bind_result($data); //steek het resultaat in een parameter
 $d = array();
-while ($result->fetch()) {
-    array_push($d, $data); //steek de data in een array moest er meer dan 1 zijn ( kan in dit geval niet )
-}
-;
-$ha = md5("exteralayersecuresalt" . $data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
-if ($ha == $rol) {//roll is gelijk aan wat er in de cookie zit
-} else {
+while($result->fetch()){
+    array_push($d,$data); //steek de data in een array moest er meer dan 1 zijn ( kan in dit geval niet )
+};
+$ha =  md5("exteralayersecuresalt".$data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
+if($ha==$rol){//roll is gelijk aan wat er in de cookie zit
+}else{
     header("Location: ../"); // rol is niet juist => hack attempt
 }
 $mysqli->close(); //connectie sluiten
 
 ?>
-    <script>
-        document.addEventListener("DOMContentLoaded", function (event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
-            //Haal alle "div's" op in overzicht die een pagina voorstellen
-            var MD = document.getElementById("first").parentElement;
-            var OT = document.getElementById("second").parentElement;
-            var S = document.getElementById("third").parentElement;
-            var I = document.getElementById("fourth").parentElement;
-            <?php
-            switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via display ) weer welke knoppen ej recht tot hebt
-                case 'Basic':
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
+        //Haal alle "div's" op in overzicht die een pagina voorstellen
+        var MD =  document.getElementById("first").parentElement;
+        var OT =  document.getElementById("second").parentElement;
+        var S =  document.getElementById("third").parentElement;
+        var I =  document.getElementById("fourth").parentElement;
+        <?php
+        switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via display ) weer welke knoppen ej recht tot hebt
+            case 'Basic':
 
-      header("Location: ../Overzicht");
+  header("Location: ../Overzicht");
 
-                        break;
-                    case 'Werkman':
-           header("Location: ../Overzicht");
-                               break;
-                    case 'Onthaal':
-            ?>
-            MD.style.display = "inline-block";
-            OT.style.display = "inline-block";
-            S.style.display = "inline-block";
-            I.style.display = "none";
+                    break;
+                case 'Werkman':
+       header("Location: ../Overzicht");
+                           break;
+                case 'Onthaal':
+        ?>
+        MD.style.display = "inline-block";
+        OT.style.display = "inline-block";
+        S.style.display = "inline-block";
+        I.style.display = "none";
 
-            <?php
-                                break;
-                            case 'Admin':
-                 ?>
-            MD.style.display = "inline-block";
-            OT.style.display = "inline-block";
-            S.style.display = "inline-block";
-            I.style.display = "inline-block";
+        <?php
+                            break;
+                        case 'Admin':
+             ?>
+        MD.style.display = "inline-block";
+        OT.style.display = "inline-block";
+        S.style.display = "inline-block";
+        I.style.display = "inline-block";
 
-            <?php
-                                        break;
-                                }
-                            ?>
+        <?php
+                                    break;
+                            }
+                        ?>
 
+<<<<<<< HEAD
         });
     </script>
     <!DOCTYPE html>
@@ -186,6 +188,8 @@ $mysqli->close(); //connectie sluiten
                             }
                         ?>
 
+=======
+>>>>>>> parent of 223b76b... filters werken
     });
 </script>
 <!DOCTYPE html>
@@ -195,7 +199,10 @@ $mysqli->close(); //connectie sluiten
     <meta charset="UTF-8">
     <title>TaskTool Howest | Instellingen</title>
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,300' rel='stylesheet' type='text/css'>
+<<<<<<< HEAD
     <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css">
+=======
+>>>>>>> parent of 223b76b... filters werken
     <link rel="stylesheet" href="../css/icon.min.css">
     <link rel="stylesheet" href="../css/transition.min.css">
     <script src="../js/jquery-2.1.4.min.js"></script>
@@ -235,8 +242,12 @@ $mysqli->close(); //connectie sluiten
     <div class="clearfix"></div>
 
 </header>
+<<<<<<< HEAD
 <main id="Overzicht_Takenlijst" class="hidden">
     <h1 class="mijnklasse topp">Overzicht takenlijst</h1>
+=======
+<main id="Overzicht_Takenlijst">
+>>>>>>> parent of 223b76b... filters werken
     <div id="Filter1" class="ui floating dropdown labeled icon button">
         <i class="filter icon"></i>
         <span class="text">Filter prioriteit</span>
@@ -256,33 +267,39 @@ $mysqli->close(); //connectie sluiten
             <div onclick="PriorityChange('Zeer Dringend')" class="item">
                 <div class="ui red empty circular label"></div>
                 Zeer Dringend
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 223b76b... filters werken
             </div>
         </div>
+    </div>
 
-        <!-- Filter op Werknemer
-        <div id="Filter2" class="ui floating dropdown labeled icon button">
-            <i class="filter icon"></i>
-            <span class="text">Filter werknemer</span>
-            <div class="menu" id="Filter_Worker">
-                <div value="Default" class="header">
-                    <i class="tags icon"></i>
-                    Werknemer
-                </div>
+    <!-- Filter op Werknemer
+    <div id="Filter2" class="ui floating dropdown labeled icon button">
+        <i class="filter icon"></i>
+        <span class="text">Filter werknemer</span>
+        <div class="menu" id="Filter_Worker">
+            <div value="Default" class="header">
+                <i class="tags icon"></i>
+                Werknemer
             </div>
         </div>
-    !-->
-        <!--Oude filter op campussen!-->
-        <select class="ui search dropdown" name="Filter_Campussen" id="Filter_Campussen"
-                onchange="CampusChange(this.value)">
-            <option value="Default">Campus</option>
-        </select>
+    </div>
+!-->
+    <!--Oude filter op campussen!-->
+    <select class="ui search dropdown" name="Filter_Campussen" id="Filter_Campussen" onchange="CampusChange(this.value)">
+        <option value="Default">Campus</option>
+    </select>
 
 
-        <section id="Filters_Zoek">
-            <!--<input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."/>!-->
-            <input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.." OnKeyup="TitelChange
+
+
+    <section id="Filters_Zoek">
+        <!--<input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.."/>!-->
+        <input type="text" name="Filter_Taak" id="Filter_Taak" placeholder="Titel taak.." OnKeyup="TitelChange
                 (this.value)"/>
+<<<<<<< HEAD
             <i class="ui search icon"></i>
             <input type="text" name="Filter_Lokaal" id="Filter_Lokaal" placeholder="Lokaal.."
                    OnKeyup="LokaalChange(event,this.value)"/>
@@ -298,11 +315,14 @@ $mysqli->close(); //connectie sluiten
                     <label></label>
                 </div>
 
+=======
+>>>>>>> parent of 223b76b... filters werken
         <i class="ui search icon"></i>
         <input type="text" name="Filter_Lokaal" id="Filter_Lokaal" placeholder="Lokaal.."
                OnKeyup ="LokaalChange(event,this.value)"/>
         <i class="ui search icon"></i>
     </section>
+<<<<<<< HEAD
 
     <section id="Grid">
         <a href="#">
@@ -313,6 +333,8 @@ $mysqli->close(); //connectie sluiten
         </a>
 
     </section>
+=======
+>>>>>>> parent of 223b76b... filters werken
     <div class="clearfix"></div>
 
     <section id="SelectedFilters">
@@ -320,50 +342,24 @@ $mysqli->close(); //connectie sluiten
             <h3>Geselecteerde Filters: </h3>
             <div id="TitelFilter" onclick="TitelRemove(this)">
                 <label></label>
+<<<<<<< HEAD
 >>>>>>> origin/master
+=======
+>>>>>>> parent of 223b76b... filters werken
             </div>
+        </div>
 
-        </section>
-        <div class="clearfix"></div>
-
-        <h1 class="mijnklasse">Overzicht taken</h1>
-        <section class="geenmargintop" id="Tabel">
-
-            <table id="OT" class="opmaaktabel">
-                <thead>
-                <tr>
-                    <th>Onderwerp</th>
-                    <th>Omschrijving</th>
-                    <th>Prioriteit</th>
-                    <th>Klas</th>
-                    <th>Bijlagen</th>
-                    <th>Bewerk</th>
-                </tr>
-                </thead>
-                <tbody id="OverzichtTaken" class="display" cellspacing="0" width="70%">
-
-                </tbody>
-            </table>
-
-        </section>
-    </main>
+    </section>
     <div class="clearfix"></div>
-    <footer>
-        <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a>
-            de handleiding</p>
-    </footer>
-    <div class="clearfix"></div>
-    <script>
-        $(document).ready(function () {
-            console.log("ok");
-            console.log($("#Overzicht_Takenlijst"));
-            $("#Overzicht_Takenlijst").fadeIn(2000);
-        });
 
+<<<<<<< HEAD
     </script>
     </body>
     </html>
     <script>
+=======
+    <h1 class="mijnklasse">Overzicht taken</h1>
+>>>>>>> parent of 223b76b... filters werken
     <section class="geenmargintop" id="Tabel">
 
         <table id="OT" class="opmaaktabel">
@@ -389,6 +385,7 @@ $mysqli->close(); //connectie sluiten
     <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de handleiding</p>
 </footer>
 <div class="clearfix"></div>
+<<<<<<< HEAD
 </body>
 </html>
 <script>
@@ -411,6 +408,19 @@ $mysqli->close(); //connectie sluiten
             }
         });
 
+=======
+<script>
+    $(document).ready(function(){
+    console.log("ok");
+    console.log($("#Overzicht_Takenlijst"));
+        $("#Overzicht_Takenlijst").fadeIn(2000);
+    });
+
+</script>
+</body>
+</html>
+<script>
+>>>>>>> parent of 223b76b... filters werken
 var mnarray=[];
 var mnarray2=[];
 var mnarray3=[];
@@ -420,58 +430,58 @@ var mnarray3=[];
             transition: 'drop'
         })
     ;
-    window.onbeforeunload = confirmExit;
-    function confirmExit() {
-        if (formmodified == 1) {
-            return "Je hebt je bewerkte informatie nog niet opgeslaan. Bent u zeker dat u de pagina wilt verlaten?";
+window.onbeforeunload = confirmExit;
+function confirmExit() {
+    if (formmodified == 1) {
+        return "Je hebt je bewerkte informatie nog niet opgeslaan. Bent u zeker dat u de pagina wilt verlaten?";
+    }
+}
+
+oTable = null;
+ooTable = null;
+oooTable = null;
+
+takenlist = "5506dbf5b32e668bde0de1b4";
+var APP_KEY = '23128bd41978917ab127f2d9ed741385';
+var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
+function afmelden(a){
+    console.log("test");
+
+    $.ajax({
+        url: '../logout.php',
+        dataType: 'html',
+        success: function(data){
+            //data returned from php
+            window.open("../","_self");
         }
-    }
-
-    oTable = null;
-    ooTable = null;
-    oooTable = null;
-
-    takenlist = "5506dbf5b32e668bde0de1b4";
-    var APP_KEY = '23128bd41978917ab127f2d9ed741385';
-    var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
-    function afmelden(a) {
-        console.log("test");
-
-        $.ajax({
-            url: '../logout.php',
-            dataType: 'html',
-            success: function (data) {
-                //data returned from php
-                window.open("../", "_self");
-            }
-        });
-    }
-    var mijnteller = 0;
+    });
+}
+var mijnteller = 0;
 
 
     //Haal alle kaartjes op van een bepaalde lijst
-    Trello.get("/lists/" + takenlist + "?fields=name&cards=open&card_fields=name&token=" + application_token, function (cards) {
+    Trello.get("/lists/"+takenlist+"?fields=name&cards=open&card_fields=name&token="+application_token, function(cards) {
 
         //console.log(cards["cards"]);
         var CardId = [];
 //overloop alle kaarten die we terug krijgen
-        console.log(cards["cards"].length);
-        var mijnstopsignaal = cards["cards"].length;
-        $.each(cards["cards"], function (ix, card) {
+console.log(cards["cards"].length);
+       var mijnstopsignaal = cards["cards"].length;
+        $.each(cards["cards"], function(ix, card) {
             //console.log(card.id);
 
-            var full = [];
-            var tempydesc = [];
-            var tempyatt = [];
+     var full = [];
+     var tempydesc = [];
+     var tempyatt = [];
 
-//      
-            Trello.get("/cards/" + card.id + "?fields=name,desc&attachments=true&token=" + application_token, function (carddesc) {
-                //  console.log(carddesc);
+
+            Trello.get("/cards/"+card.id+"?fields=name,desc&attachments=true&token="+application_token,function(carddesc) {
+              //  console.log(carddesc);
                 var tempy = [];
-                $.each(carddesc, function (ix, card) {
+                $.each(carddesc, function(ix, card) {
                     //console.log(ix);
-                    //  console.log(card);
-                    switch (ix) {
+                  //  console.log(card);
+                    switch(ix){
                         case "id":
                             tempy.push(card);
                             break;
@@ -491,25 +501,25 @@ var mnarray3=[];
                     }
 
                 });
-                maakitem(tempy[0], tempy[1], tempy[2], tempy[3]);
+maakitem(tempy[0],tempy[1],tempy[2],tempy[3]);
                 mijnteller++;
-                if (mijnteller == mijnstopsignaal) {
+                if(mijnteller==mijnstopsignaal){
                     console.log("gedaan");
                     $('#OT')
-                        .removeClass('display')
+                        .removeClass( 'display' )
                         .addClass('table table-striped table-bordered');
 
                     ooTable = $('#OT').DataTable({
                         "dom": '<"top">rt<"bottom"lp><"clear">'
                     });
-                    $(function () {
-                        $("#Filter_Lokaal").autocomplete({
+                    $(function() {
+                        $( "#Filter_Lokaal" ).autocomplete({
                             source: mnarray
 
                         });
-                        $.each(mnarray2, function (ix, campussen) {
+                        $.each(mnarray2,function(ix,campussen){
                             var option = document.createElement("OPTION");
-                            option.setAttribute("value", campussen);
+                            option.setAttribute("value",campussen);
                             option.innerHTML = campussen;
                             document.getElementById("Filter_Campussen").appendChild(option);
                         });
@@ -521,18 +531,14 @@ var mnarray3=[];
         console.log("ja");
     });
 
-    function maakitem(id, name, desc, attach) {
-        var x = desc.split("/n@");
-        var de = x[0];
-        var prio = x[1];
-        var eml = x[2];
-        var klas = x[3];
+function maakitem(id, name, desc,attach){
+    var x = desc.split("/n@");
+    var de = x[0];
+    var prio = x[1];
+    var eml = x[2];
+    var klas = x[3];
 
-        if (mnarray != null) {
-            if (mnarray.indexOf(klas) == -1) {
-                mnarray.push(klas);
-            }
-
+<<<<<<< HEAD
         } else {
 
     var color;
@@ -546,20 +552,23 @@ var mnarray3=[];
             break;
     }
 
+=======
+>>>>>>> parent of 223b76b... filters werken
     if(mnarray!=null){
         if(mnarray.indexOf(klas)==-1){
             mnarray.push(klas);
         }
-        var camp = klas.split(".")[0];
-        if (mnarray2 != null) {
-            if (mnarray2.indexOf(camp) == -1) {
-                mnarray2.push(camp);
-            }
 
-        } else {
+    }else{
+        mnarray.push(klas);
+    }
+    var camp = klas.split(".")[0];
+    if(mnarray2!=null){
+        if(mnarray2.indexOf(camp)==-1){
             mnarray2.push(camp);
         }
 
+<<<<<<< HEAD
 
         var tr = document.createElement("tr");
         tr.id = id;
@@ -594,6 +603,12 @@ var mnarray3=[];
         mnarray2.push(camp);
     }
 
+=======
+    }else{
+        mnarray2.push(camp);
+    }
+
+>>>>>>> parent of 223b76b... filters werken
     var tr =  document.createElement("tr");
     tr.id = id;
     var td1 = document.createElement("td");
@@ -601,6 +616,7 @@ var mnarray3=[];
     var td2 = document.createElement("td");
     td2.appendChild(document.createTextNode(de));
     var td3 = document.createElement("td");
+<<<<<<< HEAD
     //td3.appendChild(document.createTextNode(prio));
     var div = document.createElement("div");
     div.style.borderRadius = "10px";
@@ -612,6 +628,9 @@ var mnarray3=[];
     div.style.marginRight = "10px";
     td3.appendChild(document.createTextNode(prio));
     td3.appendChild(div);
+=======
+    td3.appendChild(document.createTextNode(prio));
+>>>>>>> parent of 223b76b... filters werken
     var td99 = document.createElement("td");
     td99.appendChild(document.createTextNode(klas));
 
@@ -631,64 +650,74 @@ console.log(at);
         img.src =at["url"];
      img.className = "picturetable";
         td100.appendChild(img);
+<<<<<<< HEAD
         });
         if (doe == 0) {
+=======
+>>>>>>> parent of 223b76b... filters werken
+
+    });
+    if(doe==0){
 
 
-            td100.appendChild(document.createTextNode("geen foto"));
+        td100.appendChild(document.createTextNode("geen foto"));
 
-        }
-        tr.appendChild(td100);
+    }
+    tr.appendChild(td100);
 //}
-        var td4 = document.createElement("td");
-        var iWrite = document.createElement("i");
+    var td4 = document.createElement("td");
+    var iWrite = document.createElement("i");
 
-        iWrite.className = "write icon";
-        iWrite.addEventListener("click", function () {
-            dosomething(tr);
-            formmodified = 1;
-        });
+    iWrite.className="write icon";
+    iWrite.addEventListener("click",function() {
+        dosomething(tr);
+        formmodified = 1;
+    });
 
-        td4.appendChild(iWrite);
-        tr.appendChild(td4);
+    td4.appendChild(iWrite);
+    tr.appendChild(td4);
 
-        if (ooTable != null) {
-            ooTable.row.add(tr).draw();
-        } else {
-            var table = document.getElementById("OverzichtTaken");
-            table.appendChild(tr);
+    if(ooTable!=null) {
+        ooTable.row.add(tr).draw();
+    }else{
+        var table = document.getElementById("OverzichtTaken");
+        table.appendChild(tr);
+    }
+}
+
+    var FilterSection=document.getElementById("SelectedFilters");
+    function PriorityChange(value)
+    {
+        if(value != "Default")
+        {
+            makeDiv(value,"P");
+          //  Filters(value,"P");
+        }
+
+    }
+    function WorkerChange(value)
+    {
+        if(value != "Default")
+        {
+            makeDiv(value,"W");
+          //  Filters(value,"W");
         }
     }
-
-    var FilterSection = document.getElementById("SelectedFilters");
-    function PriorityChange(value) {
-        if (value != "Default") {
-            makeDiv(value, "P");
-            filterglobaal();
-            //  Filters(value,"P");
-        }
-
-    }
-    function WorkerChange(value) {
-        if (value != "Default") {
-            makeDiv(value, "W");
-            filterglobaal();
-            //  Filters(value,"W");
-        }
-    }
-    function CampusChange(value) {
-        if (value != "Default") {
+    function CampusChange(value)
+    {
+        if(value != "Default")
+        {
             makeDiv(value, "C");
-            filterglobaal();
-            //  Filters(value,"C");
+          //  Filters(value,"C");
         }
     }
 
-    function makeDiv(name, idprefix) {
+    function makeDiv(name,idprefix)
+    {
         var div = document.createElement("DIV");
-        div.setAttribute("class", "");
-        div.setAttribute("Onclick", "DeleteFilter(this)");
-        div.setAttribute("id", idprefix + "/" + name);
+        div.setAttribute("class","");
+        div.setAttribute("Onclick","DeleteFilter(this)");
+        div.setAttribute("id",idprefix+"/"+name);
 
         var label = document.createElement("LABEL");
         label.innerHTML = name;
@@ -703,78 +732,56 @@ console.log(at);
         FilterSection.appendChild(div);
 
     }
-    function filterglobaal() {
-        var filt = document.getElementById("SelectedFilters");
-        //document.getElementById("SelectedFilters").childNodes[3].id.split("/")[1];
-        console.log(filt.childNodes);
-        var a = "";
-        $.each(filt.childNodes, function (ix, c) {
-
-            if (ix <= 2) {
-            } else {
-                // console.log("YEUY");
-                //  console.log(c);
-                var id = c.id.split("/")[1];
-if(id=="Dringend"){id="Dringend ";}
-                if (a == "") {
-                    a = id;
-                } else {
-                    a = a + "|" + id;
-                }
-
-            }
-
-        });
-        console.log(a);
-        //  a = "Niet Dringend|Dringend|RSS|GKG";
-        ooTable.search(a, true, true).draw();
-    }
-    function TitelChange(value) {
+function filterglobaal(){
+    document.getElementById();
+}
+    function TitelChange(value)
+    {
         var TitelFilter = document.getElementById("TitelFilter");
         TitelFilter = TitelFilter.firstChild.nextSibling;
         TitelFilter.innerText = value;
-        //  Filters("niks","/");
-        filterglobaal();
+      //  Filters("niks","/");
 
     }
-    function TitelRemove(element) {
+    function TitelRemove(element)
+    {
         //console.log(element.firstChild.nextSibling);
-        element.firstChild.nextSibling.innerHTML = "";
+        element.firstChild.nextSibling.innerHTML ="";
         //Filters("niks","/");
-        filterglobaal();
     }
 
-    function LokaalChange(event, value) {
+    function LokaalChange(event,value)
+    {
         var code = event.keyCode;
-        if (code == 13) {
+        if(code == 13)
+        {
             //console.log(value);
-            makeDiv(value, "L");
-            filterglobaal();
-            // Filters(value,"L");
+            makeDiv(value,"L");
+           // Filters(value,"L");
         }
 
 
     }
-    function DeleteFilter(element) {
+    function DeleteFilter(element)
+    {
         console.log(element);
         element.parentNode.removeChild(element);
-        filterglobaal();
         //   Filters(element);
         var e = element.id;
         var x = e.split("/");
-        /*
-         $.ajax({
-         url: '../CookieDeleter.php?val='+x[1],
-         dataType: 'html',
-         success: function(data){
-         Filters("niks","/");
-         //data returned from php
-         // window.open("../","_self");
-         }
-         });*/
+/*
+        $.ajax({
+            url: '../CookieDeleter.php?val='+x[1],
+            dataType: 'html',
+            success: function(data){
+                Filters("niks","/");
+                //data returned from php
+                // window.open("../","_self");
+            }
+        });*/
     }
 
-    </script>
+     </script>
 <?php
 //connectie maken met db(mysql)
 //local
@@ -782,20 +789,21 @@ if(id=="Dringend"){id="Dringend ";}
 //$mysqli = new mysqli('mysqlstudent','cedriclecat','ooDohQuuo2uh','cedriclecat');
 //student howest
 $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
-if ($mysqli->connect_error) {
+if ($mysqli->connect_error)
+{
     echo "Geen connectie mogelijk met de database";
 }
 $data = array();
 ?>
 
 
-    <script>    var arraymetlokalen = [];
-        var campussen = []</script>
+<script>    var arraymetlokalen =[]; var campussen=[]</script>
 <?php
 //alles ophalen en in array steken
 //echo 'h';
 $result = $mysqli->query("SELECT NAME FROM klassen");
-while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
+while($row = $result->fetch_array(MYSQLI_ASSOC))
+{
     ?>
     <script>
         //    console.log("h");
@@ -803,12 +811,16 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
         arraymetlokalen.push(lokaal);
         var campus = lokaal.split(".");
         //console.log(campus[0]);
-        if (doesExist(campus[0])) {
+        if(doesExist(campus[0]))
+        {
             campussen.push(campus[0]);
         }
-        function doesExist(name) {
-            for (var i = 0; i < campussen.length; i++) {
-                if (name == campussen[i]) {
+        function doesExist(name)
+        {
+            for(var i = 0;i<campussen.length;i++)
+            {
+                if(name == campussen[i])
+                {
                     return false;
                 }
             }

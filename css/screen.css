@@ -1554,8 +1554,8 @@ main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
 
 #Bedankt {
     margin: 0 auto;
-    margin-top: 300px;
-    width: 20%;
+    margin-top: 50%;
+    width: 100%;
 }
 .mijnklasse{
    margin-top: 0px !important;

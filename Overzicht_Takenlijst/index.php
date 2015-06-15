@@ -356,8 +356,7 @@ var mnarray2=[];
                 show: 100,
                 hide: 100
             }
-        })
-    ;
+        });
 
     function afmelden(a){
         console.log("test");

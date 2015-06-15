@@ -91,9 +91,8 @@ nav ul li ul li a:hover {
 }
 
 header button {
-    margin-top: 60px;
+    margin-top: 66px;
     background-color: #47AAFF;
-    border-radius: 4px;
     border: 1px solid #47AAFF;
     width: 100px;
     padding: 10px 0;
@@ -643,6 +642,10 @@ main#Instellingen_Overzicht a#first:active, main#Instellingen_Overzicht a#second
 
 /* ----------- Overzicht takenlijst ----------- */
 
+main#Overzicht_Takenlijst h1.topp {
+    margin-top: 200px !important;
+}
+
 #Grid {
     display: inline-block;
     vertical-align: middle;
@@ -651,6 +654,10 @@ main#Instellingen_Overzicht a#first:active, main#Instellingen_Overzicht a#second
 
 #Grid a {
     text-decoration: none;
+}
+
+.hidden {
+    display: none;
 }
 
 #Grid i {
@@ -1178,12 +1185,13 @@ section#Werknemers div:nth-child(2) {
 
 .Checkbox_Werknemer {
     margin-right: 10px;
-    background-color: #ffffff;
     border-radius: 4px;
-    border: 1px solid #ffffff;
-    width: 100px;
+    width: 150px;
     margin-bottom: 25px;
     padding: 10px 10px 10px 3px;
+    line-height: 20px;
+    text-align: center;
+    vertical-align: middle;
 }
 
 .Checkbox_Werknemer:hover {
@@ -1198,9 +1206,6 @@ section#Werknemers div:nth-child(2) {
 }
 
 section#Werknemers label {
-    padding-left: 10px;
-    padding-top: 15px;
-    padding-bottom: 10px;
     cursor: pointer;
 }
 
@@ -1548,8 +1553,8 @@ main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
 
 #Bedankt {
     margin: 0 auto;
-    margin-top: 300px;
-    width: 20%;
+    margin-top: 50%;
+    width: 100%;
 }
 .mijnklasse{
    margin-top: 0px !important;

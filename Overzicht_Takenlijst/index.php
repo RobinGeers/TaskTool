@@ -260,9 +260,13 @@ foreach($data as $d){
     </section>
 
     <section id="Grid">
-        <i class="fa fa-list-alt popup" data-content="Tabel weergave"></i>
+        <a href="../Overzicht_Takenlijst_Grid/index.php">
+            <i id="Weergave_Tabel" class="fa fa-list-alt popup" data-content="Tabel weergave"></i>
+        </a>
+        <a href="#">
+            <i id="Weergave_Kaartjes" class="fa fa-th-large popup" data-content="Kaartjes weergave"></i>
+        </a>
 
-        <i class="fa fa-th-large popup" data-content="Kaartjes weergave"></i>
     </section>
     <div class="clearfix"></div>
     <!-- Checkbox die dynamisch aangemaakt zal worden
@@ -325,6 +329,15 @@ foreach($data as $d){
 </footer>
 <div class="clearfix"></div>
 <script>
+
+    document.getElementById("Weergave_Tabel").addEventListener("click", function(e){
+        e.preventDefault();
+        $("#Overzicht_Takenlijst").fadeOut(600);
+        newLocation = document.getElementById("Weergave_Tabel").parentNode.href;
+        setTimeout(function(){window.location = newLocation; }, 600);
+    }, false);
+
+
 var mnarray=[];
 var mnarray2=[];
     $('.dropdown')

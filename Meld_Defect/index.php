@@ -230,10 +230,12 @@ print $naamvanfoto;
     ?>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
+        // Voeg achteraan zeker nog eens de addclass scrolling toe om de height aan te passen
         $( document ).ready(function() {
             $('.modal')
                 .modal('setting', 'transition', 'scale')
                 .modal('show');
+            $('.modal').addClass("scrolling");
         });
     </script>
 <?php
@@ -481,7 +483,7 @@ $mysqli->close(); //connectie sluiten
             <div class="clearfix"></div>
         </form>
 
-        <div class="ui test modal transition" style="z-index: 100000;">
+        <div id="Popup_MeldDefect" class="ui test modal transition" style="z-index: 100000;">
             <!-- TODO: Close icon zoeken !-->
             <i id="close_Popup" class="close icon"></i>
 
@@ -572,6 +574,7 @@ $mysqli->close(); //connectie sluiten
             document.getElementById("priori").value = "Zeer dringend";
         }
     }
+    $('.modal').addClass("scrolling");
 </script>
 
 </body>

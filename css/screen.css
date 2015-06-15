@@ -238,9 +238,15 @@ section#Login input[type="submit"]:hover {
 
 /* ----------- Meld Defect Formulier ----------- */
 
+#Popup_MeldDefect {
+    margin-top: 300px !important;
+}
+
 p#Ingelogd {
     color: white;
     margin-top: 80px;
+    position: relative;
+    left: 30px;
 }
 
 p#Ingelogd span {

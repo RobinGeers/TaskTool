@@ -560,8 +560,8 @@ $mysqli->close(); //connectie sluiten
         var prioriteit = document.getElementById("amount").value;
 
         if (prioriteit <= 40) {
-            document.getElementById("prior").innerHTML = "Niet dringend";
-            document.getElementById("priori").value = "Niet dringend";
+            document.getElementById("prior").innerHTML = "Niet Dringend";
+            document.getElementById("priori").value = "Niet Dringend";
         }
         else if (prioriteit > 40 && prioriteit <= 70) {
             document.getElementById("prior").innerHTML = "Dringend";

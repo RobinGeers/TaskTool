@@ -213,7 +213,7 @@ foreach($data as $d){
                 <i class="tags icon"></i>
                 Prioriteit
             </div>
-            <div onclick="PriorityChange('Niet dringend')" class="item">
+            <div onclick="PriorityChange('Niet Dringend')" class="item">
                 <div class="ui green empty circular label"></div>
                 Niet dringend
             </div>
@@ -1115,7 +1115,7 @@ console.log(list);
         for (var i = 0; i < priorityfilters.length; i++) {
 
             var priority;
-            if (priorityfilters[i].id.split("/")[1] == "Niet dringend") {
+            if (priorityfilters[i].id.split("/")[1] == "Niet Dringend") {
                 priority = "liBorderL";
             }
             if (priorityfilters[i].id.split("/")[1] == "Dringend") {

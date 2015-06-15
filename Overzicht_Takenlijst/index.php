@@ -923,7 +923,7 @@ var carddesc = cardinfo.desc;
                         mnarray.push(klas);
                     }
                     var camp = klas.split(".")[0];
-                    if(Z!=null){
+                    if(mnarray2=null){
                         if(mnarray2.indexOf(camp)==-1){
                             mnarray2.push(camp);
                         }

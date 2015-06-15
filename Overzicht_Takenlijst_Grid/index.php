@@ -464,7 +464,9 @@ console.log(at);
         FilterSection.appendChild(div);
 
     }
-
+function filterglobaal(){
+    document.getElementById();
+}
     function TitelChange(value)
     {
         var TitelFilter = document.getElementById("TitelFilter");

@@ -527,7 +527,7 @@ $mysqli->close(); //connectie sluiten
             hours = Math.floor((minutes /60))%24;
             days = Math.floor((minutes /60)/24);
 
-            return "Days:"+days+"  hours:" + hours + "  minutes:"+minutezz;
+            return "Dagen: "+days+"  uren: " + hours + "  minuten: "+minutezz;
 
         }
 

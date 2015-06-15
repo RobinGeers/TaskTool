@@ -50,11 +50,11 @@ function CountTimes(base,array)
     for(var i = 0;i<base.length;i++)
     {
         var returnvalue = finddouble(base[i],array);
-        console.log(returnvalue,base.length);
+        //console.log(returnvalue,base.length);
          if(returnvalue<= -1)
         {
             var temp=[base[i],1];
-            console.log(temp);
+            //console.log(temp);
             array.push(temp)
         }
         else

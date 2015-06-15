@@ -176,32 +176,32 @@ $mysqli->close(); //connectie sluiten
                     <th>Werknemers</th>
                     <th>Gemiddelde reactietijd</th>
                     <th>Gemiddelde doorlooptijd</th>
-                    <th>Prestatie index</th>
+
                 </tr>
                 </thead>
                 <tr>
                     <th>Bennie</th>
                     <td>2 uur</td>
                     <td>1 dag</td>
-                    <td>75%</td>
+
                 </tr>
                 <tr>
                     <th>Alain</th>
                     <td>2 uur</td>
                     <td>1 dag</td>
-                    <td>75%</td>
+
                 </tr>
                 <tr>
                     <th>Rik</th>
                     <td>2 uur</td>
                     <td>1 dag</td>
-                    <td>75%</td>
+
                 </tr>
                 <tr>
                     <th>Jef</th>
                     <td>2 uur</td>
                     <td>1 dag</td>
-                    <td>75%</td>
+
                 </tr>
             </table>
         </section>
@@ -329,7 +329,7 @@ $mysqli->close(); //connectie sluiten
                                                 StartTimes.push(descpart.split("@")[1]);
                                                 temp.push(descpart.split("@")[1]+"@"+descpart.split("@")[2]);
                                             }
-                                            if(descpart.split("@")[0] == "DT")
+                                            if(descpart.split("@")[0] == "DF")
                                             {
                                                 FinishTimes.push(descpart.split("@")[1]);
                                                 temp.push(descpart.split("@")[1]+"@"+descpart.split("@")[2]);
@@ -410,7 +410,10 @@ $mysqli->close(); //connectie sluiten
                 });
             }
 
+         function WorkerTabel()
+         {
 
+         }
          function PriorityTabel()
          {
              var nd = [];
@@ -475,7 +478,7 @@ $mysqli->close(); //connectie sluiten
 
 
 
-                    if(starttime[0] =="Niet dringend")
+                    if(starttime[0] =="Niet Dringend")
                     {nd.push(totaltime);}
                     else if(starttime[0] =="Dringend")
                     {d.push(totaltime);}

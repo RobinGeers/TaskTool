@@ -402,12 +402,28 @@ foreach($data as $d){
                 var naam = unfnaam[0];
 
                 var now = new Date();
-                var date =now.getFullYear()  + " " + now.getMonth() + " " + now.getDate();
+                var date =now.getFullYear()  + " " + (now.getMonth()+1) + " " + now.getDate();
                 var time = now.getHours() + ":" + now.getMinutes();
+
 
                 var niewedescription = cardinfo.desc + "/n@N@" + naam + "/n@DT@" + date + "@" + time;
 
                 Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + niewedescription);
+            });
+        }
+        if(newtarget.parentNode.id == "Voltooid")
+        {
+
+            var now = new Date();
+            var date =now.getFullYear()  + " " + (now.getMonth()+1) + " " + now.getDate();
+            var time = now.getHours() + ":" + now.getMinutes();
+
+
+            Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
+
+                var niewedescription = cardinfo.desc +"/n@DF@" + date + "@" + time;
+                Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + niewedescription);
+
             });
         }
         else

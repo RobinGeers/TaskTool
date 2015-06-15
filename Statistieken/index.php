@@ -219,363 +219,358 @@ $mysqli->close(); //connectie sluiten
 </body>
 </html>
 <script>
-    function afmelden(a) {
+function afmelden(a) {
 
 
-        $.ajax({
-            url: '../logout.php',
-            dataType: 'html',
-            success: function (data) {
-                //data returned from php
-                window.open("../", "_self");
+    $.ajax({
+        url: '../logout.php',
+        dataType: 'html',
+        success: function (data) {
+            //data returned from php
+            window.open("../", "_self");
+        }
+    });
+}
+
+//trello
+var APP_KEY = '23128bd41978917ab127f2d9ed741385';
+var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
+var workers = [];
+var workerId = [];
+var workersindesc = [];
+var StartTimes = [];
+var FinishTimes = [];
+
+
+var doorlooppriority = [];
+var doorLoopWorkers = [];
+$(document).ready(GetWorkers);
+function GetWorkers() {
+    Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token=" + application_token, function (lists) {
+
+        var werknemers = document.getElementById("WerkerSelection");
+        $.each(lists["lists"], function (ix, list) {
+            //workers
+            if (list.name == "Taken" && list.name == "Voltooid" && list.name == "On hold") {
+                /*  Trello.get("/lists/"+list.id+"?fields=name&cards=open&card_fields=name&token" +
+                 "="+application_token, function(cards) {
+
+                 $.each(cards["cards"], function(ix, card){
+
+                 Trello.get("/cards/"+card.id+"?fields=desc&token="+application_token,function(cardinfo)
+                 {
+
+                 var descsplilt = cardinfo.desc.split("/n@");
+                 $.each(descsplilt,function(ix,descpart){
+
+                 if(descpart.split("@")[0] == "DT")
+                 {
+                 FinishTimes.push(descpart.split("@")[1]);
+                 }
+
+                 });
+
+                 });
+                 });
+
+
+                 });*/
+
+
             }
-        });
-    }
+            if (list.name == "Voltooid") {
+                Trello.get("/lists/" + list.id + "?fields=name&cards=open&card_fields=name&token" +
+                "=" + application_token, function (cards) {
 
-    //trello
-    var APP_KEY = '23128bd41978917ab127f2d9ed741385';
-    var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
-    var workers = [];
-    var workerId = [];
-    var workersindesc = [];
-    var StartTimes = [];
-    var FinishTimes = [];
+                    $.each(cards["cards"], function (ix, card) {
 
+                        Trello.get("/cards/" + card.id + "?fields=desc&token=" + application_token, function (cardinfo) {
 
-    var doorlooppriority = [];
-    var doorLoopWorkers = [];
-    $(document).ready(GetWorkers);
-    function GetWorkers() {
-        Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token=" + application_token, function (lists) {
+                            var temp = [];
+                            var tempWorkerTabel = [];
 
-            var werknemers = document.getElementById("WerkerSelection");
-            $.each(lists["lists"], function (ix, list) {
-                //workers
-                if (list.name == "Taken" && list.name == "Voltooid" && list.name == "On hold") {
-                    /*  Trello.get("/lists/"+list.id+"?fields=name&cards=open&card_fields=name&token" +
-                     "="+application_token, function(cards) {
+                            var descsplilt = cardinfo.desc.split("/n@");
+                            temp.push(descsplilt[1]);
+                            $.each(descsplilt, function (ix, descpart) {
 
-                     $.each(cards["cards"], function(ix, card){
-
-                     Trello.get("/cards/"+card.id+"?fields=desc&token="+application_token,function(cardinfo)
-                     {
-
-                     var descsplilt = cardinfo.desc.split("/n@");
-                     $.each(descsplilt,function(ix,descpart){
-
-                     if(descpart.split("@")[0] == "DT")
-                     {
-                     FinishTimes.push(descpart.split("@")[1]);
-                     }
-
-                     });
-
-                     });
-                     });
-
-
-                     });*/
-
-
-                }
-                if (list.name == "Voltooid") {
-                    Trello.get("/lists/" + list.id + "?fields=name&cards=open&card_fields=name&token" +
-                    "=" + application_token, function (cards) {
-
-                        $.each(cards["cards"], function (ix, card) {
-
-                            Trello.get("/cards/" + card.id + "?fields=desc&token=" + application_token, function (cardinfo) {
-
-                                var temp = [];
-                                var tempWorkerTabel = [];
-
-                                var descsplilt = cardinfo.desc.split("/n@");
-                                temp.push(descsplilt[1]);
-                                $.each(descsplilt, function (ix, descpart) {
-
-                                    if (descpart.split("@")[0] == "N") {
-                                        //console.log(descpart.split("@")[1]);
-                                        workersindesc.push(descpart.split("@")[1]);
-                                        tempWorkerTabel.push(descpart.split("@")[1]);
-                                    }
-                                    if (descpart.split("@")[0] == "T") {
-                                        //console.log(descpart.split("@")[1]);
-                                        StartTimes.push(descpart.split("@")[1]);
-                                        temp.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
-                                        tempWorkerTabel.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
-                                    }
-                                    if (descpart.split("@")[0] == "DT") {
-                                        tempWorkerTabel.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
-                                    }
-                                    if (descpart.split("@")[0] == "DF") {
-                                        FinishTimes.push(descpart.split("@")[1]);
-                                        temp.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
-                                        tempWorkerTabel.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
-                                    }
-
-                                });
-                                doorlooppriority.push(temp);
-                                doorLoopWorkers.push(tempWorkerTabel);
-                            });
-                        });
-
-
-                    });
-                }
-                else {
-                    workerId.push(list.id);
-                    workers.push(list.name);
-
-
-                    //console.log(werknemers);
-
-                    var div = document.createElement("DIV");
-                    div.setAttribute("id", list.id);
-                    div.setAttribute("class", "Checkbox_Werknemer");
-                    //div.style = border: 1px solid rgb(51, 122, 183); color: rgb(255, 255,
-                    // 255); background-color: rgb(51, 122, 183);
-
-                    var input = document.createElement("INPUT");
-                    input.setAttribute("type", "checkbox");
-                    input.setAttribute("value", list.name);
-                    input.setAttribute("id", list.name);
-
-                    var label = document.createElement("LABEL");
-                    label.setAttribute("for", list.name);
-                    label.innerHTML = list.name;
-
-
-                    div.appendChild(input);
-                    div.appendChild(label);
-                    werknemers.appendChild(div);
-
-                    Trello.get("/lists/" + list.id + "?fields=name&cards=open&card_fields=name&token" +
-                    "=" + application_token, function (cards) {
-
-                        $.each(cards["cards"], function (ix, card) {
-
-                            Trello.get("/cards/" + card.id + "?fields=desc&attachments=true&token=" + application_token, function (cardinfo) {
-
-                                var descsplilt = cardinfo.desc.split("/n@");
-                                $.each(descsplilt, function (ix, descpart) {
-
-                                    if (descpart.split("@")[0] == "T") {
-                                        //console.log(descpart.split("@")[1]);
-                                        StartTimes.push(descpart.split("@")[1]);
-                                    }
-
-                                });
+                                if (descpart.split("@")[0] == "N") {
+                                    //console.log(descpart.split("@")[1]);
+                                    workersindesc.push(descpart.split("@")[1]);
+                                    tempWorkerTabel.push(descpart.split("@")[1]);
+                                }
+                                if (descpart.split("@")[0] == "T") {
+                                    //console.log(descpart.split("@")[1]);
+                                    StartTimes.push(descpart.split("@")[1]);
+                                    temp.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
+                                    tempWorkerTabel.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
+                                }
+                                if (descpart.split("@")[0] == "DT") {
+                                    tempWorkerTabel.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
+                                }
+                                if (descpart.split("@")[0] == "DF") {
+                                    FinishTimes.push(descpart.split("@")[1]);
+                                    temp.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
+                                    tempWorkerTabel.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
+                                }
 
                             });
+                            doorlooppriority.push(temp);
+                            doorLoopWorkers.push(tempWorkerTabel);
                         });
-
-
                     });
-                }
-
-            });
-
-            var timer = setInterval(function () {
-                Initialize(werknemers,
-                    workersindesc, StartTimes, FinishTimes);
-                clearInterval(timer);
-                PriorityTabel();
-                WorkerTabel();
-            }, 2000);
 
 
-        });
-    }
-
-
-
-
-    function WorkerTabel() {
-        var workertabel = document.getElementById("PrestatiesWerkers");
-        var workertimes = [];
-        var x = [];
-        $.each(doorLoopWorkers, function (ix, worker) {
-
-
-            var adddate = worker[0].split("@")[0];
-            var addhour = worker[0].split("@")[1];
-            var assigndate = worker[2].split("@")[0];
-            var assignhour = worker[2].split("@")[1];
-            var completedate = worker[3].split("@")[0];
-            var completehour = worker[3].split("@")[1];
-
-            var stof = totalTime(adddate, completedate, addhour, completehour);
-            var atof = totalTime(assigndate, completedate, assignhour, completehour);
-
-            //console.log(worker);
-
-            var ms = [];
-            var ma = [];
-
-            var workerstat = worker[1];
-            if (x == null) {
-                x.push(workerstat);
-                ms.push(stof);
-                ma.push(atof);
-                x.push(ms,ma);
+                });
             }
             else {
+                workerId.push(list.id);
+                workers.push(list.name);
 
-                if (x.indexOf(workerstat) == -1) {
-                    x.push(workerstat);
-                    ms.push(stof);
-                    ma.push(atof);
-                    x.push(ms,ma);
-                }
-                else
-                {
-                   var positie = x.indexOf(workerstat);
-                    x[positie+1].push(stof);
-                    x[positie+2].push(atof);
-                }
+
+                //console.log(werknemers);
+
+                var div = document.createElement("DIV");
+                div.setAttribute("id", list.id);
+                div.setAttribute("class", "Checkbox_Werknemer");
+                //div.style = border: 1px solid rgb(51, 122, 183); color: rgb(255, 255,
+                // 255); background-color: rgb(51, 122, 183);
+
+                var input = document.createElement("INPUT");
+                input.setAttribute("type", "checkbox");
+                input.setAttribute("value", list.name);
+                input.setAttribute("id", list.name);
+
+                var label = document.createElement("LABEL");
+                label.setAttribute("for", list.name);
+                label.innerHTML = list.name;
+
+
+                div.appendChild(input);
+                div.appendChild(label);
+                werknemers.appendChild(div);
+
+                Trello.get("/lists/" + list.id + "?fields=name&cards=open&card_fields=name&token" +
+                "=" + application_token, function (cards) {
+
+                    $.each(cards["cards"], function (ix, card) {
+
+                        Trello.get("/cards/" + card.id + "?fields=desc&attachments=true&token=" + application_token, function (cardinfo) {
+
+                            var descsplilt = cardinfo.desc.split("/n@");
+                            $.each(descsplilt, function (ix, descpart) {
+
+                                if (descpart.split("@")[0] == "T") {
+                                    //console.log(descpart.split("@")[1]);
+                                    StartTimes.push(descpart.split("@")[1]);
+                                }
+
+                            });
+
+                        });
+                    });
+
+
+                });
             }
-
-
 
         });
-        //console.log(x);
 
-        for(var i = 0;i< x.length;i+=3)
-        {
-            var temp = GetAverage(x[i+1]);
-            var temp1 = GetAverage(x[i+2]);
-
-            console.log(temp,temp1);
-
-            var tr = document.createElement("TR");
-
-            var th = document.createElement("TH");
-            th.innerHTML = x[i];
-            var td1 = document.createElement("TD");
-            td1.innerHTML = MinutestoMHDM(temp1);
-            var td2 = document.createElement("TD");
-            td2.innerHTML = MinutestoMHDM(temp);
-
-            tr.appendChild(th);
-            tr.appendChild(td1);
-            tr.appendChild(td2);
-            workertabel.appendChild(tr);
-        }
+        var timer = setInterval(function () {
+            Initialize(werknemers,
+                workersindesc, StartTimes, FinishTimes);
+            clearInterval(timer);
+            PriorityTabel();
+            WorkerTabel();
+        }, 2000);
 
 
-    }
+    });
+}
 
-    function totalTime(startD, stopD, startH, stopH) {
-        var hours = 0;
-        var minutes = 0;
-        var months = 0;
-        var days = 0;
-        var totaltime = 0;
 
-        if (startD == stopD) {
-            hours = stopH.split(":")[0] - startH.split(":")[0];
-            minutes = stopH.split(":")[1] - startH.split(":")[1];
-            if (minutes < 0) {
-                minutes = 60 + minutes;
-                ;
-                hours--;
-            }
-            totaltime = parseInt(minutes) + parseInt(hours * 60) + parseInt(days * 24 * 60) + parseInt(months * 31 * 24 * 60);
+function WorkerTabel() {
+    var workertabel = document.getElementById("PrestatiesWerkers");
+    var workertimes = [];
+    var x = [];
+    $.each(doorLoopWorkers, function (ix, worker) {
+
+
+        var adddate = worker[0].split("@")[0];
+        var addhour = worker[0].split("@")[1];
+        var assigndate = worker[2].split("@")[0];
+        var assignhour = worker[2].split("@")[1];
+        var completedate = worker[3].split("@")[0];
+        var completehour = worker[3].split("@")[1];
+
+        var stof = totalTime(adddate, completedate, addhour, completehour);
+        var atof = totalTime(assigndate, completedate, assignhour, completehour);
+
+        //console.log(worker);
+
+        var ms = [];
+        var ma = [];
+
+        var workerstat = worker[1];
+        if (x == null) {
+            x.push(workerstat);
+            ms.push(stof);
+            ma.push(atof);
+            x.push(ms, ma);
         }
         else {
 
-            months = stopD.split(" ")[1] - startD.split(" ")[1];
-
-            days = stopD.split(" ")[2] - startD.split(" ")[2];
-            hours = stopH.split(":")[0] - startH.split(":")[0];
-
-            minutes = stopH.split(":")[1] - startH.split(":")[1];
-
-
-            if (minutes < 0) {
-                60 + minutes;
-                hours--;
+            if (x.indexOf(workerstat) == -1) {
+                x.push(workerstat);
+                ms.push(stof);
+                ma.push(atof);
+                x.push(ms, ma);
             }
-            if (hours < 0) {
-                hours = 24 + hours;
-                days--;
+            else {
+                var positie = x.indexOf(workerstat);
+                x[positie + 1].push(stof);
+                x[positie + 2].push(atof);
             }
-
-            if (days < 0) {
-                days = 31 + days;
-                months--;
-            }
-
-
-            totaltime = parseInt(minutes) + parseInt(hours * 60) + parseInt(days * 24 * 60) + parseInt(months * 31 * 24 * 60);
         }
 
-        return (totaltime);
+
+    });
+    //console.log(x);
+
+    for (var i = 0; i < x.length; i += 3) {
+        var temp = GetAverage(x[i + 1]);
+        var temp1 = GetAverage(x[i + 2]);
+
+        console.log(temp, temp1);
+
+        var tr = document.createElement("TR");
+
+        var th = document.createElement("TH");
+        th.innerHTML = x[i];
+        var td1 = document.createElement("TD");
+        td1.innerHTML = MinutestoMHDM(temp1);
+        var td2 = document.createElement("TD");
+        td2.innerHTML = MinutestoMHDM(temp);
+
+        tr.appendChild(th);
+        tr.appendChild(td1);
+        tr.appendChild(td2);
+        workertabel.appendChild(tr);
     }
 
-    function PriorityTabel() {
-        var nd = [];
-        var d = [];
-        var zd = [];
-        $.each(doorlooppriority, function (ix, starttime) {
-            var startD = starttime[1].split("@")[0];
-            var startH = starttime[1].split("@")[1];
-            var stopD = starttime[2].split("@")[0];
-            var stopH = starttime[2].split("@")[1];
 
-            var totaltime = totalTime(startD, stopD, startH, stopH);
+}
 
-            if (starttime[0] == "Niet Dringend") {
-                nd.push(totaltime);
-            }
-            else if (starttime[0] == "Dringend") {
-                d.push(totaltime);
-            }
-            else if (starttime[0] == "Zeer Dringend") {
-                zd.push(totaltime);
-            }
+function totalTime(startD, stopD, startH, stopH) {
+    var hours = 0;
+    var minutes = 0;
+    var months = 0;
+    var days = 0;
+    var totaltime = 0;
 
-
-            //MinutestoMHDM(2400);
-        });
-        var nietdringend = GetAverage(nd);
-        var dringend = GetAverage(d);
-        var zeerdringend = GetAverage(zd);
-
-        nietdringend = MinutestoMHDM(nietdringend);
-        dringend = MinutestoMHDM(dringend);
-        zeerdringend = MinutestoMHDM(zeerdringend);
-
-        var thnietdringend = document.getElementById("ND");
-        thnietdringend.innerHTML = nietdringend;
-        var thdringend = document.getElementById("D");
-        thdringend.innerHTML = dringend;
-        var thzeerdringend = document.getElementById("ZD");
-        thzeerdringend.innerHTML = zeerdringend;
-    }
-
-    function GetAverage(array) {
-        var total = 0;
-        for (var i = 0; i < array.length; i++) {
-            total += array[i];
-
+    if (startD == stopD) {
+        hours = stopH.split(":")[0] - startH.split(":")[0];
+        minutes = stopH.split(":")[1] - startH.split(":")[1];
+        if (minutes < 0) {
+            minutes = 60 + minutes;
+            ;
+            hours--;
         }
-        if (total <= 0) {
-            return 0;
+        totaltime = parseInt(minutes) + parseInt(hours * 60) + parseInt(days * 24 * 60) + parseInt(months * 31 * 24 * 60);
+    }
+    else {
+
+        months = stopD.split(" ")[1] - startD.split(" ")[1];
+
+        days = stopD.split(" ")[2] - startD.split(" ")[2];
+        hours = stopH.split(":")[0] - startH.split(":")[0];
+
+        minutes = stopH.split(":")[1] - startH.split(":")[1];
+
+
+        if (minutes < 0) {
+            60 + minutes;
+            hours--;
         }
-        return (total / array.length);
+        if (hours < 0) {
+            hours = 24 + hours;
+            days--;
+        }
+
+        if (days < 0) {
+            days = 31 + days;
+            months--;
+        }
+
+
+        totaltime = parseInt(minutes) + parseInt(hours * 60) + parseInt(days * 24 * 60) + parseInt(months * 31 * 24 * 60);
     }
-    function MinutestoMHDM(minutes) {
-        var minutezz = 0
-        var hours = 0;
-        var days = 0;
 
-        minutezz = Math.floor(minutes % 60);
-        hours = Math.floor((minutes / 60)) % 24;
-        days = Math.floor((minutes / 60) / 24);
+    return (totaltime);
+}
 
-        return "Dagen: " + days + "  uren: " + hours + "  minuten: " + minutezz;
+function PriorityTabel() {
+    var nd = [];
+    var d = [];
+    var zd = [];
+    $.each(doorlooppriority, function (ix, starttime) {
+        var startD = starttime[1].split("@")[0];
+        var startH = starttime[1].split("@")[1];
+        var stopD = starttime[2].split("@")[0];
+        var stopH = starttime[2].split("@")[1];
+
+        var totaltime = totalTime(startD, stopD, startH, stopH);
+
+        if (starttime[0] == "Niet Dringend") {
+            nd.push(totaltime);
+        }
+        else if (starttime[0] == "Dringend") {
+            d.push(totaltime);
+        }
+        else if (starttime[0] == "Zeer Dringend") {
+            zd.push(totaltime);
+        }
+
+
+        //MinutestoMHDM(2400);
+    });
+    var nietdringend = GetAverage(nd);
+    var dringend = GetAverage(d);
+    var zeerdringend = GetAverage(zd);
+
+    nietdringend = MinutestoMHDM(nietdringend);
+    dringend = MinutestoMHDM(dringend);
+    zeerdringend = MinutestoMHDM(zeerdringend);
+
+    var thnietdringend = document.getElementById("ND");
+    thnietdringend.innerHTML = nietdringend;
+    var thdringend = document.getElementById("D");
+    thdringend.innerHTML = dringend;
+    var thzeerdringend = document.getElementById("ZD");
+    thzeerdringend.innerHTML = zeerdringend;
+}
+
+function GetAverage(array) {
+    var total = 0;
+    for (var i = 0; i < array.length; i++) {
+        total += array[i];
 
     }
+    if (total <= 0) {
+        return 0;
+    }
+    return (total / array.length);
+}
+function MinutestoMHDM(minutes) {
+    var minutezz = 0
+    var hours = 0;
+    var days = 0;
+
+    minutezz = Math.floor(minutes % 60);
+    hours = Math.floor((minutes / 60)) % 24;
+    days = Math.floor((minutes / 60) / 24);
+
+    return "Dagen: " + days + "  uren: " + hours + "  minuten: " + minutezz;
+
+}
 
 </script>

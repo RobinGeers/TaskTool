@@ -8,23 +8,23 @@ body {
     padding: 20px 10px 10px 0px;
 }
 
-h1{
+h1 {
     font-size: 1.5em;
     margin: 0;
     padding-bottom: 5px;
 }
 
-p{
-    margin:0;
+p {
+    margin: 0;
 }
 
-label{
-    margin-left:60px;
-    margin-top:15px;
+label {
+    margin-left: 60px;
+    margin-top: 15px;
     font-size: 1.5em;
 }
 
-.chkbox{
+.chkbox {
     position: absolute;
     width: 50px;
     height: 50px;
@@ -32,33 +32,34 @@ label{
     border-color: black;
 }
 
-canvas+img{
+canvas + img {
     display: inline-block;
 }
 
-.row{
+.row {
     border-style: solid;
     border-width: 1px;
     margin: 15px auto 15px auto;
     width: 960px;
 }
 
-#leftdiv, #centerdiv, #rightdiv{
+#leftdiv, #centerdiv, #rightdiv {
     margin: 20px 10px 20px 10px;
     float: left;
 }
+
 /*
 #rightdiv{
     float: right;
 }*/
-#leftdiv{
-   width: 16.66666667%;
+#leftdiv {
+    width: 16.66666667%;
 }
 
-#centerdiv, #rightdiv{
-    width:38.5%
+#centerdiv, #rightdiv {
+    width: 38.5%
 }
 
-.prioriteit{
+.prioriteit {
     font-weight: bold;
 }

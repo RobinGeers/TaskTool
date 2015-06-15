@@ -1,18 +1,18 @@
 <?php
 session_start();
-if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
+if (isset($_SESSION['loggedin'])) { // kijkt of er een sessie is
 
-}else {
+} else {
 
     header("Location: ./"); // Sessie bestaat niet je ben tniet ingelogd
 }
 $naam = "";
-if(isset($_GET['Werkman'])){
-    $naam=$_GET['Werkman'];
+if (isset($_GET['Werkman'])) {
+    $naam = $_GET['Werkman'];
 }
-if($naam != "") {
-   $naam= strtolower($naam);
-print $naam;
+if ($naam != "") {
+    $naam = strtolower($naam);
+    print $naam;
     ?>
     <!DOCTYPE html>
     <html>
@@ -30,7 +30,8 @@ print $naam;
 
     <script src="https://code.jquery.com/jquery-1.7.1.min.js"></script>
     <script src="https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385"></script>
-    <script type="text/javascript" src="qrcodejs-master/qrcode.js"></script> <!-- Laad de qrcode js in ( MIT license ) -->
+    <script type="text/javascript"
+            src="qrcodejs-master/qrcode.js"></script> <!-- Laad de qrcode js in ( MIT license ) -->
     <script>
 
         var APP_KEY = '23128bd41978917ab127f2d9ed741385';
@@ -46,7 +47,7 @@ print $naam;
                 var List = [];
                 //  console.log(ix); is gelijk aan de int i = 0 van de for lus
                 List.push(list.id, list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
-                a =list.name.toLowerCase();
+                a = list.name.toLowerCase();
                 //console.log(a);
                 if (a.includes(<?php print "'".$naam."'" ?>)) {
                     SelectedList = list.id; //kijken of de naam die meegeven is in del ink voorkomt in in de lijst namen
@@ -60,19 +61,17 @@ print $naam;
 
                 CardId = [];
 //overloop alle kaarten die we terug krijgen
-                $.each(cards["cards"], function (ix, card)
-                {
+                $.each(cards["cards"], function (ix, card) {
 
                     var temparr = [];
                     var attachementsarr = [];
                     var description = [];
                     var carddescription = "";
-                    Trello.get("/cards/"+card.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo)
-                    {
+                    Trello.get("/cards/" + card.id + "?fields=desc&attachments=true&token=" + application_token, function (cardinfo) {
 
                         //1/cards/"+card.id+"?fields=desc&attachments=true&token=a0fdcb022ad19ba6de1a849f4d325e9d8aedf95f086570718a3054d4e4bf4681
                         //Overloop 1 kaartje en haal de data eruit
-                        
+
                         //ASYNC!!!
                         // description.push(cardinfo.desc);
                         carddescription = cardinfo.desc; //gaat niet aangezien dit async verloopt
@@ -83,13 +82,11 @@ print $naam;
                         });
 
 
-
                         var descsplilt = cardinfo.desc.split("/n@");
-                        $.each(descsplilt,function(ix,descpart){
-                            if(descpart.split("@")[0] == "W")
-                            {
+                        $.each(descsplilt, function (ix, descpart) {
+                            if (descpart.split("@")[0] == "W") {
                                 /*console.log("taak bij werknemer gevonden");
-                                console.log(cardinfo.desc);*/
+                                 console.log(cardinfo.desc);*/
 
                                 //Bevat 1 kaartje zijn info
                                 temparr.push(card.id, card.name, carddescription, attachementsarr);
@@ -111,8 +108,8 @@ print $naam;
                                 var lokaallabel = document.createElement('p');
                                 var prioriteit = document.createElement('span');
                                 var lokaal = document.createElement('span');
-                                prioriteit.setAttribute("class","prioriteit");
-                                lokaal.setAttribute("class","prioriteit");
+                                prioriteit.setAttribute("class", "prioriteit");
+                                lokaal.setAttribute("class", "prioriteit");
                                 leftdiv.setAttribute("id", "leftdiv");
                                 leftdiv.setAttribute("class", "col-md-2");
                                 centerdiv.setAttribute("class", "col-md-4");
@@ -168,27 +165,20 @@ print $naam;
                                     height: 150
                                 });
 
-                             //  console.log(document.location.href);
+                                //  console.log(document.location.href);
                                 var current = document.location.href;
                                 //var ndew =  "../"+current;
                                 //console.log(ndew);
-                            var newlink = current.split("Afdruk");
-                         //       console.log(newlink[0]);
-                               qrcode.makeCode( newlink[0] + "finish.php?id=" + temparr[0]);
+                                var newlink = current.split("Afdruk");
+                                //       console.log(newlink[0]);
+                                qrcode.makeCode(newlink[0] + "finish.php?id=" + temparr[0]);
 
 
                                 CardId.push(temparr)
 
 
-
-
                             }
                         });
-
-
-
-
-
 
 
                     });

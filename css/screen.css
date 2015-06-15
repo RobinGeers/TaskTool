@@ -653,6 +653,10 @@ main#Instellingen_Overzicht a#first:active, main#Instellingen_Overzicht a#second
     text-decoration: none;
 }
 
+.hidden {
+    display: none;
+}
+
 #Grid i {
     display: inline-block;
     font-size: 1.8em;

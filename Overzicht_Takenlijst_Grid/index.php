@@ -122,7 +122,7 @@ $mysqli->close(); //connectie sluiten
     <div class="clearfix"></div>
 
 </header>
-<main id="Overzicht_Takenlijst">
+<main id="Overzicht_Takenlijst" class="hidden">
     <div id="Filter1" class="ui floating dropdown labeled icon button">
         <i class="filter icon"></i>
         <span class="text">Filter prioriteit</span>
@@ -214,14 +214,6 @@ $mysqli->close(); //connectie sluiten
     <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de handleiding</p>
 </footer>
 <div class="clearfix"></div>
-<script>
-    $(document).ready(function(){
-    console.log("ok");
-    console.log($("#Overzicht_Takenlijst"));
-        $("#Overzicht_Takenlijst").fadeIn(2000);
-    });
-
-</script>
 </body>
 </html>
 <script>
@@ -565,3 +557,10 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 //connectie sluiten
 $mysqli->close();
 ?>
+<script>
+    $(document).ready(function(){
+        // Element moet hidden staan voor dat het ingefade wordt
+        $("#Overzicht_Takenlijst").fadeIn(400).removeClass('hidden');
+    });
+
+</script>

@@ -332,9 +332,9 @@ foreach($data as $d){
 
     document.getElementById("Weergave_Tabel").addEventListener("click", function(e){
         e.preventDefault();
-        $("#Overzicht_Takenlijst").fadeOut(600);
+        $("#Overzicht_Takenlijst").fadeOut(400);
         newLocation = document.getElementById("Weergave_Tabel").parentNode.href;
-        setTimeout(function(){window.location = newLocation; }, 600);
+        setTimeout(function(){window.location = newLocation; }, 400);
     }, false);
 
 

@@ -212,7 +212,7 @@ $mysqli->close();
     <link rel="stylesheet" href="../css/screen.css"/>
 
 </head>
-<body>
+<body id="Extern">
 <header>
     <a href="../Overzicht/index.php"><img src="../images/howestlogo.png" alt="Howest Logo"/></a>
     <button><a onclick="afmelden(this)">Afmelden</a></button>

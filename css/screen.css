@@ -446,9 +446,19 @@ main#Overzicht h1 {
     font-size: 3em;
 }
 
-.save.icon {
-    padding: 35px;
+body#Intern .save.icon {
+    padding-top: 10px;
+    padding-left: 70px;
+}
+
+body#Extern .save.icon {
     padding-top: 40px;
+    padding-left: 65px;
+}
+
+body#Lokalen .save.icon {
+    padding-top: 45px;
+    padding-left: 35px;
 }
 
 main#Instellingen_Overzicht {
@@ -1484,4 +1494,10 @@ main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
 }
 .opmaaktabel{
     width: 70%;margin: 0 auto;
+}
+
+#Bedankt {
+    margin: 0 auto;
+    margin-top: 300px;
+    width: 20%;
 }

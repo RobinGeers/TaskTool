@@ -581,6 +581,17 @@ main#Overzicht a#fourth:hover {
     color: #ffffff;
 }
 
+main#Overzicht a#fifth {
+    background-color: #e87352;
+    color: #ffffff;
+}
+
+main#Overzicht a#fifth:hover {
+    transition: background-color 0.2s ease;
+    background-color: #FF7352;
+    color: #ffffff;
+}
+
 main#Overzicht a#first:active, main#Overzicht a#second:active, main#Overzicht a#third:active, main#Overzicht a#fourth:active {
     box-shadow: inset -3px -3px 1px rgba(0, 0, 0, 0.07);
 }

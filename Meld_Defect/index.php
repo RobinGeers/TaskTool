@@ -71,6 +71,7 @@ if (isset($_POST['txtEmailadres'])) {
         <?php
             switch ($data) {
                 case 'Basic':
+                header("Location: ./");
                   ?>
         MD.style.display = "inline-block";
         OT.style.display = "none";
@@ -304,12 +305,6 @@ $mysqli->close();
 </script>
 
 <?php
-if($_SERVER["HTTPS"] != "on")
-{ // zet de site om naar https indien het http is MEOT VOOR SECURE VAN DATA
-    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-    exit();
-}
-
 if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
     $ber = $_SESSION['loggedin']; // stop de sessie in een variabele
 }else {

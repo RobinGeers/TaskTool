@@ -29,13 +29,7 @@ while ($result->fetch()) {
 $ha = md5("exteralayersecuresalt" . $data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
 if ($ha == $rol) {//roll is gelijk aan wat er in de cookie zit
 } else {
-
-    ?>
-    <script>
-        afmelden("e");
-    </script>
-    <?php
-  //  header("Location: ../"); // rol is niet juist => hack attempt
+    header("Location: ../"); // rol is niet juist => hack attempt
 }
 $mysqli->close(); //connectie sluiten
 
@@ -444,8 +438,8 @@ foreach ($data as $d) {
 
         if (newtarget.parentNode.id == "Medewerkers") {
 
-            document.getElementById(cardid).style.width = "350px";
-            document.getElementById(cardid).style.maxWidth = "350px";
+            document.getElementById(data).style.width = "350px";
+            document.getElementById(data).style.maxWidth = "350px";
             var count = newtarget.getElementsByTagName("label")[0];
             var countint = count.innerText;
             countint = countint.split("(")[1];
@@ -1136,7 +1130,8 @@ foreach ($data as $d) {
                 //selecteddiv.firstChild.innerText += "("+ count+")";
 
                 var label = document.createElement("LABEL");
-                label.innerText = " ( " + count + " ) ";
+                label.innerText = "" + count + "";
+                label.setAttribute("class","ui circular label");
 
                 selecteddiv.firstChild.appendChild(label);
             }

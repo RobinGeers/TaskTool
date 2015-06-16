@@ -1056,6 +1056,15 @@ main#Overzicht_Takenlijst section#Medewerkers ul li a {
     }
 }
 
+.ui.circular.label{
+    background-color: #337ab7;
+    color:white;
+    position: relative;
+    top: -5px;
+    left: 10px;
+
+}
+
 /* ----------- Statistieken ----------- */
 
 main#Statistieken h1 {

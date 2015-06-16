@@ -1,3 +1,18 @@
+<script src="../js/jquery-2.1.4.min.js"></script>
+<script>
+    function afmelden(a){
+        console.log("test");
+
+        $.ajax({
+            url: '../logout.php',
+            dataType: 'html',
+            success: function(data){
+                //data returned from php
+                window.open("../","_self");
+            }
+        });
+    }
+</script>
 <?php
 session_start();
 if($_SERVER["HTTPS"] != "on")
@@ -558,18 +573,7 @@ $mysqli->close(); //connectie sluiten
 </script>-->
 
 <script>
-    function afmelden(a) {
-        console.log("test");
 
-        $.ajax({
-            url: '../logout.php',
-            dataType: 'html',
-            success: function (data) {
-                //data returned from php
-                window.open("../", "_self");
-            }
-        });
-    }
     function Prioriteit() {
         var prioriteit = document.getElementById("amount").value;
 

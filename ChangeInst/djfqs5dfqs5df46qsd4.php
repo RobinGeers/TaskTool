@@ -30,13 +30,7 @@ while($result->fetch()){
 $ha =  md5("exteralayersecuresalt".$data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
 if($ha==$rol){//roll is gelijk aan wat er in de cookie zit
 }else{
-
-    ?>
-    <script>
-        afmelden("e");
-    </script>
-    <?php
-  //  header("Location: ../"); // rol is niet juist => hack attempt
+ header("Location: ../"); // rol is niet juist => hack attempt
 }
 $mysqli->close(); //connectie sluiten
 

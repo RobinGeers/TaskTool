@@ -251,7 +251,7 @@ $mysqli->close(); //connectie sluiten
             var werknemers = document.getElementById("WerkerSelection");
             $.each(lists["lists"], function (ix, list) {
                 //workers
-                if (list.name == "Taken" && list.name == "Voltooid" && list.name == "On hold") {
+                if (list.name == "Taken" && list.name == "On hold") {
                     /*  Trello.get("/lists/"+list.id+"?fields=name&cards=open&card_fields=name&token" +
                      "="+application_token, function(cards) {
 
@@ -374,7 +374,9 @@ $mysqli->close(); //connectie sluiten
                 }
 
             });
-
+            /*Initialize(werknemers,workersindesc, StartTimes, FinishTimes);
+            PriorityTabel();
+            WorkerTabel();*/
             var timer = setInterval(function () {
                 Initialize(werknemers,
                     workersindesc, StartTimes, FinishTimes);

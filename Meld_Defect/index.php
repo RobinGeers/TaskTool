@@ -71,6 +71,7 @@ if (isset($_POST['txtEmailadres'])) {
         <?php
             switch ($data) {
                 case 'Basic':
+                header("Location: ./");
                   ?>
         MD.style.display = "inline-block";
         OT.style.display = "none";
@@ -304,12 +305,6 @@ $mysqli->close();
 </script>
 
 <?php
-if($_SERVER["HTTPS"] != "on")
-{ // zet de site om naar https indien het http is MEOT VOOR SECURE VAN DATA
-    header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
-    exit();
-}
-
 if(isset($_SESSION['loggedin'])){ // kijkt of er een sessie is
     $ber = $_SESSION['loggedin']; // stop de sessie in een variabele
 }else {
@@ -346,6 +341,7 @@ $mysqli->close(); //connectie sluiten
         var OT =  document.getElementById("second").parentElement;
         var S =  document.getElementById("third").parentElement;
         var I =  document.getElementById("fourth").parentElement;
+        var Afdruklijst =  document.getElementById("afdruklijst").parentElement;
         <?php
     switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via display ) weer welke knoppen ej recht tot hebt
         case 'Basic':
@@ -420,6 +416,7 @@ $mysqli->close(); //connectie sluiten
     <nav>
         <ul>
             <li><a id="first"  href="#">Probleem melden</a></li>
+            <li><a id="afdruklijst"  href="../Afdrukpagina.php?">Afdruklijst</a></li>
             <li><a id="second" href="../Overzicht_Takenlijst/">Overzicht takenlijst</a></li>
             <li><a id="third"  href="../Statistieken">Statistieken</a></li>
            <!--<li><a  href="../Instellingen">Instellingen</a></li>

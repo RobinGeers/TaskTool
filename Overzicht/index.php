@@ -43,11 +43,13 @@ $mysqli->close(); //connectie sluiten
         var S =  document.getElementById("third").parentElement;
         var I =  document.getElementById("fourth").parentElement;
         var W =  document.getElementById("fifth").parentElement;
+        var Afdruklijst =  document.getElementById("afdruklijst").parentElement;
     <?php
     switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via display ) weer welke knoppen ej recht tot hebt
         case 'Basic':
 ?>
-        MD.style.display = "block";
+        MD.style.display = "inline-block";
+        Afdruklijst.style.display = "none";
         OT.style.display = "none";
         S.style.display = "none";
         I.style.display = "none";
@@ -58,8 +60,9 @@ $mysqli->close(); //connectie sluiten
             break;
         case 'Werkman':
 ?>
-        MD.style.display = "block";
-        W.style.display = "block";
+        MD.style.display = "inline-block";
+        W.style.display = "inline-block";
+        Afdruklijst.style.display = "inline-block";
         OT.style.display = "none";
         S.style.display = "none";
         I.style.display = "none";
@@ -68,21 +71,23 @@ $mysqli->close(); //connectie sluiten
                     break;
                 case 'Onthaal':
         ?>
-        MD.style.display = "block";
+        MD.style.display = "inline-block";
         W.style.display = "none";
-        OT.style.display = "block";
-        S.style.display = "block";
+        Afdruklijst.style.display = "none";
+        OT.style.display = "inline-block";
+        S.style.display = "inline-block";
         I.style.display = "none";
 
         <?php
                             break;
                         case 'Admin':
              ?>
-        MD.style.display = "block";
+        MD.style.display = "inline-block";
         W.style.display = "none";
-        OT.style.display = "block";
-        S.style.display = "block";
-        I.style.display = "block";
+        Afdruklijst.style.display = "none";
+        OT.style.display = "inline-block";
+        S.style.display = "inline-block";
+        I.style.display = "inline-block";
 
         <?php
                                     break;
@@ -107,6 +112,24 @@ $mysqli->close(); //connectie sluiten
     <header>
         <a href="#"></a><img src="../images/howestlogo.png" alt="Howest Logo"/>
         <button><a onclick="afmelden(this)">Afmelden</a></button>
+        <nav>
+            <ul>
+                <li><a id="first"  href="#">Probleem melden</a></li>
+                <li><a id="afdruklijst"  href="../Afdrukpagina.php?Werkman=<?php $a =  $_SESSION["loggedin"];
+                    $a = explode("@",$a);
+                    $a = $a[0];
+                    print $a;?>">Afdruklijst</a></li>
+                <li><a id="second" href="../Overzicht_Takenlijst/">Overzicht takenlijst</a></li>
+                <li><a id="third"  href="../Statistieken">Statistieken</a></li>
+                <!--<li><a  href="../Instellingen">Instellingen</a></li>
+                --> <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
+                    <ul>
+                        <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
+                        <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
+                        <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
+                    </ul>
+            </ul>
+        </nav>
         <p id="Ingelogd">U bent ingelogd als: <span><?php print $_SESSION["loggedin"] ?></span></p>
         <div class="clearfix"></div>
     </header>

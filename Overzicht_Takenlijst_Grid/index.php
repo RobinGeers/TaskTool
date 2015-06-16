@@ -180,10 +180,10 @@ $mysqli->close(); //connectie sluiten
 
     <section id="Grid">
         <a href="#">
-            <i id="Weergave_Tabel" class="fa fa-list-alt popup" data-content="Tabel weergave"></i>
+            <i id="Weergave_Tabel" class="fa fa-list-alt popup" data-content="Tabel weergave van niet toegekende taken"></i>
         </a>
         <a href="../Overzicht_Takenlijst/index.php">
-            <i id="Weergave_Kaartjes" class="fa fa-th-large popup" data-content="Kaartjes weergave"></i>
+            <i id="Weergave_Kaartjes" class="fa fa-th-large popup" data-content="Kaartjes weergave van taken"></i>
         </a>
 
     </section>

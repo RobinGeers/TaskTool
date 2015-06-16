@@ -262,10 +262,10 @@ foreach ($data as $d) {
 
     <section id="Grid">
         <a href="../Overzicht_Takenlijst_Grid/index.php">
-            <i id="Weergave_Tabel" class="fa fa-list-alt popup" data-content="Tabel weergave"></i>
+            <i id="Weergave_Tabel" class="fa fa-list-alt popup" data-content="weergave van niet toegekende taken"></i>
         </a>
         <a href="#">
-            <i id="Weergave_Kaartjes" class="fa fa-th-large popup" data-content="Kaartjes weergave"></i>
+            <i id="Weergave_Kaartjes" class="fa fa-th-large popup" data-content="Kaartjes weergave van taken"></i>
         </a>
 
     </section>
@@ -437,6 +437,9 @@ foreach ($data as $d) {
         newtarget.appendChild(document.getElementById(cardid));
 
         if (newtarget.parentNode.id == "Medewerkers") {
+
+            document.getElementById(data).style.width = "350px";
+            document.getElementById(data).style.maxWidth = "350px";
             var count = newtarget.getElementsByTagName("label")[0];
             var countint = count.innerText;
             countint = countint.split("(")[1];
@@ -466,7 +469,7 @@ foreach ($data as $d) {
                 Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + niewedescription);
             });
         }
-        if (newtarget.parentNode.id == "Voltooid") {
+        else if (newtarget.parentNode.id == "Voltooid") {
 
             var now = new Date();
             var date = now.getFullYear() + " " + (now.getMonth() + 1) + " " + now.getDate();
@@ -1207,8 +1210,16 @@ foreach ($data as $d) {
         var code = event.keyCode;
         if (code == 13) {
 
-            makeDiv(value, "L");
-            Filters(value, "L");
+            if (value == "") {
+                event.preventDefault();
+                makeDiv(value,"L");
+                Filters(value,"L");
+            }
+            else {
+                    //console.log(value);
+                    makeDiv(value,"L");
+                    Filters(value,"L");
+                }
         }
 
 

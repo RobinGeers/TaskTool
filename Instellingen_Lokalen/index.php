@@ -30,7 +30,13 @@ while($result->fetch()){
 $ha =  md5("exteralayersecuresalt".$data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
 if($ha==$rol){//roll is gelijk aan wat er in de cookie zit
 }else{
-    header("Location: ../"); // rol is niet juist => hack attempt
+    //header("Location: ../"); // rol is niet juist => hack attempt
+
+    ?>
+    <script>
+        afmelden("e");
+    </script>
+<?php
 }
 $mysqli->close(); //connectie sluiten
 
@@ -228,7 +234,7 @@ $mysqli->close();
             <li><a href="../Instellingen_Overzicht/index.php" class="instellingen">Instellingen</a>
                 <ul>
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
-                    <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
+                    <li><a href="../Instellingen_Externe_Werknemers/index.php">Onderaannemers</a></li>
                     <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
                 </ul>
             </li>

@@ -28,7 +28,13 @@ while ($result->fetch()) {
 $ha = md5("exteralayersecuresalt" . $data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
 if ($ha == $rol) {//roll is gelijk aan wat er in de cookie zit
 } else {
-    header("Location: ../"); // rol is niet juist => hack attempt
+
+    ?>
+    <script>
+        afmelden("e");
+    </script>
+    <?php
+  //  header("Location: ../"); // rol is niet juist => hack attempt
 }
 $mysqli->close(); //connectie sluiten
 
@@ -101,7 +107,7 @@ $mysqli->close(); //connectie sluiten
                 <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
                     <ul>
                         <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
-                        <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
+                        <li><a href="../Instellingen_Externe_Werknemers/index.php">Onderaannemers</a></li>
                         <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
                     </ul>
             </ul>
@@ -248,6 +254,9 @@ $mysqli->close(); //connectie sluiten
     function GetWorkers() {
         Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token=" + application_token, function (lists) {
 
+            var doorlopenL = 0;
+            var lengte = lists.length;
+
             var werknemers = document.getElementById("WerkerSelection");
             $.each(lists["lists"], function (ix, list) {
                 //workers
@@ -276,12 +285,12 @@ $mysqli->close(); //connectie sluiten
 
                      });*/
 
-
+                    ++doorlopenL;
                 }
                 if (list.name == "Voltooid") {
                     Trello.get("/lists/" + list.id + "?fields=name&cards=open&card_fields=name&token" +
                     "=" + application_token, function (cards) {
-
+                        var cardcounter = 0;
                         $.each(cards["cards"], function (ix, card) {
 
                             Trello.get("/cards/" + card.id + "?fields=desc&token=" + application_token, function (cardinfo) {
@@ -316,12 +325,17 @@ $mysqli->close(); //connectie sluiten
                                 });
                                 doorlooppriority.push(temp);
                                 doorLoopWorkers.push(tempWorkerTabel);
+                                console.log(cards["cards"].length);
+                                if(++cardcounter == cards["cards"].length)
+                                {
+                                    ++doorlopenL;
+                                }
                             });
                         });
 
 
                     });
-                } else if(list.name == "Taken" || list.name == "On hold") {}
+                }
                 else {
                     workerId.push(list.id);
                     workers.push(list.name);
@@ -352,9 +366,16 @@ $mysqli->close(); //connectie sluiten
                     Trello.get("/lists/" + list.id + "?fields=name&cards=open&card_fields=name&token" +
                     "=" + application_token, function (cards) {
 
+
+                        var cardcounter = 0;
+
                         $.each(cards["cards"], function (ix, card) {
 
-                            Trello.get("/cards/" + card.id + "?fields=desc&attachments=true&token=" + application_token, function (cardinfo) {
+                            Trello.get("/cards/" + card.id + "?fields=desc&token=" + application_token, function (cardinfo) {
+
+                                //callback probeersel
+                               // var compelted = 0;
+
 
                                 var descsplilt = cardinfo.desc.split("/n@");
                                 $.each(descsplilt, function (ix, descpart) {
@@ -363,8 +384,16 @@ $mysqli->close(); //connectie sluiten
                                         //console.log(descpart.split("@")[1]);
                                         StartTimes.push(descpart.split("@")[1]);
                                     }
+                                    //nA LAATSTE CALLBACK
+
+
+
 
                                 });
+                                if(++cardcounter == cards["cards"].length)
+                                {
+                                    ++doorlopenL;
+                                }
 
                             });
                         });
@@ -381,15 +410,19 @@ $mysqli->close(); //connectie sluiten
                 Initialize(werknemers,
                     workersindesc, StartTimes, FinishTimes);
                 clearInterval(timer);
-                PriorityTabel();
-                WorkerTabel();
+
             }, 2000);
 
 
         });
     }
 
-
+    function ladenDone()
+    {
+        Initialize(werknemers,workersindesc, StartTimes, FinishTimes);
+        PriorityTabel();
+        WorkerTabel();
+    }
 
 
     function WorkerTabel() {

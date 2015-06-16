@@ -1,3 +1,18 @@
+<script src="../js/jquery-2.1.4.min.js"></script>
+<script>
+    function afmelden(a){
+        console.log("test");
+
+        $.ajax({
+            url: '../logout.php',
+            dataType: 'html',
+            success: function(data){
+                //data returned from php
+                window.open("../","_self");
+            }
+        });
+    }
+</script>
 <?php
 session_start();
 if($_SERVER["HTTPS"] != "on")
@@ -329,7 +344,13 @@ while($result->fetch()){
 $ha =  md5("exteralayersecuresalt".$data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
 if($ha==$rol){//roll is gelijk aan wat er in de cookie zit
 }else{
-    header("Location: ../"); // rol is niet juist => hack attempt
+
+    ?>
+    <script>
+        afmelden("e");
+    </script>
+    <?php
+    //header("Location: ../"); // rol is niet juist => hack attempt
 }
 $mysqli->close(); //connectie sluiten
 
@@ -430,7 +451,7 @@ $mysqli->close(); //connectie sluiten
            --> <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
                 <ul>
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
-                    <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
+                    <li><a href="../Instellingen_Externe_Werknemers/index.php">Onderaannemers</a></li>
                     <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
                 </ul>
         </ul>
@@ -552,18 +573,7 @@ $mysqli->close(); //connectie sluiten
 </script>-->
 
 <script>
-    function afmelden(a) {
-        console.log("test");
 
-        $.ajax({
-            url: '../logout.php',
-            dataType: 'html',
-            success: function (data) {
-                //data returned from php
-                window.open("../", "_self");
-            }
-        });
-    }
     function Prioriteit() {
         var prioriteit = document.getElementById("amount").value;
 

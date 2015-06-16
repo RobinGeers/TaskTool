@@ -30,7 +30,12 @@ while($result->fetch()){
 $ha =  md5("exteralayersecuresalt".$data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
 if($ha==$rol){//roll is gelijk aan wat er in de cookie zit
 }else{
-    header("Location: ../"); // rol is niet juist => hack attempt
+    ?>
+<script>
+    afmelden("e");
+</script>
+<?php
+  //  header("Location: ../"); // rol is niet juist => hack attempt
 }
 $mysqli->close(); //connectie sluiten
 
@@ -224,7 +229,7 @@ $mysqli->close();
             <li><a href="../Instellingen_Overzicht/index.php" class="instellingen">Instellingen</a>
                 <ul>
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
-                    <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
+                    <li><a href="../Instellingen_Externe_Werknemers/index.php">Onderaannemers</a></li>
                     <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
                 </ul>
             </li>
@@ -331,7 +336,8 @@ $mysqli->close();
     oooTable = null;
     var APP_KEY = '23128bd41978917ab127f2d9ed741385';
     var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
-    function createlist(naam){
+    function createlist(naam,url){
+         xg = naam;
         naam = naam.split("@")[0];
         var TrelloLists = [];
         var SelectedList = "";
@@ -356,13 +362,24 @@ $mysqli->close();
             if(SelectedList=="") {
                 //console.log("juist");
                 Trello.post("/lists?name=" + naam + "&idBoard=5506dbf5b32e668bde0de1b3&&token=" + application_token, function () {
-
+                    console.log(xg);
+                    console.log(<?php print "'".$_SESSION["loggedin"]."'"; ?>);
+                    if(<?php print "'".$_SESSION["loggedin"]."'"; ?> == xg){
+                        console.log("eigen ");
+                        afmelden("e");
+                    }
                     //console.log("gelukt2");
                 });
+            }else{
+                if(<?php print "'".$_SESSION["loggedin"]."'"; ?> == xg){
+                    console.log("eigen ");
+                    afmelden("e");
+                }
             }
         });
     }
-    function deletelist(naam){
+    function deletelist(naam,url){
+         xg = naam;
         naam = naam.split("@")[0];
         var TrelloLists = [];
         var SelectedList = "";
@@ -390,11 +407,21 @@ $mysqli->close();
                 Trello.post("/lists/"+SelectedList+"/moveAllCards?&idBoard=5506dbf5b32e668bde0de1b3&idList=5506dbf5b32e668bde0de1b4&token=" + application_token, function () {
                     console.log("juist: "+SelectedList);
                     Trello.put("/lists/"+SelectedList+"/closed?value=true&token=" + application_token, function () {
-
+                        if(<?php print "'".$_SESSION["loggedin"]."'"; ?> == xg){
+                            console.log("eigen ");
+                            afmelden("e");
+                        }
                         //console.log("gelukt2");
                     });
                     //console.log("gelukt2");
                 });
+            }else{
+                if(<?php print "'".$_SESSION["loggedin"]."'"; ?> == xg){
+                    console.log("eigen ");
+                    afmelden("e");
+                }
+               // afmelden("e");
+
             }
         });
     }
@@ -644,29 +671,30 @@ $mysqli->close();
         td3.appendChild(document.createTextNode(selectedvalue));
         el.replaceChild(td3,el.childNodes[2]);
         mylink="../ChangeInst/a2fjo4(dsf558sdf.php";
-        if(selectedvalue=="Werkman"){
-            console.log(selectedvalue);
-            createlist(naam);
-        }else{
-            //todo: DELETE EVENTUELE LIST
-            deletelist(naam);
-        }
         var url = mylink+"?naam="+naam+"&rol="+selectedvalue;
-
         $.ajax({
             url: url,
             dataType: 'html',
             success: function(data){
                 //data returned from php
+                console.log(xg);
+                console.log(<?php print "'".$_SESSION["loggedin"]."'"; ?>);
 
-                if(<?php print "'".$_SESSION["loggedin"]."'"; ?> == naam){
-                   console.log("eigen ");
-                    afmelden("e");
-                }
+
                 console.log("hahahahah");
                 console.log("Gelukt");
             }
         });
+        if(selectedvalue=="Werkman"){
+            console.log(selectedvalue);
+            createlist(naam,url);
+        }else{
+            //todo: DELETE EVENTUELE LIST
+            deletelist(naam,url);
+        }
+
+
+
 
 
 

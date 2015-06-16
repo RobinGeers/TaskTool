@@ -433,6 +433,9 @@ foreach ($data as $d) {
         }
         else {
             var newtarget = ev.target;
+            console.log("NIEUWE");
+            var hei = $(newtarget).height();
+            newtarget.style.height = hei + 120; // Tel height bij de lijst als er een kaartje in wordt gedropt
         }
 
 
@@ -447,7 +450,7 @@ foreach ($data as $d) {
         if (newtarget.parentNode.id == "Medewerkers") {
 
             document.getElementById(data).style.width = "350px";
-            document.getElementById(data).style.maxWidth = "350px";
+            document.getElementById(data).style.maxWidth = "400px";
             var count = newtarget.getElementsByTagName("label")[0];
             var countint = count.innerText;
             countint = countint.split("(")[1];
@@ -459,7 +462,7 @@ foreach ($data as $d) {
 
             console.log(count);
             document.getElementById(cardid).style.width = "350px";
-            document.getElementById(cardid).style.maxWidth = "400px";
+            document.getElementById(cardid).style.maxWidth = "350px !important";
 
 
             Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
@@ -588,12 +591,12 @@ foreach ($data as $d) {
                     var arrowUp = document.createElement("i");
                     arrowUp.className = "angle double up icon arrowUp";
 
+                    var arrowDown = document.createElement("i");
+                    arrowDown.className = "angle double down icon arrowDown";
+
                     // Klap de takenlijst van de werkman toe
-                    arrowUp.addEventListener("click", function(){
+                    arrowUp.addEventListener("click", function() {
 
-
-                        // Als op de pijl naar omhoog wordt geklikt
-                        if (isArrowUp) {
 
                             var countArrows = $('.arrowUp').length;
 
@@ -603,38 +606,62 @@ foreach ($data as $d) {
                                     var id = arrowUp.parentNode.getAttribute("id");
                                     listHeight = $("#" + id).outerHeight();
                                     console.log(listHeight);
-                                    $("#" + id).animate({ height: "100px"}, { queue: false, duration: 500 });
+                                    $("#" + id).animate({height: "100px"}, {queue: false, duration: 500});
                                     var childs = arrowUp.parentNode.childNodes;
 
                                     for (var ii = 2; ii < childs.length; ii++) {
                                         arrowUp.parentNode.childNodes[ii].style.visibility = "hidden";
                                     }
-                                    arrowUp.className = "angle double down icon arrowDown";
-                                    isArrowUp = false;
+                                    arrowUp.parentNode.replaceChild(arrowDown, arrowUp);
+                                    break;
                                 }
                             }
 
-                        }
-                        else { // Als op de pijl naar beneden wordt geklikt
-                            var countArrows2 = $('.arrowDown').length;
+
+                    }, false);
+
+                    arrowDown.addEventListener("click", function(){
+                        var countArrows2 = $('.arrowDown').length;
+
+                        if (countArrows2 == 1) {
 
                             for (var i2 = 0; i2 < countArrows2; i2++) {
 
-                                if (arrowUp.parentNode == $('.arrowDown').parent()[i2]) {
-                                    var id2 = arrowUp.parentNode.getAttribute("id");
+                                console.log(arrowDown.parentNode);
+                                console.log($('.arrowDown').parent());
+
+
+                                if (arrowDown.parentNode == $('.arrowDown').parent()[i2]) {
+                                    var id2 = arrowDown.parentNode.getAttribute("id");
                                     console.log(listHeight);
-                                    $("#" + id2).animate({ height: listHeight}, { queue: false, duration: 500 });
-                                    var childs2 = arrowUp.parentNode.childNodes;
+                                    $("#" + id2).animate({height: listHeight}, {queue: false, duration: 500});
+                                    var childs2 = arrowDown.parentNode.childNodes;
 
                                     for (var ii2 = 2; ii2 < childs2.length; ii2++) {
-                                        console.log(arrowUp.parentNode.childNodes[ii2]);
-                                        arrowUp.parentNode.childNodes[ii2].style.visibility = "visible";
+                                        console.log(arrowDown.parentNode.childNodes[ii2]);
+                                        arrowDown.parentNode.childNodes[ii2].style.visibility = "visible";
                                     }
-                                    arrowUp.className = "angle double up icon arrowUp";
-                                    isArrowUp = true;
+                                    arrowDown.parentNode.replaceChild(arrowUp, arrowDown);
                                 }
                             }
                         }
+                            else { // Als er meerdere toegeklapt zijn
+                                for (var a = 0; a < countArrows2; a++) {
+                                    if (arrowDown.parentNode == $('.arrowDown').parent()[a]) {
+                                        var id3 = arrowDown.parentNode.getAttribute("id");
+                                        console.log(listHeight);
+                                        $("#" + id3).animate({height: listHeight}, {queue: false, duration: 500});
+                                        var childs3 = arrowDown.parentNode.childNodes;
+
+                                        for (var ii3 = 2; ii3 < childs3.length; ii3++) {
+                                            console.log(arrowDown.parentNode.childNodes[ii3]);
+                                            arrowDown.parentNode.childNodes[ii3].style.visibility = "visible";
+                                        }
+                                        arrowDown.parentNode.replaceChild(arrowUp, arrowDown);
+                                        break;
+                                    }
+                                }
+                            }
                     }, false);
 
                     unorderedlist.appendChild(arrowUp);
@@ -757,6 +784,7 @@ foreach ($data as $d) {
                 }
                 else {
                     li.style.width = "400px";
+                    li.style.maxWidth = "350px";
                 }
 
                 // Als op kaart geklikt wordt -> Toon pop-up

@@ -975,7 +975,7 @@ main#Overzicht_Takenlijst section#Medewerkers ul {
     padding: 20px;
     box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
-
+    min-height: 100px;
 }
 
 .Werkman_Naam {
@@ -988,7 +988,7 @@ main#Overzicht_Takenlijst section#Medewerkers ul {
 
 main#Overzicht_Takenlijst section#Medewerkers ul li {
     border-bottom: 1px solid #cccccc;
-    max-width: 350px;
+    max-width: 350px !important;
     margin-top: 10px;
 }
 

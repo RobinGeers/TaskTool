@@ -84,7 +84,7 @@ print_r($data);
 foreach($data as $d){
 ?>
 <script>
-    console.log(mijnarray);
+
     mijnarray.push(<?php print  '"'.$d.'"' ?>);
 </script>
 <?php
@@ -363,7 +363,7 @@ var mnarray2=[];
         });
 
     function afmelden(a){
-        console.log("test");
+
 
         $.ajax({
             url: '../logout.php',
@@ -383,8 +383,9 @@ var mnarray2=[];
 
 
     function allowDrop(ev) {
-        //console.log(ev.target.tagName);
-        if(event.target.tagName !="A" && event.target.className != "lastcard")
+
+
+        if(event.target.tagName!="LABEL" && event.target.tagName !="A" && event.target.className != "lastcard")
         {
             ev.preventDefault();
         }
@@ -393,6 +394,13 @@ var mnarray2=[];
 
     function drag(ev) {
         ev.dataTransfer.setData("text", ev.target.id);
+        var count = ev.target.parentNode.firstChild.getElementsByTagName("label")[0];
+        var countint = count.innerText.split("(")[1];
+        countint = parseInt(countint);
+        countint--;
+       
+
+        count.innerText = "(" + countint + ")";
     }
 
     function drop(ev) {
@@ -407,35 +415,50 @@ var mnarray2=[];
         }
         else if(event.target.tagName=="SECTION")
         {
-            //console.log(event.target.firstChild.nextSibling.nextSibling.nextSibling);
+
             var newtarget = event.target.firstChild.nextSibling.nextSibling.nextSibling;
         }
         else if(event.target.tagName=="H2")
         {
-            //console.log(event.target.nextSibling.nextSibling);
+
             var newtarget = event.target.nextSibling.nextSibling
         }
         else
         {
             var newtarget = ev.target;
         }
-        //console.log(event.target.tagName);
+
 
         ev.preventDefault();
-        var data = ev.dataTransfer.getData("text");
+        //var data = ev.dataTransfer.getData("text");
 
-        var cardid = data;
+        var cardid =ev.dataTransfer.getData("text");
         var listId = newtarget.id;
 
-        newtarget.appendChild(document.getElementById(data));
+        newtarget.appendChild(document.getElementById(cardid));
 
-        if(newtarget.parentNode.id == "Medewerkers") {
-            document.getElementById(data).style.width = "350px";
-            document.getElementById(data).style.maxWidth = "400px";
-            console.log("in nen mederwerk gesleept");
+        if(newtarget.parentNode.id == "Medewerkers")
+        {
+            var count  = newtarget.getElementsByTagName("label")[0];
+            var countint = count.innerText;
+            countint = countint.split("(")[1];
+            countint = parseInt(countint);
+            countint++;
+
+            count.innerText = "("+countint+")";
+
+
+
+
+            console.log(count);
+            document.getElementById(cardid).style.width = "350px";
+            document.getElementById(cardid).style.maxWidth = "400px";
+
+
             Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
-                var unfnaam = newtarget.firstChild.innerHTML.split("<");
-                var naam = unfnaam[0];
+
+                var naam = newtarget.firstChild.innerText;
+                naam = naam.split("(")[0];
 
                 var now = new Date();
                 var date =now.getFullYear()  + " " + (now.getMonth()+1) + " " + now.getDate();
@@ -464,23 +487,24 @@ var mnarray2=[];
         }
         else
         {
-            document.getElementById(data).style.width = "380px";
-            //document.getElementById(data).style.maxWidth = "250px";
-            //console.log("nie in nen medewerker");
+            document.getElementById(cardid).style.width = "380px";
+            //document.getElementById(cardid).style.maxWidth = "250px";
+
             Trello.put("/cards/"+cardid+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"");//&desc=is verzet
         }
 
         Trello.get("/cards/"+cardid+"?fields=desc&token="+application_token,function(cardinfo)
         {
-            var unfnaam = newtarget.firstChild.innerHTML.split("<");
-            var naam = unfnaam[0];
+
+            var naam = newtarget.firstChild.innerText;
+            naam = naam.split("(")[0];
 
             var now = new Date();
             var date = now.getDate() + "/" + now.getMonth()+"/"+now.getFullYear();
             var time = now.getHours()+":"+now.getMinutes();
 
             var niewedescription =  cardinfo.desc + "/n@N@" + naam+ "/n@DT@"+ date+"@"+time;
-            console.log(niewedescription);
+
         });
 
     }
@@ -493,7 +517,7 @@ var mnarray2=[];
 
         var parentNode = document.getElementsByClassName("card_final")[i].parentNode.className;
         if (parentNode == "draglist") {
-            //console.log("ok");
+
             document.getElementsByClassName("card_final")[i].style.width = 400 + "px";
         }
     }
@@ -524,7 +548,7 @@ var mnarray2=[];
 
                 if(list.name== "Taken")
                 {
-console.log(list);
+
                     var taken = document.getElementById("Taken");
                     var unorderedlist= maakUL(list.id,false);
                     getCards(unorderedlist,list.id,false);
@@ -580,7 +604,7 @@ console.log(list);
                     divItem.appendChild(option);
                     workers.push(list.name);
                 }
-                // console.log(selecteddiv);
+
             });
 
         });
@@ -657,7 +681,7 @@ console.log(list);
             var count = 0;
 
 
-            //console.log(cards["cards"]);
+
             var CardId = [];
 //overloop alle kaarten die we terug krijgen
 
@@ -666,7 +690,7 @@ console.log(list);
             $.each(cards["cards"], function(ix, card){
 
                 count++;
-                //console.log(card.id);
+
                 var temparr = [];
                 var attachementsarr = [];
                 var description = [];
@@ -697,7 +721,7 @@ console.log(list);
                         .modal('show');
 
                     // li -> geselecteerde taak
-                    //console.log(li);
+
 
                     var style = window.getComputedStyle(li);
                     var borderBottom = style.getPropertyValue('border-bottom');
@@ -744,7 +768,7 @@ console.log(list);
 
 
                     document.getElementById("btnOpslaan").addEventListener("click", function(){
-                        console.log("uitgevoerd");
+
                         var nieuweTitel = elementTitel.value;
                         var nieuwLokaal = elementLokaal.value;
                         var nieuweOmschrijving = elementOmschrijving.value;
@@ -761,16 +785,16 @@ console.log(list);
                             var odesc = carddesc.desc.split("/n@");
                             var nieuweDescription = nieuweOmschrijving + "/n@" +nieuwePrioriteit+"/n@"+odesc[2]+"/n@"+ nieuwLokaal;
                             var hiden = carddesc.desc.split("/n@T@");
-                            console.log(hiden);
+
                             if(hiden.length > 1)
                             {
                                 nieuweDescription += "/n@T@"+ hiden[1];
                             }
                             mnarray.splice(mnarray.indexOf(odesc[3]),1);
-                            console.log(mnarray2.indexOf(odesc[3].split(".")[0]));
+
                             mnarray2.splice(mnarray2.indexOf(odesc[3].split(".")[0]),1);
                             checkforother(nieuwLokaal);
-                           // console.log(nieuweDescription);
+
                             Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+nieuweDescription+"&name="+nieuweTitel);
 
 
@@ -877,7 +901,7 @@ console.log(list);
                     var worker =this.parentNode.firstChild.innerText;
                     var select = document.getElementById("AddWorker");
                     var otherworkers = this.getElementsByTagName("label")[0].innerHTML.split(" ");
-                    //console.log(otherworkers);
+
 
 
                     var element = select.firstChild;
@@ -991,7 +1015,6 @@ var carddesc = cardinfo.desc;
                     }
                     mijnteller++;
                     if(mijnteller==mijnstopsignaal){
-                        console.log("gedaan");
 
                         $(function() {
                             $( "#Filter_Lokaal" ).autocomplete({
@@ -1019,7 +1042,7 @@ var carddesc = cardinfo.desc;
 
                     // Haal de datum uit de kaartjes
                     var hiden = cardinfo.desc.split("/n@N@");
-                    console.log("HIER MOET JE KIJKEN");
+
                     if(hiden.length > 1) {
                         var ingegevenDatum = hiden[0].split("/n@");
                         var ingegevenDatum2 = ingegevenDatum[ingegevenDatum.length - 1];
@@ -1031,7 +1054,7 @@ var carddesc = cardinfo.desc;
 
                         var finalDatum = definitieveDatum2[0];
                         var finaluur = definitieveDatum2[1];
-                        console.log("DEFINITIEVE DATUM: " + finalDatum + " UUR: " + finaluur);
+
 
                         // TODO: Als de aangemaakte (final) datum langer dan een maand geleden is -> Toon door bv. een uitroepteken op het kaartje,..
                     }
@@ -1042,7 +1065,7 @@ var carddesc = cardinfo.desc;
                         var descsplit = descript.split("@");
                         if(descsplit[0] == "AW")
                         {
-                            //console.log("hahaha");
+
                             label24.innerHTML = descsplit[1];
 
                         }
@@ -1050,7 +1073,7 @@ var carddesc = cardinfo.desc;
 
                     var hasImage = false;
                     if (cardinfo.attachments.length > 0) {
-                        //console.log(cardinfo.attachments[0].url);
+
 
                         var imageLink = document.createElement("img");
                         imageLink.src = cardinfo.attachments[0].url;
@@ -1112,7 +1135,7 @@ var carddesc = cardinfo.desc;
                 //<li class="lastcard"><i class="fa fa-refresh"></i></li>
             });
 
-            //console.log(selecteddiv);
+
 
             if(!izworker)
             {
@@ -1131,9 +1154,14 @@ var carddesc = cardinfo.desc;
             {
                 console.log(selecteddiv.firstChild.innerText,count);
                 //selecteddiv.firstChild.innerText += "("+ count+")";
+
+                var label = document.createElement("LABEL");
+                label.innerText = " ( " + count +" ) ";
+
+                selecteddiv.firstChild.appendChild(label);
             }
 
-            //console.log(CardId); //print de arrat met alle kaartjes of in de console
+
 
         });
     }
@@ -1208,7 +1236,7 @@ var carddesc = cardinfo.desc;
     }
     function TitelRemove(element)
     {
-        //console.log(element.firstChild.nextSibling);
+
         element.firstChild.nextSibling.innerHTML ="";
         element.firstChild.nextSibling.className = "";
         Filters("niks","/");
@@ -1219,7 +1247,7 @@ var carddesc = cardinfo.desc;
         var code = event.keyCode;
         if(code == 13)
         {
-            //console.log(value);
+
             makeDiv(value,"L");
             Filters(value,"L");
         }
@@ -1403,14 +1431,14 @@ var carddesc = cardinfo.desc;
             for (var j = 0; j < endfilterobjects.length; j++) {
 
                 var campus = endfilterobjects[j].firstChild.nextSibling.firstChild.innerHTML;
-                //console.log(campus,lokaalfilters[i]);
+
                 if (campus == lokaalfilters[i].id.split("/")[1]) {
                     tempLokaal.push(endfilterobjects[j]);
 
                 }
             }
         }
-        //console.log(tempLokaal);
+
         if (tempLokaal.length != 0)
         {
             endfilterobjects = tempLokaal;
@@ -1459,7 +1487,7 @@ text = String(text);
         if( ""+text.indexOf('[object HTMLDivElement]') >= 0){
             // Found world
         }else{
-            console.log("tesst");
+
             //maak cookie
             $.ajax({
                 url: '../CookieMaker.php?val='+text+'/'+id,
@@ -1490,7 +1518,7 @@ text = String(text);
 
     function DeleteFilter(element)
     {
-        console.log(element);
+
         element.parentNode.removeChild(element);
      //   Filters(element);
 var e = element.id;
@@ -1528,7 +1556,7 @@ Filters("niks","/");
                 tasks.push(workertasks[i]);
             }
         }
-       // console.log(checkeds);
+
 
         for(var i = 0;i<tasks.length;i++)
         {
@@ -1548,12 +1576,12 @@ Filters("niks","/");
                 $.each(descsplilt,function(ix,descpart) {
                     if (descpart.split("@")[0] == "W" && descpart.split("@")[1] == name)
                     {
-                        console.log("tsta der al in");
+
                         count++;
                         found = true;
                         if(count == checkeds)
                         {
-                            console.log("redirecting nu");
+
                             redirect(name);
                         }
 
@@ -1561,7 +1589,7 @@ Filters("niks","/");
                 });
                 if(!found)
                 {
-                    console.log("uitgevoerd");
+
                     SetTag(cardinfo.id,listId,niewedescription,checkeds,name);
 
                 }
@@ -1583,8 +1611,7 @@ Filters("niks","/");
         {
 
             count++;
-            console.log(id);
-            //console.log(nieuwedescription);
+
 
             if(count == lengte)
             {
@@ -1595,7 +1622,7 @@ Filters("niks","/");
     }
     function redirect(name)
     {
-        console.log("redirect");
+
        window.open("../Afdrukpagina.php?Werkman="+name,"_self");
     }
 
@@ -1606,7 +1633,7 @@ Filters("niks","/");
             var id = div.getElementsByTagName("label")[1].innerHTML;
             var li = document.getElementById(id);
             var temp = li.getElementsByTagName("label");
-            console.log(temp);
+
             Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token="+application_token,function(lists)
             {
 
@@ -1618,13 +1645,13 @@ Filters("niks","/");
                         Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
                         {
                             niewedescription = cardinfo.desc + "/n@AW@" + value.value;
-                            console.log(niewedescription);
+
                             Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&desc="+niewedescription,function(){
                                 Trello.post("/cards?idList="+list.id+"&idCardSource="+id+"&due=null&token="+application_token+"&key"+APP_KEY);
                             });
                         });
                         temp[0].innerText += " "+ value.value;
-                        console.log(temp[0].innerText);
+
 
                     }
                 });
@@ -1648,12 +1675,10 @@ Filters("niks","/");
          document.getElementById("Filter_Campussen").appendChild(divItem);
          divItem.appendChild(option);
 
-         //console.log(divItem.childNodes[0].getAttribute("value"));
-         //console.log(campussen[i]);*/
 
         /* OUDE CODE */
 
-       // console.log(campussen[i]);
+
 
 </script>
 
@@ -1681,11 +1706,11 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 {
     ?>
     <script>
-        //    console.log("h");
+
         var lokaal = <?php print "'".$row['NAME']."'" ?>;
         arraymetlokalen.push(lokaal);
         var campus = lokaal.split(".");
-        //console.log(campus[0]);
+
         if(doesExist(campus[0]))
         {
             campussen.push(campus[0]);

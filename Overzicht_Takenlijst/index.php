@@ -1219,12 +1219,15 @@ var carddesc = cardinfo.desc;
         var code = event.keyCode;
         if(code == 13)
         {
-            //console.log(value);
-            makeDiv(value,"L");
-            Filters(value,"L");
+            if (value == "") {
+                event.preventDefault();
+            }
+            else {
+                //console.log(value);
+                makeDiv(value,"L");
+                Filters(value,"L");
+            }
         }
-
-
     }
 
     function Filters(el,ely) {

@@ -121,7 +121,7 @@ $mysqli->close(); //connectie sluiten
            $a = explode("@",$a);
             $a = $a[0];
             print $a;
-            ?>"><i class=""></i><p>Afdruklijst</p></a></div>
+            ?>"><i class="fa fa-print"></i><p>Afdruklijst</p></a></div>
         <div class="clearfix"></div>
     </main>
     <div class="clearfix"></div>

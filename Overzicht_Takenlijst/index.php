@@ -438,8 +438,8 @@ foreach ($data as $d) {
 
         if (newtarget.parentNode.id == "Medewerkers") {
 
-            document.getElementById(data).style.width = "350px";
-            document.getElementById(data).style.maxWidth = "350px";
+            document.getElementById(cardid).style.width = "350px";
+            document.getElementById(cardid).style.maxWidth = "350px";
             var count = newtarget.getElementsByTagName("label")[0];
             var countint = count.innerText;
             countint = countint.split("(")[1];

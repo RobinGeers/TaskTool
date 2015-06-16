@@ -254,6 +254,9 @@ $mysqli->close(); //connectie sluiten
     function GetWorkers() {
         Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token=" + application_token, function (lists) {
 
+            var doorlopenL = 0;
+            var lengte = lists.length;
+
             var werknemers = document.getElementById("WerkerSelection");
             $.each(lists["lists"], function (ix, list) {
                 //workers
@@ -282,12 +285,12 @@ $mysqli->close(); //connectie sluiten
 
                      });*/
 
-
+                    ++doorlopenL;
                 }
                 if (list.name == "Voltooid") {
                     Trello.get("/lists/" + list.id + "?fields=name&cards=open&card_fields=name&token" +
                     "=" + application_token, function (cards) {
-
+                        var cardcounter = 0;
                         $.each(cards["cards"], function (ix, card) {
 
                             Trello.get("/cards/" + card.id + "?fields=desc&token=" + application_token, function (cardinfo) {
@@ -322,6 +325,11 @@ $mysqli->close(); //connectie sluiten
                                 });
                                 doorlooppriority.push(temp);
                                 doorLoopWorkers.push(tempWorkerTabel);
+                                console.log(cards["cards"].length);
+                                if(++cardcounter == cards["cards"].length)
+                                {
+                                    ++doorlopenL;
+                                }
                             });
                         });
 
@@ -359,9 +367,11 @@ $mysqli->close(); //connectie sluiten
                     "=" + application_token, function (cards) {
 
 
+                        var cardcounter = 0;
+
                         $.each(cards["cards"], function (ix, card) {
 
-                            Trello.get("/cards/" + card.id + "?fields=desc&attachments=true&token=" + application_token, function (cardinfo) {
+                            Trello.get("/cards/" + card.id + "?fields=desc&token=" + application_token, function (cardinfo) {
 
                                 //callback probeersel
                                // var compelted = 0;
@@ -378,16 +388,12 @@ $mysqli->close(); //connectie sluiten
 
 
 
-                                   /* if(++compelted == descsplilt.length)
-                                    {
-                                        PriorityTabel();
-                                        WorkerTabel();
-                                    }*/
-
-
-
 
                                 });
+                                if(++cardcounter == cards["cards"].length)
+                                {
+                                    ++doorlopenL;
+                                }
 
                             });
                         });
@@ -411,7 +417,12 @@ $mysqli->close(); //connectie sluiten
         });
     }
 
-
+    function ladenDone()
+    {
+        Initialize(werknemers,workersindesc, StartTimes, FinishTimes);
+        PriorityTabel();
+        WorkerTabel();
+    }
 
 
     function WorkerTabel() {

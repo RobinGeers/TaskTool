@@ -338,6 +338,9 @@ foreach ($data as $d) {
 <div class="clearfix"></div>
 <script>
 
+    var isArrowUp = true;
+    var listHeight;
+
     document.getElementById("Weergave_Tabel").addEventListener("click", function (e) {
         e.preventDefault();
         $("#Overzicht_Takenlijst").fadeOut(600);
@@ -580,6 +583,61 @@ foreach ($data as $d) {
 
                     li.appendChild(i);
                     unorderedlist.appendChild(li);
+
+                    // HIERZO
+                    var arrowUp = document.createElement("i");
+                    arrowUp.className = "angle double up icon arrowUp";
+
+                    // Klap de takenlijst van de werkman toe
+                    arrowUp.addEventListener("click", function(){
+
+
+                        // Als op de pijl naar omhoog wordt geklikt
+                        if (isArrowUp) {
+
+                            var countArrows = $('.arrowUp').length;
+
+                            for (var i = 0; i < countArrows; i++) {
+
+                                if (arrowUp.parentNode == $('.arrowUp').parent()[i]) {
+                                    var id = arrowUp.parentNode.getAttribute("id");
+                                    listHeight = $("#" + id).outerHeight();
+                                    console.log(listHeight);
+                                    $("#" + id).animate({ height: "100px"}, { queue: false, duration: 500 });
+                                    var childs = arrowUp.parentNode.childNodes;
+
+                                    for (var ii = 2; ii < childs.length; ii++) {
+                                        arrowUp.parentNode.childNodes[ii].style.visibility = "hidden";
+                                    }
+                                    arrowUp.className = "angle double down icon arrowDown";
+                                    isArrowUp = false;
+                                }
+                            }
+
+                        }
+                        else { // Als op de pijl naar beneden wordt geklikt
+                            var countArrows2 = $('.arrowDown').length;
+
+                            for (var i2 = 0; i2 < countArrows2; i2++) {
+
+                                if (arrowUp.parentNode == $('.arrowDown').parent()[i2]) {
+                                    var id2 = arrowUp.parentNode.getAttribute("id");
+                                    console.log(listHeight);
+                                    $("#" + id2).animate({ height: listHeight}, { queue: false, duration: 500 });
+                                    var childs2 = arrowUp.parentNode.childNodes;
+
+                                    for (var ii2 = 2; ii2 < childs2.length; ii2++) {
+                                        console.log(arrowUp.parentNode.childNodes[ii2]);
+                                        arrowUp.parentNode.childNodes[ii2].style.visibility = "visible";
+                                    }
+                                    arrowUp.className = "angle double up icon arrowUp";
+                                    isArrowUp = true;
+                                }
+                            }
+                        }
+                    }, false);
+
+                    unorderedlist.appendChild(arrowUp);
 
                     getCards(unorderedlist, list.id, true);
 
@@ -1130,10 +1188,6 @@ foreach ($data as $d) {
                     }
                     div2.appendChild(divclearfix);
                     Filters("niks", "/");
-
-
-
-
 
 
 

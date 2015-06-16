@@ -659,6 +659,13 @@ main#Instellingen_Overzicht a#first:active, main#Instellingen_Overzicht a#second
 
 /* ----------- Overzicht takenlijst ----------- */
 
+i.angle.double.down.icon.arrowDown.arrowDown, i.angle.double.up.icon.arrowUp {
+    font-size: 1.8em;
+    float: right;
+    margin-right: 18px;
+    cursor: pointer;
+}
+
 main#Overzicht_Takenlijst h1.topp {
     margin-top: 200px !important;
 }

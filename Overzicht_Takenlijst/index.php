@@ -1,21 +1,19 @@
 <?php
 session_start(); // Verplicht als je wilt werken met sessie's
 
-if($_SERVER["HTTPS"] != "on")
-{ // zet de site om naar https indien het http is MEOT VOOR SECURE VAN DATA
+if ($_SERVER["HTTPS"] != "on") { // zet de site om naar https indien het http is MEOT VOOR SECURE VAN DATA
     header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
     exit();
 }
 
-if(isset($_SESSION['loggedin'])){  // kijkt of er een sessie is
+if (isset($_SESSION['loggedin'])) {  // kijkt of er een sessie is
     $ber = $_SESSION['loggedin']; // stop de sessie in een variabele
-}else {
+} else {
     header("Location: ../"); // Sessie bestaat niet je ben tniet ingelogd
 }
 $rol = $_COOKIE["rol"]; // haal de gehashde rol uit de cookie
 $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj'); //connectie tot de database
-if ($mysqli->connect_error)
-{
+if ($mysqli->connect_error) {
     echo "Geen connectie mogelijk met de database";
     return; // error message dat je geen toegang / verbinding hebt met de database ( 500 internal server error )
 }
@@ -25,24 +23,24 @@ $result->bind_param('s', $ber); //voeg de param $ber toe aan de query
 $result->execute(); // voort het prepared sql statement uit
 $result->bind_result($data); //steek het resultaat in een parameter
 $d = array();
-while($result->fetch()){
-    array_push($d,$data); //steek de data in een array moest er meer dan 1 zijn ( kan in dit geval niet )
+while ($result->fetch()) {
+    array_push($d, $data); //steek de data in een array moest er meer dan 1 zijn ( kan in dit geval niet )
 };
-$ha =  md5("exteralayersecuresalt".$data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
-if($ha==$rol){//roll is gelijk aan wat er in de cookie zit
-}else{
+$ha = md5("exteralayersecuresalt" . $data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
+if ($ha == $rol) {//roll is gelijk aan wat er in de cookie zit
+} else {
     header("Location: ../"); // rol is niet juist => hack attempt
 }
 $mysqli->close(); //connectie sluiten
 
 ?>
 <script>
-    document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
+    document.addEventListener("DOMContentLoaded", function (event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
         //Haal alle "div's" op in overzicht die een pagina voorstellen
-        var MD =  document.getElementById("first").parentElement;
-        var OT =  document.getElementById("second").parentElement;
-        var S =  document.getElementById("third").parentElement;
-        var I =  document.getElementById("fourth").parentElement;
+        var MD = document.getElementById("first").parentElement;
+        var OT = document.getElementById("second").parentElement;
+        var S = document.getElementById("third").parentElement;
+        var I = document.getElementById("fourth").parentElement;
         <?php
         switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via display ) weer welke knoppen ej recht tot hebt
             case 'Basic':
@@ -81,22 +79,22 @@ $mysqli->close(); //connectie sluiten
 <?php
 $data = unserialize($_COOKIE['cookie']);
 print_r($data);
-foreach($data as $d){
-?>
-<script>
+foreach ($data as $d) {
+    ?>
+    <script>
 
-    mijnarray.push(<?php print  '"'.$d.'"' ?>);
-</script>
+        mijnarray.push(<?php print  '"'.$d.'"' ?>);
+    </script>
 <?php
 }
 ?>
 <script>
-    document.addEventListener("DOMContentLoaded", function(event) {
-        $.each(mijnarray,function(ix,value){
+    document.addEventListener("DOMContentLoaded", function (event) {
+        $.each(mijnarray, function (ix, value) {
             var x = value.split("/");
-            makeDiv(x[0],x[1]);
-                    });
-        Filters("niks","/");
+            makeDiv(x[0], x[1]);
+        });
+        Filters("niks", "/");
     });
 
 </script>
@@ -141,6 +139,7 @@ foreach($data as $d){
         </ul>
     </nav>
     <p id="Ingelogd">U bent ingelogd als: <span><?php print $_SESSION["loggedin"] ?></span></p>
+
     <div class="clearfix"></div>
 
 </header>
@@ -151,6 +150,7 @@ foreach($data as $d){
     <div id="Popup" class="ui test modal transition" style="z-index: 100000;">
         <!-- TODO: Close icon zoeken !-->
         <i id="close_Popup" class="close icon"></i>
+
         <div id="Card_Header" class="header">
         </div>
         <div class="content">
@@ -209,6 +209,7 @@ foreach($data as $d){
     <div id="Filter1" class="ui floating dropdown labeled icon button">
         <i class="filter icon"></i>
         <span class="text">Filter prioriteit</span>
+
         <div class="menu">
             <div value="Default" class="header">
                 <i class="tags icon"></i>
@@ -233,6 +234,7 @@ foreach($data as $d){
     <div id="Filter2" class="ui floating dropdown labeled icon button">
         <i class="filter icon"></i>
         <span class="text">Filter werknemer</span>
+
         <div class="menu" id="Filter_Worker">
             <div value="Default" class="header">
                 <i class="tags icon"></i>
@@ -242,11 +244,10 @@ foreach($data as $d){
     </div>
 
     <!--Oude filter op campussen!-->
-    <select class="ui search dropdown" name="Filter_Campussen" id="Filter_Campussen" onchange="CampusChange(this.value)">
+    <select class="ui search dropdown" name="Filter_Campussen" id="Filter_Campussen"
+            onchange="CampusChange(this.value)">
         <option value="Default">Campus</option>
     </select>
-
-
 
 
     <section id="Filters_Zoek">
@@ -255,16 +256,16 @@ foreach($data as $d){
                 (this.value)"/>
         <i class="ui search icon"></i>
         <input type="text" name="Filter_Lokaal" id="Filter_Lokaal" placeholder="Lokaal.."
-               OnKeyup ="LokaalChange(event,this.value)"/>
+               OnKeyup="LokaalChange(event,this.value)"/>
         <i class="ui search icon"></i>
     </section>
 
     <section id="Grid">
         <a href="../Overzicht_Takenlijst_Grid/index.php">
-            <i id="Weergave_Tabel" class="fa fa-list-alt popup" data-content="Tabel weergave van niet toegekende taken"></i>
+            <i id="Weergave_Tabel" class="fa fa-list-alt popup" data-content="Tabel weergave"></i>
         </a>
         <a href="#">
-            <i id="Weergave_Kaartjes" class="fa fa-th-large popup" data-content="Kaartjes weergave van taken"></i>
+            <i id="Weergave_Kaartjes" class="fa fa-th-large popup" data-content="Kaartjes weergave"></i>
         </a>
 
     </section>
@@ -294,6 +295,7 @@ foreach($data as $d){
     <section id="SelectedFilters">
         <div>
             <h3>Geselecteerde Filters: </h3>
+
             <div id="TitelFilter" onclick="TitelRemove(this)">
                 <label></label>
             </div>
@@ -325,25 +327,28 @@ foreach($data as $d){
 </main>
 <div class="clearfix"></div>
 <footer>
-    <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de handleiding</p>
+    <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de
+        handleiding</p>
 </footer>
 <div class="clearfix"></div>
 <script>
 
-    document.getElementById("Weergave_Tabel").addEventListener("click", function(e){
+    document.getElementById("Weergave_Tabel").addEventListener("click", function (e) {
         e.preventDefault();
         $("#Overzicht_Takenlijst").fadeOut(600);
         newLocation = document.getElementById("Weergave_Tabel").parentNode.href;
-        setTimeout(function(){window.location = newLocation; }, 600);
+        setTimeout(function () {
+            window.location = newLocation;
+        }, 600);
     }, false);
 
     var im = document.getElementById('Card_Image');
-    im.onerror = function(){
+    im.onerror = function () {
         im.src = '../images/noimage.png';
     };
 
-var mnarray=[];
-var mnarray2=[];
+    var mnarray = [];
+    var mnarray2 = [];
     $('.dropdown')
         .dropdown({
             // you can use any ui transition
@@ -353,24 +358,24 @@ var mnarray2=[];
 
     $('.popup')
         .popup({
-            inline   : true,
+            inline: true,
             hoverable: true,
-            position : 'bottom left',
+            position: 'bottom left',
             delay: {
                 show: 100,
                 hide: 100
             }
         });
 
-    function afmelden(a){
+    function afmelden(a) {
 
 
         $.ajax({
             url: '../logout.php',
             dataType: 'html',
-            success: function(data){
+            success: function (data) {
                 //data returned from php
-                window.open("../","_self");
+                window.open("../", "_self");
             }
         });
     }
@@ -385,8 +390,7 @@ var mnarray2=[];
     function allowDrop(ev) {
 
 
-        if(event.target.tagName!="LABEL" && event.target.tagName !="A" && event.target.className != "lastcard")
-        {
+        if (event.target.tagName != "LABEL" && event.target.tagName != "A" && event.target.className != "lastcard") {
             ev.preventDefault();
         }
 
@@ -398,33 +402,28 @@ var mnarray2=[];
         var countint = count.innerText.split("(")[1];
         countint = parseInt(countint);
         countint--;
-       
+
 
         count.innerText = "(" + countint + ")";
     }
 
     function drop(ev) {
 
-        if(event.target.tagName=="LI")
-        {
-            var newtarget =  event.target.parentElement;
+        if (event.target.tagName == "LI") {
+            var newtarget = event.target.parentElement;
         }
-        else if(event.target.tagName=="DIV")
-        {
+        else if (event.target.tagName == "DIV") {
             var newtarget = event.target.parentElement.parentElement;
         }
-        else if(event.target.tagName=="SECTION")
-        {
+        else if (event.target.tagName == "SECTION") {
 
             var newtarget = event.target.firstChild.nextSibling.nextSibling.nextSibling;
         }
-        else if(event.target.tagName=="H2")
-        {
+        else if (event.target.tagName == "H2") {
 
             var newtarget = event.target.nextSibling.nextSibling
         }
-        else
-        {
+        else {
             var newtarget = ev.target;
         }
 
@@ -432,22 +431,19 @@ var mnarray2=[];
         ev.preventDefault();
         //var data = ev.dataTransfer.getData("text");
 
-        var cardid =ev.dataTransfer.getData("text");
+        var cardid = ev.dataTransfer.getData("text");
         var listId = newtarget.id;
 
         newtarget.appendChild(document.getElementById(cardid));
 
-        if(newtarget.parentNode.id == "Medewerkers")
-        {
-            var count  = newtarget.getElementsByTagName("label")[0];
+        if (newtarget.parentNode.id == "Medewerkers") {
+            var count = newtarget.getElementsByTagName("label")[0];
             var countint = count.innerText;
             countint = countint.split("(")[1];
             countint = parseInt(countint);
             countint++;
 
-            count.innerText = "("+countint+")";
-
-
+            count.innerText = "(" + countint + ")";
 
 
             console.log(count);
@@ -455,20 +451,13 @@ var mnarray2=[];
             document.getElementById(cardid).style.maxWidth = "400px";
 
 
-<<<<<<< HEAD
-=======
-        if(newtarget.parentNode.id == "Medewerkers") {
-            document.getElementById(data).style.width = "350px";
-            document.getElementById(data).style.maxWidth = "350px";
-            console.log("in nen mederwerk gesleept");
->>>>>>> origin/master
             Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
 
                 var naam = newtarget.firstChild.innerText;
                 naam = naam.split("(")[0];
 
                 var now = new Date();
-                var date =now.getFullYear()  + " " + (now.getMonth()+1) + " " + now.getDate();
+                var date = now.getFullYear() + " " + (now.getMonth() + 1) + " " + now.getDate();
                 var time = now.getHours() + ":" + now.getMinutes();
 
 
@@ -477,47 +466,37 @@ var mnarray2=[];
                 Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + niewedescription);
             });
         }
-        else if(newtarget.parentNode.id == "Voltooid")
-        {
+        if (newtarget.parentNode.id == "Voltooid") {
 
             var now = new Date();
-            var date =now.getFullYear()  + " " + (now.getMonth()+1) + " " + now.getDate();
+            var date = now.getFullYear() + " " + (now.getMonth() + 1) + " " + now.getDate();
             var time = now.getHours() + ":" + now.getMinutes();
 
 
             Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
 
-                var niewedescription = cardinfo.desc +"/n@DF@" + date + "@" + time;
+                var niewedescription = cardinfo.desc + "/n@DF@" + date + "@" + time;
                 Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + niewedescription);
 
             });
         }
-        else
-        {
-<<<<<<< HEAD
+        else {
             document.getElementById(cardid).style.width = "380px";
             //document.getElementById(cardid).style.maxWidth = "250px";
 
-=======
-            document.getElementById(data).style.width = "380px";
-            document.getElementById(data).style.maxWidth = "380px";
-            //document.getElementById(data).style.maxWidth = "250px";
-            //console.log("nie in nen medewerker");
->>>>>>> origin/master
-            Trello.put("/cards/"+cardid+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"");//&desc=is verzet
+            Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "");//&desc=is verzet
         }
 
-        Trello.get("/cards/"+cardid+"?fields=desc&token="+application_token,function(cardinfo)
-        {
+        Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
 
             var naam = newtarget.firstChild.innerText;
             naam = naam.split("(")[0];
 
             var now = new Date();
-            var date = now.getDate() + "/" + now.getMonth()+"/"+now.getFullYear();
-            var time = now.getHours()+":"+now.getMinutes();
+            var date = now.getDate() + "/" + now.getMonth() + "/" + now.getFullYear();
+            var time = now.getHours() + ":" + now.getMinutes();
 
-            var niewedescription =  cardinfo.desc + "/n@N@" + naam+ "/n@DT@"+ date+"@"+time;
+            var niewedescription = cardinfo.desc + "/n@N@" + naam + "/n@DT@" + date + "@" + time;
 
         });
 
@@ -547,71 +526,66 @@ var mnarray2=[];
     //trello
 
 
-    function GetCards()
-    {
-        Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token="+application_token+"",function(lists)
-        {
-            $.each(lists["lists"],function(ix,list)
-            {
+    function GetCards() {
+        Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token=" + application_token + "", function (lists) {
+            $.each(lists["lists"], function (ix, list) {
                 var List = [];
 
-                List.push(list.id,list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
+                List.push(list.id, list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
 
                 var selecteddiv;
                 //selecteren voor war de kaarten in te plaatsen
 
-                if(list.name== "Taken")
-                {
+                if (list.name == "Taken") {
 
                     var taken = document.getElementById("Taken");
-                    var unorderedlist= maakUL(list.id,false);
-                    getCards(unorderedlist,list.id,false);
+                    var unorderedlist = maakUL(list.id, false);
+                    getCards(unorderedlist, list.id, false);
                     taken.appendChild(unorderedlist);
                 }
-                else if(list.name == "Voltooid")
-                {
+                else if (list.name == "Voltooid") {
                     var voltooid = document.getElementById("Voltooid");
-                    var unorderedlist= maakUL(list.id,false);
-                    getCards(unorderedlist,list.id,false);
+                    var unorderedlist = maakUL(list.id, false);
+                    getCards(unorderedlist, list.id, false);
                     voltooid.appendChild(unorderedlist);
 
                 }
-                else if(list.name == "On hold")
-                {
+                else if (list.name == "On hold") {
                     var onhold = document.getElementById("OnHold");
-                    var unorderedlist= maakUL(list.id,false);
-                    getCards(unorderedlist,list.id,false);
+                    var unorderedlist = maakUL(list.id, false);
+                    getCards(unorderedlist, list.id, false);
                     onhold.appendChild(unorderedlist);
                 }
-                else
-                {
+                else {
                     selecteddiv = document.getElementById("Medewerkers");
 
-                    var unorderedlist= maakUL(list.id,true);
+                    var unorderedlist = maakUL(list.id, true);
 
                     var li = document.createElement("LI");
-                    li.setAttribute("class","Werkman_Naam");
+                    li.setAttribute("class", "Werkman_Naam");
                     li.innerHTML = list.name;
 
                     var i = document.createElement("I");
-                    i.setAttribute("class","ui print icon");
-                    i.setAttribute("onclick","PrintTasks(this)");
+                    i.setAttribute("class", "ui print icon");
+                    i.setAttribute("onclick", "PrintTasks(this)");
                     i.style.cursor = "pointer";
 
                     li.appendChild(i);
                     unorderedlist.appendChild(li);
 
-                    getCards(unorderedlist,list.id,true);
+                    getCards(unorderedlist, list.id, true);
 
                     selecteddiv.appendChild(unorderedlist);
 
 
                     var divItem = document.createElement("div");
                     divItem.className = "ui item";
-                    divItem.onclick = function(){WorkerChange(list.name)};
+                    divItem.onclick = function () {
+                        WorkerChange(list.name)
+                    };
 
                     var option = document.createElement("OPTION");
-                    option.setAttribute("value",list.name);
+                    option.setAttribute("value", list.name);
                     option.innerHTML = list.name;
 
                     document.getElementById("Filter_Worker").appendChild(divItem);
@@ -625,75 +599,71 @@ var mnarray2=[];
     }
 
 
-    function maakUL(id,izworker)
-    {
+    function maakUL(id, izworker) {
         var ul = document.createElement("UL");
-        ul.setAttribute("class","draglist");
-        ul.setAttribute("id",id);
-        ul.setAttribute("ondrop","drop(event)");
-        ul.setAttribute("ondragover","allowDrop(event)");
+        ul.setAttribute("class", "draglist");
+        ul.setAttribute("id", id);
+        ul.setAttribute("ondrop", "drop(event)");
+        ul.setAttribute("ondragover", "allowDrop(event)");
 
-        if(!izworker)
-        {
+        if (!izworker) {
             ul.classList.add("cardlist");
         }
         return ul;
     }
 
-    function checkforother(klas){
+    function checkforother(klas) {
 
         //HIERBENIK
-        if(mnarray!=null){
-            if(mnarray.indexOf(klas)==-1){
+        if (mnarray != null) {
+            if (mnarray.indexOf(klas) == -1) {
                 mnarray.push(klas);
-                $( "#Filter_Lokaal" ).autocomplete({
+                $("#Filter_Lokaal").autocomplete({
                     source: mnarray
 
                 });
             }
 
-        }else{
+        } else {
             mnarray.push(klas);
-            $( "#Filter_Lokaal" ).autocomplete({
+            $("#Filter_Lokaal").autocomplete({
                 source: mnarray
 
             });
         }
         var camp = klas.split(".")[0];
-        if(mnarray2!=null){
-            if(mnarray2.indexOf(camp)==-1){
+        if (mnarray2 != null) {
+            if (mnarray2.indexOf(camp) == -1) {
                 mnarray2.push(camp);
             }
 
-        }else{
+        } else {
             mnarray2.push(camp);
         }
-        var x =      document.getElementById("Filter_Campussen");
+        var x = document.getElementById("Filter_Campussen");
         var element = x.firstChild;
-        while(element){
+        while (element) {
             x.removeChild(element);
             element = x.firstChild;
 
         }
 
         var option = document.createElement("OPTION");
-        option.setAttribute("value","Default");
+        option.setAttribute("value", "Default");
         option.innerHTML = "Campus";
         document.getElementById("Filter_Campussen").appendChild(option);
-        $.each(mnarray2,function(ix,campussen){
+        $.each(mnarray2, function (ix, campussen) {
             var option = document.createElement("OPTION");
-            option.setAttribute("value",campussen);
+            option.setAttribute("value", campussen);
             option.innerHTML = campussen;
             document.getElementById("Filter_Campussen").appendChild(option);
         });
     }
-    function getCards(selecteddiv,listID,izworker)
-    {
+    function getCards(selecteddiv, listID, izworker) {
         //Haal alle kaartjes op van een bepaalde lijst
-        Trello.get("/lists/"+listID+"?fields=name&cards=open&card_fields=name&token="+application_token, function(cards) {
+        Trello.get("/lists/" + listID + "?fields=name&cards=open&card_fields=name&token=" + application_token, function (cards) {
 
             var count = 0;
-
 
 
             var CardId = [];
@@ -701,7 +671,7 @@ var mnarray2=[];
 
             var mijnstopsignaal = cards["cards"].length;
             mijnteller = 0;
-            $.each(cards["cards"], function(ix, card){
+            $.each(cards["cards"], function (ix, card) {
 
                 count++;
 
@@ -711,22 +681,20 @@ var mnarray2=[];
 
 
                 var li = document.createElement("LI");
-                li.setAttribute("class","panel panel-default card_final");
-                li.setAttribute("id",card.id);
-                li.setAttribute("draggable","true");
-                li.setAttribute("ondragstart","drag(event)");
-                if(!izworker)
-                {
+                li.setAttribute("class", "panel panel-default card_final");
+                li.setAttribute("id", card.id);
+                li.setAttribute("draggable", "true");
+                li.setAttribute("ondragstart", "drag(event)");
+                if (!izworker) {
 
                     li.style.maxWidth = "400px";
                 }
-                else
-                {
+                else {
                     li.style.width = "400px";
                 }
 
                 // Als op kaart geklikt wordt -> Toon pop-up
-                li.addEventListener("dblclick", function() {
+                li.addEventListener("dblclick", function () {
 
                     // Indien transition niet werkt -> Bootstrap link wegdoen
                     $('.modal').addClass('scrolling');
@@ -746,18 +714,26 @@ var mnarray2=[];
                     var classlijst = li.classList;
 
                     switch (classlijst[3]) {
-                        case "liBorderG": color = "yellow"; index = 1; prioriteit = "Dringend";
+                        case "liBorderG":
+                            color = "yellow";
+                            index = 1;
+                            prioriteit = "Dringend";
                             break;
-                        case "liBorderL": color = "green"; index = 0; prioriteit = "Niet Dringend";
+                        case "liBorderL":
+                            color = "green";
+                            index = 0;
+                            prioriteit = "Niet Dringend";
                             break;
-                        case "liBorderH": color = "red"; index = 2; prioriteit = "Zeer Dringend";
+                        case "liBorderH":
+                            color = "red";
+                            index = 2;
+                            prioriteit = "Zeer Dringend";
                             break;
                     }
                     var kaart_titel = li.childNodes[0].innerText;
                     var kaart_lokaal = li.childNodes[1].childNodes[0].innerText;
                     var kaart_omschrijving = li.childNodes[1].childNodes[3].innerText;
                     var imageSource = li.childNodes[1].childNodes[5].src;
-
 
 
                     var elementHeaderTitel = document.getElementById("Card_Header");
@@ -780,8 +756,7 @@ var mnarray2=[];
                     elementImage.src = imageSource;
 
 
-
-                    document.getElementById("btnOpslaan").addEventListener("click", function(){
+                    document.getElementById("btnOpslaan").addEventListener("click", function () {
 
                         var nieuweTitel = elementTitel.value;
                         var nieuwLokaal = elementLokaal.value;
@@ -792,31 +767,26 @@ var mnarray2=[];
                         // Pas kaartje aan en toon direct de verandering
 
 
-                        Trello.get("/cards/"+card.id+"?fields=desc&token="+application_token,function(carddesc)
-                        {
+                        Trello.get("/cards/" + card.id + "?fields=desc&token=" + application_token, function (carddesc) {
 
-                          /*  */
+                            /*  */
                             var odesc = carddesc.desc.split("/n@");
-                            var nieuweDescription = nieuweOmschrijving + "/n@" +nieuwePrioriteit+"/n@"+odesc[2]+"/n@"+ nieuwLokaal;
+                            var nieuweDescription = nieuweOmschrijving + "/n@" + nieuwePrioriteit + "/n@" + odesc[2] + "/n@" + nieuwLokaal;
                             var hiden = carddesc.desc.split("/n@T@");
 
-                            if(hiden.length > 1)
-                            {
-                                nieuweDescription += "/n@T@"+ hiden[1];
+                            if (hiden.length > 1) {
+                                nieuweDescription += "/n@T@" + hiden[1];
                             }
-                            mnarray.splice(mnarray.indexOf(odesc[3]),1);
+                            mnarray.splice(mnarray.indexOf(odesc[3]), 1);
 
-                            mnarray2.splice(mnarray2.indexOf(odesc[3].split(".")[0]),1);
+                            mnarray2.splice(mnarray2.indexOf(odesc[3].split(".")[0]), 1);
                             checkforother(nieuwLokaal);
 
-                            Trello.put("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+nieuweDescription+"&name="+nieuweTitel);
-
+                            Trello.put("/cards/" + li.id + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + nieuweDescription + "&name=" + nieuweTitel);
 
 
                         });
-                       //foute code in de trello.put
-
-
+                        //foute code in de trello.put
 
 
                         var parent = li.firstChild;
@@ -828,9 +798,9 @@ var mnarray2=[];
                         var hr = hx.split("/");
 
                         // Verander de titel
-                        nieuweTitelLink.href = hr[hr.length-1];
+                        nieuweTitelLink.href = hr[hr.length - 1];
                         nieuweTitelLink.setAttribute("data-toggle", "collapse");
-                        parent.replaceChild(nieuweTitelLink,parent.childNodes[0]);
+                        parent.replaceChild(nieuweTitelLink, parent.childNodes[0]);
 
                         // Verander het lokaal
                         var nieuwLokaalElement = document.createElement("p");
@@ -891,82 +861,70 @@ var mnarray2=[];
                                 break;
                         }
 
-                    },false);
+                    }, false);
 
-                    document.getElementById("btnVerwijder").addEventListener("click", function(){
+                    document.getElementById("btnVerwijder").addEventListener("click", function () {
 
                         var nieuweTitel = elementTitel.value;
                         var listId = li.parentNode.id;
                         var ul = li.parentNode;
 
                         // Verwijder kaart in Trello
-                        Trello.delete("/cards/"+li.id+"?key="+APP_KEY+"&token="+application_token);
+                        Trello.delete("/cards/" + li.id + "?key=" + APP_KEY + "&token=" + application_token);
 
                         // Verwijder kaart op pagina
                         ul.removeChild(li);
 
-                    },false);
+                    }, false);
 
-                    $( "#Card_Lokaal" ).autocomplete({
+                    $("#Card_Lokaal").autocomplete({
                         source: arraymetlokalen
                     });
 
 
-                    var worker =this.parentNode.firstChild.innerText;
+                    var worker = this.parentNode.firstChild.innerText;
                     var select = document.getElementById("AddWorker");
                     var otherworkers = this.getElementsByTagName("label")[0].innerHTML.split(" ");
 
 
-
                     var element = select.firstChild;
-                    while (element){
+                    while (element) {
                         select.removeChild(element);
                         element = select.firstChild;
                     }
                     var input = document.createElement("OPTION");
-                    input.setAttribute("value","Default");
+                    input.setAttribute("value", "Default");
                     input.innerHTML = "Default";
                     select.appendChild(input);
 
                     //<option value="Default">Default</option>
                     var temp = [];
-                    for(var i = 0;i<workers.length;i++)
-                    {
-                        if(worker != workers[i])
-                        {
+                    for (var i = 0; i < workers.length; i++) {
+                        if (worker != workers[i]) {
                             temp.push(workers[i]);
                         }
                     }
 
-                    if(otherworkers.length >1)
-                    {
+                    if (otherworkers.length > 1) {
 
-                        for(var j = 1;j<otherworkers.length;j++)
-                        {
-                            for( var i = 0;i<workers.length;i++)
-                            {
-                                if(otherworkers[j] == workers[i])
-                                {
+                        for (var j = 1; j < otherworkers.length; j++) {
+                            for (var i = 0; i < workers.length; i++) {
+                                if (otherworkers[j] == workers[i]) {
                                     delete workers[i];
                                 }
                             }
                         }
                     }
 
-                    for( var i = 0;i<workers.length;i++)
-                    {
-                        if(workers[i]!= null)
-                        {
+                    for (var i = 0; i < workers.length; i++) {
+                        if (workers[i] != null) {
                             var input = document.createElement("OPTION");
-                            input.setAttribute("value",workers[i]);
+                            input.setAttribute("value", workers[i]);
 
                             input.innerHTML = workers[i];
                             select.appendChild(input);
                         }
                     }
-
-
-
 
 
                     var label = document.createElement("LABEL");
@@ -975,68 +933,67 @@ var mnarray2=[];
                     select.parentNode.appendChild(label);
 
 
-                },false);
+                }, false);
 
 
                 var div1 = document.createElement("DIV");
-                div1.setAttribute("class","panel-heading");
+                div1.setAttribute("class", "panel-heading");
 
                 var div2 = document.createElement("DIV");
-                div2.setAttribute("class","panel-collapse collapse");
-                div2.setAttribute("id","d"+ card.id);
-                div2.setAttribute("role","tabpanel");
+                div2.setAttribute("class", "panel-collapse collapse");
+                div2.setAttribute("id", "d" + card.id);
+                div2.setAttribute("role", "tabpanel");
 
                 var a1 = document.createElement("A");
-                a1.setAttribute("class","panel-title");
-                a1.setAttribute("data-toggle","collapse");
-                a1.setAttribute("data-parent","cardlist3");
-                a1.setAttribute("href","#d"+card.id);
-                a1.setAttribute("aria-expanded","false");
-                a1.setAttribute("aria-controls","collapseOne");
+                a1.setAttribute("class", "panel-title");
+                a1.setAttribute("data-toggle", "collapse");
+                a1.setAttribute("data-parent", "cardlist3");
+                a1.setAttribute("href", "#d" + card.id);
+                a1.setAttribute("aria-expanded", "false");
+                a1.setAttribute("aria-controls", "collapseOne");
                 a1.innerHTML = card.name;
 
                 var input = document.createElement("INPUT");
-                input.setAttribute("type","checkbox");
-                input.setAttribute("id",card.i);
-                input.setAttribute("name",card.i);
+                input.setAttribute("type", "checkbox");
+                input.setAttribute("id", card.i);
+                input.setAttribute("name", card.i);
                 input.style.float = "right";
 
                 //1/cards/"+card.id+"?fields=desc&attachments=true&token=a0fdcb022ad19ba6de1a849f4d325e9d8aedf95f086570718a3054d4e4bf4681
                 //Overloop 1 kaartje en haal de data eruit
-                Trello.get("/cards/"+card.id+"?fields=desc&attachments=true&token="+application_token,function(cardinfo)
-                {
+                Trello.get("/cards/" + card.id + "?fields=desc&attachments=true&token=" + application_token, function (cardinfo) {
                     //ASYNC!!!
                     description.push(cardinfo.desc);
                     carddescription = cardinfo.desc; //gaat niet aangezien dit async verloopt
-var carddesc = cardinfo.desc;
+                    var carddesc = cardinfo.desc;
                     var klas = (carddesc).split("/n@")[3];
-                    if(mnarray!=null){
-                        if(mnarray.indexOf(klas)==-1){
+                    if (mnarray != null) {
+                        if (mnarray.indexOf(klas) == -1) {
                             mnarray.push(klas);
                         }
 
-                    }else{
+                    } else {
                         mnarray.push(klas);
                     }
                     var camp = klas.split(".")[0];
-                    if(mnarray2!=null){
-                        if(mnarray2.indexOf(camp)==-1){
+                    if (mnarray2 != null) {
+                        if (mnarray2.indexOf(camp) == -1) {
                             mnarray2.push(camp);
                         }
 
-                    }else{
+                    } else {
                         mnarray2.push(camp);
                     }
                     mijnteller++;
-                    if(mijnteller==mijnstopsignaal){
+                    if (mijnteller == mijnstopsignaal) {
 
-                        $(function() {
-                            $( "#Filter_Lokaal" ).autocomplete({
+                        $(function () {
+                            $("#Filter_Lokaal").autocomplete({
                                 source: mnarray
                             });
-                            $.each(mnarray2,function(ix,campussen){
+                            $.each(mnarray2, function (ix, campussen) {
                                 var option = document.createElement("OPTION");
-                                option.setAttribute("value",campussen);
+                                option.setAttribute("value", campussen);
                                 option.innerHTML = campussen;
                                 document.getElementById("Filter_Campussen").appendChild(option);
                             });
@@ -1044,11 +1001,12 @@ var carddesc = cardinfo.desc;
 
                         });
 
-                    };
+                    }
+                    ;
 
 
                     //kijkt naar de attachments en voegt de link toe in een array
-                    $.each(cardinfo.attachments,function(ix,attachement){
+                    $.each(cardinfo.attachments, function (ix, attachement) {
                         attachementsarr.push(attachement.url);
 
                     });
@@ -1057,7 +1015,7 @@ var carddesc = cardinfo.desc;
                     // Haal de datum uit de kaartjes
                     var hiden = cardinfo.desc.split("/n@N@");
 
-                    if(hiden.length > 1) {
+                    if (hiden.length > 1) {
                         var ingegevenDatum = hiden[0].split("/n@");
                         var ingegevenDatum2 = ingegevenDatum[ingegevenDatum.length - 1];
                         var correcteDatum = ingegevenDatum2.split("T@");
@@ -1075,10 +1033,9 @@ var carddesc = cardinfo.desc;
 
                     var label24 = document.createElement("LABEL");
 
-                    $.each(descriptionn,function(ix,descript){
+                    $.each(descriptionn, function (ix, descript) {
                         var descsplit = descript.split("@");
-                        if(descsplit[0] == "AW")
-                        {
+                        if (descsplit[0] == "AW") {
 
                             label24.innerHTML = descsplit[1];
 
@@ -1097,27 +1054,33 @@ var carddesc = cardinfo.desc;
                     }
 
                     var divclearfix = document.createElement("DIV");
-                    divclearfix.setAttribute("Class","clearfix");
+                    divclearfix.setAttribute("Class", "clearfix");
 
                     var p21 = document.createElement("P");
-                    p21.setAttribute("Class","lokaal content");
+                    p21.setAttribute("Class", "lokaal content");
                     p21.style.paddingTop = "10px";
                     p21.innerHTML = descriptionn[3];
 
                     var p22 = document.createElement("P");
-                    p22.setAttribute("Class","campus content");
+                    p22.setAttribute("Class", "campus content");
                     p22.innerHTML = "";
 
                     var div21 = document.createElement("DIV");
-                    div21.setAttribute("Class","clearfix");
+                    div21.setAttribute("Class", "clearfix");
 
                     var p23 = document.createElement("P");
-                    p23.setAttribute("Class","panel-body");
+                    p23.setAttribute("Class", "panel-body");
                     p23.innerHTML = descriptionn[0];
 
-                    if(descriptionn[1]=="Niet Dringend"){li.classList.add("liBorderL");}
-                    else if(descriptionn[1]=="Dringend"){li.classList.add("liBorderG");}
-                    else if(descriptionn[1]=="Zeer Dringend"){li.classList.add("liBorderH");}
+                    if (descriptionn[1] == "Niet Dringend") {
+                        li.classList.add("liBorderL");
+                    }
+                    else if (descriptionn[1] == "Dringend") {
+                        li.classList.add("liBorderG");
+                    }
+                    else if (descriptionn[1] == "Zeer Dringend") {
+                        li.classList.add("liBorderH");
+                    }
 
                     div2.appendChild(p21);
                     div2.appendChild(p22);
@@ -1128,11 +1091,11 @@ var carddesc = cardinfo.desc;
                         div2.appendChild(imageLink);
                     }
                     div2.appendChild(divclearfix);
-                    Filters("niks","/");
+                    Filters("niks", "/");
                 });
 
 
-                temparr.push(card.id,card.name,description,attachementsarr);
+                temparr.push(card.id, card.name, description, attachementsarr);
                 //array met alle kaartjes in
                 CardId.push(temparr);
 
@@ -1144,75 +1107,61 @@ var carddesc = cardinfo.desc;
                 selecteddiv.appendChild(li);
 
 
-
-
                 //<li class="lastcard"><i class="fa fa-refresh"></i></li>
             });
 
 
-
-            if(!izworker)
-            {
+            if (!izworker) {
                 var liend = document.createElement("UL");
-                liend.setAttribute("class","lastcard");
+                liend.setAttribute("class", "lastcard");
                 var i = document.createElement("I");
-                i.setAttribute("class","fa fa-refresh");
+                i.setAttribute("class", "fa fa-refresh");
                 liend.appendChild(i);
 
                 selecteddiv.parentElement.appendChild(liend);
 
 
-
             }
-            else
-            {
-                console.log(selecteddiv.firstChild.innerText,count);
+            else {
+                console.log(selecteddiv.firstChild.innerText, count);
                 //selecteddiv.firstChild.innerText += "("+ count+")";
 
                 var label = document.createElement("LABEL");
-                label.innerText = " ( " + count +" ) ";
+                label.innerText = " ( " + count + " ) ";
 
                 selecteddiv.firstChild.appendChild(label);
             }
 
 
-
         });
     }
     //--------------------filter----------------------//
-    var FilterSection=document.getElementById("SelectedFilters");
-    function PriorityChange(value)
-    {
-        if(value != "Default")
-        {
-            makeDiv(value,"P");
-            Filters(value,"P");
+    var FilterSection = document.getElementById("SelectedFilters");
+    function PriorityChange(value) {
+        if (value != "Default") {
+            makeDiv(value, "P");
+            Filters(value, "P");
         }
 
     }
-    function WorkerChange(value)
-    {
-        if(value != "Default")
-        {
-            makeDiv(value,"W");
-            Filters(value,"W");
+    function WorkerChange(value) {
+        if (value != "Default") {
+            makeDiv(value, "W");
+            Filters(value, "W");
         }
     }
-    function CampusChange(value)
-    {
-        if(value != "Default")
-        {
+    function CampusChange(value) {
+        if (value != "Default") {
             makeDiv(value, "C");
-            Filters(value,"C");
+            Filters(value, "C");
         }
     }
 
-    function makeDiv(name,idprefix)
-    {
+    function makeDiv(name, idprefix) {
         var div = document.createElement("DIV");
-        div.setAttribute("class","");
-        div.setAttribute("Onclick","DeleteFilter(this)");
-        div.setAttribute("id",idprefix+"/"+name);
+        div.setAttribute("class", "");
+        div.setAttribute("Onclick", "DeleteFilter(this)");
+        div.setAttribute("id", idprefix + "/" + name);
 
         var label = document.createElement("LABEL");
         label.innerHTML = name;
@@ -1228,8 +1177,7 @@ var carddesc = cardinfo.desc;
 
     }
 
-    function TitelChange(value)
-    {
+    function TitelChange(value) {
         var TitelFilter = document.getElementById("TitelFilter");
         TitelFilter = TitelFilter.firstChild.nextSibling;
         TitelFilter.className = "ui blue large horizontal label";
@@ -1240,7 +1188,7 @@ var carddesc = cardinfo.desc;
         TitelFilter.innerText = value;
 
 
-        Filters("niks","/");
+        Filters("niks", "/");
         TitelFilter.appendChild(icon);
 
         if (value == "") {
@@ -1248,37 +1196,25 @@ var carddesc = cardinfo.desc;
             icon.className = "";
         }
     }
-    function TitelRemove(element)
-    {
+    function TitelRemove(element) {
 
-        element.firstChild.nextSibling.innerHTML ="";
+        element.firstChild.nextSibling.innerHTML = "";
         element.firstChild.nextSibling.className = "";
-        Filters("niks","/");
+        Filters("niks", "/");
     }
 
-    function LokaalChange(event,value)
-    {
+    function LokaalChange(event, value) {
         var code = event.keyCode;
-        if(code == 13)
-        {
-<<<<<<< HEAD
+        if (code == 13) {
 
-            makeDiv(value,"L");
-            Filters(value,"L");
-=======
-            if (value == "") {
-                event.preventDefault();
-            }
-            else {
-                //console.log(value);
-                makeDiv(value,"L");
-                Filters(value,"L");
-            }
->>>>>>> origin/master
+            makeDiv(value, "L");
+            Filters(value, "L");
         }
+
+
     }
 
-    function Filters(el,ely) {
+    function Filters(el, ely) {
         var divs = FilterSection.getElementsByTagName("Div");
         var campusfilters = [];
         var priorityfilters = [];
@@ -1386,9 +1322,8 @@ var carddesc = cardinfo.desc;
 
 
         }
-        if(filtered.length<=0)
-        {
-            filtered =-1;
+        if (filtered.length <= 0) {
+            filtered = -1;
         }
 
 
@@ -1417,12 +1352,10 @@ var carddesc = cardinfo.desc;
         else if (filtered.length != 0) {
             endfilterobjects = filtered;
         }
-        else if(filtered.length != -1)
-        {
+        else if (filtered.length != -1) {
             endfilterobjects = blocks;
         }
-        else
-        {
+        else {
             endfilterobjects = 0;
         }
 
@@ -1444,8 +1377,7 @@ var carddesc = cardinfo.desc;
         if (temptitel.length != 0) {
             endfilterobjects = temptitel;
         }
-        else
-        {
+        else {
             endfilterobjects = 0;
         }
         var tempLokaal = [];
@@ -1462,62 +1394,57 @@ var carddesc = cardinfo.desc;
             }
         }
 
-        if (tempLokaal.length != 0)
-        {
+        if (tempLokaal.length != 0) {
             endfilterobjects = tempLokaal;
         }
 
 
-        for( var i = 0;i<endfilterobjects.length;i++)
-        {
+        for (var i = 0; i < endfilterobjects.length; i++) {
             endfilterobjects[i].style.display = "inline-block";
         }
-        if(divs.length <=1)
-        {
+        if (divs.length <= 1) {
             var onhold = document.getElementById("OnHold").getElementsByTagName("LI");
             var voltooid = document.getElementById("Voltooid").getElementsByTagName("LI");
             var taken = document.getElementById("Taken").getElementsByTagName("LI");
             var workers = document.getElementById("Medewerkers").getElementsByTagName("LI");
-            for(var j = 0;j<onhold.length;j++ )
-            {
-                onhold[j].style.display="inline-block";
+            for (var j = 0; j < onhold.length; j++) {
+                onhold[j].style.display = "inline-block";
             }
-            for(var j = 0;j<voltooid.length;j++ )
-            {
-                voltooid[j].style.display="inline-block";
+            for (var j = 0; j < voltooid.length; j++) {
+                voltooid[j].style.display = "inline-block";
 
             }
-            for(var j = 0;j<taken.length;j++ )
-            {
-                taken[j].style.display="inline-block";
+            for (var j = 0; j < taken.length; j++) {
+                taken[j].style.display = "inline-block";
             }
-            for(var j = 0;j<workers.length;j++ )
-            {
-                if(workers[j].firstChild.nextSibling.firstChild!=null) {
+            for (var j = 0; j < workers.length; j++) {
+                if (workers[j].firstChild.nextSibling.firstChild != null) {
                     workers[j].style.display = "inline-block";
                 }
             }
 
             SetWorkersVisible();
         }
-        Cookiefilter(el,ely);
+        Cookiefilter(el, ely);
     }
 
-    function Cookiefilter(text,id){
+    function Cookiefilter(text, id) {
         //maak cookie aan
-        if(id=="/"){return;}
-text = String(text);
-        if( ""+text.indexOf('[object HTMLDivElement]') >= 0){
+        if (id == "/") {
+            return;
+        }
+        text = String(text);
+        if ("" + text.indexOf('[object HTMLDivElement]') >= 0) {
             // Found world
-        }else{
+        } else {
 
             //maak cookie
             $.ajax({
-                url: '../CookieMaker.php?val='+text+'/'+id,
+                url: '../CookieMaker.php?val=' + text + '/' + id,
                 dataType: 'html',
-                success: function(data){
+                success: function (data) {
                     //data returned from php
-                  // window.open("../","_self");
+                    // window.open("../","_self");
                 }
             });
         }
@@ -1525,41 +1452,35 @@ text = String(text);
     }
 
 
-
-    function SetWorkersVisible()
-    {
+    function SetWorkersVisible() {
         var workersUL = document.getElementById("Medewerkers").getElementsByTagName("UL");
-        for(var j = 0;j<workersUL.length;j++ )
-        {
+        for (var j = 0; j < workersUL.length; j++) {
 
             workersUL[j].style.display = "block";
-
 
 
         }
     }
 
-    function DeleteFilter(element)
-    {
+    function DeleteFilter(element) {
 
         element.parentNode.removeChild(element);
-     //   Filters(element);
-var e = element.id;
+        //   Filters(element);
+        var e = element.id;
         var x = e.split("/");
 
         $.ajax({
-            url: '../CookieDeleter.php?val='+x[1],
+            url: '../CookieDeleter.php?val=' + x[1],
             dataType: 'html',
-            success: function(data){
-Filters("niks","/");
+            success: function (data) {
+                Filters("niks", "/");
                 //data returned from php
                 // window.open("../","_self");
             }
         });
     }
     var count;
-    function PrintTasks(element,callback)
-    {
+    function PrintTasks(element, callback) {
         count = 0;
         var worker = element.parentNode.parentNode;
         var workertasks = worker.getElementsByTagName("li");
@@ -1569,26 +1490,22 @@ Filters("niks","/");
 
         var checkeds = 0;
         var tasks = [];
-        for(var i = 1;i<workertasks.length;i++)
-        {
+        for (var i = 1; i < workertasks.length; i++) {
 
             var checkbox = workertasks[i].firstChild.firstChild.nextSibling;
-            if(checkbox.checked)
-            {
+            if (checkbox.checked) {
                 checkeds++;
                 tasks.push(workertasks[i]);
             }
         }
 
 
-        for(var i = 0;i<tasks.length;i++)
-        {
+        for (var i = 0; i < tasks.length; i++) {
             id = tasks[i].id;
 
 
-            Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
-            {
-                var niewedescription =  cardinfo.desc + "/n@W@"+name;
+            Trello.get("/cards/" + id + "?fields=desc&token=" + application_token, function (cardinfo) {
+                var niewedescription = cardinfo.desc + "/n@W@" + name;
 
                 //checkeds.push(workertasks[i].id);
                 var id = workertasks[i].id;
@@ -1596,24 +1513,21 @@ Filters("niks","/");
 
                 var descsplilt = cardinfo.desc.split("/n@");
                 var found = false;
-                $.each(descsplilt,function(ix,descpart) {
-                    if (descpart.split("@")[0] == "W" && descpart.split("@")[1] == name)
-                    {
+                $.each(descsplilt, function (ix, descpart) {
+                    if (descpart.split("@")[0] == "W" && descpart.split("@")[1] == name) {
 
                         count++;
                         found = true;
-                        if(count == checkeds)
-                        {
+                        if (count == checkeds) {
 
                             redirect(name);
                         }
 
                     }
                 });
-                if(!found)
-                {
+                if (!found) {
 
-                    SetTag(cardinfo.id,listId,niewedescription,checkeds,name);
+                    SetTag(cardinfo.id, listId, niewedescription, checkeds, name);
 
                 }
 
@@ -1624,56 +1538,47 @@ Filters("niks","/");
 
 
         //
-       // window.open("../Afdrukpagina.php?Werkman="+name,"_self");
+        // window.open("../Afdrukpagina.php?Werkman="+name,"_self");
 
     }
 
-    function SetTag(id,listId,nieuwedescription,lengte,naam)
-    {
-        Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"&desc="+nieuwedescription,function()
-        {
+    function SetTag(id, listId, nieuwedescription, lengte, naam) {
+        Trello.put("/cards/" + id + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + nieuwedescription, function () {
 
             count++;
 
 
-            if(count == lengte)
-            {
+            if (count == lengte) {
 
                 redirect(naam);
             }
         });
     }
-    function redirect(name)
-    {
+    function redirect(name) {
 
-       window.open("../Afdrukpagina.php?Werkman="+name,"_self");
+        window.open("../Afdrukpagina.php?Werkman=" + name, "_self");
     }
 
     function CopyCard(value) {
-        if (value.value != "Default")
-        {
+        if (value.value != "Default") {
             var div = value.parentNode;
             var id = div.getElementsByTagName("label")[1].innerHTML;
             var li = document.getElementById(id);
             var temp = li.getElementsByTagName("label");
 
-            Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token="+application_token,function(lists)
-            {
+            Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token=" + application_token, function (lists) {
 
-                $.each(lists["lists"],function(ix,list)
-                {
+                $.each(lists["lists"], function (ix, list) {
 
-                    if(list.name == value.value)
-                    {
-                        Trello.get("/cards/"+id+"?fields=desc&token="+application_token,function(cardinfo)
-                        {
+                    if (list.name == value.value) {
+                        Trello.get("/cards/" + id + "?fields=desc&token=" + application_token, function (cardinfo) {
                             niewedescription = cardinfo.desc + "/n@AW@" + value.value;
 
-                            Trello.put("/cards/"+id+"?key="+APP_KEY+"&token="+application_token+"&desc="+niewedescription,function(){
-                                Trello.post("/cards?idList="+list.id+"&idCardSource="+id+"&due=null&token="+application_token+"&key"+APP_KEY);
+                            Trello.put("/cards/" + id + "?key=" + APP_KEY + "&token=" + application_token + "&desc=" + niewedescription, function () {
+                                Trello.post("/cards?idList=" + list.id + "&idCardSource=" + id + "&due=null&token=" + application_token + "&key" + APP_KEY);
                             });
                         });
-                        temp[0].innerText += " "+ value.value;
+                        temp[0].innerText += " " + value.value;
 
 
                     }
@@ -1685,22 +1590,21 @@ Filters("niks","/");
     }
 
 
-        /* Nieuwe code -> Bug moet nog opgelost worden 'mutable variable i'
-         var divItem = document.createElement("div");
-         divItem.className = "ui item";
-         divItem.onclick = function (){CampusChange(campussen[i])};
+    /* Nieuwe code -> Bug moet nog opgelost worden 'mutable variable i'
+     var divItem = document.createElement("div");
+     divItem.className = "ui item";
+     divItem.onclick = function (){CampusChange(campussen[i])};
 
-         var option = document.createElement("OPTION");
-         option.setAttribute("value", campussen[i]);
-         option.setAttribute("name", campussen[i]);
-         option.innerHTML = campussen[i];
+     var option = document.createElement("OPTION");
+     option.setAttribute("value", campussen[i]);
+     option.setAttribute("name", campussen[i]);
+     option.innerHTML = campussen[i];
 
-         document.getElementById("Filter_Campussen").appendChild(divItem);
-         divItem.appendChild(option);
+     document.getElementById("Filter_Campussen").appendChild(divItem);
+     divItem.appendChild(option);
 
 
-        /* OUDE CODE */
-
+     /* OUDE CODE */
 
 
 </script>
@@ -1712,21 +1616,20 @@ Filters("niks","/");
 //$mysqli = new mysqli('mysqlstudent','cedriclecat','ooDohQuuo2uh','cedriclecat');
 //student howest
 $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
-if ($mysqli->connect_error)
-{
+if ($mysqli->connect_error) {
     echo "Geen connectie mogelijk met de database";
 }
 $data = array();
 ?>
 
 
-<script>    var arraymetlokalen =[]; var campussen=[]</script>
+<script>    var arraymetlokalen = [];
+    var campussen = []</script>
 <?php
 //alles ophalen en in array steken
 //echo 'h';
 $result = $mysqli->query("SELECT NAME FROM klassen");
-while($row = $result->fetch_array(MYSQLI_ASSOC))
-{
+while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
     ?>
     <script>
 
@@ -1734,16 +1637,12 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
         arraymetlokalen.push(lokaal);
         var campus = lokaal.split(".");
 
-        if(doesExist(campus[0]))
-        {
+        if (doesExist(campus[0])) {
             campussen.push(campus[0]);
         }
-        function doesExist(name)
-        {
-            for(var i = 0;i<campussen.length;i++)
-            {
-                if(name == campussen[i])
-                {
+        function doesExist(name) {
+            for (var i = 0; i < campussen.length; i++) {
+                if (name == campussen[i]) {
                     return false;
                 }
             }

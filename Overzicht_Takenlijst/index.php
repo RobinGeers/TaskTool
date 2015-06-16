@@ -431,7 +431,7 @@ var mnarray2=[];
 
         if(newtarget.parentNode.id == "Medewerkers") {
             document.getElementById(data).style.width = "350px";
-            document.getElementById(data).style.maxWidth = "400px";
+            document.getElementById(data).style.maxWidth = "350px";
             console.log("in nen mederwerk gesleept");
             Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
                 var unfnaam = newtarget.firstChild.innerHTML.split("<");
@@ -447,7 +447,7 @@ var mnarray2=[];
                 Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + niewedescription);
             });
         }
-        if(newtarget.parentNode.id == "Voltooid")
+        else if(newtarget.parentNode.id == "Voltooid")
         {
 
             var now = new Date();
@@ -465,6 +465,7 @@ var mnarray2=[];
         else
         {
             document.getElementById(data).style.width = "380px";
+            document.getElementById(data).style.maxWidth = "380px";
             //document.getElementById(data).style.maxWidth = "250px";
             //console.log("nie in nen medewerker");
             Trello.put("/cards/"+cardid+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"");//&desc=is verzet

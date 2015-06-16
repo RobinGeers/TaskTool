@@ -347,6 +347,7 @@ $mysqli->close(); //connectie sluiten
         case 'Basic':
 ?>
         MD.style.display = "inline-block";
+        Afdruklijst.style.display = "none";
         OT.style.display = "none";
         S.style.display = "none";
         I.style.display = "none";
@@ -357,6 +358,7 @@ $mysqli->close(); //connectie sluiten
                 case 'Werkman':
         ?>
         MD.style.display = "inline-block";
+        Afdruklijst.style.display = "inline-block";
         OT.style.display = "none";
         S.style.display = "none";
         I.style.display = "none";
@@ -366,6 +368,7 @@ $mysqli->close(); //connectie sluiten
                 case 'Onthaal':
         ?>
         MD.style.display = "inline-block";
+        Afdruklijst.style.display = "none";
         OT.style.display = "inline-block";
         S.style.display = "inline-block";
         I.style.display = "none";
@@ -375,6 +378,7 @@ $mysqli->close(); //connectie sluiten
                         case 'Admin':
              ?>
         MD.style.display = "inline-block";
+        Afdruklijst.style.display = "none";
         OT.style.display = "inline-block";
         S.style.display = "inline-block";
         I.style.display = "inline-block";
@@ -416,7 +420,10 @@ $mysqli->close(); //connectie sluiten
     <nav>
         <ul>
             <li><a id="first"  href="#">Probleem melden</a></li>
-            <li><a id="afdruklijst"  href="../Afdrukpagina.php?">Afdruklijst</a></li>
+            <li><a id="afdruklijst"  href="../Afdrukpagina.php?Werkman=<?php $a =  $_SESSION["loggedin"];
+                $a = explode("@",$a);
+                $a = $a[0];
+                print $a;?>">Afdruklijst</a></li>
             <li><a id="second" href="../Overzicht_Takenlijst/">Overzicht takenlijst</a></li>
             <li><a id="third"  href="../Statistieken">Statistieken</a></li>
            <!--<li><a  href="../Instellingen">Instellingen</a></li>

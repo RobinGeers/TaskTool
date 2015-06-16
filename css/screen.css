@@ -161,6 +161,7 @@ footer {
     background-color: #337ab7;
     border-top: 8px solid #47AAFF;
     position: relative;
+    margin-top: 50px;
 }
 
 .clearfooter{
@@ -580,6 +581,17 @@ main#Overzicht a#fourth:hover {
     color: #ffffff;
 }
 
+main#Overzicht a#fifth {
+    background-color: #e87352;
+    color: #ffffff;
+}
+
+main#Overzicht a#fifth:hover {
+    transition: background-color 0.2s ease;
+    background-color: #FF7352;
+    color: #ffffff;
+}
+
 main#Overzicht a#first:active, main#Overzicht a#second:active, main#Overzicht a#third:active, main#Overzicht a#fourth:active {
     box-shadow: inset -3px -3px 1px rgba(0, 0, 0, 0.07);
 }
@@ -677,6 +689,12 @@ main#Overzicht_Takenlijst h1.topp {
     background-color: #47AAFF;
 }
 
+.grayfield {
+    background-color: #e0e0e0;
+    border-radius: 4px;
+    border: 1px solid #e0e0e0;
+    padding: 10px;
+}
 
 .panel-default>.panel-heading {
     background-color: #fff !important;

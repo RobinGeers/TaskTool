@@ -261,10 +261,10 @@ foreach($data as $d){
 
     <section id="Grid">
         <a href="../Overzicht_Takenlijst_Grid/index.php">
-            <i id="Weergave_Tabel" class="fa fa-list-alt popup" data-content="Tabel weergave"></i>
+            <i id="Weergave_Tabel" class="fa fa-list-alt popup" data-content="Tabel weergave van niet toegekende taken"></i>
         </a>
         <a href="#">
-            <i id="Weergave_Kaartjes" class="fa fa-th-large popup" data-content="Kaartjes weergave"></i>
+            <i id="Weergave_Kaartjes" class="fa fa-th-large popup" data-content="Kaartjes weergave van taken"></i>
         </a>
 
     </section>
@@ -455,6 +455,13 @@ var mnarray2=[];
             document.getElementById(cardid).style.maxWidth = "400px";
 
 
+<<<<<<< HEAD
+=======
+        if(newtarget.parentNode.id == "Medewerkers") {
+            document.getElementById(data).style.width = "350px";
+            document.getElementById(data).style.maxWidth = "350px";
+            console.log("in nen mederwerk gesleept");
+>>>>>>> origin/master
             Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
 
                 var naam = newtarget.firstChild.innerText;
@@ -470,7 +477,7 @@ var mnarray2=[];
                 Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + niewedescription);
             });
         }
-        if(newtarget.parentNode.id == "Voltooid")
+        else if(newtarget.parentNode.id == "Voltooid")
         {
 
             var now = new Date();
@@ -487,9 +494,16 @@ var mnarray2=[];
         }
         else
         {
+<<<<<<< HEAD
             document.getElementById(cardid).style.width = "380px";
             //document.getElementById(cardid).style.maxWidth = "250px";
 
+=======
+            document.getElementById(data).style.width = "380px";
+            document.getElementById(data).style.maxWidth = "380px";
+            //document.getElementById(data).style.maxWidth = "250px";
+            //console.log("nie in nen medewerker");
+>>>>>>> origin/master
             Trello.put("/cards/"+cardid+"?key="+APP_KEY+"&token="+application_token+"&idList="+listId+"");//&desc=is verzet
         }
 
@@ -1247,12 +1261,21 @@ var carddesc = cardinfo.desc;
         var code = event.keyCode;
         if(code == 13)
         {
+<<<<<<< HEAD
 
             makeDiv(value,"L");
             Filters(value,"L");
+=======
+            if (value == "") {
+                event.preventDefault();
+            }
+            else {
+                //console.log(value);
+                makeDiv(value,"L");
+                Filters(value,"L");
+            }
+>>>>>>> origin/master
         }
-
-
     }
 
     function Filters(el,ely) {

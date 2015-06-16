@@ -131,7 +131,7 @@ $mysqli->close(); //connectie sluiten
                 --> <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
                     <ul>
                         <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
-                        <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
+                        <li><a href="../Instellingen_Externe_Werknemers/index.php">Onderaannemers</a></li>
                         <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
                     </ul>
             </ul>

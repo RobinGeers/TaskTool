@@ -128,10 +128,15 @@ foreach ($data as $d) {
     <nav>
         <ul>
             <li><a id="first" href="../Meld_Defect/index.php">Probleem melden</a></li>
-            <li><a id="second" href="#">Overzicht takenlijst</a></li>
+            <li><a id="second" href="#">Overzicht takenlijst</a>
+                <ul class="gotop">
+                    <li><a href="../Overzicht_Takenlijst_Grid/index.php">Tabel weergave</a></li>
+                    <li><a href="../Overzicht_Takenlijst/index.php">Kaartjes weergave</a></li>
+                </ul>
+            </li>
             <li><a id="third" href="../Statistieken/index.php">Statistieken</a></li>
             <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
-                <ul>
+                <ul class="gotop">
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
                     <li><a href="../Instellingen_Externe_Werknemers/index.php">Onderaannemers</a></li>
                     <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
@@ -1020,7 +1025,6 @@ foreach ($data as $d) {
                     });
 
                     // Haal de datum uit de kaartjes
-<<<<<<< HEAD
                     var descriptionn = cardinfo.desc.split("/n@");
                     $.each(descriptionn, function (ix, descpart) {
 
@@ -1064,67 +1068,6 @@ foreach ($data as $d) {
                         }
 
                     });
-                    /*var hiden = cardinfo.desc.split("/n@N@");
-                    console.log("HIER MOET JE KIJKEN");
-                    if(hiden.length > 1) {
-=======
-                    var hiden = cardinfo.desc.split("/n@N@");
-
-                    if (hiden.length > 1) {
->>>>>>> origin/master
-                        var ingegevenDatum = hiden[0].split("/n@");
-                        var ingegevenDatum2 = ingegevenDatum[ingegevenDatum.length - 1];
-                        var correcteDatum = ingegevenDatum2.split("T@");
-
-                        var definitieveDatum = correcteDatum[1];
-                        var correctUur = definitieveDatum.split("@");
-                        var definitieveDatum2 = definitieveDatum.split("@");
-
-                        var finalDatum = definitieveDatum2[0];
-                        var finaluur = definitieveDatum2[1];
-<<<<<<< HEAD
-                        //console.log("DEFINITIEVE DATUM: " + finalDatum + " UUR: " + finaluur);
-=======
-
->>>>>>> origin/master
-
-                        // TODO: Als de aangemaakte (final) datum langer dan een maand geleden is -> Toon door bv. een uitroepteken op het kaartje,..
-                        var dateFinal = finalDatum + "" + finaluur;
-                        var finalDatum2 = dateFinal.split(" ");
-                        var year = finalDatum2[0];
-                        var month = finalDatum2[1];
-                        var day = finalDatum2[2].slice(0,2);
-                        var uur = finalDatum2[2].slice(2,7);
-                        var datum = year + "." + month + "." + day;
-
-                        // Datum van kaartje
-                        var convertedToUnix = new Date(datum).getTime() / 1000; // milliseconds
-
-                        // Huidige datum
-                        var currentDate = new Date().getTime() / 1000;
-
-                        var verstrekenTijd = currentDate-convertedToUnix;
-                        //console.log("Tijd tussen datum van kaartje en nu");
-                        //console.log(verstrekenTijd);
-                        var maxVerstrekenTijd = 100;
-                        /*if(verstrekenTijd + maxVerstrekenTijd > 0){
-                            console.log("ouder dan 15 min ");
-                        }*//*
-
-                        console.log(convertedToUnix);
-                        console.log(currentDate);
-                        console.log(verstrekenTijd);
-                        console.log(maxVerstrekenTijd);
-
-                        if (verstrekenTijd > maxVerstrekenTijd) {
-                            // Ouder dan 15 minuten
-                            li.style.backgroundColor = "#000000";
-                        }
-                        else {
-                            // Niet ouder dan 15 minuten
-
-                        }
-                    }*/
 
                     var label24 = document.createElement("LABEL");
 
@@ -1133,7 +1076,7 @@ foreach ($data as $d) {
                         if (descsplit[0] == "AW") {
 
                             label24.innerHTML = descsplit[1];
-                            
+
                         }
                     });
 

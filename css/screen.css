@@ -99,6 +99,7 @@ header button {
     float: right;
     margin-right: 100px;
     margin-left: 100px;
+    border-radius: 4px;
 }
 
 header button a {
@@ -150,6 +151,10 @@ nav ul ul li a {
 
 nav ul li ul li:first-child {
     margin-top: -20px;
+}
+
+nav ul ul.gotop {
+    margin-top: -8px;
 }
 
 nav ul li ul li:hover {

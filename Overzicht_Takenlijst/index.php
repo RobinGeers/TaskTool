@@ -1016,10 +1016,52 @@ var carddesc = cardinfo.desc;
                         attachementsarr.push(attachement.url);
 
                     });
-                    var descriptionn = cardinfo.desc.split("/n@");
 
                     // Haal de datum uit de kaartjes
-                    var hiden = cardinfo.desc.split("/n@N@");
+                    var descriptionn = cardinfo.desc.split("/n@");
+                    $.each(descriptionn, function (ix, descpart) {
+
+                        if (descpart.split("@")[0] == "T") {
+                            var datum = descpart.split("@")[1];
+                            var uur = descpart.split("@")[2];
+
+                            var splitDatum = datum.split(" ");
+                            var year = splitDatum[0];
+                            var month = splitDatum[1];
+                            var day = splitDatum[2];
+                            var datum2 = year + "." + month + "." + day + " " + uur;
+
+                            // Datum van kaartje
+                            var convertedToUnix = new Date(datum2).getTime() / 1000;
+
+                            // Huidige datum
+                            var currentDate = new Date().getTime() / 1000;
+
+                            var verstrekenTijd = currentDate-convertedToUnix;
+                            //console.log("Tijd tussen datum van kaartje en nu");
+                            //console.log(verstrekenTijd);
+                            var maxVerstrekenTijd = 82800; // -> 1 dag (Aan te passen indien je na een bepaalde tijd een uitroepingsteken wilt zien)
+
+                             if (verstrekenTijd > maxVerstrekenTijd) {
+                                 // Ouder dan 15 minuten
+                                 var uitroepingsteken = document.createElement("i");
+                                 uitroepingsteken.className = "fa fa-exclamation";
+                                 uitroepingsteken.style.width = "20px";
+                                 uitroepingsteken.style.height = "20px";
+                                 uitroepingsteken.style.color = "#dc002f";
+                                 uitroepingsteken.style.fontSize = "2.3em";
+                                 uitroepingsteken.style.float = "right";
+                                 uitroepingsteken.style.marginTop = "-5px";
+                                 li.firstChild.appendChild(uitroepingsteken);
+                             }
+                             else {
+                                // Niet ouder dan 15 minuten
+
+                             }
+                        }
+
+                    });
+                    /*var hiden = cardinfo.desc.split("/n@N@");
                     console.log("HIER MOET JE KIJKEN");
                     if(hiden.length > 1) {
                         var ingegevenDatum = hiden[0].split("/n@");
@@ -1032,10 +1074,45 @@ var carddesc = cardinfo.desc;
 
                         var finalDatum = definitieveDatum2[0];
                         var finaluur = definitieveDatum2[1];
-                        console.log("DEFINITIEVE DATUM: " + finalDatum + " UUR: " + finaluur);
+                        //console.log("DEFINITIEVE DATUM: " + finalDatum + " UUR: " + finaluur);
 
                         // TODO: Als de aangemaakte (final) datum langer dan een maand geleden is -> Toon door bv. een uitroepteken op het kaartje,..
-                    }
+                        var dateFinal = finalDatum + "" + finaluur;
+                        var finalDatum2 = dateFinal.split(" ");
+                        var year = finalDatum2[0];
+                        var month = finalDatum2[1];
+                        var day = finalDatum2[2].slice(0,2);
+                        var uur = finalDatum2[2].slice(2,7);
+                        var datum = year + "." + month + "." + day;
+
+                        // Datum van kaartje
+                        var convertedToUnix = new Date(datum).getTime() / 1000; // milliseconds
+
+                        // Huidige datum
+                        var currentDate = new Date().getTime() / 1000;
+
+                        var verstrekenTijd = currentDate-convertedToUnix;
+                        //console.log("Tijd tussen datum van kaartje en nu");
+                        //console.log(verstrekenTijd);
+                        var maxVerstrekenTijd = 100;
+                        /*if(verstrekenTijd + maxVerstrekenTijd > 0){
+                            console.log("ouder dan 15 min ");
+                        }*//*
+
+                        console.log(convertedToUnix);
+                        console.log(currentDate);
+                        console.log(verstrekenTijd);
+                        console.log(maxVerstrekenTijd);
+
+                        if (verstrekenTijd > maxVerstrekenTijd) {
+                            // Ouder dan 15 minuten
+                            li.style.backgroundColor = "#000000";
+                        }
+                        else {
+                            // Niet ouder dan 15 minuten
+
+                        }
+                    }*/
 
                     var label24 = document.createElement("LABEL");
 

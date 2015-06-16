@@ -502,9 +502,11 @@ console.log(at);
         var tell = 0;
         //   console.log(eml.childElementCount);
         $.each(eml.childNodes,function(ix,a){
-
-            //  console.log(ix);
+            tell++;
+            console.log("HIERONDER");
+              console.log(ix);
             a = eml.childNodes[ix];
+
             if(ix==5){
                 //  console.log("JA VIJF");
                 var hftd = document.createElement("td");
@@ -517,22 +519,20 @@ console.log(at);
                 hftd.appendChild(newicon);
                 eml.replaceChild(hftd,eml.childNodes[ix]);
                 return;
-            }else if(ix==4){}else if(ix==2){
+            } else if (ix == 4) {}
+            else if (ix == 2) {
                 var hoofdtd = document.createElement("td");
-
                 var t = a.innerText;
-                var i = document.createElement("input");
-                i.className = "grayfield";
-                i.type ="text";
-                i.name="inputs[]";
-                i.id="inputs"+ix;
-                i.setAttribute('value', 'default');
-                //i.addEventListener('keyup',function(val){i.value=val.value;  });
-                i.value = t;
-                hoofdtd.appendChild(i);
-                eml.replaceChild(hoofdtd,eml.childNodes[ix]);
-
-            }else{
+                var select = document.createElement("select");
+                select.options[select.options.length] = new Option('Niet Dringend', 'Niet Dringend');
+                select.options[select.options.length] = new Option('Dringend', 'Dringend');
+                select.options[select.options.length] = new Option('Zeer Dringend', 'Zeer Dringend');
+                select.className = "grayfield";
+                select.value = t;
+                hoofdtd.appendChild(select);
+                eml.replaceChild(hoofdtd, eml.childNodes[ix]);
+            }
+            else{
                 var hoofdtd = document.createElement("td");
 
                 var t = a.innerText;
@@ -548,6 +548,7 @@ console.log(at);
                 hoofdtd.appendChild(i);
                 eml.replaceChild(hoofdtd,eml.childNodes[ix]);
             }
+
 
 //console.log(eml.childNodes[ix]);
         });

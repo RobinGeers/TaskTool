@@ -255,12 +255,12 @@ $mysqli->close(); //connectie sluiten
         Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token=" + application_token, function (lists) {
 
             var doorlopenL = 0;
-            var lengte = lists.length;
+
 
             var werknemers = document.getElementById("WerkerSelection");
             $.each(lists["lists"], function (ix, list) {
                 //workers
-                if (list.name == "Taken" && list.name == "On hold") {
+                if (list.name == "Taken"|| list.name == "On hold") {
                     /*  Trello.get("/lists/"+list.id+"?fields=name&cards=open&card_fields=name&token" +
                      "="+application_token, function(cards) {
 
@@ -286,8 +286,13 @@ $mysqli->close(); //connectie sluiten
                      });*/
 
                     ++doorlopenL;
+                    console.log(doorlopenL,"eerste");
+                    if(doorlopenL == lists["lists"].length )
+                    {
+                        ladenDone(werknemers, workersindesc,StartTimes,FinishTimes);
+                    }
                 }
-                if (list.name == "Voltooid") {
+                else if (list.name == "Voltooid") {
                     Trello.get("/lists/" + list.id + "?fields=name&cards=open&card_fields=name&token" +
                     "=" + application_token, function (cards) {
                         var cardcounter = 0;
@@ -329,6 +334,11 @@ $mysqli->close(); //connectie sluiten
                                 if(++cardcounter == cards["cards"].length)
                                 {
                                     ++doorlopenL;
+                                    console.log(doorlopenL,"tweede")
+                                    if(doorlopenL == lists["lists"].length )
+                                    {
+                                        ladenDone(werknemers, workersindesc,StartTimes,FinishTimes);
+                                    }
                                 }
                             });
                         });
@@ -337,6 +347,7 @@ $mysqli->close(); //connectie sluiten
                     });
                 }
                 else {
+
                     workerId.push(list.id);
                     workers.push(list.name);
 
@@ -362,7 +373,7 @@ $mysqli->close(); //connectie sluiten
                     div.appendChild(input);
                     div.appendChild(label);
                     werknemers.appendChild(div);
-
+                    console.log(list.name);
                     Trello.get("/lists/" + list.id + "?fields=name&cards=open&card_fields=name&token" +
                     "=" + application_token, function (cards) {
 
@@ -393,11 +404,22 @@ $mysqli->close(); //connectie sluiten
                                 if(++cardcounter == cards["cards"].length)
                                 {
                                     ++doorlopenL;
+                                    if(doorlopenL == lists["lists"].length )
+                                    {
+                                        ladenDone(werknemers, workersindesc,StartTimes,FinishTimes);
+                                    }
                                 }
 
                             });
                         });
-
+                        if(cards["cards"].length<= 0)
+                        {
+                            ++doorlopenL;
+                            if(doorlopenL == lists["lists"].length )
+                            {
+                                ladenDone(werknemers, workersindesc,StartTimes,FinishTimes);
+                            }
+                        }
 
                     });
                 }
@@ -406,20 +428,20 @@ $mysqli->close(); //connectie sluiten
             /*Initialize(werknemers,workersindesc, StartTimes, FinishTimes);
             PriorityTabel();
             WorkerTabel();*/
-            var timer = setInterval(function () {
+            /*var timer = setInterval(function () {
                 Initialize(werknemers,
                     workersindesc, StartTimes, FinishTimes);
                 clearInterval(timer);
 
-            }, 2000);
+            }, 2000);*/
 
 
         });
     }
 
-    function ladenDone()
+    function ladenDone(werkers,workers,startT,finishT)
     {
-        Initialize(werknemers,workersindesc, StartTimes, FinishTimes);
+        Initialize(werkers,workers, startT, finishT);
         PriorityTabel();
         WorkerTabel();
     }

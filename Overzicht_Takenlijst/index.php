@@ -960,10 +960,15 @@ foreach ($data as $d) {
                 input.setAttribute("type", "checkbox");
                 input.setAttribute("id", card.i);
                 input.setAttribute("name", card.i);
+
+
+
+
                 input.style.float = "right";
 
                 //1/cards/"+card.id+"?fields=desc&attachments=true&token=a0fdcb022ad19ba6de1a849f4d325e9d8aedf95f086570718a3054d4e4bf4681
                 //Overloop 1 kaartje en haal de data eruit
+
                 Trello.get("/cards/" + card.id + "?fields=desc&attachments=true&token=" + application_token, function (cardinfo) {
                     //ASYNC!!!
                     description.push(cardinfo.desc);
@@ -988,7 +993,8 @@ foreach ($data as $d) {
                         mnarray2.push(camp);
                     }
                     mijnteller++;
-                    if (mijnteller == mijnstopsignaal) {
+                    if (mijnteller == mijnstopsignaal)
+                    {
 
                         $(function () {
                             $("#Filter_Lokaal").autocomplete({
@@ -1005,7 +1011,6 @@ foreach ($data as $d) {
                         });
 
                     }
-                    ;
 
 
                     //kijkt naar de attachments en voegt de link toe in een array
@@ -1128,7 +1133,7 @@ foreach ($data as $d) {
                         if (descsplit[0] == "AW") {
 
                             label24.innerHTML = descsplit[1];
-
+                            
                         }
                     });
 
@@ -1182,6 +1187,14 @@ foreach ($data as $d) {
                     }
                     div2.appendChild(divclearfix);
                     Filters("niks", "/");
+
+
+
+
+
+
+
+
                 });
 
 
@@ -1217,8 +1230,8 @@ foreach ($data as $d) {
                 //selecteddiv.firstChild.innerText += "("+ count+")";
 
                 var label = document.createElement("LABEL");
-                label.innerText = "" + count + "";
-                label.setAttribute("class","ui circular label");
+                label.innerText = "(" + count + ")";
+                //label.setAttribute("class","ui circular label");
 
                 selecteddiv.firstChild.appendChild(label);
             }
@@ -1584,7 +1597,7 @@ foreach ($data as $d) {
         var worker = element.parentNode.parentNode;
         var workertasks = worker.getElementsByTagName("li");
 
-        var name = worker.firstChild.innerText;
+        var name = worker.firstChild.innerText.split("(")[0];
         var listId = worker.id;
 
         var checkeds = 0;

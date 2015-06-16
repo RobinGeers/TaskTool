@@ -822,6 +822,7 @@ margin-top: 150px;
 
 header {
     z-index: 1;
+    height: 150px;
 }
 
 .ui.search.icon {

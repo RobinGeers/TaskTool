@@ -516,6 +516,7 @@ console.log(at);
 
                 var t = a.innerText;
                 var i = document.createElement("input");
+                i.className = "grayfield";
                 i.type ="text";
                 i.name="inputs[]";
                 i.id="inputs"+ix;
@@ -531,6 +532,7 @@ console.log(at);
                 var t = a.innerText;
                 console.log(t);
                 var i = document.createElement("input");
+                i.className = "grayfield";
                 i.type ="text";
                 i.name="inputs[]";
                 i.id="inputs"+ix;

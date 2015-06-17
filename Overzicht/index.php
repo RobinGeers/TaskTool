@@ -49,17 +49,30 @@ $mysqli->close(); //connectie sluiten
         var S =  document.getElementById("third").parentElement;
         var I =  document.getElementById("fourth").parentElement;
         var W =  document.getElementById("fifth").parentElement;
-        var Afdruklijst =  document.getElementById("afdruklijst").parentElement;
+       // var Afdruklijst =  document.getElementById("afdruklijst").parentElement;
+
+        var MDS =  document.getElementById("firsts").parentElement;
+        var OTS =  document.getElementById("seconds").parentElement;
+        var SS =  document.getElementById("thirds").parentElement;
+        var IS =  document.getElementById("fourths").parentElement;
+        var WS =  document.getElementById("fifths").parentElement;
+      //  var AfdruklijstS =  document.getElementById("afdruklijsts").parentElement;
     <?php
     switch($data){ //kijk welke rol  je bent en geeft aan de hand van dat ( via display ) weer welke knoppen ej recht tot hebt
         case 'Basic':
 ?>
         MD.style.display = "inline-block";
-        Afdruklijst.style.display = "none";
+      //  Afdruklijst.style.display = "none";
         OT.style.display = "none";
         S.style.display = "none";
         I.style.display = "none";
         W.style.display = "none";
+        MDS.style.display = "inline-block";
+     //   AfdruklijstS.style.display = "none";
+        OTS.style.display = "none";
+        SS.style.display = "none";
+        IS.style.display = "none";
+        WS.style.display = "none";
 
 <?php
 
@@ -68,10 +81,18 @@ $mysqli->close(); //connectie sluiten
 ?>
         MD.style.display = "inline-block";
         W.style.display = "inline-block";
-        Afdruklijst.style.display = "inline-block";
+       // Afdruklijst.style.display = "inline-block";
         OT.style.display = "none";
         S.style.display = "none";
         I.style.display = "none";
+
+        MDS.style.display = "inline-block";
+        WS.style.display = "inline-block";
+       // AfdruklijstS.style.display = "inline-block";
+        OTS.style.display = "none";
+        SS.style.display = "none";
+        IS.style.display = "none";
+
 
         <?php
                     break;
@@ -79,10 +100,17 @@ $mysqli->close(); //connectie sluiten
         ?>
         MD.style.display = "inline-block";
         W.style.display = "none";
-        Afdruklijst.style.display = "none";
+       // Afdruklijst.style.display = "none";
         OT.style.display = "inline-block";
         S.style.display = "inline-block";
         I.style.display = "none";
+
+        MDS.style.display = "inline-block";
+        WS.style.display = "none";
+     //   AfdruklijstS.style.display = "none";
+        OTS.style.display = "inline-block";
+        SS.style.display = "inline-block";
+        IS.style.display = "none";
 
         <?php
                             break;
@@ -90,10 +118,16 @@ $mysqli->close(); //connectie sluiten
              ?>
         MD.style.display = "inline-block";
         W.style.display = "none";
-        Afdruklijst.style.display = "none";
+       // Afdruklijst.style.display = "none";
         OT.style.display = "inline-block";
         S.style.display = "inline-block";
         I.style.display = "inline-block";
+        MDS.style.display = "inline-block";
+        WS.style.display = "none";
+       // AfdruklijstS.style.display = "none";
+        OTS.style.display = "inline-block";
+        SS.style.display = "inline-block";
+        IS.style.display = "inline-block";
 
         <?php
                                     break;
@@ -121,7 +155,7 @@ $mysqli->close(); //connectie sluiten
         <nav>
             <ul>
                 <li><a id="first"  href="../Meld_Defect/index.php">Probleem melden</a></li>
-                <li><a id="afdruklijst"  href="../Afdrukpagina.php?Werkman=<?php $a =  $_SESSION["loggedin"];
+                <li><a id="fifth"  href="../Afdrukpagina.php?Werkman=<?php $a =  $_SESSION["loggedin"];
                     $a = explode("@",$a);
                     $a = $a[0];
                     print $a;?>">Afdruklijst</a></li>
@@ -147,11 +181,11 @@ $mysqli->close(); //connectie sluiten
 
     <main id="Overzicht">
         <h1>Overzicht</h1>
-        <div><a id="first" href="../Meld_Defect/index.php"><i class="fa fa-bell"></i><p>Meld een defect</p></a></div>
-        <div ><a id="second" href="../Overzicht_Takenlijst/index.php"><i class="fa fa-list-ul"></i><p>Overzicht takenlijst</p></a></div>
-        <div><a id="third" href="../Statistieken/index.php"><i class="fa fa-line-chart"></i><p>Statistieken</p></a></div>
-        <div><a id="fourth" href="../Instellingen_Overzicht/index.php"><i class="fa fa-cogs"></i><p>Instellingen</p></a></div>
-        <div><a id="fifth" href="../Afdrukpagina.php?Werkman=<?php $a =  $_SESSION["loggedin"];
+        <div><a id="firsts" href="../Meld_Defect/index.php"><i class="fa fa-bell"></i><p>Meld een defect</p></a></div>
+        <div ><a id="seconds" href="../Overzicht_Takenlijst/index.php"><i class="fa fa-list-ul"></i><p>Overzicht takenlijst</p></a></div>
+        <div><a id="thirds" href="../Statistieken/index.php"><i class="fa fa-line-chart"></i><p>Statistieken</p></a></div>
+        <div><a id="fourths" href="../Instellingen_Overzicht/index.php"><i class="fa fa-cogs"></i><p>Instellingen</p></a></div>
+        <div><a id="fifths" href="../Afdrukpagina.php?Werkman=<?php $a =  $_SESSION["loggedin"];
            $a = explode("@",$a);
             $a = $a[0];
             print $a;

@@ -677,6 +677,10 @@ $mysqli->close();
         el.replaceChild(td3,el.childNodes[2]);
         mylink="../ChangeInst/a2fjo4(dsf558sdf.php";
         var url = mylink+"?naam="+naam+"&rol="+selectedvalue;
+
+        ooTable.row(el).remove().draw();
+        ooTable.row.add(el).draw();
+
         $.ajax({
             url: url,
             dataType: 'html',

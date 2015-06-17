@@ -27,7 +27,9 @@ $email->Subject = "Uw aanvraag was voltooid";
 
 $email->Body =$b;
 
-$email->AddAddress('robin_geers@hotmail.com'); //new email
+$x =  "".$_GET["n"];
+
+$email->AddAddress($x); //new email
 
 $email->Send();
 

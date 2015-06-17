@@ -543,57 +543,7 @@ $mysqli->close();
         }
     };
 
-    function fillup(){
 
-        console.log(ooTable);
-        mnnr=0;
-        table = document.getElementById('DynamicIntern');
-        //verwijder alles in table
-
-        var element = table.firstChild;
-
-        while( element ) {
-            table.removeChild(element);
-            element = table.firstChild;
-        }
-
-
-        $.each(mydata,function(ix,ar){
-            filnaam ="";
-            filrol = "";
-            $.each(ar,function(i,fill){
-                if(i==0){
-                    filnaam = fill;
-
-                }else{
-                    filrol = fill;
-                }
-
-            });
-
-
-            a = filnaam.split('@');
-            b = a[0];
-            b = b.replace('.', ' ');
-            /*
-             if(check(b,naam)){ return;  } else{
-             if(check(filnaam,email)){ return;  }else{
-             if(check(filrol,rechten)){ return;  }else{*/
-            //PASSED FILTERS
-            maakitem(table,b,filnaam,filrol);
-            // console.log('maak');
-            /*     }
-             }
-             }*/
-        });
-        $('#DI')
-            .removeClass( 'display' )
-            .addClass('table table-striped table-bordered');
-
-        ooTable = $('#DI').DataTable({
-            "dom": '<"top">rt<"bottom"lp><"clear">'
-        });
-    }
     function check(a,b){
         b = b.toLowerCase();
         //console.log(a);
@@ -617,124 +567,9 @@ $mysqli->close();
         return false;
     }
     mnnr = 0;
-    function maakitem(table, naam, Email, Rechten){
-        var tr =  document.createElement("tr");
-        var firsttd = document.createElement("td");
-        //      firsttd.appendChild(document.createTextNode(mnnr));
-//      tr.appendChild(firsttd);
-//        mnnr++;
-
-        var td1 = document.createElement("td");
-        td1.appendChild(document.createTextNode(naam));
-        var td2 = document.createElement("td");
-        td2.appendChild(document.createTextNode(Email));
-        var td3 = document.createElement("td");
-        td3.appendChild(document.createTextNode(Rechten));
-        var td4 = document.createElement("td");
-        var iWrite = document.createElement("i");
-
-        iWrite.className="write icon";
-        iWrite.addEventListener("click",function() {
-            dosomething(tr);
-
-        });
-
-
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td4);
-        td4.appendChild(iWrite);
-        //   table.appendChild(tr);
-//   ooTable.row.add(tr).draw();
-        // console.log(ooTable.row);
-        if(ooTable!=null) {
-            ooTable.row.add(tr).draw();
-        }else{
-            table.appendChild(tr);
-        }
-    }
-
-    function dosomething(eml){
-        console.log(eml);
-
-        console.log(eml.firstChild);
-        console.log(eml.childNodes);
-        var hoofdtd = document.createElement("td");
-        var select = document.createElement("select");
-        // select.addEventListener('change',function(){checkbox(this.value)});
-        var nu =  eml.childNodes[2].innerText;
-
-        var option1 = document.createElement("option"); option1.appendChild(document.createTextNode("Basic")); option1.value = "Basic";
-        var option2 = document.createElement("option"); option2.appendChild(document.createTextNode("Onthaal")); option2.value="Onthaal";
-        var option3 = document.createElement("option"); option3.appendChild(document.createTextNode("Admin")); option3.value = "Admin";
-        var option4 = document.createElement("option"); option4.appendChild(document.createTextNode("Werkman")); option4.value = "Werkman";
-
-        switch(nu){
-            case 'Basic': option1.selected = true; break;
-            case 'Werkman': option4.selected = true; break;
-            case 'Admin': option3.selected = true; break;
-            case 'Onthaal': option2.selected = true; break;
-            default: break;
-
-        }
-        //  td1.innerText = "test";
-        select.appendChild(option1);
-        select.appendChild(option4);
-        select.appendChild(option2);
-        select.appendChild(option3);
-        hoofdtd.appendChild(select);
-        eml.replaceChild(hoofdtd,eml.childNodes[2]);
-        var newicon = document.createElement("i");
-        newicon.className = "save icon";
-        newicon.addEventListener("click",function(){
-            saverow(eml);
-        });
-        eml.replaceChild(newicon,eml.childNodes[3]);
-        //table = document.getElementById('DynamicIntern');
-        /* $.each(eml.childNodes,function(ix, array){
-         console.log(ix + "  " + array.htm);
-         });*/
-
-    }
-
-    function saverow(el){
-        var selectedvalue= el.childNodes[2].firstChild.value;
-        var naam = el.childNodes[1].innerText;
-        var tdd = document.createElement("td");
-        var td4 = document.createElement("i");
-        td4.className="write icon";
-        td4.addEventListener("click",function() {
-            dosomething(el);
-
-        });
-        tdd.appendChild(td4);
-        el.replaceChild(tdd,el.childNodes[3]);
-        var td3 = document.createElement("td");
-        td3.appendChild(document.createTextNode(selectedvalue));
-        el.replaceChild(td3,el.childNodes[2]);
-        mylink="../ChangeInst/a2fjo4(dsf558sdf.php";
-        if(selectedvalue=="Werkman"){
-            console.log(selectedvalue);
-            createlist(naam);
-        }else{
-            //todo: DELETE EVENTUELE LIST
-            deletelist(naam);
-        }
-        var url = mylink+"?naam="+naam+"&rol="+selectedvalue;
-
-        $.ajax({
-            url: url,
-            dataType: 'html',
-            success: function(data){
-                //data returned from php
-                console.log("Gelukt");
-            }
-        });
 
 
 
-    }
 
     function maakitemexternal(table, naam, naambedrjf, adres, telefoon,email,id){
         var tr =  document.createElement("tr");
@@ -790,55 +625,7 @@ $mysqli->close();
 
     }
 
-    function maakitemlokaal(table, idnummering, naam, omschrijving, user_text_1, disabled){
-        var tr =  document.createElement("tr");
-        var tdd = document.createElement("td");
 
-        tr.id = idnummering;
-        var td0 = document.createElement("td");
-        td0.appendChild(document.createTextNode(idnummering));
-        var td1 = document.createElement("td");
-        td1.appendChild(document.createTextNode(naam));
-        var td2 = document.createElement("td");
-        td2.appendChild(document.createTextNode(omschrijving));
-        var td3 = document.createElement("td");
-        td3.appendChild(document.createTextNode(user_text_1));
-        var td4 = document.createElement("td");
-        td4.appendChild(document.createTextNode(disabled));
-        var td8 = document.createElement("td");
-
-        var td6 = document.createElement("i");
-        td6.className="write icon";
-        td6.addEventListener("click",function() {
-            //       dosomething(tr);
-            dosomethinglokalen(tr);
-
-        });
-        var t1 = document.createElement("i");
-        t1.className="remove icon";
-        t1.addEventListener("click",function(){
-
-            deleteext(tr);
-        });
-
-        td8.appendChild(td6);
-        td8.appendChild(t1);
-        tr.appendChild(td0);
-        tr.appendChild(td1);
-        tr.appendChild(td2);
-        tr.appendChild(td3);
-        tr.appendChild(td8);
-        //table.appendChild(tr);
-        //var newRow = "<tr><td>row 3, cell 1</td><td>row 3, cell 2</td></tr>";
-        console.log(tr);
-
-        if(oooTable!=null) {
-            oooTable.row.add(tr).draw();
-        }else{
-            table.appendChild(tr);
-        }
-
-    }
     mnnrext = 0;
 
     function fillupexternal(){
@@ -897,57 +684,7 @@ $mysqli->close();
 
     }
 
-    function filluplokalen(){
-        mnnrext=0;
-        table = document.getElementById('DynamicLokalen');
-        //verwijder alles in table
 
-        var element = table.firstChild;
-
-        while( element ) {
-            table.removeChild(element);
-            element = table.firstChild;
-        }
-
-        //console.log(lokalen);
-        $.each(lokalen,function(ix,ar) {
-            idnummering = "";
-            naam = "";
-            omschrijving = "";
-            user_text_1 = "";
-            disabled = "";
-            $.each(ar, function (i, fill) {
-
-
-                if (i == 0) {
-                    idnummering = fill;
-
-                } else if (i == 1) {
-                    naam = fill;
-                } else if (i == 2) {
-                    omschrijving = fill;
-                } else if (i == 3) {
-                    user_text_1 = fill;
-                } else if (i == 4) {
-                    disabled = fill;
-                }
-            });
-
-            //PASSED FILTERS
-            maakitemlokaal(table, idnummering, naam, omschrijving, user_text_1, disabled);
-            // console.log('maak');
-
-
-        });
-        console.log("test");
-        $('#DL')
-            .removeClass( 'display' )
-            .addClass('table table-striped table-bordered');
-        oooTable = $('#DL').DataTable({
-            "dom": '<"top">rt<"bottom"lp><"clear">'
-        });
-
-    }
 
     function filterColumnext ( i,myd ) {
 
@@ -1027,41 +764,10 @@ $mysqli->close();
             eml.replaceChild(hoofdtd,eml.childNodes[ix]);
 //console.log(eml.childNodes[ix]);
         });
+
     }
 
-    function dosomethinglokalen(eml) {
 
-        var tell = 0;
-        //   console.log(eml.childElementCount);
-        $.each(eml.childNodes,function(ix,a){
-
-            //  console.log(ix);
-            a = eml.childNodes[ix];
-            if(ix==4){
-                //  console.log("JA VIJF");
-                var newicon = document.createElement("i");
-                newicon.className = "save icon";
-                newicon.addEventListener("click",function(){
-                    saverowlokalen(eml);
-                });
-                eml.replaceChild(newicon,eml.childNodes[ix]);
-                return;
-            }
-            var hoofdtd = document.createElement("td");
-
-            var t = a.innerText;
-            var i = document.createElement("input");
-            i.type ="text";
-            i.name="inputs[]";
-            i.id="inputs"+ix;
-            i.setAttribute('value', 'default');
-            //i.addEventListener('keyup',function(val){i.value=val.value;  });
-            i.value = t;
-            hoofdtd.appendChild(i);
-            eml.replaceChild(hoofdtd,eml.childNodes[ix]);
-//console.log(eml.childNodes[ix]);
-        });
-    }
 
     function saverowext(el){
         var myar = [];
@@ -1103,6 +809,12 @@ $mysqli->close();
             el.replaceChild(hoofdtd,el.childNodes[ix]);
 
         });
+        oTable.row(el).remove().draw();
+        console.log("hhhhh");
+        var ntr = document.createElement("tr");
+
+        oTable.row.add(el).draw();
+        console.log("HIERBOVEN");
 
         console.log(aa);
         mylink="../ChangeInst/sdfjl5dfqs9fdsf4.php";

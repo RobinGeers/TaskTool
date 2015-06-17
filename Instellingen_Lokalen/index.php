@@ -802,7 +802,8 @@ if(ix==0){
             el.replaceChild(hoofdtd,el.childNodes[ix]);
 
         });
-
+        oooTable.row(el).remove().draw();
+        oooTable.row.add(el).draw();
         console.log(aa);
         mylink="../ChangeInst/Save_Lokaal.php";
         //   window.open('#','_blank');

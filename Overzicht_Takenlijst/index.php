@@ -435,7 +435,7 @@ foreach ($data as $d) {
         }
         else {
             var newtarget = ev.target;
-            console.log("NIEUWE");
+           
             var hei = $(newtarget).height();
             newtarget.style.height = hei + 120; // Tel height bij de lijst als er een kaartje in wordt gedropt
         }
@@ -451,8 +451,7 @@ foreach ($data as $d) {
 
         if (newtarget.parentNode.id == "Medewerkers") {
 
-            document.getElementById(cardid).style.width = "350px";
-            document.getElementById(cardid).style.maxWidth = "400px";
+
             var count = newtarget.getElementsByTagName("label")[0];
             var countint = count.innerText;
             countint = countint.split("(")[1];
@@ -462,9 +461,7 @@ foreach ($data as $d) {
             count.innerText = "(" + countint + ")";
 
 
-            console.log(count);
-            document.getElementById(cardid).style.width = "350px";
-            document.getElementById(cardid).style.maxWidth = "350px !important";
+
 
 
             Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
@@ -495,6 +492,10 @@ foreach ($data as $d) {
             var now = new Date();
             var date = now.getFullYear() + " " + (now.getMonth() + 1) + " " + now.getDate();
             var time = now.getHours() + ":" + now.getMinutes();
+
+            var temp = document.getElementById(cardid);
+
+
 
 
             Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {

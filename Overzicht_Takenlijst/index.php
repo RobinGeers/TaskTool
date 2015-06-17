@@ -133,7 +133,7 @@ foreach ($data as $d) {
             <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
                 <ul>
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
-                    <li><a href="../Instellingen_Externe_Werknemers/index.php">Onderaannemers</a></li>
+                    <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
                     <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
                 </ul>
         </ul>
@@ -1046,7 +1046,11 @@ foreach ($data as $d) {
                         if (descsplit[0] == "AW") {
 
                             label24.innerHTML = descsplit[1];
-                            
+
+                        }
+                        if (descsplit[0] == "W")
+                        {
+                            input.checked = true;
                         }
                     });
 
@@ -1513,19 +1517,87 @@ foreach ($data as $d) {
         var name = worker.firstChild.innerText.split("(")[0];
         var listId = worker.id;
 
-        var checkeds = 0;
-        var tasks = [];
-        for (var i = 1; i < workertasks.length; i++) {
+        var checkeds = workertasks.length-1;
 
-            var checkbox = workertasks[i].firstChild.firstChild.nextSibling;
-            if (checkbox.checked) {
-                checkeds++;
-                tasks.push(workertasks[i]);
-            }
+        for (var i = 1; i < workertasks.length; i++)
+        {
+            console.log(workertasks);
+
+            var id = workertasks[i].id;
+            Trello.get("/cards/" + id + "?fields=desc&token=" + application_token, function (cardinfo) {
+                var niewedescription = cardinfo.desc + "/n@W@" + name;
+
+                var checkbox;
+                for (var j = 0; j < workertasks.length; j++)
+                {
+                    console.log(workertasks[j].id);
+                    if(workertasks[j].id == cardinfo.id)
+                    {
+                        checkbox = workertasks[j];
+                    }
+                }
+
+               checkbox = checkbox.firstChild.firstChild.nextSibling;
+
+
+                var descsplilt = cardinfo.desc.split("/n@");
+                var found = false;
+                $.each(descsplilt, function (ix, descpart) {
+                    if (descpart.split("@")[0] == "W" && descpart.split("@")[1] == name)
+                    {
+                        //if om vinkje af te zetten
+                        console.log(checkbox.checked);
+                        if(!checkbox.checked)
+                        {
+                            var splitten = cardinfo.desc.split("/n@W");
+                            var firstpart = splitten[0];
+                            var secondpart = splitten[1].split("/n@")[1];
+                            var description = firstpart ;
+                            if(secondpart != null)
+                            {
+                                description += + "/n@"+ secondpart;
+                            }
+
+                            SetTag(cardinfo.id, listId, description, checkeds, name);
+                            found = true;
+                        }
+                        else
+                        {
+
+                             count++;
+                             found = true;
+                             if (count == checkeds)
+                             {
+                                redirect(name);
+                             }
+                        }
+
+
+                    }
+                });
+                if (!found && checkbox.checked) {
+
+                    SetTag(cardinfo.id, listId, niewedescription, checkeds, name);
+
+                }
+                else if(!found && checkbox.checked == false)
+                {
+                    count++;
+                    found = true;
+                    if (count == checkeds)
+                    {
+                        redirect(name);
+                    }
+                }
+
+
+            });
+
+
         }
 
 
-        for (var i = 0; i < tasks.length; i++) {
+       /*for (var i = 0; i < tasks.length; i++) {
             id = tasks[i].id;
 
 
@@ -1559,7 +1631,7 @@ foreach ($data as $d) {
             });
 
 
-        }
+        }*/
 
 
         //

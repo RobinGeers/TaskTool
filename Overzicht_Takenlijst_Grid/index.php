@@ -418,6 +418,7 @@ function maakitem(id, name, desc,attach){
     div.style.width = "15px";
     div.style.height = "15px";
     div.style.display = "inline-block";
+    div.style.marginTop = "5px";
     div.style.float = "right";
     div.style.marginRight = "10px";
     if(prio=="Dringend"){prio="Dringend ";}
@@ -466,7 +467,10 @@ console.log(at);
     t1.className="remove icon";
     t1.addEventListener("click",function(){
 
-        deletee(tr);
+        var result = confirm("Bent u zeker dat u dit item wilt verwijderen?");
+        if (result) {
+            deletee(tr);
+        }
     });
     td4.appendChild(t1);
     tr.appendChild(td4);

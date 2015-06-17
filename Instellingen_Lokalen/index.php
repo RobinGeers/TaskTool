@@ -596,8 +596,10 @@ $mysqli->close();
         var t1 = document.createElement("i");
         t1.className="remove icon";
         t1.addEventListener("click",function(){
-
-            deletelokalen(tr);
+            var result = confirm("Bent u zeker dat u dit item wilt verwijderen?");
+            if (result) {
+                deletelokalen(tr);
+            }
         });
 
         td8.appendChild(td6);

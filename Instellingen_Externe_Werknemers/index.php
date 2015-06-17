@@ -252,7 +252,7 @@ $mysqli->close();
     <section id="Toevoegen">
 
         <div id="Add_Externe_Werknemer" class="ui small primary labeled icon button">
-            <i class="user icon"></i>onderaannemer toevoegen
+            <i class="user icon"></i>Onderaannemer toevoegen
         </div>
         <div class="clearfix"></div>
     </section>
@@ -764,8 +764,10 @@ $mysqli->close();
         var t1 = document.createElement("i");
         t1.className="remove icon";
         t1.addEventListener("click",function(){
-
-            deleteext(tr);
+            var result = confirm("Bent u zeker dat u dit item wilt verwijderen?");
+            if (result) {
+                deleteext(tr);
+            }
         });
 
         td8.appendChild(td6);

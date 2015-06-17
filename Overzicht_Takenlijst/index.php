@@ -341,7 +341,7 @@ foreach ($data as $d) {
 <script>
 
     var isArrowUp = true;
-    var listHeight;
+
 
     document.getElementById("Weergave_Tabel").addEventListener("click", function (e) {
         e.preventDefault();
@@ -481,6 +481,14 @@ foreach ($data as $d) {
 
                 Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + niewedescription);
             });
+
+            console.log(newtarget.style.height);
+            var items = newtarget.childNodes.length;
+            items -=2;
+            //var listHeight = 110+ 80*items;
+            newtarget.style.height = 110+ 85*items+"px";
+            //hier zitten de patatjes
+
         }
         else if (newtarget.parentNode.id == "Voltooid") {
 
@@ -611,13 +619,13 @@ foreach ($data as $d) {
 
 
                             var countArrows = $('.arrowUp').length;
-
+                            var listHeight;
                             for (var i = 0; i < countArrows; i++) {
 
                                 if (arrowUp.parentNode == $('.arrowUp').parent()[i]) {
                                     var id = arrowUp.parentNode.getAttribute("id");
                                     listHeight = $("#" + id).outerHeight();
-                                    console.log(listHeight);
+                                    //console.log(listHeight);
                                     $("#" + id).animate({height: "100px"}, {queue: false, duration: 500});
                                     var childs = arrowUp.parentNode.childNodes;
 
@@ -632,23 +640,26 @@ foreach ($data as $d) {
 
                     }, false);
 
-                    arrowDown.addEventListener("click", function(){
-                        var countArrows2 = $('.arrowDown').length;
 
+                    arrowDown.addEventListener("click", function(event){
+                        var countArrows2 = $('.arrowDown').length;
+                        var items = event.target.parentNode.childNodes.length;
+                        items -=2;
+                        var listHeight = 110+ 85*items;
                         if (countArrows2 == 1) {
 
                             for (var i2 = 0; i2 < countArrows2; i2++) {
 
-                                console.log(arrowDown.parentNode);
-                                console.log($('.arrowDown').parent());
+                                //console.log(arrowDown.parentNode);
+                               // console.log($('.arrowDown').parent());
 
 
                                 if (arrowDown.parentNode == $('.arrowDown').parent()[i2]) {
                                     var id2 = arrowDown.parentNode.getAttribute("id");
-                                    console.log(listHeight);
+                                    //console.log(listHeight);
                                     $("#" + id2).animate({height: listHeight}, {queue: false, duration: 500});
-                                    var childs2 = arrowDown.parentNode.childNodes;
 
+                                    var childs2 = arrowDown.parentNode.childNodes;
                                     for (var ii2 = 2; ii2 < childs2.length; ii2++) {
                                         console.log(arrowDown.parentNode.childNodes[ii2]);
                                         arrowDown.parentNode.childNodes[ii2].style.visibility = "visible";
@@ -661,7 +672,7 @@ foreach ($data as $d) {
                                 for (var a = 0; a < countArrows2; a++) {
                                     if (arrowDown.parentNode == $('.arrowDown').parent()[a]) {
                                         var id3 = arrowDown.parentNode.getAttribute("id");
-                                        console.log(listHeight);
+                                        //console.log(listHeight);
                                         $("#" + id3).animate({height: listHeight}, {queue: false, duration: 500});
                                         var childs3 = arrowDown.parentNode.childNodes;
 
@@ -1810,28 +1821,11 @@ foreach ($data as $d) {
             });
 
 
-            
-          /*  Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,
-                desc&token=" + application_token, function (lists) {
+            var label = document.getElementById(cardid);
+            label = label.getElementsByTagName("label")[0];
+            label.innerText += ","+ value.value.split("@")[1];
+            console.log(label);
 
-                $.each(lists["lists"], function (ix, list) {
-
-                    if (list.name == value.value) {
-                        Trello.get("/cards/" + id + "?fields=desc&token=" + application_token, function (cardinfo) {
-                            niewedescription = cardinfo.desc + "/n@AW@" + value.value;
-
-                            Trello.put("/cards/" + id + "?key=" + APP_KEY + "&token=" + application_token +
-                           "&desc=" + niewedescription, function () {
-                                Trello.post("/cards?idList=" + list.id + "&idCardSource=" + id + "&due=null&token=" + application_token + "&key" + APP_KEY);
-                            });
-                        });
-                        temp[0].innerText += " " + value.value;
-
-
-                    }
-                });
-
-            });*/
         }
 
     }

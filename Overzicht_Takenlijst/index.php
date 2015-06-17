@@ -792,8 +792,12 @@ foreach ($data as $d) {
                 li.addEventListener("dblclick", function () {
 
                     // Indien transition niet werkt -> Bootstrap link wegdoen
-                    $('.modal').addClass('scrolling');
-                    $('.modal').modal('setting', 'transition', 'scale').modal('show');
+                //  $('.modal').addClass('scrolling');
+               //     $('.modal').modal('setting', 'transition', 'scale').modal('show');
+                    $('.modal')
+                        .modal('setting', 'transition', 'Fade')
+                        .modal('show')
+                    ;
 
                     // li -> geselecteerde taak
 

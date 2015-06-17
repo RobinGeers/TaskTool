@@ -347,6 +347,7 @@ $mysqli->close();
     oTable = null;
     ooTable = null;
     oooTable = null;
+
     var APP_KEY = '23128bd41978917ab127f2d9ed741385';
     var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
     function createlist(naam){
@@ -732,7 +733,7 @@ $mysqli->close();
 
     function dosomethingext(eml){
 
-
+var ol = eml.childNodes[0].innerText;
         var tell = 0;
         //   console.log(eml.childElementCount);
         $.each(eml.childNodes,function(ix,a){
@@ -744,7 +745,7 @@ $mysqli->close();
                 var newicon = document.createElement("i");
                 newicon.className = "save icon";
                 newicon.addEventListener("click",function(){
-                    saverowext(eml);
+                    saverowext(eml,ol);
                     formmodified = 0;
                 });
                 eml.replaceChild(newicon,eml.childNodes[ix]);
@@ -769,7 +770,8 @@ $mysqli->close();
 
 
 
-    function saverowext(el){
+    function saverowext(el,old){
+
         var myar = [];
         var aa="";
         aa=el.id;
@@ -802,7 +804,7 @@ $mysqli->close();
             //  console.log(el.childNodes[ix]);
             var t =  el.childNodes[ix].firstChild.value;
 
-            console.log(t);
+          //  console.log(t);
             myar.push(t);
             hoofdtd.appendChild(document.createTextNode(t));
 
@@ -810,13 +812,13 @@ $mysqli->close();
 
         });
         oTable.row(el).remove().draw();
-        console.log("hhhhh");
+   //     console.log("hhhhh");
         var ntr = document.createElement("tr");
 
         oTable.row.add(el).draw();
-        console.log("HIERBOVEN");
+   //     console.log("HIERBOVEN");
 
-        console.log(aa);
+     //   console.log(aa);
         mylink="../ChangeInst/sdfjl5dfqs9fdsf4.php";
         //   window.open('#','_blank');
 //    window.open(this.href,'_self');
@@ -832,9 +834,33 @@ $mysqli->close();
                 console.log("Gelukt");
             }
         });
+
+        //TODO: hier put naar trello indien veranderd
+//old oude naam van lijst
+        console.log(el.childNodes[0]);
+        if (old != el.childNodes[0].innerText) {
+            var res = el.childNodes[0].innerText;
+            res = res.replace(' ', '.');
+var r = old.replace(' ','.');
+            console.log("NIET HETZELFDE");
+            Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token=" + application_token + "", function (lists) {
+                $.each(lists["lists"], function (ix, list) {
+console.log(list.name + "/" + r);
+                    if (list.name.toLowerCase() == r.toLowerCase()) {
+                        console.log("ja");
+                        Trello.put("/lists/" + list.id + "?key=" + APP_KEY + "&token=" + application_token + "&name=" + res + "");//&desc=is verzet
+                    }
+
+                });
+            });
+
+        } else {
+            console.log("HETZELFDE");
+        }
+        /* */
     }
 
-    function saverowlokalen(el) {
+   /* function saverowlokalen(el) {
         var myar = [];
         var aa="";
         aa=el.id;
@@ -891,7 +917,7 @@ $mysqli->close();
                 console.log("Gelukt");
             }
         });
-    }
+    }*/
     function deleteext(trr){
 
         mylink="../ChangeInst/bcfgnlqjr5dfj45.php";

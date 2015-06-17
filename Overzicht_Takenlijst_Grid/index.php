@@ -886,9 +886,26 @@ function filterglobaal(){
     } );
 
 // Draw once all updates are done
+    var b = "";
+    var c = "";
+    var k = a.split("|");
+    $.each(k,function(i,j){
+        if(j=="Zeer Dringend"||j=="Niet Dringend"||j=="Dringend "){
+            if(b==""){b=j;}else{b=b+"|"+j;}
+        }else{
+            if(c==""){c=j;}else{c=c+"|"+j;}
+        }
+    });
+
     ooTable.draw();
-    ooTable.search(a, true, true).draw();
-    Cookiefilter(a);
+  //  if(b!="") {
+        ooTable.column(2).search(
+            b, true, true
+        ).draw();
+  //  }else {
+        ooTable.search(c, true, true).draw();
+  //  }
+        Cookiefilter(a);
 }
     function TitelChange(value)
     {

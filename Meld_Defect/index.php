@@ -2,7 +2,6 @@
 <script>
     function afmelden(a){
         console.log("test");
-
         $.ajax({
             url: '../logout.php',
             dataType: 'html',
@@ -34,47 +33,47 @@ $isfoto = 0;
 $test = "";
 require_once($a);
 if (isset($_POST['txtEmailadres'])) {
-    $bericht = $_POST['txtEmailadres'];
-    if (isset($_POST['txtWachtwoord'])) {
-        $pw = $_POST['txtWachtwoord'];
-        $link = ldap_connect('172.20.0.5'); // Your domain or domain server
-        if (!$link) {
-            //GEEN TOEGANG TOT DE LDAP SERVER!!!!!
-            session_destroy();
-            header('Location: ../index.php?error=geen1toegang1tot1Active1Directory');
-        }
-        ldap_set_option($link, LDAP_OPT_PROTOCOL_VERSION, 3); // Recommended for AD
-        // Now try to authenticate with credentials provided by user
-        if (!ldap_bind($link, $bericht, $pw)) {
-            // Invalid credentials! Handle error appropriately
-            session_destroy();
-            header('Location: ../index.php?error=Foute1Inlog1Gegevens');
-        } else {
-            //JUISTE INLOGGEVENS
-            $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
-            if ($mysqli->connect_error) {
-                echo "Geen connectie mogelijk met de database";
-                header('Location: ../index.php?error=Geen1toegang1tot1de1database');
-            }
-            $result = $mysqli->prepare("SELECT ROL FROM EmailsLeerkrachten where userPrincipalName =?");
-            $result->bind_param('s', $bericht);
-            $result->execute();
-            $result->bind_result($data);
-            $d = array();
-            while($result->fetch()){
-              array_push($d,$data);
-            };
-            //cookie aanmaken
-            setcookie("rol", md5("exteralayersecuresalt".$data), time() + 25920000,"/");
-            $_SESSION['loggedin'] = $bericht;
-            //indien emailadres bestaat 100% kans dat je van login pagina komt en niet refresht ofzo
-            if (isset($_POST['chkHouIngelogd'])) {
-                //cookie aanmaken
-                setcookie("inlognaam", $bericht, time() + 25920000,"/");
-            } else {
-                //cookie verwijderen
-                setcookie("inlognaam", "", time() - 3600,"/");
-            }
+$bericht = $_POST['txtEmailadres'];
+if (isset($_POST['txtWachtwoord'])) {
+$pw = $_POST['txtWachtwoord'];
+$link = ldap_connect('172.20.0.5'); // Your domain or domain server
+if (!$link) {
+    //GEEN TOEGANG TOT DE LDAP SERVER!!!!!
+    session_destroy();
+    header('Location: ../index.php?error=geen1toegang1tot1Active1Directory');
+}
+ldap_set_option($link, LDAP_OPT_PROTOCOL_VERSION, 3); // Recommended for AD
+// Now try to authenticate with credentials provided by user
+if (!ldap_bind($link, $bericht, $pw)) {
+    // Invalid credentials! Handle error appropriately
+    session_destroy();
+    header('Location: ../index.php?error=Foute1Inlog1Gegevens');
+} else {
+//JUISTE INLOGGEVENS
+$mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
+if ($mysqli->connect_error) {
+    echo "Geen connectie mogelijk met de database";
+    header('Location: ../index.php?error=Geen1toegang1tot1de1database');
+}
+$result = $mysqli->prepare("SELECT ROL FROM EmailsLeerkrachten where userPrincipalName =?");
+$result->bind_param('s', $bericht);
+$result->execute();
+$result->bind_result($data);
+$d = array();
+while($result->fetch()){
+    array_push($d,$data);
+};
+//cookie aanmaken
+setcookie("rol", md5("exteralayersecuresalt".$data), time() + 25920000,"/");
+$_SESSION['loggedin'] = $bericht;
+//indien emailadres bestaat 100% kans dat je van login pagina komt en niet refresht ofzo
+if (isset($_POST['chkHouIngelogd'])) {
+    //cookie aanmaken
+    setcookie("inlognaam", $bericht, time() + 25920000,"/");
+} else {
+    //cookie verwijderen
+    setcookie("inlognaam", "", time() - 3600,"/");
+}
 ?>
 <script>
     document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
@@ -92,14 +91,12 @@ if (isset($_POST['txtEmailadres'])) {
         OT.style.display = "none";
         S.style.display = "none";
         I.style.display = "none";
-
         <?php
                     //mag alleen op meld defect
                     //connectie sluiten
                     $results->close();
                     break;
                 case 'Werkman':
-
         header("Location: ../Overzicht");
                     //$naam = explode('@', $bericht);
                     //header('Location: ../Afdrukpagina.php?Werkman=' . $naam[0]);
@@ -120,7 +117,6 @@ if (isset($_POST['txtEmailadres'])) {
         }
     }
 }//END ISSET EMAILADRES
-
 //Controle of velden zijn ingevuld
 if (isset($_POST['txtEmail'])) {
     $eml = $_POST['txtEmail'];
@@ -137,10 +133,7 @@ if (isset($_POST['txtOmschrijving'])) {
 if (isset($_POST['priori'])) {
     $Prioriteit = $_POST['priori'];
 }
-
-
 if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Prioriteit)) {
-
     //STUUR MAIL HIER EN REDIRECT NAAR LOGIN WAAR ZE BEVESTIGING GEVEN DAT HET GEBERUD IS
     $valid_file = true;
     //Houd de data bij in een grote string zodat we deze uit de upload maps kunnen verwijderen wanneer dit klaar is
@@ -151,42 +144,30 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
     $email->From = $eml;
     $email->FromName = $eml;
     $email->Subject = $Onderwerp;
-
     //kijk of button is aangeklikt zoja add er bij
     if (isset($_POST['chkHoudOpDeHoogte'])) {
         //checkbox aangeklikt
         $prio = $prio . "/n@" . $eml;
-
     }else{
     $prio = $prio."/n@";
     }
-
-
     $email->Body = $Omschrijving . "/n@" . $prio . "/n@" . $lokaal . "/n@T@". date('Y n j')."@".date('H:i');
-
-
     $email->AddAddress('howesttasktool+msde5lytyugsq63acucg@boards.trello.com'); //new email
-
 //$email->AddAddress('wouterdumon@hotmail.com');
     $naamvanfoto = $test;
-
 //Herzet de array naar een meer leesbare array
     function reArrayFiles(&$file_post)
     {
-
         $file_ary = array();
         $file_count = count($file_post['name']);
         $file_keys = array_keys($file_post);
-
         for ($i = 0; $i < $file_count; $i++) {
             foreach ($file_keys as $key) {
                 $file_ary[$i][$key] = $file_post[$key][$i];
             }
         }
-
         return $file_ary;
     }
-
     $file_ary = reArrayFiles($_FILES['Foto']);
     //print_r($file_ary);
       foreach($file_ary as $file)
@@ -219,7 +200,6 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
                 $message='File\' s are sended';
                 $email->AddAttachment( $tmp_naam , $test ); // voeg attachment aan email toe
                 // hier wordt de data opgelsaan in een grote string ( pad naar waar de afbeelding staat )
-
 //print $target;
 //echo "<br>"; echo "hhhh";
 //print $naamvanfoto;
@@ -228,22 +208,18 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
     }//einde isset
     //Zend de email naar trello
     $email->Send();
-
     //delete de foto's uit de uploads map aangezien deze nu op de database van trello zullen komen te staan
     $arraywithtargets = explode("/n@", $targetstrings);
     foreach ($arraywithtargets as $targ) {
         //targ is hier 1 pad naar een bestand die in de uploads map zit
         $targ = str_replace('\\', '/', $targ);
         //kijk of het ad de map uploads bevat
-
         if (strpos($targ, 'uploads') !== false) {//zoekt de positie van het woord uploads ( soort van contains )
            unlink($targ); // delete de file uit de uploads folder
         }
-
-
     }
     ?>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script>
         // Voeg achteraan zeker nog eens de addclass scrolling toe om de height aan te passen
         $( document ).ready(function() {
@@ -272,7 +248,7 @@ else {
 $mysqli = new mysqli('mysqlstudent', 'wouterdumoeik9aj', 'zeiSh6sieHuc', 'wouterdumoeik9aj');
 if ($mysqli->connect_error) {
     echo "Geen connectie mogelijk met de database";
-session_destroy();
+    session_destroy();
     header('Location: ../index.php?error=Geen1toegang1tot1de1database');
 }
 $data = array();
@@ -286,7 +262,7 @@ while ($row = $result->fetch_array(MYSQLI_ASSOC)) {
     <script>
         arraymetlokalen.push(<?php print "'".$row['NAME']."'" ?>);
     </script>
-    <?php
+<?php
 }
 //connectie sluiten
 $mysqli->close();
@@ -296,7 +272,6 @@ $mysqli->close();
     //console.log(arraymetlokalen);
     $.getScript( "https://code.jquery.com/ui/1.9.1/jquery-ui.min.js", function() {
         $(function () {
-
             $("#txtLokaal").autocomplete({
                 source: arraymetlokalen
             });
@@ -315,19 +290,14 @@ $mysqli->close();
             var el = document.getElementsByClassName("ui-slider-handle ui-state-default ui-corner-all");
             console.log(el);
             el[0].addEventListener("mouseup", function(event) { //Voerµ
-     Prioriteit();
+                Prioriteit();
             });
-
             el[0].parentNode.addEventListener("click", function(event) { //Voerµ
- Prioriteit();
+                Prioriteit();
             });
             //el[0].parentNode.onmousedown = Prioriteit();
-
         });
     });
-
-
-
 </script>
 
 <?php
@@ -355,7 +325,6 @@ while($result->fetch()){
 $ha =  md5("exteralayersecuresalt".$data); //hash de data uit de db met een secure woord ( voor extra beveiliging )
 if($ha==$rol){//roll is gelijk aan wat er in de cookie zit
 }else{
-
     ?>
     <script>
         afmelden("e");
@@ -364,7 +333,6 @@ if($ha==$rol){//roll is gelijk aan wat er in de cookie zit
     //header("Location: ../"); // rol is niet juist => hack attempt
 }
 $mysqli->close(); //connectie sluiten
-
 ?>
 <script>
     document.addEventListener("DOMContentLoaded", function(event) { //Voert deze functie uit ( puur javascript )  wanneer de pagina geladen is
@@ -383,9 +351,7 @@ $mysqli->close(); //connectie sluiten
         OT.style.display = "none";
         S.style.display = "none";
         I.style.display = "none";
-
         <?php
-
                     break;
                 case 'Werkman':
         ?>
@@ -394,7 +360,6 @@ $mysqli->close(); //connectie sluiten
         OT.style.display = "none";
         S.style.display = "none";
         I.style.display = "none";
-
         <?php
                     break;
                 case 'Onthaal':
@@ -404,7 +369,6 @@ $mysqli->close(); //connectie sluiten
         OT.style.display = "inline-block";
         S.style.display = "inline-block";
         I.style.display = "none";
-
         <?php
                             break;
                         case 'Admin':
@@ -414,12 +378,10 @@ $mysqli->close(); //connectie sluiten
         OT.style.display = "inline-block";
         S.style.display = "inline-block";
         I.style.display = "inline-block";
-
         <?php
                                     break;
                             }
                         ?>
-
     });
 </script>
 
@@ -456,16 +418,11 @@ $mysqli->close(); //connectie sluiten
                 $a = explode("@",$a);
                 $a = $a[0];
                 print $a;?>">Afdruklijst</a></li>
-            <li><a id="second" href="../Overzicht_Takenlijst/">Overzicht takenlijst</a>
-                <ul class="gotop">
-                    <li><a href="../Overzicht_Takenlijst_Grid/index.php">Tabel weergave</a></li>
-                    <li><a href="../Overzicht_Takenlijst/index.php">Kaartjes weergave</a></li>
-                </ul>
-            </li>
+            <li><a id="second" href="../Overzicht_Takenlijst/">Overzicht takenlijst</a></li>
             <li><a id="third"  href="../Statistieken">Statistieken</a></li>
-           <!--<li><a  href="../Instellingen">Instellingen</a></li>
-           --> <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
-                <ul class="gotop">
+            <!--<li><a  href="../Instellingen">Instellingen</a></li>
+            --> <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
+                <ul>
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
                     <li><a href="../Instellingen_Externe_Werknemers/index.php">Onderaannemers</a></li>
                     <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
@@ -507,7 +464,7 @@ $mysqli->close(); //connectie sluiten
             <div id="slider"  onmouseover="Prioriteit()"></div>
             <p id="prior"></p>
             <input type="text" style="display: none" id="priori" name="priori">
-           <!--<label>Bijlage:</label>-->
+            <!--<label>Bijlage:</label>-->
             <!--   <div class="dropzone dz-clickable" id="my-awesome-dropzone">
                    <div class="dz-message" data-dz-message>
                        Klik of sleep hier je foto van het probleem<br />
@@ -549,17 +506,14 @@ $mysqli->close(); //connectie sluiten
 <div class="clearfix"></div>
 <!--<script>    Dropzone.autoDiscover = false;
     Dropzone.options.myAwesomeDropzone = { // The camelized version of the ID of the form element
-
         // The configuration we've talked about above
         autoProcessQueue: false,
         uploadMultiple: true,
         parallelUploads: 100,
         maxFiles: 100,
-
         // The setting up of the dropzone
         init: function() {
             var myDropzone = this;
-
             // First change the button to actually tell Dropzone to process the queue.
             this.element.querySelector("input[type=submit]").addEventListener("click", function(e) {
                 // Make sure that the form isn't actually being sent.
@@ -567,7 +521,6 @@ $mysqli->close(); //connectie sluiten
                 e.stopPropagation();
                 myDropzone.processQueue();
             });
-
             // Listen to the sendingmultiple event. In this case, it's the sendingmultiple event instead
             // of the sending event because uploadMultiple is set to true.
             this.on("sendingmultiple", function() {
@@ -583,17 +536,13 @@ $mysqli->close(); //connectie sluiten
                 // Maybe show form again, and notify user of error
             });
         }
-
     }
-
 </script>-->
 
 <script>
-
     function Prioriteit() {
-   console.log("h");
+        console.log("h");
         var prioriteit = document.getElementById("amount").value;
-
         if (prioriteit <= 40) {
             document.getElementById("prior").innerHTML = "Niet Dringend";
             document.getElementById("priori").value = "Niet Dringend";

@@ -175,16 +175,18 @@ foreach ($data as $d) {
                     <option value="Dringend">Dringend</option>
                     <option value="Zeer Dringend">Zeer Dringend</option>
                 </select>
+
                 <label>Add Worker</label>
                 <select id="AddWorker" onChange="CopyCard(this)">
 
                 </select>
+                <label id="special"></label>
             </div>
             <div class="clearfix"></div>
         </div>
         <div class="actions">
-            <div id="btnVerwijder" class="ui negative right labeled icon button">
-                Verwijder taak <i class="trash icon"></i>
+            <div id="btnVerwijder" class="ui negative right labeled icon button" onclick="VerwijderClick(this)">
+                Verwijder taak <i class="trash icon" ></i>
             </div>
 
             <div class="ui black button">
@@ -802,6 +804,12 @@ foreach ($data as $d) {
                     // li -> geselecteerde taak
 
 
+                    var labelll = document.getElementById("special");
+                    //labelll.style.visibility = "hidden";
+                    labelll.style.display = "none";
+                    labelll.innerText = li.id + "@" +li.parentNode.id;
+
+
                     var style = window.getComputedStyle(li);
                     var borderBottom = style.getPropertyValue('border-bottom');
 
@@ -853,116 +861,10 @@ foreach ($data as $d) {
                     elementImage.src = imageSource;
 
 
-                    /*document.getElementById("btnOpslaan").addEventListener("click", function () {
 
 
-                        console.log("geb derop geklikt");
-                        var nieuweTitel = elementTitel.value;
-                        var nieuwLokaal = elementLokaal.value;
-                        var nieuweOmschrijving = elementOmschrijving.value;
-                        var nieuwePrioriteit = document.getElementById("Card_Prioriteit").value;
-                        var listId = li.parentNode.id;
-
-                        // Pas kaartje aan en toon direct de verandering
-
-
-                        Trello.get("/cards/" + card.id + "?fields=desc&token=" + application_token, function (carddesc) {
-
-
-                            var odesc = carddesc.desc.split("/n@");
-                            var nieuweDescription = nieuweOmschrijving + "/n@" + nieuwePrioriteit + "/n@" + odesc[2] + "/n@" + nieuwLokaal;
-                            var hiden = carddesc.desc.split("/n@T@");
-
-                            if (hiden.length > 1) {
-                                nieuweDescription += "/n@T@" + hiden[1];
-                            }
-                            mnarray.splice(mnarray.indexOf(odesc[3]), 1);
-
-                            mnarray2.splice(mnarray2.indexOf(odesc[3].split(".")[0]), 1);
-                            checkforother(nieuwLokaal);
-
-                            Trello.put("/cards/" + li.id + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + nieuweDescription + "&name=" + nieuweTitel);
-
-
-                        });
-                        //foute code in de trello.put
-
-
-                        var parent = li.firstChild;
-                        var parent2 = li.childNodes[1];
-                        var nieuweTitelLink = document.createElement("a");
-                        nieuweTitelLink.appendChild(document.createTextNode(nieuweTitel));
-
-                        var hx = li.firstChild.childNodes[0].href;
-                        var hr = hx.split("/");
-
-                        // Verander de titel
-                        nieuweTitelLink.href = hr[hr.length - 1];
-                        nieuweTitelLink.setAttribute("data-toggle", "collapse");
-                        parent.replaceChild(nieuweTitelLink, parent.childNodes[0]);
-
-                        // Verander het lokaal
-                        var nieuwLokaalElement = document.createElement("p");
-                        var textNode = document.createTextNode(nieuwLokaal);
-                        nieuwLokaalElement.appendChild(textNode);
-                        nieuwLokaalElement.className = "lokaal content";
-                        nieuwLokaalElement.style.paddingTop = "10px";
-
-                        parent2.replaceChild(nieuwLokaalElement, parent2.firstChild);
-
-                        // Verander de omschrijving
-                        var nieuwOmschrijvingElement = document.createElement("p");
-                        nieuwOmschrijvingElement.className = "panel-body";
-                        var textNodeOmschrijving = document.createTextNode(nieuweOmschrijving);
-                        nieuwOmschrijvingElement.appendChild(textNodeOmschrijving);
-
-                        parent2.replaceChild(nieuwOmschrijvingElement, parent2.childNodes[3]);
-
-                        // Verander de prioriteit
-                        switch (nieuwePrioriteit) {
-                            case "Niet Dringend":
-                                if (li.classList.contains("liBorderL")) {
-                                    li.classList.remove("liBorderL");
-                                }
-                                else if (li.classList.contains("liBorderG")) {
-                                    li.classList.remove("liBorderG");
-                                }
-                                else if (li.classList.contains("liBorderH")) {
-                                    li.classList.remove("liBorderH");
-                                }
-                                li.classList.add("liBorderL");
-
-                                break;
-                            case "Dringend":
-                                if (li.classList.contains("liBorderL")) {
-                                    li.classList.remove("liBorderL");
-                                }
-                                else if (li.classList.contains("liBorderG")) {
-                                    li.classList.remove("liBorderG");
-                                }
-                                else if (li.classList.contains("liBorderH")) {
-                                    li.classList.remove("liBorderH");
-
-                                }
-                                li.classList.add("liBorderG");
-                                break;
-                            case "Zeer Dringend":
-                                if (li.classList.contains("liBorderL")) {
-                                    li.classList.remove("liBorderL");
-                                }
-                                else if (li.classList.contains("liBorderG")) {
-                                    li.classList.remove("liBorderG");
-                                }
-                                else if (li.classList.contains("liBorderH")) {
-                                    li.classList.remove("liBorderH");
-                                }
-                                li.classList.add("liBorderH");
-                                break;
-                        }
-
-                    }, false);*/
-
-                    document.getElementById("btnVerwijder").addEventListener("click", function () {
+                    /*document.getElementById("btnVerwijder").addEventListener("click", function ()
+                     {
 
                         var nieuweTitel = elementTitel.value;
                         var listId = li.parentNode.id;
@@ -974,7 +876,7 @@ foreach ($data as $d) {
                         // Verwijder kaart op pagina
                         ul.removeChild(li);
 
-                    }, false);
+                    }, false);*/
 
                     $("#Card_Lokaal").autocomplete({
                         source: arraymetlokalen
@@ -1295,16 +1197,22 @@ foreach ($data as $d) {
 
 
         var nieuweTitel = content.childNodes[1].value;
-        var nieuwLokaal = content.childNodes[3];
+        var nieuwLokaal = content.childNodes[3].childNodes[1].value;
         var nieuweOmschrijving = content.childNodes[5].value;
         //var nieuwePrioriteit = document.getElementById("Card_Prioriteit").value;
         var nieuwePrioriteit = content.childNodes[7].value;
         //var listId = li.parentNode.id;
 
+
+        var cardIds = content.childNodes[13].innerText;
+        cardList = cardIds.split("@")[1];
+        cardIds = cardIds.split("@")[0];
+
+        console.log();
         // Pas kaartje aan en toon direct de verandering
 
 
-        Trello.get("/cards/" + card.id + "?fields=desc&token=" + application_token, function (carddesc) {
+        Trello.get("/cards/" + cardIds + "?fields=desc&token=" + application_token, function (carddesc) {
 
 
             var odesc = carddesc.desc.split("/n@");
@@ -1319,13 +1227,13 @@ foreach ($data as $d) {
             mnarray2.splice(mnarray2.indexOf(odesc[3].split(".")[0]), 1);
             checkforother(nieuwLokaal);
 
-            Trello.put("/cards/" + li.id + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + nieuweDescription + "&name=" + nieuweTitel);
+            Trello.put("/cards/" + cardIds + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + cardList + "&desc=" + nieuweDescription + "&name=" + nieuweTitel);
 
 
         });
         //foute code in de trello.put
 
-
+        var li = document.getElementById(cardIds);
         var parent = li.firstChild;
         var parent2 = li.childNodes[1];
         var nieuweTitelLink = document.createElement("a");
@@ -1399,6 +1307,29 @@ foreach ($data as $d) {
         }
     }
 
+    function VerwijderClick(event)
+    {
+        var content = event.parentNode.previousSibling.previousSibling; // content div
+        content = content.firstChild.nextSibling.nextSibling.nextSibling;//rechtse div
+
+        var nieuweTitel = content.childNodes[1].value;
+
+        var cardIds = content.childNodes[13].innerText;
+        cardList = cardIds.split("@")[1];
+        cardIds = cardIds.split("@")[0];
+
+
+        var li = document.getElementById(cardIds);
+
+        var listId = cardList;
+        var ul = li.parentNode;
+
+        // Verwijder kaart in Trello
+        Trello.delete("/cards/" + li.id + "?key=" + APP_KEY + "&token=" + application_token);
+
+        // Verwijder kaart op pagina
+        ul.removeChild(li);
+    }
 
     //--------------------filter----------------------//
     var FilterSection = document.getElementById("SelectedFilters");

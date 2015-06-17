@@ -13,7 +13,10 @@
     }
 </script>
 <?php
+ini_set('display_errors',1);
+error_reporting(E_ALL);
 session_start();
+$mnar = "";
 if($_SERVER["HTTPS"] != "on")
 {
     header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"]);
@@ -24,14 +27,14 @@ if($_SERVER["HTTPS"] != "on")
 <?php
 //verander naar directory voor php mailer op te halen
 $thiss = getcwd();
-chdir("../");
-$t = getcwd();
-$a = $t . '/PHPMailer-master/class.phpmailer.php';
-chdir($thiss); // terug zetten naar juiste direcotry
+//chdir("../");
+//$t = getcwd();
+//$a = $t . '/PHPMailer-master/class.phpmailer.php';
+//chdir($thiss); // terug zetten naar juiste direcotry
 $target = "";
 $isfoto = 0;
 $test = "";
-require_once($a);
+//require_once($a);
 if (isset($_POST['txtEmailadres'])) {
 $bericht = $_POST['txtEmailadres'];
 if (isset($_POST['txtWachtwoord'])) {
@@ -117,6 +120,10 @@ if (isset($_POST['chkHouIngelogd'])) {
         }
     }
 }//END ISSET EMAILADRES
+
+?>
+</script>
+        <?php
 //Controle of velden zijn ingevuld
 if (isset($_POST['txtEmail'])) {
     $eml = $_POST['txtEmail'];
@@ -140,10 +147,10 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
     $targetstrings = "";
     $prio = $Prioriteit;
     //ZEND DE EMAIL
-    $email = new PHPMailer();
-    $email->From = $eml;
-    $email->FromName = $eml;
-    $email->Subject = $Onderwerp;
+ //   $email = new PHPMailer();
+  //  $email->From = $eml;
+ //   $email->FromName = $eml;
+ //   $email->Subject = $Onderwerp;
     //kijk of button is aangeklikt zoja add er bij
     if (isset($_POST['chkHoudOpDeHoogte'])) {
         //checkbox aangeklikt
@@ -151,10 +158,24 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
     }else{
     $prio = $prio."/n@";
     }
-    $email->Body = $Omschrijving . "/n@" . $prio . "/n@" . $lokaal . "/n@T@". date('Y n j')."@".date('H:i');
-    $email->AddAddress('howesttasktool+msde5lytyugsq63acucg@boards.trello.com'); //new email
+  //  $email->Body = $Omschrijving . "/n@" . $prio . "/n@" . $lokaal . "/n@T@". date('Y n j')."@".date('H:i');
+ ///   $email->AddAddress('howesttasktool+msde5lytyugsq63acucg@boards.trello.com'); //new email
 //$email->AddAddress('wouterdumon@hotmail.com');
     $naamvanfoto = $test;
+
+    $currentdir = getcwd();
+    $target = $currentdir.'/uploads/*';
+        print $target;
+    $files = glob($target); // get all file names
+        print_r($files);
+        foreach($files as $file){ // iterate files
+        print $file;
+        if(is_file($file)) {
+            unlink($file); // delete file
+        }
+    }
+
+
 //Herzet de array naar een meer leesbare array
     function reArrayFiles(&$file_post)
     {
@@ -196,9 +217,14 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
                 $target = $currentdir.'/uploads/'.$name;
                 $targetstrings = $targetstrings."/n@".$target;
                 $test = $name;
+                if($mnar==""){$mnar=$name;}else{
+                $mnar=$mnar."@@@".$name;
+                }
+
+
                 move_uploaded_file($tmp_naam, $target);
                 $message='File\' s are sended';
-                $email->AddAttachment( $tmp_naam , $test ); // voeg attachment aan email toe
+             //   $email->AddAttachment( $tmp_naam , $test ); // voeg attachment aan email toe
                 // hier wordt de data opgelsaan in een grote string ( pad naar waar de afbeelding staat )
 //print $target;
 //echo "<br>"; echo "hhhh";
@@ -206,29 +232,49 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
             }//einde valid file
         } // einde foreach
     }//einde isset
+
+    $z = explode("@@@",$mnar);
+
     //Zend de email naar trello
-    $email->Send();
+ //   $email->Send();
     //delete de foto's uit de uploads map aangezien deze nu op de database van trello zullen komen te staan
-    $arraywithtargets = explode("/n@", $targetstrings);
-    foreach ($arraywithtargets as $targ) {
-        //targ is hier 1 pad naar een bestand die in de uploads map zit
-        $targ = str_replace('\\', '/', $targ);
-        //kijk of het ad de map uploads bevat
-        if (strpos($targ, 'uploads') !== false) {//zoekt de positie van het woord uploads ( soort van contains )
-           unlink($targ); // delete de file uit de uploads folder
-        }
-    }
-    ?>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+ ?>
     <script>
-        // Voeg achteraan zeker nog eens de addclass scrolling toe om de height aan te passen
+$.getScript( "https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385", function( data, textStatus, jqxhr ) {
+var aa = window.location.href;
+    var bb = aa.split("index.php")[0];
+  console.log( "Load was performed." );
+    var APP_KEY = '23128bd41978917ab127f2d9ed741385';
+    var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
+    Trello.post("/cards?key=" + APP_KEY + "&token=" + application_token + "&name=<?php print $Onderwerp ?>&desc=<?php print  $Omschrijving . "/n@" . $prio . "/n@" . $lokaal . "/n@T@". date('Y n j')."@".date('H:i'); ?>&idList=5506dbf5b32e668bde0de1b4&urlSource=<?php
+$i = 0;
+foreach($z as $e){
+
+if($i!=0){/*
+?>,"+bb+"<?php
+print "uploads/".$e;*/
+}else{
+?>"+bb+"<?php
+print "uploads/".$e;
+}
+$i++;
+    }
+         ?>",function(){
+       // formmodified=0;
+
         $( document ).ready(function() {
             $('.modal')
                 .modal('setting', 'transition', 'scale')
                 .modal('show');
             $('.modal').addClass("scrolling");
+
         });
-    </script>
+
+    });
+});
+
+</script>
+
 <?php
 }//einde isset
 else {

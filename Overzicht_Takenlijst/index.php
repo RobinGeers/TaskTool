@@ -178,7 +178,7 @@ foreach ($data as $d) {
 
                 <label>Add Worker</label>
                 <select id="AddWorker" onChange="CopyCard(this)">
-
+                    <option value="Default">Default</option>
                 </select>
                 <label id="special"></label>
             </div>
@@ -579,7 +579,7 @@ foreach ($data as $d) {
 
                     var li = document.createElement("LI");
                     li.setAttribute("class", "Werkman_Naam");
-                    li.innerHTML = list.name;
+                    li.innerHTML = list.name;   //de werkman zijn naam
 
                     var i = document.createElement("I");
                     i.setAttribute("class", "ui print icon");
@@ -588,6 +588,16 @@ foreach ($data as $d) {
 
                     li.appendChild(i);
                     unorderedlist.appendChild(li);
+
+                    //worker dropdown list bij edit
+
+                    var select = document.getElementById("AddWorker");
+
+                    var input = document.createElement("OPTION");
+                    input.setAttribute("value",list.id + "@" + list.name );
+                    input.innerHTML = list.name;
+                    select.appendChild(input);
+
 
                     // HIERZO
                     var arrowUp = document.createElement("i");
@@ -883,58 +893,7 @@ foreach ($data as $d) {
                     });
 
 
-                  /*  if(izworker)
-                    {
-                        var worker = this.parentNode.firstChild.innerText;
-                        var select = document.getElementById("AddWorker");
-                        var otherworkers = this.getElementsByTagName("label")[0].innerHTML.split(" ");
 
-                        var element = select.firstChild;
-                        while (element) {
-                            select.removeChild(element);
-                            element = select.firstChild;
-                        }
-
-                        var input = document.createElement("OPTION");
-                        input.setAttribute("value", "Default");
-                        input.innerHTML = "Default";
-                        select.appendChild(input);
-
-                        //<option value="Default">Default</option>
-                        var temp = [];
-                        for (var i = 0; i < workers.length; i++) {
-                            if (worker != workers[i]) {
-                                temp.push(workers[i]);
-                            }
-                        }
-
-                        if (otherworkers.length > 1) {
-
-                            for (var j = 1; j < otherworkers.length; j++) {
-                                for (var i = 0; i < workers.length; i++) {
-                                    if (otherworkers[j] == workers[i]) {
-                                        delete workers[i];
-                                    }
-                                }
-                            }
-                        }
-
-                        for (var i = 0; i < workers.length; i++) {
-                            if (workers[i] != null) {
-                                var input = document.createElement("OPTION");
-                                input.setAttribute("value", workers[i]);
-
-                                input.innerHTML = workers[i];
-                                select.appendChild(input);
-                            }
-                        }
-
-
-                        var label = document.createElement("LABEL");
-                        label.style.visibility = "hidden";
-                        label.innerHTML = card.id;
-                        select.parentNode.appendChild(label);
-                    }*/
 
 
 
@@ -1312,7 +1271,7 @@ foreach ($data as $d) {
         var content = event.parentNode.previousSibling.previousSibling; // content div
         content = content.firstChild.nextSibling.nextSibling.nextSibling;//rechtse div
 
-        var nieuweTitel = content.childNodes[1].value;
+        //var nieuweTitel = content.childNodes[1].value;
 
         var cardIds = content.childNodes[13].innerText;
         cardList = cardIds.split("@")[1];
@@ -1834,12 +1793,26 @@ foreach ($data as $d) {
 
     function CopyCard(value) {
         if (value.value != "Default") {
-            var div = value.parentNode;
-            var id = div.getElementsByTagName("label")[1].innerHTML;
-            var li = document.getElementById(id);
-            var temp = li.getElementsByTagName("label");
 
-            Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token=" + application_token, function (lists) {
+
+            var listid = value.value.split("@")[0];
+            var cardid = document.getElementById("special").innerText.split("@")[0];
+            Trello.get("/lists/" + listid + "?fields=name&cards=open&card_fields=name&token=" + application_token, function (cards) {
+
+
+                Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
+                    niewedescription = cardinfo.desc + "/n@AW@" + value.value.split("@")[1]  ;
+                    Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token +"&desc=" + niewedescription, function () {
+                         Trello.post("/cards?idList=" + listid + "&idCardSource=" + cardid + "&due=null&token=" + application_token + "&key" + APP_KEY);
+                     });
+                });
+
+            });
+
+
+            
+          /*  Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,
+                desc&token=" + application_token, function (lists) {
 
                 $.each(lists["lists"], function (ix, list) {
 
@@ -1847,7 +1820,8 @@ foreach ($data as $d) {
                         Trello.get("/cards/" + id + "?fields=desc&token=" + application_token, function (cardinfo) {
                             niewedescription = cardinfo.desc + "/n@AW@" + value.value;
 
-                            Trello.put("/cards/" + id + "?key=" + APP_KEY + "&token=" + application_token + "&desc=" + niewedescription, function () {
+                            Trello.put("/cards/" + id + "?key=" + APP_KEY + "&token=" + application_token +
+                           "&desc=" + niewedescription, function () {
                                 Trello.post("/cards?idList=" + list.id + "&idCardSource=" + id + "&due=null&token=" + application_token + "&key" + APP_KEY);
                             });
                         });
@@ -1857,7 +1831,7 @@ foreach ($data as $d) {
                     }
                 });
 
-            });
+            });*/
         }
 
     }

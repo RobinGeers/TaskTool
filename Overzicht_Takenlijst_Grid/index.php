@@ -360,7 +360,18 @@ maakitem(tempy[0],tempy[1],tempy[2],tempy[3]);
                             option.innerHTML = campussen;
                             document.getElementById("Filter_Campussen").appendChild(option);
                         });
+                        <?php
+                        $data = unserialize($_COOKIE['cookie2']);
+                        ?>
+                        var er = [];
+                        er = "<?php print $data ?>";
+   var ee = er.split("|");
+                        $.each(ee,function(i,b){
+                            if(b=="")return;
+                            makeDiv(b,"B");
+                        });
 
+filterglobaal();
                     });
                 }
             });
@@ -877,6 +888,7 @@ function filterglobaal(){
 // Draw once all updates are done
     ooTable.draw();
     ooTable.search(a, true, true).draw();
+    Cookiefilter(a);
 }
     function TitelChange(value)
     {
@@ -907,6 +919,29 @@ function filterglobaal(){
 
 
     }
+    function Cookiefilter(text) {
+        //maak cookie aan
+        //if (id == "/") {
+          //  return;
+       // }
+        text = String(text);
+        if ("" + text.indexOf('[object HTMLDivElement]') >= 0) {
+            // Found world
+        } else {
+
+            //maak cookie
+            $.ajax({
+                url: '../CookieMaker2.php?val=' + text,
+                dataType: 'html',
+                success: function (data) {
+                    //data returned from php
+                    // window.open("../","_self");
+                }
+            });
+        }
+
+    }
+
     function DeleteFilter(element)
     {
         console.log(element);
@@ -915,9 +950,9 @@ function filterglobaal(){
         var e = element.id;
         var x = e.split("/");
         filterglobaal();
-/*
-        $.ajax({
-            url: '../CookieDeleter.php?val='+x[1],
+
+     /*   $.ajax({
+            url: '../CookieDeleter2.php?val='+x[1],
             dataType: 'html',
             success: function(data){
                 Filters("niks","/");

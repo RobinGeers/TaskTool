@@ -1428,7 +1428,8 @@ foreach ($data as $d) {
             if (filters[0] == "W") {
 
                 for (var j = 0; j < workersUL.length; j++) {
-                    if (workersUL[j].firstChild.innerText == filters[1]) {
+                    //if (workersUL[j].firstChild.innerText == filters[1]) {
+                    if (workersUL[j].firstChild.innerText.includes(filters[1])) {
                         workersUL[j].style.display = "block";
                     }
 

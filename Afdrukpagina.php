@@ -85,8 +85,9 @@ print $naam;
 
 
                         var descsplilt = cardinfo.desc.split("/n@");
+                        console.log(descsplilt);
                         $.each(descsplilt,function(ix,descpart){
-                            if(descpart.split("@")[0] == "W")
+                            if(descpart.split("@")[0] == "W" && descpart.split("@")[1].toLowerCase() == "<?php print $naam; ?>" )
                             {
                                 /*console.log("taak bij werknemer gevonden");
                                 console.log(cardinfo.desc);*/

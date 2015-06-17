@@ -852,6 +852,8 @@ foreach ($data as $d) {
 
                     document.getElementById("btnOpslaan").addEventListener("click", function () {
 
+
+                        console.log(geb derop geklikt);
                         var nieuweTitel = elementTitel.value;
                         var nieuwLokaal = elementLokaal.value;
                         var nieuweOmschrijving = elementOmschrijving.value;

@@ -449,8 +449,8 @@ foreach ($data as $d) {
 
         if (newtarget.parentNode.id == "Medewerkers") {
 
-            document.getElementById(data).style.width = "350px";
-            document.getElementById(data).style.maxWidth = "400px";
+            document.getElementById(cardid).style.width = "350px";
+            document.getElementById(cardid).style.maxWidth = "400px";
             var count = newtarget.getElementsByTagName("label")[0];
             var countint = count.innerText;
             countint = countint.split("(")[1];
@@ -1163,13 +1163,12 @@ foreach ($data as $d) {
 
                             label24.innerHTML = descsplit[1];
 
-<<<<<<< HEAD
+
                         }
                         if (descsplit[0] == "W")
                         {
                             input.checked = true;
-=======
->>>>>>> origin/master
+
                         }
                     });
 

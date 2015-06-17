@@ -542,56 +542,56 @@ main#Instellingen_Overzicht div a p {
     padding-top: 10px;
 }
 
-main#Overzicht a#first {
+main#Overzicht a#firsts {
     background-color: #66b5d6;
     color: #ffffff;
 }
 
-main#Overzicht a#first:hover {
+main#Overzicht a#firsts:hover {
     transition: background-color 0.2s ease;
     background-color: #2EB5D6;
     color: #ffffff;
 }
 
-main#Overzicht a#second {
+main#Overzicht a#seconds {
     background-color: #e87352;
     color: #ffffff;
 }
 
-main#Overzicht a#second:hover {
+main#Overzicht a#seconds:hover {
     transition: background-color 0.2s ease;
     background-color: #FF7352;
     color: #ffffff;
 }
 
-main#Overzicht a#third {
+main#Overzicht a#thirds {
     background-color: #5fce9b;
     color: #ffffff;
 }
 
-main#Overzicht a#third:hover {
+main#Overzicht a#thirds:hover {
     transition: background-color 0.2s ease;
     background-color: #32CE9B;
     color: #ffffff;
 }
 
-main#Overzicht a#fourth {
+main#Overzicht a#fourths {
     background-color: #eeca5a;
     color: #ffffff;
 }
 
-main#Overzicht a#fourth:hover {
+main#Overzicht a#fourths:hover {
     transition: background-color 0.2s ease;
     background-color: #EECA32;
     color: #ffffff;
 }
 
-main#Overzicht a#fifth {
+main#Overzicht a#fifths {
     background-color: #e87352;
     color: #ffffff;
 }
 
-main#Overzicht a#fifth:hover {
+main#Overzicht a#fifths:hover {
     transition: background-color 0.2s ease;
     background-color: #FF7352;
     color: #ffffff;

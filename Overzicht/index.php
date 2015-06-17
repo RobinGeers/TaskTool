@@ -120,7 +120,7 @@ $mysqli->close(); //connectie sluiten
         <button><a onclick="afmelden(this)">Afmelden</a></button>
         <nav>
             <ul>
-                <li><a id="first"  href="#">Probleem melden</a></li>
+                <li><a id="first"  href="../Meld_Defect/index.php">Probleem melden</a></li>
                 <li><a id="afdruklijst"  href="../Afdrukpagina.php?Werkman=<?php $a =  $_SESSION["loggedin"];
                     $a = explode("@",$a);
                     $a = $a[0];

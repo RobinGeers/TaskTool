@@ -649,17 +649,11 @@ console.log(at);
                 newtr.push(hoofdtd);
             }
         });
-       var ntr = document.createElement("tr");
-        $.each(newtr,function(i,b){
-            ntr.appendChild(b);
 
-        });
-      ooTable.row.add(ntr).draw();
-        console.log(ntr);
+      ooTable.row.add(el).draw();
+
 formmodified=1;
-        console.log("hhh");
-        console.log(myar);
-        console.log(aa);
+
         //trello.get desc
 
         Trello.get("/cards/"+aa+"?fields=desc&token="+application_token,function(carddesc) {
@@ -667,8 +661,38 @@ console.log(carddesc["desc"].split("/n@"));
             var ma = carddesc["desc"].split("/n@");
             //["aula muur", "ver of muur is oneven geschilderd en geeftplekken bij projectie", "Niet Dringend", "RDR.A.0.06"]
             mnarray.splice(mnarray.indexOf(ma[3]),1);
-            console.log(mnarray2.indexOf(ma[3].split(".")[0]));
-            mnarray2.splice(mnarray2.indexOf(ma[3].split(".")[0]),1);
+          //  console.log(mnarray2.indexOf(ma[3].split(".")[0]));
+            var x = mnarray2.indexOf(ma[3].split(".")[0]);
+            var mx = ma[3].split(".")[0];
+//console.log(ooTable.rows().data());
+            var ll =[];
+            ooTable.rows().every( function () {
+                var data = this.data();
+                // ... do something with data(), or this.node(), etc
+             //   console.log("h");
+             //   console.log(data[3]);
+                var m = data[3].split(".")[0];
+            ll.push(m);
+
+            } );
+         //   console.log(ll);
+         var xx =   checkforsames(ll);
+//console.log(xx[0]);
+        //    console.log(xx[1]);
+            mnarray2 =null;
+            mnarray2=[];
+            $.each(xx[0],function(i,camp){
+
+                if(mnarray2!=null){
+                    if(mnarray2.indexOf(camp)==-1){
+                        mnarray2.push(camp);
+                    }
+
+                }else{
+                    mnarray2.push(camp);
+                }
+            });
+           // mnarray2.splice(x, 1);
 ma[0] = myar[1];
             ma[1] = myar[2];
             ma[3] = myar[3];
@@ -700,7 +724,22 @@ ma[0] = myar[1];
             }
         });*/
     }
+    function checkforsames(arr) {
+        var arr1 = [], arr2 = [], prev;
 
+        arr.sort();
+        for ( var i = 0; i < arr.length; i++ ) {
+            if ( arr[i] !== prev ) {
+                arr1.push(arr[i]);
+                arr2.push(1);
+            } else {
+                arr2[arr2.length-1]++;
+            }
+            prev = arr[i];
+        }
+
+        return [arr1, arr2];
+    }
 function checkforother(klas){
 
     //HIERBENIK

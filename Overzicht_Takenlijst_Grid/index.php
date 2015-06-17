@@ -650,11 +650,12 @@ console.log(at);
             }
         });
        var ntr = document.createElement("tr");
-        $.each(newtr,function(i){
-            ntr.appendChild(i);
-
+        $.each(newtr,function(i,b){
+          //  ntr.appendChild(i);
+console.log(i);
+            console.log(b);
         });
-        ooTable.row.add(ntr).draw();
+      //  ooTable.row.add(ntr).draw(
         console.log(ntr);
 formmodified=1;
         console.log("hhh");

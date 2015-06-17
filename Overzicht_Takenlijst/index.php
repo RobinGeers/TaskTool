@@ -190,7 +190,7 @@ foreach ($data as $d) {
             <div class="ui black button">
                 Annuleer
             </div>
-            <div id="btnOpslaan" class="ui positive right labeled icon button">
+            <div id="btnOpslaan" class="ui positive right labeled icon button" onclick="OpslaanClick(this)">
                 Opslaan <i class="checkmark icon"></i>
             </div>
             <div class="clearfix"></div>
@@ -753,6 +753,7 @@ foreach ($data as $d) {
         });
     }
     function getCards(selecteddiv, listID, izworker) {
+        console.log(selecteddiv.parentNode);
         //Haal alle kaartjes op van een bepaalde lijst
         Trello.get("/lists/" + listID + "?fields=name&cards=open&card_fields=name&token=" + application_token, function (cards) {
 
@@ -792,9 +793,7 @@ foreach ($data as $d) {
 
                     // Indien transition niet werkt -> Bootstrap link wegdoen
                     $('.modal').addClass('scrolling');
-                    $('.modal')
-                        .modal('setting', 'transition', 'scale')
-                        .modal('show');
+                    $('.modal').modal('setting', 'transition', 'scale').modal('show');
 
                     // li -> geselecteerde taak
 
@@ -850,10 +849,10 @@ foreach ($data as $d) {
                     elementImage.src = imageSource;
 
 
-                    document.getElementById("btnOpslaan").addEventListener("click", function () {
+                    /*document.getElementById("btnOpslaan").addEventListener("click", function () {
 
 
-                        console.log(geb derop geklikt);
+                        console.log("geb derop geklikt");
                         var nieuweTitel = elementTitel.value;
                         var nieuwLokaal = elementLokaal.value;
                         var nieuweOmschrijving = elementOmschrijving.value;
@@ -865,7 +864,7 @@ foreach ($data as $d) {
 
                         Trello.get("/cards/" + card.id + "?fields=desc&token=" + application_token, function (carddesc) {
 
-                            /*  */
+
                             var odesc = carddesc.desc.split("/n@");
                             var nieuweDescription = nieuweOmschrijving + "/n@" + nieuwePrioriteit + "/n@" + odesc[2] + "/n@" + nieuwLokaal;
                             var hiden = carddesc.desc.split("/n@T@");
@@ -957,7 +956,7 @@ foreach ($data as $d) {
                                 break;
                         }
 
-                    }, false);
+                    }, false);*/
 
                     document.getElementById("btnVerwijder").addEventListener("click", function () {
 
@@ -978,55 +977,67 @@ foreach ($data as $d) {
                     });
 
 
-                    var worker = this.parentNode.firstChild.innerText;
-                    var select = document.getElementById("AddWorker");
-                    var otherworkers = this.getElementsByTagName("label")[0].innerHTML.split(" ");
+                  /*  if(izworker)
+                    {
+                        var worker = this.parentNode.firstChild.innerText;
+                        var select = document.getElementById("AddWorker");
+                        var otherworkers = this.getElementsByTagName("label")[0].innerHTML.split(" ");
 
-
-                    var element = select.firstChild;
-                    while (element) {
-                        select.removeChild(element);
-                        element = select.firstChild;
-                    }
-                    var input = document.createElement("OPTION");
-                    input.setAttribute("value", "Default");
-                    input.innerHTML = "Default";
-                    select.appendChild(input);
-
-                    //<option value="Default">Default</option>
-                    var temp = [];
-                    for (var i = 0; i < workers.length; i++) {
-                        if (worker != workers[i]) {
-                            temp.push(workers[i]);
+                        var element = select.firstChild;
+                        while (element) {
+                            select.removeChild(element);
+                            element = select.firstChild;
                         }
-                    }
 
-                    if (otherworkers.length > 1) {
+                        var input = document.createElement("OPTION");
+                        input.setAttribute("value", "Default");
+                        input.innerHTML = "Default";
+                        select.appendChild(input);
 
-                        for (var j = 1; j < otherworkers.length; j++) {
-                            for (var i = 0; i < workers.length; i++) {
-                                if (otherworkers[j] == workers[i]) {
-                                    delete workers[i];
+                        //<option value="Default">Default</option>
+                        var temp = [];
+                        for (var i = 0; i < workers.length; i++) {
+                            if (worker != workers[i]) {
+                                temp.push(workers[i]);
+                            }
+                        }
+
+                        if (otherworkers.length > 1) {
+
+                            for (var j = 1; j < otherworkers.length; j++) {
+                                for (var i = 0; i < workers.length; i++) {
+                                    if (otherworkers[j] == workers[i]) {
+                                        delete workers[i];
+                                    }
                                 }
                             }
                         }
-                    }
 
-                    for (var i = 0; i < workers.length; i++) {
-                        if (workers[i] != null) {
-                            var input = document.createElement("OPTION");
-                            input.setAttribute("value", workers[i]);
+                        for (var i = 0; i < workers.length; i++) {
+                            if (workers[i] != null) {
+                                var input = document.createElement("OPTION");
+                                input.setAttribute("value", workers[i]);
 
-                            input.innerHTML = workers[i];
-                            select.appendChild(input);
+                                input.innerHTML = workers[i];
+                                select.appendChild(input);
+                            }
                         }
-                    }
 
 
-                    var label = document.createElement("LABEL");
-                    label.style.visibility = "hidden";
-                    label.innerHTML = card.id;
-                    select.parentNode.appendChild(label);
+                        var label = document.createElement("LABEL");
+                        label.style.visibility = "hidden";
+                        label.innerHTML = card.id;
+                        select.parentNode.appendChild(label);
+                    }*/
+
+
+
+
+
+
+
+
+
 
 
                 }, false);
@@ -1272,6 +1283,119 @@ foreach ($data as $d) {
 
         });
     }
+
+    function OpslaanClick(event)
+    {
+        var content = event.parentNode.previousSibling.previousSibling; // content div
+        content = content.firstChild.nextSibling.nextSibling.nextSibling;//rechtse div
+
+
+        var nieuweTitel = content.childNodes[1].value;
+        var nieuwLokaal = content.childNodes[3];
+        var nieuweOmschrijving = content.childNodes[5].value;
+        //var nieuwePrioriteit = document.getElementById("Card_Prioriteit").value;
+        var nieuwePrioriteit = content.childNodes[7].value;
+        //var listId = li.parentNode.id;
+
+        // Pas kaartje aan en toon direct de verandering
+
+
+        Trello.get("/cards/" + card.id + "?fields=desc&token=" + application_token, function (carddesc) {
+
+
+            var odesc = carddesc.desc.split("/n@");
+            var nieuweDescription = nieuweOmschrijving + "/n@" + nieuwePrioriteit + "/n@" + odesc[2] + "/n@" + nieuwLokaal;
+            var hiden = carddesc.desc.split("/n@T@");
+
+            if (hiden.length > 1) {
+                nieuweDescription += "/n@T@" + hiden[1];
+            }
+            mnarray.splice(mnarray.indexOf(odesc[3]), 1);
+
+            mnarray2.splice(mnarray2.indexOf(odesc[3].split(".")[0]), 1);
+            checkforother(nieuwLokaal);
+
+            Trello.put("/cards/" + li.id + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + nieuweDescription + "&name=" + nieuweTitel);
+
+
+        });
+        //foute code in de trello.put
+
+
+        var parent = li.firstChild;
+        var parent2 = li.childNodes[1];
+        var nieuweTitelLink = document.createElement("a");
+        nieuweTitelLink.appendChild(document.createTextNode(nieuweTitel));
+
+        var hx = li.firstChild.childNodes[0].href;
+        var hr = hx.split("/");
+
+        // Verander de titel
+        nieuweTitelLink.href = hr[hr.length - 1];
+        nieuweTitelLink.setAttribute("data-toggle", "collapse");
+        parent.replaceChild(nieuweTitelLink, parent.childNodes[0]);
+
+        // Verander het lokaal
+        var nieuwLokaalElement = document.createElement("p");
+        var textNode = document.createTextNode(nieuwLokaal);
+        nieuwLokaalElement.appendChild(textNode);
+        nieuwLokaalElement.className = "lokaal content";
+        nieuwLokaalElement.style.paddingTop = "10px";
+
+        parent2.replaceChild(nieuwLokaalElement, parent2.firstChild);
+
+        // Verander de omschrijving
+        var nieuwOmschrijvingElement = document.createElement("p");
+        nieuwOmschrijvingElement.className = "panel-body";
+        var textNodeOmschrijving = document.createTextNode(nieuweOmschrijving);
+        nieuwOmschrijvingElement.appendChild(textNodeOmschrijving);
+
+        parent2.replaceChild(nieuwOmschrijvingElement, parent2.childNodes[3]);
+
+        // Verander de prioriteit
+        switch (nieuwePrioriteit) {
+            case "Niet Dringend":
+                if (li.classList.contains("liBorderL")) {
+                    li.classList.remove("liBorderL");
+                }
+                else if (li.classList.contains("liBorderG")) {
+                    li.classList.remove("liBorderG");
+                }
+                else if (li.classList.contains("liBorderH")) {
+                    li.classList.remove("liBorderH");
+                }
+                li.classList.add("liBorderL");
+
+                break;
+            case "Dringend":
+                if (li.classList.contains("liBorderL")) {
+                    li.classList.remove("liBorderL");
+                }
+                else if (li.classList.contains("liBorderG")) {
+                    li.classList.remove("liBorderG");
+                }
+                else if (li.classList.contains("liBorderH")) {
+                    li.classList.remove("liBorderH");
+
+                }
+                li.classList.add("liBorderG");
+                break;
+            case "Zeer Dringend":
+                if (li.classList.contains("liBorderL")) {
+                    li.classList.remove("liBorderL");
+                }
+                else if (li.classList.contains("liBorderG")) {
+                    li.classList.remove("liBorderG");
+                }
+                else if (li.classList.contains("liBorderH")) {
+                    li.classList.remove("liBorderH");
+                }
+                li.classList.add("liBorderH");
+                break;
+        }
+    }
+
+
     //--------------------filter----------------------//
     var FilterSection = document.getElementById("SelectedFilters");
     function PriorityChange(value) {

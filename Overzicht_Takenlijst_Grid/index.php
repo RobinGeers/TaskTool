@@ -568,9 +568,13 @@ console.log(at);
         var aa="";
         aa=el.id;
         // console.log(el);
+        ooTable.row(el).remove().draw();
+        var newtr = [];
         $.each(el.childNodes,function(ix,a){
             //  console.log(el.childNodes[ix]);
             //console.log(a);
+
+
             if(ix==5){
                 var tdd = document.createElement("td");
                 var td4 = document.createElement("i");
@@ -587,9 +591,13 @@ console.log(at);
                 });
                 tdd.appendChild(td4);
                 tdd.appendChild(t1);
+                newtr.push(tdd);
                 el.replaceChild(tdd,el.childNodes[ix]);
                 return;
-            }else if(ix==4){}else if(ix==2){
+            }else if(ix==4){
+
+                newtr.push(el.childNodes[ix]);
+            }else if(ix==2){
                 var hoofdtd = document.createElement("td");
                 var t = el.childNodes[ix].firstChild.value;
                 console.log(t);
@@ -623,7 +631,7 @@ console.log(at);
                 console.log(t);
 
                // hoofdtd.appendChild(document.createTextNode(t));
-
+                newtr.push(hoofdtd);
                 el.replaceChild(hoofdtd, el.childNodes[ix]);
 
             }else {
@@ -638,8 +646,16 @@ console.log(at);
                 hoofdtd.appendChild(document.createTextNode(t));
 
                 el.replaceChild(hoofdtd, el.childNodes[ix]);
+                newtr.push(hoofdtd);
             }
         });
+       var ntr = document.createElement("tr");
+        $.each(newtr,function(i){
+            ntr.appendChild(i);
+
+        });
+        ooTable.row.add(ntr).draw();
+        console.log(ntr);
 formmodified=1;
         console.log("hhh");
         console.log(myar);
@@ -810,6 +826,17 @@ function filterglobaal(){
     });
     console.log(a);
     //  a = "Niet Dringend|Dringend|RSS|GKG";
+
+    ooTable.rows().every( function () {
+        var d = this.data();
+
+        d.counter++; // update data source for the row
+
+        this.invalidate(); // invalidate the data DataTables has cached for this row
+    } );
+
+// Draw once all updates are done
+    ooTable.draw();
     ooTable.search(a, true, true).draw();
 }
     function TitelChange(value)

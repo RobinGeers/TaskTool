@@ -115,10 +115,15 @@ $mysqli->close(); //connectie sluiten
     <nav>
         <ul>
             <li><a id="first" href="../Meld_Defect/index.php">Probleem melden</a></li>
-            <li><a id="second" href="#">Overzicht takenlijst</a></li>
+            <li><a id="second" href="#">Overzicht takenlijst</a>
+                <ul class="gotop">
+                    <li><a href="../Overzicht_Takenlijst_Grid/index.php">Tabel weergave</a></li>
+                    <li><a href="../Overzicht_Takenlijst/index.php">Kaartjes weergave</a></li>
+                </ul>
+            </li>
             <li><a id="third" href="../Statistieken/index.php">Statistieken</a></li>
             <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
-                <ul>
+                <ul class="gotop">
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
                     <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
                     <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
@@ -413,6 +418,7 @@ function maakitem(id, name, desc,attach){
     div.style.width = "15px";
     div.style.height = "15px";
     div.style.display = "inline-block";
+    div.style.marginTop = "5px";
     div.style.float = "right";
     div.style.marginRight = "10px";
     if(prio=="Dringend"){prio="Dringend ";}
@@ -461,7 +467,10 @@ console.log(at);
     t1.className="remove icon";
     t1.addEventListener("click",function(){
 
-        deletee(tr);
+        var result = confirm("Bent u zeker dat u dit item wilt verwijderen?");
+        if (result) {
+            deletee(tr);
+        }
     });
     td4.appendChild(t1);
     tr.appendChild(td4);
@@ -502,9 +511,11 @@ console.log(at);
         var tell = 0;
         //   console.log(eml.childElementCount);
         $.each(eml.childNodes,function(ix,a){
-
-            //  console.log(ix);
+            tell++;
+            console.log("HIERONDER");
+              console.log(ix);
             a = eml.childNodes[ix];
+
             if(ix==5){
                 //  console.log("JA VIJF");
                 var hftd = document.createElement("td");
@@ -517,22 +528,20 @@ console.log(at);
                 hftd.appendChild(newicon);
                 eml.replaceChild(hftd,eml.childNodes[ix]);
                 return;
-            }else if(ix==4){}else if(ix==2){
+            } else if (ix == 4) {}
+            else if (ix == 2) {
                 var hoofdtd = document.createElement("td");
-
                 var t = a.innerText;
-                var i = document.createElement("input");
-                i.className = "grayfield";
-                i.type ="text";
-                i.name="inputs[]";
-                i.id="inputs"+ix;
-                i.setAttribute('value', 'default');
-                //i.addEventListener('keyup',function(val){i.value=val.value;  });
-                i.value = t;
-                hoofdtd.appendChild(i);
-                eml.replaceChild(hoofdtd,eml.childNodes[ix]);
-
-            }else{
+                var select = document.createElement("select");
+                select.options[select.options.length] = new Option('Niet Dringend', 'Niet Dringend');
+                select.options[select.options.length] = new Option('Dringend', 'Dringend');
+                select.options[select.options.length] = new Option('Zeer Dringend', 'Zeer Dringend');
+                select.className = "grayfield";
+                select.value = t;
+                hoofdtd.appendChild(select);
+                eml.replaceChild(hoofdtd, eml.childNodes[ix]);
+            }
+            else{
                 var hoofdtd = document.createElement("td");
 
                 var t = a.innerText;
@@ -548,6 +557,7 @@ console.log(at);
                 hoofdtd.appendChild(i);
                 eml.replaceChild(hoofdtd,eml.childNodes[ix]);
             }
+
 
 //console.log(eml.childNodes[ix]);
         });

@@ -128,10 +128,15 @@ foreach ($data as $d) {
     <nav>
         <ul>
             <li><a id="first" href="../Meld_Defect/index.php">Probleem melden</a></li>
-            <li><a id="second" href="#">Overzicht takenlijst</a></li>
+            <li><a id="second" href="#">Overzicht takenlijst</a>
+                <ul class="gotop">
+                    <li><a href="../Overzicht_Takenlijst_Grid/index.php">Tabel weergave</a></li>
+                    <li><a href="../Overzicht_Takenlijst/index.php">Kaartjes weergave</a></li>
+                </ul>
+            </li>
             <li><a id="third" href="../Statistieken/index.php">Statistieken</a></li>
             <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
-                <ul>
+                <ul class="gotop">
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
                     <li><a href="../Instellingen_Externe_Werknemers/index.php">Externe werknemers</a></li>
                     <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
@@ -333,6 +338,9 @@ foreach ($data as $d) {
 <div class="clearfix"></div>
 <script>
 
+    var isArrowUp = true;
+    var listHeight;
+
     document.getElementById("Weergave_Tabel").addEventListener("click", function (e) {
         e.preventDefault();
         $("#Overzicht_Takenlijst").fadeOut(600);
@@ -425,6 +433,9 @@ foreach ($data as $d) {
         }
         else {
             var newtarget = ev.target;
+            console.log("NIEUWE");
+            var hei = $(newtarget).height();
+            newtarget.style.height = hei + 120; // Tel height bij de lijst als er een kaartje in wordt gedropt
         }
 
 
@@ -439,7 +450,7 @@ foreach ($data as $d) {
         if (newtarget.parentNode.id == "Medewerkers") {
 
             document.getElementById(data).style.width = "350px";
-            document.getElementById(data).style.maxWidth = "350px";
+            document.getElementById(data).style.maxWidth = "400px";
             var count = newtarget.getElementsByTagName("label")[0];
             var countint = count.innerText;
             countint = countint.split("(")[1];
@@ -451,7 +462,7 @@ foreach ($data as $d) {
 
             console.log(count);
             document.getElementById(cardid).style.width = "350px";
-            document.getElementById(cardid).style.maxWidth = "400px";
+            document.getElementById(cardid).style.maxWidth = "350px !important";
 
 
             Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
@@ -576,6 +587,85 @@ foreach ($data as $d) {
                     li.appendChild(i);
                     unorderedlist.appendChild(li);
 
+                    // HIERZO
+                    var arrowUp = document.createElement("i");
+                    arrowUp.className = "angle double up icon arrowUp";
+
+                    var arrowDown = document.createElement("i");
+                    arrowDown.className = "angle double down icon arrowDown";
+
+                    // Klap de takenlijst van de werkman toe
+                    arrowUp.addEventListener("click", function() {
+
+
+                            var countArrows = $('.arrowUp').length;
+
+                            for (var i = 0; i < countArrows; i++) {
+
+                                if (arrowUp.parentNode == $('.arrowUp').parent()[i]) {
+                                    var id = arrowUp.parentNode.getAttribute("id");
+                                    listHeight = $("#" + id).outerHeight();
+                                    console.log(listHeight);
+                                    $("#" + id).animate({height: "100px"}, {queue: false, duration: 500});
+                                    var childs = arrowUp.parentNode.childNodes;
+
+                                    for (var ii = 2; ii < childs.length; ii++) {
+                                        arrowUp.parentNode.childNodes[ii].style.visibility = "hidden";
+                                    }
+                                    arrowUp.parentNode.replaceChild(arrowDown, arrowUp);
+                                    break;
+                                }
+                            }
+
+
+                    }, false);
+
+                    arrowDown.addEventListener("click", function(){
+                        var countArrows2 = $('.arrowDown').length;
+
+                        if (countArrows2 == 1) {
+
+                            for (var i2 = 0; i2 < countArrows2; i2++) {
+
+                                console.log(arrowDown.parentNode);
+                                console.log($('.arrowDown').parent());
+
+
+                                if (arrowDown.parentNode == $('.arrowDown').parent()[i2]) {
+                                    var id2 = arrowDown.parentNode.getAttribute("id");
+                                    console.log(listHeight);
+                                    $("#" + id2).animate({height: listHeight}, {queue: false, duration: 500});
+                                    var childs2 = arrowDown.parentNode.childNodes;
+
+                                    for (var ii2 = 2; ii2 < childs2.length; ii2++) {
+                                        console.log(arrowDown.parentNode.childNodes[ii2]);
+                                        arrowDown.parentNode.childNodes[ii2].style.visibility = "visible";
+                                    }
+                                    arrowDown.parentNode.replaceChild(arrowUp, arrowDown);
+                                }
+                            }
+                        }
+                            else { // Als er meerdere toegeklapt zijn
+                                for (var a = 0; a < countArrows2; a++) {
+                                    if (arrowDown.parentNode == $('.arrowDown').parent()[a]) {
+                                        var id3 = arrowDown.parentNode.getAttribute("id");
+                                        console.log(listHeight);
+                                        $("#" + id3).animate({height: listHeight}, {queue: false, duration: 500});
+                                        var childs3 = arrowDown.parentNode.childNodes;
+
+                                        for (var ii3 = 2; ii3 < childs3.length; ii3++) {
+                                            console.log(arrowDown.parentNode.childNodes[ii3]);
+                                            arrowDown.parentNode.childNodes[ii3].style.visibility = "visible";
+                                        }
+                                        arrowDown.parentNode.replaceChild(arrowUp, arrowDown);
+                                        break;
+                                    }
+                                }
+                            }
+                    }, false);
+
+                    unorderedlist.appendChild(arrowUp);
+
                     getCards(unorderedlist, list.id, true);
 
                     selecteddiv.appendChild(unorderedlist);
@@ -694,6 +784,7 @@ foreach ($data as $d) {
                 }
                 else {
                     li.style.width = "400px";
+                    li.style.maxWidth = "350px";
                 }
 
                 // Als op kaart geklikt wordt -> Toon pop-up
@@ -1018,26 +1109,51 @@ foreach ($data as $d) {
                         attachementsarr.push(attachement.url);
 
                     });
-                    var descriptionn = cardinfo.desc.split("/n@");
 
                     // Haal de datum uit de kaartjes
-                    var hiden = cardinfo.desc.split("/n@N@");
+                    var descriptionn = cardinfo.desc.split("/n@");
+                    $.each(descriptionn, function (ix, descpart) {
 
-                    if (hiden.length > 1) {
-                        var ingegevenDatum = hiden[0].split("/n@");
-                        var ingegevenDatum2 = ingegevenDatum[ingegevenDatum.length - 1];
-                        var correcteDatum = ingegevenDatum2.split("T@");
+                        if (descpart.split("@")[0] == "T") {
+                            var datum = descpart.split("@")[1];
+                            var uur = descpart.split("@")[2];
 
-                        var definitieveDatum = correcteDatum[1];
-                        var correctUur = definitieveDatum.split("@");
-                        var definitieveDatum2 = definitieveDatum.split("@");
+                            var splitDatum = datum.split(" ");
+                            var year = splitDatum[0];
+                            var month = splitDatum[1];
+                            var day = splitDatum[2];
+                            var datum2 = year + "." + month + "." + day + " " + uur;
 
-                        var finalDatum = definitieveDatum2[0];
-                        var finaluur = definitieveDatum2[1];
+                            // Datum van kaartje
+                            var convertedToUnix = new Date(datum2).getTime() / 1000;
 
+                            // Huidige datum
+                            var currentDate = new Date().getTime() / 1000;
 
-                        // TODO: Als de aangemaakte (final) datum langer dan een maand geleden is -> Toon door bv. een uitroepteken op het kaartje,..
-                    }
+                            var verstrekenTijd = currentDate-convertedToUnix;
+                            //console.log("Tijd tussen datum van kaartje en nu");
+                            //console.log(verstrekenTijd);
+                            var maxVerstrekenTijd = 82800; // -> 1 dag (Aan te passen indien je na een bepaalde tijd een uitroepingsteken wilt zien)
+
+                             if (verstrekenTijd > maxVerstrekenTijd) {
+                                 // Ouder dan 15 minuten
+                                 var uitroepingsteken = document.createElement("i");
+                                 uitroepingsteken.className = "fa fa-exclamation";
+                                 uitroepingsteken.style.width = "20px";
+                                 uitroepingsteken.style.height = "20px";
+                                 uitroepingsteken.style.color = "#dc002f";
+                                 uitroepingsteken.style.fontSize = "2.3em";
+                                 uitroepingsteken.style.float = "right";
+                                 uitroepingsteken.style.marginTop = "-5px";
+                                 li.firstChild.appendChild(uitroepingsteken);
+                             }
+                             else {
+                                // Niet ouder dan 15 minuten
+
+                             }
+                        }
+
+                    });
 
                     var label24 = document.createElement("LABEL");
 
@@ -1047,10 +1163,13 @@ foreach ($data as $d) {
 
                             label24.innerHTML = descsplit[1];
 
+<<<<<<< HEAD
                         }
                         if (descsplit[0] == "W")
                         {
                             input.checked = true;
+=======
+>>>>>>> origin/master
                         }
                     });
 
@@ -1104,10 +1223,6 @@ foreach ($data as $d) {
                     }
                     div2.appendChild(divclearfix);
                     Filters("niks", "/");
-
-
-
-
 
 
 

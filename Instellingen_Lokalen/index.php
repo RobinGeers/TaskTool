@@ -229,10 +229,15 @@ $mysqli->close();
     <nav>
         <ul>
             <li><a href="../Meld_Defect/index.php">Probleem melden</a></li>
-            <li><a href="../Overzicht_Takenlijst/index.php">Overzicht takenlijst</a></li>
+            <li><a href="../Overzicht_Takenlijst/">Overzicht takenlijst</a>
+                <ul class="gotop">
+                    <li><a href="../Overzicht_Takenlijst_Grid/index.php">Tabel weergave</a></li>
+                    <li><a href="../Overzicht_Takenlijst/index.php">Kaartjes weergave</a></li>
+                </ul>
+            </li>
             <li><a href="../Statistieken/index.php">Statistieken</a></li>
             <li><a href="../Instellingen_Overzicht/index.php" class="instellingen">Instellingen</a>
-                <ul>
+                <ul class="gotop">
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
                     <li><a href="../Instellingen_Externe_Werknemers/index.php">Onderaannemers</a></li>
                     <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
@@ -591,8 +596,10 @@ $mysqli->close();
         var t1 = document.createElement("i");
         t1.className="remove icon";
         t1.addEventListener("click",function(){
-
-            deletelokalen(tr);
+            var result = confirm("Bent u zeker dat u dit item wilt verwijderen?");
+            if (result) {
+                deletelokalen(tr);
+            }
         });
 
         td8.appendChild(td6);

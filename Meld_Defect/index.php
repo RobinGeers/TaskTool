@@ -211,15 +211,13 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
             //       print($message);
             if($valid_file){//false indien te groot of een error optreed
                 //   print("attachadded1");
-                $currentdir = getcwd();
+              $currentdir = getcwd();
                 $target = $currentdir.'/uploads/'.$name;
-
                 $targetstrings = $targetstrings."/n@".$target;
                 $test = $name;
-
                 move_uploaded_file($tmp_naam, $target);
                 $message='File\' s are sended';
-                $email->AddAttachment( $target , $test ); // voeg attachment aan email toe
+                $email->AddAttachment( $tmp_naam , $test ); // voeg attachment aan email toe
                 // hier wordt de data opgelsaan in een grote string ( pad naar waar de afbeelding staat )
 
 //print $target;
@@ -230,6 +228,7 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
     }//einde isset
     //Zend de email naar trello
     $email->Send();
+
     //delete de foto's uit de uploads map aangezien deze nu op de database van trello zullen komen te staan
     $arraywithtargets = explode("/n@", $targetstrings);
     foreach ($arraywithtargets as $targ) {
@@ -298,7 +297,6 @@ $mysqli->close();
     $.getScript( "https://code.jquery.com/ui/1.9.1/jquery-ui.min.js", function() {
         $(function () {
 
-
             $("#txtLokaal").autocomplete({
                 source: arraymetlokalen
             });
@@ -306,12 +304,25 @@ $mysqli->close();
                 min: 1,
                 max: 100,
                 value: 1,
+                index:0,
                 slide: function (event, ui) {
                     $("#amount").val(ui.value);
                 }
             });
+            Prioriteit();
             $("#slider").css('background', 'linear-gradient(to right,green,orange,red');
             $("#slider").css('border-width', '0px');
+            var el = document.getElementsByClassName("ui-slider-handle ui-state-default ui-corner-all");
+            console.log(el);
+            el[0].addEventListener("mouseup", function(event) { //Voerµ
+     Prioriteit();
+            });
+
+            el[0].parentNode.addEventListener("click", function(event) { //Voerµ
+ Prioriteit();
+            });
+            //el[0].parentNode.onmousedown = Prioriteit();
+
         });
     });
 
@@ -445,11 +456,16 @@ $mysqli->close(); //connectie sluiten
                 $a = explode("@",$a);
                 $a = $a[0];
                 print $a;?>">Afdruklijst</a></li>
-            <li><a id="second" href="../Overzicht_Takenlijst/">Overzicht takenlijst</a></li>
+            <li><a id="second" href="../Overzicht_Takenlijst/">Overzicht takenlijst</a>
+                <ul class="gotop">
+                    <li><a href="../Overzicht_Takenlijst_Grid/index.php">Tabel weergave</a></li>
+                    <li><a href="../Overzicht_Takenlijst/index.php">Kaartjes weergave</a></li>
+                </ul>
+            </li>
             <li><a id="third"  href="../Statistieken">Statistieken</a></li>
            <!--<li><a  href="../Instellingen">Instellingen</a></li>
            --> <li><a id="fourth" href="../Instellingen_Overzicht/index.php">Instellingen</a>
-                <ul>
+                <ul class="gotop">
                     <li><a href="../Instellingen_Interne_Werknemers/index.php">Interne werknemers</a></li>
                     <li><a href="../Instellingen_Externe_Werknemers/index.php">Onderaannemers</a></li>
                     <li><a href="../Instellingen_Lokalen/index.php">Lokalen</a></li>
@@ -488,7 +504,7 @@ $mysqli->close(); //connectie sluiten
             <label>Prioriteit:<span> *</span></label>
             <input type="hidden" id="amount" readonly style="border:0;">
 
-            <div id="slider" onmouseover="Prioriteit()"></div>
+            <div id="slider"  onmouseover="Prioriteit()"></div>
             <p id="prior"></p>
             <input type="text" style="display: none" id="priori" name="priori">
            <!--<label>Bijlage:</label>-->
@@ -575,6 +591,7 @@ $mysqli->close(); //connectie sluiten
 <script>
 
     function Prioriteit() {
+   console.log("h");
         var prioriteit = document.getElementById("amount").value;
 
         if (prioriteit <= 40) {

@@ -99,6 +99,7 @@ header button {
     float: right;
     margin-right: 100px;
     margin-left: 100px;
+    border-radius: 4px;
 }
 
 header button a {
@@ -150,6 +151,10 @@ nav ul ul li a {
 
 nav ul li ul li:first-child {
     margin-top: -20px;
+}
+
+nav ul ul.gotop {
+    margin-top: -8px;
 }
 
 nav ul li ul li:hover {
@@ -654,6 +659,13 @@ main#Instellingen_Overzicht a#first:active, main#Instellingen_Overzicht a#second
 
 /* ----------- Overzicht takenlijst ----------- */
 
+i.angle.double.down.icon.arrowDown.arrowDown, i.angle.double.up.icon.arrowUp {
+    font-size: 1.8em;
+    float: right;
+    margin-right: 18px;
+    cursor: pointer;
+}
+
 main#Overzicht_Takenlijst h1.topp {
     margin-top: 200px !important;
 }
@@ -822,6 +834,7 @@ margin-top: 150px;
 
 header {
     z-index: 1;
+    height: 150px;
 }
 
 .ui.search.icon {
@@ -962,7 +975,7 @@ main#Overzicht_Takenlijst section#Medewerkers ul {
     padding: 20px;
     box-shadow: 1px 2px 1px rgba(0, 0, 0, 0.2);
     border-radius: 4px;
-
+    min-height: 100px;
 }
 
 .Werkman_Naam {
@@ -975,7 +988,7 @@ main#Overzicht_Takenlijst section#Medewerkers ul {
 
 main#Overzicht_Takenlijst section#Medewerkers ul li {
     border-bottom: 1px solid #cccccc;
-    max-width: 350px;
+    max-width: 350px !important;
     margin-top: 10px;
 }
 
@@ -1056,14 +1069,13 @@ main#Overzicht_Takenlijst section#Medewerkers ul li a {
     }
 }
 
-.ui.circular.label{
+/*body#Grid .ui.circular.label{
     background-color: #337ab7;
     color:white;
     position: relative;
     top: -5px;
     left: 10px;
-
-}
+}*/
 
 /* ----------- Statistieken ----------- */
 

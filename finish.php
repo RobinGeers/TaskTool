@@ -61,8 +61,8 @@ function dosome(a)
     var SelectedList = "";
 
     var now = new Date();
-    var date = now.getDate() + "/" + now.getMonth()+"/"+now.getFullYear();
-    var time = now.getHours()+":"+now.getMinutes();
+    var date = now.getFullYear() + " " + (now.getMonth() + 1) + " " + now.getDate();
+    var time = now.getHours() + ":" + now.getMinutes();
 
 
     Trello.get("/cards/<?php print $naam; ?>?fields=desc,name&token=" + application_token, function (cardinfo) {

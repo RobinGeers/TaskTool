@@ -78,7 +78,7 @@ $mysqli->close(); //connectie sluiten
 </script>
 <?php
 $data = unserialize($_COOKIE['cookie']);
-print_r($data);
+//print_r($data);
 foreach ($data as $d) {
     ?>
     <script>
@@ -1035,7 +1035,7 @@ var mnrx = [];
                             $("#Filter_Lokaal").autocomplete({
                                 source: mnarray
                             });
-                            console.log(mnrx);
+                           // console.log(mnrx);
 mnarray2 = null;
                             mnarray2 = [];
                             $.each(mnrx,function(i,ix){

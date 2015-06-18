@@ -479,7 +479,7 @@ foreach ($data as $d) {
                 Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token + "&idList=" + listId + "&desc=" + niewedescription);
             });
 
-            console.log(newtarget.style.height);
+           
             var items = newtarget.childNodes.length;
             items -=2;
             //var listHeight = 110+ 80*items;
@@ -627,7 +627,7 @@ foreach ($data as $d) {
                                 if (arrowUp.parentNode == $('.arrowUp').parent()[i]) {
                                     var id = arrowUp.parentNode.getAttribute("id");
                                     listHeight = $("#" + id).outerHeight();
-                                    //console.log(listHeight);
+
                                     $("#" + id).animate({height: "100px"}, {queue: false, duration: 500});
                                     var childs = arrowUp.parentNode.childNodes;
 
@@ -652,16 +652,15 @@ foreach ($data as $d) {
 
                             for (var i2 = 0; i2 < countArrows2; i2++) {
 
-                                //console.log(arrowDown.parentNode);
-                               // console.log($('.arrowDown').parent());
+
 
 
                                 if (arrowDown.parentNode == $('.arrowDown').parent()[i2]) {
                                     var id2 = arrowDown.parentNode.getAttribute("id");
-                                    //console.log(listHeight);
+
                                     //$("#" + id2).animate({height: listHeight}, {queue: false, duration: 500});
                                     var ul = $("#" + id2);
-                                    $("#" + id2).animate({height: listHeight},500,function(){ul[0].style.height = ""; console.log(ul[0].style.height);});
+                                    $("#" + id2).animate({height: listHeight},500,function(){ul[0].style.height = "";});
 
 
                                    // ul[0].style.height = "lelele";
@@ -669,7 +668,7 @@ foreach ($data as $d) {
 
                                     var childs2 = arrowDown.parentNode.childNodes;
                                     for (var ii2 = 2; ii2 < childs2.length; ii2++) {
-                                        //console.log(arrowDown.parentNode.childNodes[ii2]);
+
                                         arrowDown.parentNode.childNodes[ii2].style.visibility = "visible";
                                     }
                                     arrowDown.parentNode.replaceChild(arrowUp, arrowDown);
@@ -680,12 +679,12 @@ foreach ($data as $d) {
                                 for (var a = 0; a < countArrows2; a++) {
                                     if (arrowDown.parentNode == $('.arrowDown').parent()[a]) {
                                         var id3 = arrowDown.parentNode.getAttribute("id");
-                                        //console.log(listHeight);
+
                                         $("#" + id3).animate({height: listHeight}, {queue: false, duration: 500});
                                         var childs3 = arrowDown.parentNode.childNodes;
 
                                         for (var ii3 = 2; ii3 < childs3.length; ii3++) {
-                                            //console.log(arrowDown.parentNode.childNodes[ii3]);
+
                                             arrowDown.parentNode.childNodes[ii3].style.visibility = "visible";
                                         }
                                         arrowDown.parentNode.replaceChild(arrowUp, arrowDown);
@@ -786,7 +785,7 @@ foreach ($data as $d) {
         });
     }
     function getCards(selecteddiv, listID, izworker) {
-        console.log(selecteddiv.parentNode);
+
         //Haal alle kaartjes op van een bepaalde lijst
         Trello.get("/lists/" + listID + "?fields=name&cards=open&card_fields=name&token=" + application_token, function (cards) {
 
@@ -1064,8 +1063,7 @@ foreach ($data as $d) {
                             var currentDate = new Date().getTime() / 1000;
 
                             var verstrekenTijd = currentDate-convertedToUnix;
-                            //console.log("Tijd tussen datum van kaartje en nu");
-                            //console.log(verstrekenTijd);
+
                             var maxVerstrekenTijd = 82800; // -> 1 dag (Aan te passen indien je na een bepaalde tijd een uitroepingsteken wilt zien)
 
                              if (verstrekenTijd > maxVerstrekenTijd) {
@@ -1191,7 +1189,7 @@ foreach ($data as $d) {
 
             }
             else {
-                console.log(selecteddiv.firstChild.innerText, count);
+
                 //selecteddiv.firstChild.innerText += "("+ count+")";
 
                 var label = document.createElement("LABEL");
@@ -1223,7 +1221,7 @@ foreach ($data as $d) {
         cardList = cardIds.split("@")[1];
         cardIds = cardIds.split("@")[0];
 
-        console.log();
+
         // Pas kaartje aan en toon direct de verandering
 
 
@@ -1424,7 +1422,7 @@ foreach ($data as $d) {
                 Filters(value,"L");
             }
             else {
-                    //console.log(value);
+
                     makeDiv(value,"L");
                     Filters(value,"L");
                 }
@@ -1712,7 +1710,6 @@ foreach ($data as $d) {
 
         for (var i = 1; i < workertasks.length; i++)
         {
-            console.log(workertasks);
 
             var id = workertasks[i].id;
             Trello.get("/cards/" + id + "?fields=desc&token=" + application_token, function (cardinfo) {
@@ -1721,7 +1718,7 @@ foreach ($data as $d) {
                 var checkbox;
                 for (var j = 0; j < workertasks.length; j++)
                 {
-                    console.log(workertasks[j].id);
+
                     if(workertasks[j].id == cardinfo.id)
                     {
                         checkbox = workertasks[j];
@@ -1737,7 +1734,7 @@ foreach ($data as $d) {
                     if (descpart.split("@")[0] == "W" && descpart.split("@")[1] == name)
                     {
                         //if om vinkje af te zetten
-                        console.log(checkbox.checked);
+
                         if(!checkbox.checked)
                         {
                             var splitten = cardinfo.desc.split("/n@W");
@@ -1873,7 +1870,7 @@ foreach ($data as $d) {
             var label = document.getElementById(cardid);
             label = label.getElementsByTagName("label")[0];
             label.innerText += " "+card+" "+ value.value.split("@")[1] ;
-            console.log(label);
+
 
         }
 

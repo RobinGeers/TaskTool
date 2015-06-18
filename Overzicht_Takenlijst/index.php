@@ -319,9 +319,9 @@ foreach ($data as $d) {
 
     </section>
 
-    <section id="OnHold" class="Section_Float draglist">
+    <section id="OnHold" class="Section_Float ">
         <h2 class="Overzicht_Titels">On hold</h2>
-        <ul class="cardlist draglist">
+        <ul class="cardlist ">
 
         </ul>
     </section>
@@ -401,8 +401,14 @@ foreach ($data as $d) {
 
 
         if (event.target.tagName != "LABEL" && event.target.tagName != "A" && event.target.className != "lastcard") {
-            ev.preventDefault();
+
+                ev.preventDefault();
+
+
+
+
         }
+
 
     }
 
@@ -433,6 +439,7 @@ foreach ($data as $d) {
 
             var newtarget = event.target.nextSibling.nextSibling
         }
+
         else {
             var newtarget = ev.target;
            
@@ -577,7 +584,12 @@ foreach ($data as $d) {
                 }
                 else if (list.name == "On hold") {
                     var onhold = document.getElementById("OnHold");
-                    var unorderedlist = maakUL(list.id, false);
+                    var unorderedlist = document.createElement("UL");
+                    unorderedlist.setAttribute("class", "draglist cardlist");
+                    unorderedlist.setAttribute("id", list.id);
+                   
+
+
                     getCards(unorderedlist, list.id, false);
                     onhold.appendChild(unorderedlist);
                 }

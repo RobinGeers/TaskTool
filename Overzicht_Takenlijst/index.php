@@ -605,6 +605,7 @@ foreach ($data as $d) {
                     var input = document.createElement("OPTION");
                     input.setAttribute("value",list.id + "@" + list.name );
                     input.innerHTML = list.name;
+
                     select.appendChild(input);
 
 
@@ -709,7 +710,9 @@ foreach ($data as $d) {
 
                     var option = document.createElement("OPTION");
                     option.setAttribute("value", list.name);
+
                     option.innerHTML = list.name;
+
 
                     document.getElementById("Filter_Worker").appendChild(divItem);
                     divItem.appendChild(option);
@@ -819,11 +822,11 @@ foreach ($data as $d) {
                 }
 
                 // Als op kaart geklikt wordt -> Toon pop-up
-                li.addEventListener("dblclick", function () {
+                li.addEventListener("dblclick", function (event) {
 
                     // Indien transition niet werkt -> Bootstrap link wegdoen
-                //  $('.modal').addClass('scrolling');
-               //     $('.modal').modal('setting', 'transition', 'scale').modal('show');
+                    //  $('.modal').addClass('scrolling');
+                    //     $('.modal').modal('setting', 'transition', 'scale').modal('show');
                     $('.modal')
                         .modal('setting', 'transition', 'Fade')
                         .modal('show')
@@ -835,7 +838,7 @@ foreach ($data as $d) {
                     var labelll = document.getElementById("special");
                     //labelll.style.visibility = "hidden";
                     labelll.style.display = "none";
-                    labelll.innerText = li.id + "@" +li.parentNode.id;
+                    labelll.innerText = li.id + "@" + li.parentNode.id;
 
 
                     var style = window.getComputedStyle(li);
@@ -889,33 +892,67 @@ foreach ($data as $d) {
                     elementImage.src = imageSource;
 
 
-
-
                     /*document.getElementById("btnVerwijder").addEventListener("click", function ()
                      {
 
-                        var nieuweTitel = elementTitel.value;
-                        var listId = li.parentNode.id;
-                        var ul = li.parentNode;
+                     var nieuweTitel = elementTitel.value;
+                     var listId = li.parentNode.id;
+                     var ul = li.parentNode;
 
-                        // Verwijder kaart in Trello
-                        Trello.delete("/cards/" + li.id + "?key=" + APP_KEY + "&token=" + application_token);
+                     // Verwijder kaart in Trello
+                     Trello.delete("/cards/" + li.id + "?key=" + APP_KEY + "&token=" + application_token);
 
-                        // Verwijder kaart op pagina
-                        ul.removeChild(li);
+                     // Verwijder kaart op pagina
+                     ul.removeChild(li);
 
-                    }, false);*/
+                     }, false);*/
 
                     $("#Card_Lokaal").autocomplete({
                         source: arraymetlokalen
                     });
 
 
+                    //options disablen
+                    //input.setAttribute("disabled",true);
+                    //dropdown list
+                    var target = event.target;
+                    var litemp;
+                    while (target.tagName != "UL") {
+                        target = target.parentNode;
+                        if (target.tagName == "LI") {
+                            litemp = target;
+                        }
+                    }
+                    if (litemp != null)
+                    {
+                        litemp = litemp.getElementsByTagName("label");
+                    }
+
+                    var workers = litemp[0].innerText.split(" ");
+
+                    var ulname = target.firstChild.innerText.split("(")[0];
+
+                    var dropdalist = document.getElementById("AddWorker");
+                    //eerst alles weer aanzetten
+
+                    $.each(dropdalist,function(ix,dalist){
+                        dalist.removeAttribute("disabled");
+                    });
 
 
+                    $.each(dropdalist,function(ix,dalist){
 
+                        if(dalist.innerText == ulname)
+                        {
 
+                            dalist.setAttribute("disabled",true);
+                        }
+                        if(workers.indexOf(dalist.innerText) >=0)
+                        {
+                            dalist.setAttribute("disabled",true);
+                        }
 
+                    });
 
 
 
@@ -1052,12 +1089,13 @@ foreach ($data as $d) {
                     });
 
                     var label24 = document.createElement("LABEL");
-
+                    label24.innerHTML = "";
+                    var workername = selecteddiv.firstChild.innerText.split("(")[0];
                     $.each(descriptionn, function (ix, descript) {
                         var descsplit = descript.split("@");
-                        if (descsplit[0] == "AW") {
+                        if (descsplit[0] == "AW" && descsplit[1] != workername) {
 
-                            label24.innerHTML = descsplit[1];
+                            label24.innerHTML += " "+ descsplit[1];
 
 
                         }
@@ -1815,11 +1853,15 @@ foreach ($data as $d) {
 
             var listid = value.value.split("@")[0];
             var cardid = document.getElementById("special").innerText.split("@")[0];
+
+            var card = document.getElementById(cardid);
+            card = card.parentNode.firstChild.innerText.split("(")[0];
+
             Trello.get("/lists/" + listid + "?fields=name&cards=open&card_fields=name&token=" + application_token, function (cards) {
 
 
                 Trello.get("/cards/" + cardid + "?fields=desc&token=" + application_token, function (cardinfo) {
-                    niewedescription = cardinfo.desc + "/n@AW@" + value.value.split("@")[1]  ;
+                    niewedescription = cardinfo.desc  +"/n@AW@" +card+ "/n@AW@" + value.value.split("@")[1]  ;
                     Trello.put("/cards/" + cardid + "?key=" + APP_KEY + "&token=" + application_token +"&desc=" + niewedescription, function () {
                          Trello.post("/cards?idList=" + listid + "&idCardSource=" + cardid + "&due=null&token=" + application_token + "&key" + APP_KEY);
                      });
@@ -1830,7 +1872,7 @@ foreach ($data as $d) {
 
             var label = document.getElementById(cardid);
             label = label.getElementsByTagName("label")[0];
-            label.innerText += ","+ value.value.split("@")[1];
+            label.innerText += " "+card+" "+ value.value.split("@")[1] ;
             console.log(label);
 
         }

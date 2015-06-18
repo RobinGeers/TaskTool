@@ -252,7 +252,7 @@ $mysqli->close();
     <h1>Beheer lokalen</h1>
 
     <div onclick="myfunction(this)" id="Add_Lokaal" class="ui small primary labeled icon button">
-        <i class="user icon"></i> Voeg een nieuw lokaal toe
+        <i class="university icon"></i> Voeg een nieuw lokaal toe
     </div>
 
     <section id="Toevoegen">
@@ -274,8 +274,8 @@ $mysqli->close();
     </section>
 <script>
     function myfunction(thi){
-        $('#modal_extern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
-        $('#modal_extern')
+        $('#modal_lokalen').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
+        $('#modal_lokalen')
             .modal('setting', 'transition', 'scale')
             .modal('show');
 
@@ -284,7 +284,7 @@ $mysqli->close();
 
 
     <!-- Pop-up Window !-->
-    <div id="modal_extern" class="ui test modal transition" style="z-index: 100000;">
+    <div id="modal_lokalen" class="ui test modal transition" style="z-index: 100000;">
         <!-- TODO: Close icon zoeken !-->
         <i id="close_Popup" class="close icon"></i>
         <div class="header">
@@ -292,7 +292,7 @@ $mysqli->close();
         </div>
         <div class="content">
             <div class="left">
-                <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
+                <i id="Unief" class="university icon"></i>
             </div>
             <div class="right" id="Werknemer_Info">
                 <input id="Naam_Lokaal" type="text" placeholder="Naam lokaal"/>

@@ -268,7 +268,7 @@ $mysqli->close();
         </div>
         <div class="content">
             <div class="left">
-                <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
+                <i id="Onderaannemer" class="user icon"></i>
             </div>
             <div class="right" id="Werknemer_Info">
                 <input id="Naam_Werknemer" type="text" placeholder="Naam onderaannemer"/>

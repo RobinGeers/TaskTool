@@ -793,6 +793,16 @@ margin-top: 150px;
     border: 1px solid #cccccc;
 }
 
+#modal_extern {
+    width: 600px;
+}
+
+#Onderaannemer {
+    margin-left: 50px;
+    margin-top: 80px;
+    font-size: 5em;
+}
+
 #modal_lokalen {
     width: 500px;
 }

@@ -86,7 +86,7 @@ if($naam != "") {
 
 
                         var descsplilt = cardinfo.desc.split("/n@");
-                        console.log(descsplilt);
+                      //  console.log(descsplilt);
                         $.each(descsplilt,function(ix,descpart){
                             if(descpart.split("@")[0] == "W" && descpart.split("@")[1].toLowerCase() == "<?php print $naam; ?>" )
                             {
@@ -151,7 +151,7 @@ if($naam != "") {
                                 hoofddiv.setAttribute("id", "qrcode" + ix);
                                 hoofddiv.setAttribute("class", "row");
                                 $.each(temparr[3], function (ix, temp) {
-                                    console.log("naam is:" + temp);
+                                  //  console.log("naam is:" + temp);
                                     var extension = temp.substr(temp.length - 3); // => "Tabs1"
                                     if (extension.toLowerCase() == "jpg" || extension.toLocaleLowerCase() == "png") {
                                         var pimg = document.createElement("img");

@@ -32,7 +32,7 @@ if(isset($_GET['id'])){
 </head>
 <body>
 <div id="container" class="finishcontainer">
-    <form>
+    <form class="fo">
         <label for="taakGelukt" class="lbl">Is de taak gelukt?</label><br />
         <input type="radio" name="taakGelukt" value="Ja" class="radiobt" checked="checked" /> Ja
         <input type="radio" name="taakGelukt" value="Nee" class="radiobt" /> Nee <br /><br />

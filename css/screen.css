@@ -1629,9 +1629,14 @@ main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
 .finishcontainer{
     margin: 10px;
 }
+.fo{
+    font-family: 'Roboto', sans-serif;
+}
+
 
 .txtbericht{
     margin-top: 20px;
+    font-family: 'Roboto', sans-serif;
 }
 
 .radiobt{
@@ -1656,4 +1661,8 @@ main#Instellingen_Extern section#Toevoegen input:nth-child(2) {
 }
 .mijnklasse{
    margin-top: 0px !important;
+}
+
+div.finishcontainer form input {
+    font-family: 'Roboto', sans-serif;
 }

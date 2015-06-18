@@ -177,7 +177,7 @@ foreach ($data as $d) {
                 </select>
 
                 <label>Voeg medewerker toe:</label>
-                <select class="ui dropdown" id="AddWorker" onChange="CopyCard(this)">
+                <select id="AddWorker" onChange="CopyCard(this)">
                     <option value="Default">Default</option>
                 </select>
                 <label id="special"></label>
@@ -403,10 +403,6 @@ foreach ($data as $d) {
         if (event.target.tagName != "LABEL" && event.target.tagName != "A" && event.target.className != "lastcard") {
 
                 ev.preventDefault();
-
-
-
-
         }
 
 
@@ -713,7 +709,7 @@ foreach ($data as $d) {
                     selecteddiv.appendChild(unorderedlist);
 
 
-                    var divItem = document.createElement("div");
+                   var divItem = document.createElement("div");
                     divItem.className = "ui item";
                     divItem.onclick = function () {
                         WorkerChange(list.name)
@@ -1888,6 +1884,7 @@ foreach ($data as $d) {
         }
 
     }
+
 
 
     /* Nieuwe code -> Bug moet nog opgelost worden 'mutable variable i'

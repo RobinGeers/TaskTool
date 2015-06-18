@@ -137,7 +137,7 @@ $mysqli->close(); //connectie sluiten
     });
 </script>
 <!DOCTYPE html>
-<html style="height: 617px !important;">
+<html>
 <head lang="en">
     <meta charset="UTF-8">
     <title>TaskTool Howest | Overzicht</title>

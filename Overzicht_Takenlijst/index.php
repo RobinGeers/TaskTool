@@ -436,8 +436,8 @@ foreach ($data as $d) {
         else {
             var newtarget = ev.target;
            
-            var hei = $(newtarget).height();
-            newtarget.style.height = hei + 120; // Tel height bij de lijst als er een kaartje in wordt gedropt
+            //var hei = $(newtarget).height();
+           // newtarget.style.height = ""; // Tel height bij de lijst als er een kaartje in wordt gedropt
         }
 
 
@@ -483,7 +483,7 @@ foreach ($data as $d) {
             var items = newtarget.childNodes.length;
             items -=2;
             //var listHeight = 110+ 80*items;
-            newtarget.style.height = 110+ 85*items+"px";
+           // newtarget.style.height = 110+ 85*items+"px";
             //hier zitten de patatjes
 
         }
@@ -658,11 +658,17 @@ foreach ($data as $d) {
                                 if (arrowDown.parentNode == $('.arrowDown').parent()[i2]) {
                                     var id2 = arrowDown.parentNode.getAttribute("id");
                                     //console.log(listHeight);
-                                    $("#" + id2).animate({height: listHeight}, {queue: false, duration: 500});
+                                    //$("#" + id2).animate({height: listHeight}, {queue: false, duration: 500});
+                                    var ul = $("#" + id2);
+                                    $("#" + id2).animate({height: listHeight},500,function(){ul[0].style.height = ""; console.log(ul[0].style.height);});
+
+
+                                   // ul[0].style.height = "lelele";
+
 
                                     var childs2 = arrowDown.parentNode.childNodes;
                                     for (var ii2 = 2; ii2 < childs2.length; ii2++) {
-                                        console.log(arrowDown.parentNode.childNodes[ii2]);
+                                        //console.log(arrowDown.parentNode.childNodes[ii2]);
                                         arrowDown.parentNode.childNodes[ii2].style.visibility = "visible";
                                     }
                                     arrowDown.parentNode.replaceChild(arrowUp, arrowDown);
@@ -678,7 +684,7 @@ foreach ($data as $d) {
                                         var childs3 = arrowDown.parentNode.childNodes;
 
                                         for (var ii3 = 2; ii3 < childs3.length; ii3++) {
-                                            console.log(arrowDown.parentNode.childNodes[ii3]);
+                                            //console.log(arrowDown.parentNode.childNodes[ii3]);
                                             arrowDown.parentNode.childNodes[ii3].style.visibility = "visible";
                                         }
                                         arrowDown.parentNode.replaceChild(arrowUp, arrowDown);

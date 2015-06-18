@@ -47,12 +47,7 @@ if(isset($_GET['id'])){
 <script>
 function dosome(a)
 {
-    var APP_KEY = '23128bd41978917ab127f2d9ed741385';
-    var APP_SKEY = 'dfe27886101982c335c417a25919baaf7923056549ea2ff5bca0fd3953944fe1';
-    var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
-    var url_boards = "https://api.trello.com/1/members/me/boards/?&key=$key&token=$application_token";
-    var TrelloLists = [];
-    var SelectedList = "";
+
     var APP_KEY = '23128bd41978917ab127f2d9ed741385';
     var APP_SKEY = 'dfe27886101982c335c417a25919baaf7923056549ea2ff5bca0fd3953944fe1';
     var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
@@ -77,7 +72,7 @@ function dosome(a)
 
 
         carddesc = carddesc +"/n@DF@" + date + "@" + time;
-        /
+
   var getchck =  $('input[name=taakGelukt]:checked').val();
 
     var value = document.getElementById("BER").value;
@@ -89,9 +84,17 @@ function dosome(a)
 
 
     }else{
-        carddesc = carddesc+"/n@"+value;
+        var x = carddesc.split("/n@");
+        x[0] = x[0] + " De reden: " + value;
+        var b = "";
+        $.each(x,function(ix,x){
+            if(b==""){b=x;}else {
+                b = b + "/n@" + x;
+            }
+        });
+       // carddesc = carddesc+"/n@"+value;
 
-            Trello.put("/cards/<?php print$naam; ?>?key="+APP_KEY+"&token="+application_token+"&idList=55098deeb3d7823addabd976&desc="+carddesc,function(){
+            Trello.put("/cards/<?php print$naam; ?>?key="+APP_KEY+"&token="+application_token+"&idList=55098deeb3d7823addabd976&desc="+b,function(){
                 window.open("./closeme.html","_self");
             });
 

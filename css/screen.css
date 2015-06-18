@@ -779,7 +779,11 @@ margin-top: 150px;
 }
 
 #Werknemer_Info {
-    padding-left: 50px;
+   margin: 0 auto;
+}
+
+#Werknemer_Info input {
+    width: 100% !important;
 }
 
 #modal_extern input {
@@ -787,6 +791,16 @@ margin-top: 150px;
     width: 70%;
     border-radius: 4px;
     border: 1px solid #cccccc;
+}
+
+#modal_lokalen {
+    width: 500px;
+}
+
+#Unief {
+    font-size: 5em;
+    margin-top: 40px;
+    margin-left: 30px;
 }
 
 #btnOpslaan {

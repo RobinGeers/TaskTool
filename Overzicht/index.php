@@ -137,7 +137,7 @@ $mysqli->close(); //connectie sluiten
     });
 </script>
 <!DOCTYPE html>
-<html>
+<html style="height: 617px !important;">
 <head lang="en">
     <meta charset="UTF-8">
     <title>TaskTool Howest | Overzicht</title>
@@ -193,7 +193,7 @@ $mysqli->close(); //connectie sluiten
         <div class="clearfix"></div>
     </main>
     <div class="clearfix"></div>
-    <footer>
+    <footer style="margin-top: 0px !important;">
         <p>Vragen? Mail naar <a href="mailto:helpdesk@howest.be">helpdesk@howest.be</a> of download <a href="">hier</a> de handleiding</p>
     </footer>
 <div class="clearfix"></div>

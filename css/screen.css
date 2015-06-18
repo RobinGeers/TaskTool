@@ -721,12 +721,24 @@ main#Overzicht_Takenlijst h1.topp {
 }
 
 main{
-margin-top: 150px;
-
+    margin-top: 150px;
 }
+
+#Popup label {
+    display: block;
+}
+
 #Popup {
     width: 50%;
-    height: 581px;
+    height: 850px;
+}
+
+#Popup .ui.dropdown {
+    margin-bottom: 20px;
+}
+
+#Popup div.actions {
+    margin-top: 170px;
 }
 
 .left {

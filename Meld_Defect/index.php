@@ -240,6 +240,7 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
     //delete de foto's uit de uploads map aangezien deze nu op de database van trello zullen komen te staan
  ?>
     <script>
+        var dd = "";
 $.getScript( "https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385", function( data, textStatus, jqxhr ) {
 var aa = window.location.href;
     var bb = aa.split("index.php")[0];
@@ -251,7 +252,7 @@ $i = 0;
 foreach($z as $e){
 
 if($i!=0){/*
-?>,"+bb+"<?php
+?>&urlSource="+bb+"<?php
 print "uploads/".$e;*/
 }else{
 ?>"+bb+"<?php
@@ -259,7 +260,28 @@ print "uploads/".$e;
 }
 $i++;
     }
-         ?>",function(){
+         ?>",function(ix ,b){
+        console.log(ix["id"]);
+        <?php
+         $i = 0;
+foreach($z as $e) {
+
+if($i!=0){
+?>
+        //TRELLO.PUT HIER
+        Trello.post("/cards/"+ix["id"]+"/attachments?key=" + APP_KEY + "&token=" + application_token+"&url="+bb+"<?php print "uploads/".$e; ?>",function(){
+     console.log("2de afbeelding");
+        });
+        <?php
+/*
+?>&urlSource="+bb+"<?php
+print "uploads/".$e;*/
+}else{}
+$i++;
+    }
+         ?>
+        console.log(b);
+
        // formmodified=0;
 
         $( document ).ready(function() {

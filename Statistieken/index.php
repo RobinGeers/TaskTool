@@ -291,7 +291,7 @@ $mysqli->close(); //connectie sluiten
                      });*/
 
                     ++doorlopenL;
-                    console.log(doorlopenL,"eerste");
+
                     if(doorlopenL == lists["lists"].length )
                     {
                         ladenDone(werknemers, workersindesc,StartTimes,FinishTimes);
@@ -313,12 +313,12 @@ $mysqli->close(); //connectie sluiten
                                 $.each(descsplilt, function (ix, descpart) {
 
                                     if (descpart.split("@")[0] == "N") {
-                                        //console.log(descpart.split("@")[1]);
+
                                         workersindesc.push(descpart.split("@")[1]);
                                         tempWorkerTabel.push(descpart.split("@")[1]);
                                     }
                                     if (descpart.split("@")[0] == "T") {
-                                        //console.log(descpart.split("@")[1]);
+
                                         StartTimes.push(descpart.split("@")[1]);
                                         temp.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
                                         tempWorkerTabel.push(descpart.split("@")[1] + "@" + descpart.split("@")[2]);
@@ -335,11 +335,11 @@ $mysqli->close(); //connectie sluiten
                                 });
                                 doorlooppriority.push(temp);
                                 doorLoopWorkers.push(tempWorkerTabel);
-                                console.log(cards["cards"].length);
+
                                 if(++cardcounter == cards["cards"].length)
                                 {
                                     ++doorlopenL;
-                                    console.log(doorlopenL,"tweede")
+
                                     if(doorlopenL == lists["lists"].length )
                                     {
                                         ladenDone(werknemers, workersindesc,StartTimes,FinishTimes);
@@ -357,7 +357,7 @@ $mysqli->close(); //connectie sluiten
                     workers.push(list.name);
 
 
-                    //console.log(werknemers);
+
 
                     var div = document.createElement("DIV");
                     div.setAttribute("id", list.id);
@@ -378,7 +378,7 @@ $mysqli->close(); //connectie sluiten
                     div.appendChild(input);
                     div.appendChild(label);
                     werknemers.appendChild(div);
-                    console.log(list.name);
+
                     Trello.get("/lists/" + list.id + "?fields=name&cards=open&card_fields=name&token" +
                     "=" + application_token, function (cards) {
 
@@ -397,7 +397,7 @@ $mysqli->close(); //connectie sluiten
                                 $.each(descsplilt, function (ix, descpart) {
 
                                     if (descpart.split("@")[0] == "T") {
-                                        //console.log(descpart.split("@")[1]);
+
                                         StartTimes.push(descpart.split("@")[1]);
                                     }
                                     //nA LAATSTE CALLBACK
@@ -469,7 +469,7 @@ $mysqli->close(); //connectie sluiten
             var stof = totalTime(adddate, completedate, addhour, completehour);
             var atof = totalTime(assigndate, completedate, assignhour, completehour);
 
-            //console.log(worker);
+
 
             var ms = [];
             var ma = [];
@@ -500,14 +500,14 @@ $mysqli->close(); //connectie sluiten
 
 
         });
-        //console.log(x);
+
 
         for(var i = 0;i< x.length;i+=3)
         {
             var temp = GetAverage(x[i+1]);
             var temp1 = GetAverage(x[i+2]);
 
-            console.log(temp,temp1);
+
 
             var tr = document.createElement("TR");
 

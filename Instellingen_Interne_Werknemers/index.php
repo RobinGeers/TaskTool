@@ -109,7 +109,7 @@ if ($mysqli->connect_error)
 $dataint = array();
 $dataext = array();
 
-$result = $mysqli->query("SELECT userPrincipalName,ROL FROM EmailsLeerkrachten");
+$result = $mysqli->query("SELECT userPrincipalName,ROL FROM EmailsLeerkrachten where Internal = 1");
 
 //print $_COOKIE['inlognaam'];
 while($row = $result->fetch_array(MYSQLI_ASSOC))
@@ -245,7 +245,9 @@ $mysqli->close();
 </header>
 <main id="Instellingen_Extern">
     <h1>Beheer interne werknemers</h1>
-
+    <div onclick="myfunction(this)" id="Add_Lokaal" class="ui small primary labeled icon button">
+        <i class="user icon"></i> Nieuwe werknemer
+    </div>
     <section id="Toevoegen">
 
         <p>Filter op interne werknemer: </p>
@@ -267,13 +269,85 @@ $mysqli->close();
         </div>!-->
 
     </section>
+    <script>
+        function myfunction(thi){
+            $('#modal_extern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
+            $('#modal_extern')
+                .modal('setting', 'transition', 'scale')
+                .modal('show');
 
-
-
+        }
+    </script>
     <!-- Pop-up Window !-->
     <div id="modal_extern" class="ui test modal transition" style="z-index: 100000;">
         <!-- TODO: Close icon zoeken !-->
         <i id="close_Popup" class="close icon"></i>
+        <div class="header">
+            Lokaal toevoegen
+        </div>
+        <div class="content">
+            <div class="left">
+                <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
+            </div>
+            <div class="right" id="Werknemer_Info">
+                <input id="Naam_Lokaal" type="text" placeholder="Email adres"/>
+       <select id="mnsel" name="mnsel">
+           <option value="Basic">Basic</option>
+           <option value="Werkman">Werkman</option>
+           <option value="Onthaal">Onthaal</option>
+           <option value="Admin">Admin</option>
+       </select>
+
+
+            </div>
+            <div class="clearfix"></div>
+        </div>
+        <div class="actions">
+            <div class="ui black button">
+                Annuleer
+            </div>
+            <div onclick="myfunct(this)" id="btnOpslaan_Extern" class="ui positive right labeled icon button">
+                Nieuwe werknemer <i class="checkmark icon"></i>
+            </div>
+            <div class="clearfix"></div>
+        </div>
+    </div>
+    <script>
+        function myfunct(t){
+            var l =   document.getElementById("Naam_Lokaal");
+            var o =  document.getElementById("mnsel");
+            mylink="../ChangeInst/newwn.php";
+
+            var url = mylink+"?n="+ l.value+"&o="+ o.value;
+            console.log(url);
+            $.ajax({
+                url: url,
+                dataType: 'html',
+                success: function(data){
+                    //data returned from php
+                    console.log("Gelukt");
+                    var id = data.split("<p>");
+                    //              console.log(id);
+//                console.log(id[1].split("</p>"));
+                    id = id[1].split("</p>")[0];
+                    var x = l.value.split("@")[0];
+maakitem(table.id,x, l.value, o.value);
+                   // maakitemlokaal(table,id, l.value, o.value, i.value,0);
+                    filterColumn(3,"");
+
+                }
+            });
+
+
+        }
+    </script>
+
+
+
+    <!-- Pop-up Window !-->
+<!--    <div id="modal_extern" class="ui test modal transition" style="z-index: 100000;">
+        <!-- TODO: Close icon zoeken !-->
+    <!--    <i id="close_Popup" class="close icon"></i>
         <div class="header">
             Werknemer toevoegen
         </div>
@@ -300,7 +374,7 @@ $mysqli->close();
             </div>
             <div class="clearfix"></div>
         </div>
-    </div>
+    </div>-->
 
 
     <section class="geenmargintop" id="Tabel">
@@ -599,13 +673,22 @@ $mysqli->close();
             dosomething(tr);
             formmodified = 1;
         });
-
+        var t1 = document.createElement("i");
+        t1.className="remove icon";
+        t1.addEventListener("click",function(){
+            var result = confirm("Bent u zeker dat u dit item wilt verwijderen?");
+            if (result) {
+                deleted(tr);
+            }
+        });
 
         tr.appendChild(td1);
         tr.appendChild(td2);
         tr.appendChild(td3);
-        tr.appendChild(td4);
         td4.appendChild(iWrite);
+        td4.appendChild(t1);
+        tr.appendChild(td4);
+
         //   table.appendChild(tr);
 //   ooTable.row.add(tr).draw();
         // console.log(ooTable.row);
@@ -659,7 +742,25 @@ $mysqli->close();
          });*/
 
     }
+    function deleted(trr) {
+        mylink="../ChangeInst/Delete_wn.php";
+        console.log(trr.childNodes[1].innerText);
+        var url = mylink+"?id="+trr.childNodes[1].innerText;
 
+        $.ajax({
+            url: url,
+            dataType: 'html',
+            success: function(data){
+                //data returned from php
+                console.log("Gelukt");
+            }
+        });
+
+        ooTable.row(trr).remove().draw();
+        ooTable.column(3).search(
+            ""
+        ).draw();
+    }
     function saverow(el){
         var selectedvalue= el.childNodes[2].firstChild.value;
         var naam = el.childNodes[1].innerText;
@@ -670,7 +771,17 @@ $mysqli->close();
             dosomething(el);
 
         });
+        var t1 = document.createElement("i");
+        t1.className="remove icon";
+        t1.addEventListener("click",function(){
+            var result = confirm("Bent u zeker dat u dit item wilt verwijderen?");
+            if (result) {
+                deletelokalen(el);
+            }
+        });
+
         tdd.appendChild(td4);
+        tdd.appendChild(t1);
         el.replaceChild(tdd,el.childNodes[3]);
         var td3 = document.createElement("td");
         td3.appendChild(document.createTextNode(selectedvalue));

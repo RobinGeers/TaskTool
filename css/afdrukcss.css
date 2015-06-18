@@ -62,3 +62,10 @@ canvas+img{
 .prioriteit{
     font-weight: bold;
 }
+#h1aanpassing{
+    margin: 0 auto;
+    display: inline-block;
+    text-align: center;
+    width: 100%;
+    font-size: 3em;
+}

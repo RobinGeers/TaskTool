@@ -12,7 +12,7 @@ if(isset($_GET['Werkman'])){
 }
 if($naam != "") {
    $naam= strtolower($naam);
-print $naam;
+//print $naam;
     ?>
     <!DOCTYPE html>
     <html>
@@ -24,6 +24,7 @@ print $naam;
         <title>Lijst van <?php print$naam; ?> </title>
     </head>
     <body>
+    <h1 id="h1aanpassing"><?php print $naam;  ?></h1>
     <div id="container"></div>
     </body>
     </html>

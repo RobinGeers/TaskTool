@@ -1,7 +1,7 @@
 <script src="../js/jquery-2.1.4.min.js"></script>
 <script>
     function afmelden(a){
-        console.log("test");
+
         $.ajax({
             url: '../logout.php',
             dataType: 'html',
@@ -244,7 +244,7 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
 $.getScript( "https://api.trello.com/1/client.js?key=23128bd41978917ab127f2d9ed741385", function( data, textStatus, jqxhr ) {
 var aa = window.location.href;
     var bb = aa.split("index.php")[0];
-  console.log( "Load was performed." );
+
     var APP_KEY = '23128bd41978917ab127f2d9ed741385';
     var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
     Trello.post("/cards?key=" + APP_KEY + "&token=" + application_token + "&name=<?php print $Onderwerp ?>&desc=<?php print  $Omschrijving . "/n@" . $prio . "/n@" . $lokaal . "/n@T@". date('Y n j')."@".date('H:i'); ?>&idList=5506dbf5b32e668bde0de1b4&urlSource=<?php
@@ -261,7 +261,7 @@ print "uploads/".$e;
 $i++;
     }
          ?>",function(ix ,b){
-        console.log(ix["id"]);
+
         <?php
          $i = 0;
 foreach($z as $e) {
@@ -270,7 +270,7 @@ if($i!=0){
 ?>
         //TRELLO.PUT HIER
         Trello.post("/cards/"+ix["id"]+"/attachments?key=" + APP_KEY + "&token=" + application_token+"&url="+bb+"<?php print "uploads/".$e; ?>",function(){
-     console.log("2de afbeelding");
+
         });
         <?php
 /*
@@ -280,7 +280,7 @@ print "uploads/".$e;*/
 $i++;
     }
          ?>
-        console.log(b);
+
 
        // formmodified=0;
 
@@ -337,7 +337,7 @@ $mysqli->close();
 ?>
 <script src=""></script>
 <script>
-    //console.log(arraymetlokalen);
+
     $.getScript( "https://code.jquery.com/ui/1.9.1/jquery-ui.min.js", function() {
         $(function () {
             $("#txtLokaal").autocomplete({
@@ -356,7 +356,7 @@ $mysqli->close();
             $("#slider").css('background', 'linear-gradient(to right,green,orange,red');
             $("#slider").css('border-width', '0px');
             var el = document.getElementsByClassName("ui-slider-handle ui-state-default ui-corner-all");
-            console.log(el);
+
             el[0].addEventListener("mouseup", function(event) { //Voerµ
                 Prioriteit();
             });
@@ -614,7 +614,7 @@ $mysqli->close(); //connectie sluiten
 
 <script>
     function Prioriteit() {
-        console.log("h");
+
         var prioriteit = document.getElementById("amount").value;
         if (prioriteit <= 40) {
             document.getElementById("prior").innerHTML = "Niet Dringend";

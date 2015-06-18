@@ -10,7 +10,7 @@ function Initialize(workersection,workersindesc,StartTimings,finishtimes)
     countComplete(workersindesc);
     CountTimes(StartTimings,StartTimezzz);
     CountTimes(finishtimes,FinishDatezzz);
-    //console.log(workers);
+
     vinkAlleWerknemersAan();
     kleurWerknemers();
     toonGrafiek1();
@@ -46,15 +46,15 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 function CountTimes(base,array)
 {
-   // console.log(base.length);
+
     for(var i = 0;i<base.length;i++)
     {
         var returnvalue = finddouble(base[i],array);
-        //console.log(returnvalue,base.length);
+
          if(returnvalue<= -1)
         {
             var temp=[base[i],1];
-            //console.log(temp);
+
             array.push(temp)
         }
         else
@@ -62,7 +62,7 @@ function CountTimes(base,array)
             array[returnvalue][1]++;
         }
     }
-   // console.log(array);
+
 }
 function countComplete(base)
 {
@@ -83,7 +83,7 @@ function countComplete(base)
             complete[returnvalue][1]++;
         }
     }
-    //console.log(complete);
+
 }
 function finddouble(value,list)
 {
@@ -103,7 +103,7 @@ function vinkAlleWerknemersAan() {
     for(var i = 0;i<workers.length;i++)
     {
         workers[i].firstChild.checked = true;
-        // console.log(workers[i].firstChild);
+
     }
 }
 
@@ -425,7 +425,7 @@ function toonGrafiek1() {
     for(var i = 0;i<workers.length;i++)
     {
         var checkWorker = workers[i].firstChild;
-        //console.log(checkWorker);
+
         var checkboxWorker = workers[i];
 
 
@@ -591,7 +591,7 @@ function GetDateRange()
 
         days += daypermonth[month-1];
     }
-    //console.log(days);
+
 
     var legende = [];
     var day = 1;
@@ -614,7 +614,7 @@ function GetDateRange()
                 month = 1;
             }
     }
-    //console.log(legende);
+
     return legende;
 }
 
@@ -652,7 +652,7 @@ function toonGrafiek2() {
         }
     }
 
-   // console.log(values);
+
     //hier aanpassen
     var data2 = {
         labels: legende,

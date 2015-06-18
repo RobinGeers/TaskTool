@@ -201,7 +201,7 @@ $mysqli->close(); //connectie sluiten
 </html>
         <script>
             function afmelden(a){
-                console.log("test");
+
 
                 $.ajax({
                     url: '../logout.php',

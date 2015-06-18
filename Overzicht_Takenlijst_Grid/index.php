@@ -282,7 +282,7 @@ takenlist = "5506dbf5b32e668bde0de1b4";
 var APP_KEY = '23128bd41978917ab127f2d9ed741385';
 var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
 function afmelden(a){
-    console.log("test");
+
 
     $.ajax({
         url: '../logout.php',
@@ -299,13 +299,13 @@ var mijnteller = 0;
     //Haal alle kaartjes op van een bepaalde lijst
     Trello.get("/lists/"+takenlist+"?fields=name&cards=open&card_fields=name&token="+application_token, function(cards) {
 
-        //console.log(cards["cards"]);
+
         var CardId = [];
 //overloop alle kaarten die we terug krijgen
-console.log(cards["cards"].length);
+
        var mijnstopsignaal = cards["cards"].length;
         $.each(cards["cards"], function(ix, card) {
-            //console.log(card.id);
+
 
      var full = [];
      var tempydesc = [];
@@ -313,11 +313,10 @@ console.log(cards["cards"].length);
 
 
             Trello.get("/cards/"+card.id+"?fields=name,desc&attachments=true&token="+application_token,function(carddesc) {
-              //  console.log(carddesc);
+              //
                 var tempy = [];
                 $.each(carddesc, function(ix, card) {
-                    //console.log(ix);
-                  //  console.log(card);
+
                     switch(ix){
                         case "id":
                             tempy.push(card);
@@ -333,7 +332,7 @@ console.log(cards["cards"].length);
 
                             break;
                         default:
-                            console.log(ix);
+
                             break;
                     }
 
@@ -341,7 +340,7 @@ console.log(cards["cards"].length);
 maakitem(tempy[0],tempy[1],tempy[2],tempy[3]);
                 mijnteller++;
                 if(mijnteller==mijnstopsignaal){
-                    console.log("gedaan");
+
                     $('#OT')
                         .removeClass( 'display' )
                         .addClass('table table-striped table-bordered');
@@ -376,7 +375,7 @@ filterglobaal();
                 }
             });
         });
-        console.log("ja");
+
     });
 
 function maakitem(id, name, desc,attach){
@@ -447,7 +446,7 @@ function maakitem(id, name, desc,attach){
     var doe = 0;
     var td100 = document.createElement("td");
     $.each(attach,function(ix,at){
-console.log(at);
+
         doe = 1;
 
         var img = document.createElement("img");
@@ -496,7 +495,7 @@ console.log(at);
 
     function deletee(trr) {
         mylink="../ChangeInst/Delete_lokaal.php";
-        console.log(trr.id);
+
        // var url = mylink+"?id="+trr.id;
         formmodified=1;
         Trello.delete("/cards/"+trr.id+"?key="+APP_KEY+"&token="+application_token,function(){
@@ -507,7 +506,7 @@ console.log(at);
             dataType: 'html',
             success: function(data){
                 //data returned from php
-                console.log("Gelukt");
+
             }
         });*/
 
@@ -520,15 +519,14 @@ console.log(at);
     function dosomething(eml) {
 
         var tell = 0;
-        //   console.log(eml.childElementCount);
+
         $.each(eml.childNodes,function(ix,a){
             tell++;
-            console.log("HIERONDER");
-              console.log(ix);
+
             a = eml.childNodes[ix];
 
             if(ix==5){
-                //  console.log("JA VIJF");
+
                 var hftd = document.createElement("td");
                 var newicon = document.createElement("i");
                 newicon.className = "save icon";
@@ -556,7 +554,7 @@ console.log(at);
                 var hoofdtd = document.createElement("td");
 
                 var t = a.innerText;
-                console.log(t);
+
                 var i = document.createElement("input");
                 i.className = "grayfield";
                 i.type ="text";
@@ -570,7 +568,7 @@ console.log(at);
             }
 
 
-//console.log(eml.childNodes[ix]);
+
         });
     }
 
@@ -578,12 +576,11 @@ console.log(at);
         var myar = [];
         var aa="";
         aa=el.id;
-        // console.log(el);
+
         ooTable.row(el).remove().draw();
         var newtr = [];
         $.each(el.childNodes,function(ix,a){
-            //  console.log(el.childNodes[ix]);
-            //console.log(a);
+
 
 
             if(ix==5){
@@ -611,7 +608,7 @@ console.log(at);
             }else if(ix==2){
                 var hoofdtd = document.createElement("td");
                 var t = el.childNodes[ix].firstChild.value;
-                console.log(t);
+
                 var color;
                 // Toon kleur op basis van prioriteit
                 if(t=="Dringend "){t="Dringend";}
@@ -636,10 +633,7 @@ console.log(at);
                 hoofdtd.appendChild(document.createTextNode(t));
                 hoofdtd.appendChild(div);
 
-                //  console.log(el.childNodes[ix]);
 
-
-                console.log(t);
 
                // hoofdtd.appendChild(document.createTextNode(t));
                 newtr.push(hoofdtd);
@@ -649,10 +643,10 @@ console.log(at);
 
                 var hoofdtd = document.createElement("td");
 
-                //  console.log(el.childNodes[ix]);
+
                 var t = el.childNodes[ix].firstChild.value;
 
-                console.log(t);
+
                 myar.push(t);
                 hoofdtd.appendChild(document.createTextNode(t));
 
@@ -668,28 +662,27 @@ formmodified=1;
         //trello.get desc
 
         Trello.get("/cards/"+aa+"?fields=desc&token="+application_token,function(carddesc) {
-console.log(carddesc["desc"].split("/n@"));
+
             var ma = carddesc["desc"].split("/n@");
             //["aula muur", "ver of muur is oneven geschilderd en geeftplekken bij projectie", "Niet Dringend", "RDR.A.0.06"]
             mnarray.splice(mnarray.indexOf(ma[3]),1);
-          //  console.log(mnarray2.indexOf(ma[3].split(".")[0]));
+
             var x = mnarray2.indexOf(ma[3].split(".")[0]);
             var mx = ma[3].split(".")[0];
-//console.log(ooTable.rows().data());
+
             var ll =[];
             ooTable.rows().every( function () {
                 var data = this.data();
                 // ... do something with data(), or this.node(), etc
-             //   console.log("h");
-             //   console.log(data[3]);
+
                 var m = data[3].split(".")[0];
             ll.push(m);
 
             } );
-         //   console.log(ll);
+
          var xx =   checkforsames(ll);
-//console.log(xx[0]);
-        //    console.log(xx[1]);
+
+
             mnarray2 =null;
             mnarray2=[];
             $.each(xx[0],function(i,camp){
@@ -731,7 +724,7 @@ ma[0] = myar[1];
             dataType: 'html',
             success: function(data){
                 //data returned from php
-                console.log("Gelukt");
+
             }
         });*/
     }
@@ -849,12 +842,12 @@ function filterglobaal(){
    // document.getElementById();
     var filt = document.getElementById("SelectedFilters");
     //document.getElementById("SelectedFilters").childNodes[3].id.split("/")[1];
- //   console.log(filt.childNodes);
+
     var a = "";
     $.each(filt.childNodes, function (ix, c) {
         if (ix <= 2) {
             if(ix==1) {
-                console.log(c.childNodes[3].childNodes[1].innerHTML);
+
                 var id = c.childNodes[3].childNodes[1].innerHTML;
                 if (a == "") {
                     a = id;
@@ -863,8 +856,7 @@ function filterglobaal(){
                 }
             }
         } else {
-            // console.log("YEUY");
-            //  console.log(c);
+
             var id = c.id.split("/")[1];
             if(id=="Dringend"){id="Dringend ";}
             if (a == "") {
@@ -874,7 +866,7 @@ function filterglobaal(){
             }
         }
     });
-    console.log(a);
+
     //  a = "Niet Dringend|Dringend|RSS|GKG";
 
     ooTable.rows().every( function () {
@@ -918,7 +910,7 @@ function filterglobaal(){
     }
     function TitelRemove(element)
     {
-        //console.log(element.firstChild.nextSibling);
+
         element.firstChild.nextSibling.innerHTML ="";
         //Filters("niks","/");
         filterglobaal();
@@ -929,7 +921,7 @@ function filterglobaal(){
         var code = event.keyCode;
         if(code == 13)
         {
-            //console.log(value);
+
             makeDiv(value,"L");
             filterglobaal();
         }
@@ -961,7 +953,7 @@ function filterglobaal(){
 
     function DeleteFilter(element)
     {
-        console.log(element);
+
         element.parentNode.removeChild(element);
         //   Filters(element);
         var e = element.id;
@@ -1004,11 +996,11 @@ while($row = $result->fetch_array(MYSQLI_ASSOC))
 {
     ?>
     <script>
-        //    console.log("h");
+
         var lokaal = <?php print "'".$row['NAME']."'" ?>;
         arraymetlokalen.push(lokaal);
         var campus = lokaal.split(".");
-        //console.log(campus[0]);
+
         if(doesExist(campus[0]))
         {
             campussen.push(campus[0]);

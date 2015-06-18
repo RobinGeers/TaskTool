@@ -247,16 +247,16 @@ var aa = window.location.href;
 
     var APP_KEY = '23128bd41978917ab127f2d9ed741385';
     var application_token = "c7434e2a13b931840e74ba1dceef6b09f503b8db6c19f52b4c2d4539ebeb77f7";
-    Trello.post("/cards?key=" + APP_KEY + "&token=" + application_token + "&name=<?php print $Onderwerp ?>&desc=<?php print  $Omschrijving . "/n@" . $prio . "/n@" . $lokaal . "/n@T@". date('Y n j')."@".date('H:i'); ?>&idList=5506dbf5b32e668bde0de1b4&urlSource=<?php
+    Trello.post("/cards?key=" + APP_KEY + "&token=" + application_token + "&name=<?php print $Onderwerp ?>&desc=<?php print  $Omschrijving . "/n@" . $prio . "/n@" . $lokaal . "/n@T@". date('Y n j')."@".date('H:i'); ?>&idList=5506dbf5b32e668bde0de1b4<?php
 $i = 0;
 foreach($z as $e){
 
-if($i!=0){/*
-?>&urlSource="+bb+"<?php
-print "uploads/".$e;*/
+if($i!=0){
 }else{
-?>"+bb+"<?php
+if($e==""||$e==null){}else{
+?>&urlSource=" + bb + "<?php
 print "uploads/".$e;
+}
 }
 $i++;
     }

@@ -1881,7 +1881,8 @@ foreach ($data as $d) {
 
             var label = document.getElementById(cardid);
             label = label.getElementsByTagName("label")[0];
-            label.innerText += " "+card+" "+ value.value.split("@")[1] ;
+
+            label.innerText += /*" "+card+" "+ */value.value.split("@")[1] ;
 
 
         }

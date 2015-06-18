@@ -165,11 +165,11 @@ if (isset($lokaal) && isset($Onderwerp) && isset($Omschrijving) && isset($Priori
 
     $currentdir = getcwd();
     $target = $currentdir.'/uploads/*';
-        print $target;
+    //    print $target;
     $files = glob($target); // get all file names
-        print_r($files);
+     //   print_r($files);
         foreach($files as $file){ // iterate files
-        print $file;
+       // print $file;
         if(is_file($file)) {
             unlink($file); // delete file
         }

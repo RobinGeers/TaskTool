@@ -45,17 +45,17 @@ if($naam != "") {
 
             $.each(lists["lists"], function (ix, list) {
                 var List = [];
-                //  console.log(ix); is gelijk aan de int i = 0 van de for lus
+
                 List.push(list.id, list.name); // in list zitten de parameters van de lijsten dus in ons geval hebben we het id en naam nodig
                 a =list.name.toLowerCase();
-                //console.log(a);
+
                 if (a.includes(<?php print "'".$naam."'" ?>)) {
                     SelectedList = list.id; //kijken of de naam die meegeven is in del ink voorkomt in in de lijst namen
 
                 }
                 TrelloLists.push(List);//Voeg de array list toe aan de array TrelloList
             });
-            //console.log(TrelloLists);
+
 //Haal alle kaartjes op van een bepaalde lijst
             Trello.get("/lists/" + SelectedList + "?fields=name&cards=open&card_fields=name&token=" + application_token, function (cards) {
 
@@ -77,7 +77,7 @@ if($naam != "") {
                         //ASYNC!!!
                         // description.push(cardinfo.desc);
                         carddescription = cardinfo.desc; //gaat niet aangezien dit async verloopt
-                        //console.log(cardinfo.desc);
+
                         //kijkt naar de attachments en voegt de link toe in een array
                         $.each(cardinfo.attachments, function (ix, attachement) {
                             attachementsarr.push(attachement.url);
@@ -86,17 +86,16 @@ if($naam != "") {
 
 
                         var descsplilt = cardinfo.desc.split("/n@");
-                      //  console.log(descsplilt);
+
                         $.each(descsplilt,function(ix,descpart){
                             if(descpart.split("@")[0] == "W" && descpart.split("@")[1].toLowerCase() == "<?php print $naam; ?>" )
                             {
-                                /*console.log("taak bij werknemer gevonden");
-                                console.log(cardinfo.desc);*/
+
 
                                 //Bevat 1 kaartje zijn info
                                 temparr.push(card.id, card.name, carddescription, attachementsarr);
                                 //array met alle kaartjes in
-                                //console.log(temparr);
+
                                 //
                                 <!-- Maak evenveel DIV's aan als er kaartzen zijn ( zal nog in for lus moeten ) -->
                                 //<img src="pic_mountain.jpg" alt="Mountain View" style="width:304px;height:228px;">
@@ -151,7 +150,7 @@ if($naam != "") {
                                 hoofddiv.setAttribute("id", "qrcode" + ix);
                                 hoofddiv.setAttribute("class", "row");
                                 $.each(temparr[3], function (ix, temp) {
-                                  //  console.log("naam is:" + temp);
+
                                     var extension = temp.substr(temp.length - 3); // => "Tabs1"
                                     if (extension.toLowerCase() == "jpg" || extension.toLocaleLowerCase() == "png") {
                                         var pimg = document.createElement("img");
@@ -170,12 +169,12 @@ if($naam != "") {
                                     height: 150
                                 });
 
-                             //  console.log(document.location.href);
+
                                 var current = document.location.href;
                                 //var ndew =  "../"+current;
-                                //console.log(ndew);
+
                             var newlink = current.split("Afdruk");
-                         //       console.log(newlink[0]);
+
                                qrcode.makeCode( newlink[0] + "finish.php?id=" + temparr[0]);
 
 

@@ -70,18 +70,18 @@ function dosome(a)
         var test = carddesc.split("/n@");
         $.each(test,function(ix, data){
             if(check(data,"howest.be")){return;}else{
-                //console.log("MAIL");
+
                 stuurmail(cardinfo.name,data);
             }
         });
-        console.log(test);
+
 
         carddesc = carddesc +"/n@DF@" + date + "@" + time;
-        //console.log(carddesc);
+        /
   var getchck =  $('input[name=taakGelukt]:checked').val();
-    console.log(getchck);
+
     var value = document.getElementById("BER").value;
-    console.log(value);
+
     if(getchck=="Ja")
     {
                   Trello.put("/cards/<?php print$naam; ?>?key="+APP_KEY+"&token="+application_token+"&idList=5506dbf5b32e668bde0de1b6&desc="+carddesc,function()
@@ -90,7 +90,7 @@ function dosome(a)
 
     }else{
         carddesc = carddesc+"/n@"+value;
-            console.log(carddesc);
+
             Trello.put("/cards/<?php print$naam; ?>?key="+APP_KEY+"&token="+application_token+"&idList=55098deeb3d7823addabd976&desc="+carddesc,function(){
                 window.open("./closeme.html","_self");
             });
@@ -110,7 +110,7 @@ function dosome(a)
         return false;
     }
  function stuurmail(naam,email){
-     console.log(naam+ " " + email);
+
      $.ajax({
          url: './zendmail.php?n='+naam+'&e='+email,
          dataType: 'html',

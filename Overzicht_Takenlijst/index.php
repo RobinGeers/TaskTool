@@ -170,7 +170,7 @@ foreach ($data as $d) {
                     <input id="Card_Lokaal" type="text" placeholder="GKG A.202b"/>
                 </div>
                 <textarea id="Card_Omschrijving" cols="30" rows="10"></textarea>
-                <select class="ui dropdown" id="Card_Prioriteit">
+                <select id="Card_Prioriteit">
                     <option value="Niet Dringend">Niet dringend</option>
                     <option value="Dringend">Dringend</option>
                     <option value="Zeer Dringend">Zeer Dringend</option>

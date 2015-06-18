@@ -730,15 +730,11 @@ main{
 
 #Popup {
     width: 50%;
-    height: 850px;
+    height: 610px;
 }
 
 #Popup .ui.dropdown {
     margin-bottom: 20px;
-}
-
-#Popup div.actions {
-    margin-top: 170px;
 }
 
 .left {

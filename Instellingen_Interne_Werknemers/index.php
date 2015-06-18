@@ -271,27 +271,27 @@ $mysqli->close();
     </section>
     <script>
         function myfunction(thi){
-            $('#modal_extern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
-            $('#modal_extern')
+            //$('#modal_intern').addClass("scrolling"); // Verwijdert witte rand onderaan pop-up venster
+            $('#modal_intern')
                 .modal('setting', 'transition', 'scale')
                 .modal('show');
 
         }
     </script>
     <!-- Pop-up Window !-->
-    <div id="modal_extern" class="ui test modal transition" style="z-index: 100000;">
+    <div id="modal_intern" class="ui test modal transition" style="z-index: 100000;">
         <!-- TODO: Close icon zoeken !-->
         <i id="close_Popup" class="close icon"></i>
         <div class="header">
-            Lokaal toevoegen
+            Werknemer toevoegen
         </div>
         <div class="content">
             <div class="left">
-                <img src="../images/Howest_Logo.png" alt="Howest Logo"/>
+                <i id="Interne_Werkman" class="user icon"></i>
             </div>
             <div class="right" id="Werknemer_Info">
                 <input id="Naam_Lokaal" type="text" placeholder="Email adres"/>
-       <select id="mnsel" name="mnsel">
+       <select id="mnsel" class="ui dropdown" name="mnsel">
            <option value="Basic">Basic</option>
            <option value="Werkman">Werkman</option>
            <option value="Onthaal">Onthaal</option>

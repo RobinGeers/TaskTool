@@ -797,10 +797,24 @@ margin-top: 150px;
     width: 600px;
 }
 
+#modal_intern {
+    height: 350px;
+}
+
 #Onderaannemer {
     margin-left: 50px;
     margin-top: 80px;
     font-size: 5em;
+}
+
+#Interne_Werkman {
+    font-size: 5em;
+    margin-left: 80px;
+    margin-top: 20px;
+}
+
+div#modal_intern div.actions {
+    margin-top: 70px;
 }
 
 #modal_lokalen {
@@ -823,7 +837,7 @@ margin-top: 150px;
 }
 
 #btnOpslaan_Intern, #btnOpslaan_Extern {
-    width: 200px;
+    width: 220px;
 }
 
 #btnVerwijder2 {

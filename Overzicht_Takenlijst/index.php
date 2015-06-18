@@ -339,7 +339,7 @@ foreach ($data as $d) {
 </footer>
 <div class="clearfix"></div>
 <script>
-
+var mnrx = [];
     var isArrowUp = true;
 
 
@@ -555,6 +555,7 @@ foreach ($data as $d) {
 
 
     function GetCards() {
+        mnrx = [];
         Trello.get("/boards/5506dbf5b32e668bde0de1b3?lists=open&list_fields=name&fields=name,desc&token=" + application_token + "", function (lists) {
             $.each(lists["lists"], function (ix, list) {
                 var List = [];
@@ -1001,6 +1002,9 @@ foreach ($data as $d) {
                 //Overloop 1 kaartje en haal de data eruit
 
                 Trello.get("/cards/" + card.id + "?fields=desc&attachments=true&token=" + application_token, function (cardinfo) {
+                    mnrx.push(cardinfo.desc.split("/n@")[3]);
+
+                   // console.log(cardinfo.desc);
                     //ASYNC!!!
                     description.push(cardinfo.desc);
                     carddescription = cardinfo.desc; //gaat niet aangezien dit async verloopt
@@ -1031,12 +1035,23 @@ foreach ($data as $d) {
                             $("#Filter_Lokaal").autocomplete({
                                 source: mnarray
                             });
-                            $.each(mnarray2, function (ix, campussen) {
+                            console.log(mnrx);
+mnarray2 = null;
+                            mnarray2 = [];
+                            $.each(mnrx,function(i,ix){
+                               // console.log("");
+                             //   console.log(ix);
+                                checkforother(ix);
+                            });
+
+
+
+                        /*   $.each(mnarray2, function (ix, campussen) {
                                 var option = document.createElement("OPTION");
                                 option.setAttribute("value", campussen);
                                 option.innerHTML = campussen;
                                 document.getElementById("Filter_Campussen").appendChild(option);
-                            });
+                            });*/
 
 
                         });
